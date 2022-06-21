@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';

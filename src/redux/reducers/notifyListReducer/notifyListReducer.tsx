@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 import { SET_NOTIFY_LIST } from '../../actions/notifyActions/notifyActions';
 
 interface NotifyState {

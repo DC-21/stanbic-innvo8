@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 /* eslint-disable no-undef */
 
 import { makeStyles } from '@mui/styles';
