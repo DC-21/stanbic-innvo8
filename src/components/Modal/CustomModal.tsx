@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import * as React from 'react';
 import withStyles from '@mui/styles/withStyles';
 import Dialog from '@mui/material/Dialog';

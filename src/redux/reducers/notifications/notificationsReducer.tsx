@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 import { SnackbarKey } from 'notistack';
 import {
   ENQUEUE_SNACKBAR,
@@ -37,7 +38,7 @@ const notificationsReducer = (state = initialState, action: any): State => {
     case CLOSE_SNACKBAR:
       return {
         ...state,
-        notifications: state.notifications.map(notification =>
+        notifications: state.notifications.map((notification) =>
           action.dismissAll || notification.key === action.key
             ? { ...notification, dismissed: true }
             : { ...notification }
@@ -48,7 +49,7 @@ const notificationsReducer = (state = initialState, action: any): State => {
       return {
         ...state,
         notifications: state.notifications.filter(
-          notification => notification.key !== action.key
+          (notification) => notification.key !== action.key
         )
       };
 

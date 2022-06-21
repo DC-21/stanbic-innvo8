@@ -31,10 +31,10 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const GlobalStyles = () => {
+function GlobalStyles() {
   useStyles();
 
   return null;
-};
+}
 
 export default GlobalStyles;

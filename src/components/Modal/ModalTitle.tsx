@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import { CardHeader, IconButton, Typography } from '@mui/material';
 import MuiDialogTitle from '@mui/material/DialogTitle';
 import makeStyles from '@mui/styles/makeStyles';
