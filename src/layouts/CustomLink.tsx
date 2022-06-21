@@ -10,7 +10,7 @@ import {
   useMatch,
   useLocation
 } from 'react-router-dom';
-import { NavItemProps } from './DashboardLayout/NavBar/NavItem';
+import { NavItemProps } from './AdminLayout/NavBar/NavItem';
 
 const useStyles = makeStyles((theme) => ({
   active: {

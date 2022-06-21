@@ -15,7 +15,13 @@ export const items = [
   {
     href: '/app/dashboard',
     icon: DashboardOutlinedIcon,
-    title: 'Dashboard'
+    title: 'Dashboard',
+    roles: ['admin', 'judge']
+  },
+  {
+    href: '/app/users',
+    icon: SupervisorAccountOutlinedIcon,
+    title: 'Manage Users'
   },
   {
     href: '/app/admin',
@@ -76,9 +82,15 @@ const NavBar: React.FC<Props> = ({ onMobileClose, openMobile }) => {
         height="100%"
         display="flex"
         flexDirection="column"
-        sx={{ backgroundColor: '#fff', border: 'none' }}
+        sx={{ backgroundColor: '#FAFAFA', border: 'none' }}
       >
-        <Box alignItems="center" display="flex" flexDirection="column" p={2}>
+        <Box
+          alignItems="center"
+          display="flex"
+          flexDirection="column"
+          p={2}
+          sx={{ border: 'none' }}
+        >
           <Typography color="textSecondary" variant="body2">
             {user?.email === 'admin@karton.com' ? (
               <Typography variant="h6">Super Admin</Typography>

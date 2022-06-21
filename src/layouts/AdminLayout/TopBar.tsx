@@ -69,7 +69,7 @@ const TopBar: React.FC<Props> = ({ className, onMobileNavOpen, ...rest }) => {
   return (
     <AppBar
       className={clsx(classes.root, className)}
-      elevation={3}
+      elevation={1}
       {...rest}
       sx={{ backgroundColor: '#fff' }}
     >
