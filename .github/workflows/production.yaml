@@ -1,0 +1,30 @@
+name: Deploy to Production Server
+on:
+  push:
+    branches: [master]
+
+jobs:
+  staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy React app
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.SSH_HOST_PRODUCTION}}
+          key: ${{secrets.SSH_KEY_PRODUCTION}}
+          username: ${{ secrets.SSH_USERNAME_PRODUCTION}}
+          #           password: ${{ secrets.SSH_PASSWORD }}
+          command_timeout: 200m
+          script: |
+            sudo systemctl stop nginx
+            sudo rm -r -f client
+            git clone git@github.com:BongoHive/ags-dashboard-frontend.git client 
+            cd client
+            yarn install
+            export NODE_OPTIONS=--max_old_space_size=8192
+            yarn add env-cmd
+            yarn build
+            echo "Built react application"
+            sudo systemctl restart nginx
+            sudo systemctl status nginx
+            exit

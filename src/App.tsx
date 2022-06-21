@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react/function-component-definition */
+import * as React from 'react';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import { useRoutes } from 'react-router-dom';
+import {
+  ThemeProvider,
+  StyledEngineProvider,
+  Theme
+} from '@mui/material/styles';
+import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import GlobalStyles from './components/GlobalStyles';
+import theme from './theme';
+import routes from './routes';
+import Notifier from './Notifier';
+import { useQueryClientProvider } from './clientProvider';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  // eslint-disable-next-line no-unused-vars
+  interface DefaultTheme extends Theme {}
 }
+
+const App: React.FC<React.PropsWithChildren<unknown>> = () => {
+  const routing = useRoutes(routes);
+  const queryClient = useQueryClientProvider();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <Notifier />
+          <GlobalStyles />
+          {routing}
+        </ThemeProvider>
+      </StyledEngineProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
+};
 
 export default App;
