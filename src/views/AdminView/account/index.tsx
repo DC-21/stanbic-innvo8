@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Container, Grid } from '@mui/material';
-import Page from '../../components/Page';
+import Page from '../../../components/Page';
 import ProfileDetails from './ProfileDetails';
 
 const useStyles = makeStyles((theme) => ({

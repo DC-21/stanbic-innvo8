@@ -17,10 +17,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import makeStyles from '@mui/styles/makeStyles';
-import { RootState } from '../../redux/reducers/rootReducer';
-import { axios } from '../../clientProvider';
-import { useNotify } from '../../redux/actions/notifications/notificationActions';
-import { updateDetails } from '../../redux/actions/userActions/userActions';
+import { RootState } from '../../../redux/reducers/rootReducer';
+import { axios } from '../../../clientProvider';
+import { useNotify } from '../../../redux/actions/notifications/notificationActions';
+import { updateDetails } from '../../../redux/actions/userActions/userActions';
 
 const useStyles = makeStyles(() => ({
   root: {}

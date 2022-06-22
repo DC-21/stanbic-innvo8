@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import makeStyles from '@mui/styles/makeStyles';
-import { RootState } from '../../redux/reducers/rootReducer';
+import { RootState } from '../../../redux/reducers/rootReducer';
 
 const useStyles = makeStyles(() => ({
   root: {},

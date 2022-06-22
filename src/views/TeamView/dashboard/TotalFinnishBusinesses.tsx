@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const getFinnishBusinesses = async (): Promise<number> => {
-  const data = await axios.get('/businessCompany/finnish/business/list/count');
+  const data = await axios.get('#');
   return data.data?.businessCount;
 };
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let baseURL = 'https://ags-stage.demo.co.zm/api/v1';
+let baseURL = 'https://innov8.demo.co.zm/api/v1';
 
 if (process.env.REACT_APP_API_STAGING) {
   baseURL = process.env.REACT_APP_API_STAGING;
