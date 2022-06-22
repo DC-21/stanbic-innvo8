@@ -24,7 +24,7 @@ interface Props {
 }
 
 const getCohorts = async (): Promise<number> => {
-  const data = await axios.get('/dashboard/activity/cohort/list/count');
+  const data = await axios.get('#');
   return data.data?.cohortsCount;
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
 import TeamLayout from '../../layouts/TeamLayout';
-import AccountView from '../account';
+import AccountView from '../TeamView/account';
 import Dashboard from './dashboard';
 //  import MainLayout from './layouts/MainLayout';
 

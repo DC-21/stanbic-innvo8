@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 const getZambianBusinesses = async (): Promise<number> => {
-  const data = await axios.get('/businessCompany/list');
+  const data = await axios.get('#');
   return data.data?.count;
 };
 

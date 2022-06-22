@@ -17,6 +17,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
+import Logo from '../../../components/Logo';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme: any) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage: 'url(/static/images/kartonWhite.png)',
+    backgroundImage: 'url(/images/lady.jpeg)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'
@@ -84,8 +85,9 @@ const useStyles = makeStyles((theme: any) => ({
     }
   },
   form: {
-    paddingLeft: 100,
-    paddingRight: 100,
+    width: 100,
+    marginLeft: 40,
+    marginRight: 40,
     paddingBottom: 125,
     flexBasis: 700,
     [theme.breakpoints.down('sm')]: {
@@ -164,34 +166,18 @@ function SignUp() {
   return (
     <div className={classes.root}>
       <Grid className={classes.grid} container>
-        <Grid className={classes.quoteContainer} item lg={6}>
-          <div className={classes.quote}>
-            <div className={classes.quoteInner}>
-              {/* <Typography
-                className={classes.quoteText}
-                variant="h1"
-              >
-                Welcome To Onyx Dashboard
-              </Typography> */}
-              {/* <div className={classes.person}>
-                <Typography
-                  className={classes.name}
-                  variant="body1"
-                >
-                  Takamaru Ayako
-                </Typography>
-                <Typography
-                  className={classes.bio}
-                  variant="body2"
-                >
-                  Manager at inVision
-                </Typography>
-              </div> */}
-            </div>
-          </div>
-        </Grid>
-        <Grid className={classes.content} item lg={6} xs={12}>
+        <Grid className={classes.content} xs={12} sm={8} md={4}>
           <div className={classes.content}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                paddingTop: '150px',
+                paddingBottom: '1px'
+              }}
+            >
+              <Logo />
+            </div>
             <div className={classes.contentHeader}>
               <IconButton>{/* <ArrowBackIcon /> */}</IconButton>
             </div>
@@ -272,6 +258,32 @@ function SignUp() {
                   </Link>
                 </Typography>
               </form>
+            </div>
+          </div>
+        </Grid>
+        <Grid className={classes.quoteContainer} item lg={8}>
+          <div className={classes.quote}>
+            <div className={classes.quoteInner}>
+              {/* <Typography
+                className={classes.quoteText}
+                variant="h1"
+              >
+                Welcome To Onyx Dashboard
+              </Typography> */}
+              {/* <div className={classes.person}>
+                <Typography
+                  className={classes.name}
+                  variant="body1"
+                >
+                  Takamaru Ayako
+                </Typography>
+                <Typography
+                  className={classes.bio}
+                  variant="body2"
+                >
+                  Manager at inVision
+                </Typography>
+              </div> */}
             </div>
           </div>
         </Grid>

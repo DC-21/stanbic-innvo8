@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const getBds = async (): Promise<number> => {
-  const data = await axios.get('/bds/founders/list/count');
+  const data = await axios.get('#');
   return data.data?.founders;
 };
 

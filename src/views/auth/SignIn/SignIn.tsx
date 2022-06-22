@@ -114,11 +114,7 @@ const useStyles = makeStyles((theme: any) => ({
   }
 }));
 const grantAccess = async (user: Inputs) => {
-  const { data: response } = await axios.post('/Admin/login', user);
-  if (response.data) {
-    localStorage.setItem('token', response.data.token);
-    localStorage.setItem('refreshToken', response.data.refreshToken);
-  }
+  const { data: response } = await axios.post('/Auth/login', user);
   return response;
 };
 
@@ -139,23 +135,25 @@ function SignIn() {
   });
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
-      const { message, status } = response;
-      if (status === 200 || status === 201 || status === 202) {
-        dispatch(loginSuccess(response.data));
-        axios.defaults.headers = { token: response.data.token };
-        dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-        setTimeout(() => navigate('/app/dashboard'), 600);
-      }
-      if (
-        status === 400 ||
-        status === 401 ||
-        status === 403 ||
-        status === 404 ||
-        status === 409 ||
-        status === 500
-      ) {
-        dispatch(enqueueSnackbar({ message, options: { variant: 'error' } }));
-      }
+      const { message, data } = response;
+
+      dispatch(loginSuccess(response.data));
+      axios.defaults.headers = { token: response.data.token };
+      dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
+      setTimeout(() => {
+        if (data.userType === 'Admin') {
+          navigate('/app/dashboard');
+        }
+        if (data.userType === 'Team Lead') {
+          navigate('/team/dashboard');
+        }
+        if (data.userType === 'Team Member') {
+          navigate('/team/dashboard');
+        }
+        if (data.userType === 'Judge') {
+          navigate('/judge/dashboard');
+        }
+      }, 600);
     },
     onError: (error: AxiosError) => {
       dispatch(
