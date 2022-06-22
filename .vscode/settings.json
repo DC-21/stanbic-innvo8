@@ -1,0 +1,20 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.alwaysShowStatus": true,
+  "prettier.jsxSingleQuote": true,
+  "eslint.packageManager": "yarn",
+  "prettier.requireConfig": true,
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true, // auto format the file on each save
+  "editor.rulers": [80],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/build": true,
+    "**/coverage": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
