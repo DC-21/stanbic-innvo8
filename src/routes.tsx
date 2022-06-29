@@ -7,6 +7,7 @@ import ForgotPassword from './views/auth/forgotPassword';
 import ResetPassword from './views/auth/resetPassword';
 import SignIn from './views/auth/SignIn';
 import SignUp from './views/auth/SignUp';
+import CompleteSignUp from './views/auth/SignUp/CompleteSignUp';
 import { TeamRoutes } from './views/TeamView/TeamRoutes';
 import NotFoundView from './views/errors/NotFoundView';
 import { JudgeRoutes } from './views/JudgeView/JudgeRoutes';
@@ -22,6 +23,7 @@ const routes = [
   },
   { path: '/', element: <SignIn /> },
   { path: 'signup', element: <SignUp /> },
+  { path: 'completeSignUp', element: <CompleteSignUp /> },
   { path: 'forgot-password', element: <ForgotPassword /> },
   { path: 'resetpassword/:resetPasswordToken', element: <ResetPassword /> },
   ...AdminRoutes,

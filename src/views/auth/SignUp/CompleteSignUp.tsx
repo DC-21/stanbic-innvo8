@@ -1,30 +1,27 @@
 import React from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import {
   Grid,
   Button,
   TextField,
-  Typography,
-  CircularProgress,
   Link,
-  InputAdornment,
-  IconButton
+  Typography,
+  CircularProgress
 } from '@mui/material';
+// import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
-import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 import Logo from '../../../components/Logo';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
-    padding: 0,
-    backgroundColor: '#ffffff',
+    padding: 1,
+    backgroundColor: theme.palette.background.default,
     height: '100%'
   },
   grid: {
@@ -36,7 +33,7 @@ const useStyles = makeStyles((theme: any) => ({
     }
   },
   quote: {
-    backgroundColor: '#fff',
+    backgroundColor: '#6f91b5',
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
@@ -48,7 +45,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
   quoteInner: {
     textAlign: 'center',
-    flexBasis: '1000px'
+    flexBasis: '600px'
   },
   quoteText: {
     color: theme.palette.white,
@@ -88,8 +85,8 @@ const useStyles = makeStyles((theme: any) => ({
   },
   form: {
     width: 100,
-    marginLeft: 40,
-    marginRight: 40,
+    paddingLeft: 40,
+    paddingRight: 40,
     paddingBottom: 125,
     flexBasis: 700,
     [theme.breakpoints.down('sm')]: {
@@ -100,88 +97,75 @@ const useStyles = makeStyles((theme: any) => ({
   title: {
     marginTop: theme.spacing(3)
   },
-  socialButtons: {
-    marginTop: theme.spacing(3)
-  },
-  socialIcon: {
-    marginRight: theme.spacing(1)
-  },
-  sugestion: {
-    marginTop: theme.spacing(2)
-  },
   textField: {
     marginTop: theme.spacing(2)
   },
-  signInButton: {
+  policy: {
+    marginTop: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center'
+  },
+  policyCheckbox: {
+    marginLeft: '-14px'
+  },
+  signUpButton: {
     margin: theme.spacing(2, 0)
   }
 }));
-const grantAccess = async (user: Inputs) => {
-  const { data: response } = await axios.post('/Auth/login', user);
+const registerAdmin = async (admin: Data) => {
+  const { data: response } = await axios.patch('/Auth/set_password', admin);
   return response;
 };
-
-type Inputs = { email: string; password: string };
-
-function SignIn() {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+export interface Data {
+  email: string;
+  password: string;
+}
+function CompleteSignUp() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
+  const notification = useNotify();
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<Inputs>({
+  } = useForm<Data>({
     mode: 'onChange'
   });
-  const { mutate, isLoading } = useMutation(grantAccess, {
-    onSuccess: (response) => {
-      const { message, data } = response;
-      dispatch(loginSuccess(response.data));
-      axios.defaults.headers = { token: response.data.token };
-      dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-      setTimeout(() => {
-        if (data.userType === 'Admin') {
-          navigate('/app/dashboard');
-        }
-        if (data.userType === 'Team Lead') {
-          navigate('/team/dashboard');
-        }
-        if (data.userType === 'Team Member') {
-          navigate('/team/dashboard');
-        }
-        if (data.userType === 'Judge') {
-          navigate('/judge/dashboard');
-        }
-      }, 600);
+  const { mutate, isLoading } = useMutation(registerAdmin, {
+    onSuccess: (data) => {
+      const { message, status } = data;
+      if (status === 200 || status === 201 || status === 202) {
+        dispatch(notification({ message, options: { variant: 'success' } }));
+        setTimeout(() => navigate('/'), 1500);
+      }
+      if (status >= 400 || status <= 500) {
+        dispatch(notification({ message, options: { variant: 'error' } }));
+      }
     },
     onError: (error: AxiosError) => {
       dispatch(
-        enqueueSnackbar({
+        notification({
           message: error.response?.data.error,
           options: { variant: 'error' }
         })
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['login']);
+      queryClient.invalidateQueries(['registered']);
     }
   });
-  const onSubmit = (data: Inputs) => {
-    const user = {
+  const onSubmit = (data: Data) => {
+    const admin = {
       ...data
     };
-    mutate(user);
+    mutate(admin);
   };
   return (
     <div className={classes.root}>
       <Grid className={classes.grid} container>
-        <Grid className={classes.content} item xs={12} sm={8} md={4}>
+        <Grid className={classes.content} xs={12} sm={8} md={4}>
           <div className={classes.content}>
             <div
               style={{
@@ -197,17 +181,17 @@ function SignIn() {
               <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                 <Typography
                   className={classes.title}
-                  style={{ textAlign: 'center' }}
                   variant="h2"
+                  style={{ textAlign: 'center' }}
                 >
-                  Sign in
+                  Complete Sign Up
                 </Typography>
                 <Typography
                   color="textSecondary"
-                  style={{ textAlign: 'center' }}
                   gutterBottom
+                  style={{ textAlign: 'center' }}
                 >
-                  Login with email address
+                  Hey there! Lets get Started
                 </Typography>
 
                 <TextField
@@ -219,7 +203,7 @@ function SignIn() {
                   variant="outlined"
                   {...register('email')}
                 />
-                {/* <TextField
+                <TextField
                   error={!!errors.password}
                   className={classes.textField}
                   fullWidth
@@ -227,68 +211,76 @@ function SignIn() {
                   type="password"
                   variant="outlined"
                   {...register('password')}
-                /> */}
-                <TextField
-                  error={!!errors.password}
-                  fullWidth
-                  className={classes.textField}
-                  label="Password"
-                  variant="outlined"
-                  {...register('password')}
-                  type={showPassword ? 'text' : 'password'}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    )
-                  }}
                 />
+                {/* <div className={classes.policy}>
+                  <Checkbox
+                    className={classes.policyCheckbox}
+                    color="primary"
+                    name="policy"
+                  />
+                  <Typography color="textSecondary" variant="body1">
+                    I have read the{' '}
+                    <Link
+                      color="primary"
+                      component={RouterLink}
+                      to="#"
+                      underline="always"
+                      variant="h6"
+                    >
+                      Terms and Conditions
+                    </Link>
+                  </Typography>
+                </div> */}
+
                 <Button
-                  // startIcon={<CircularProgress />}
-                  className={classes.signInButton}
+                  className={classes.signUpButton}
                   color="primary"
                   fullWidth
                   size="large"
                   type="submit"
                   variant="contained"
-                  disabled={isLoading}
                   startIcon={
                     isLoading ? (
-                      <CircularProgress color="inherit" size={25} />
+                      <CircularProgress color="inherit" size={26} />
                     ) : null
                   }
                 >
-                  Sign In
+                  Sign Up
                 </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="/forgot-password" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                </Grid>
+                <Typography color="textSecondary" variant="body1">
+                  Have an account?{' '}
+                  <Link component={RouterLink} to="/" variant="h6">
+                    Sign in
+                  </Link>
+                </Typography>
               </form>
             </div>
           </div>
         </Grid>
         <Grid className={classes.quoteContainer} item lg={8}>
           <div className={classes.quote}>
-            {/* <div className={classes.quoteInner}>
-              <Typography
+            <div className={classes.quoteInner}>
+              {/* <Typography
                 className={classes.quoteText}
                 variant="h1"
               >
-                Welcome To The Admin Dashboard
-              </Typography>
-
-            </div> */}
+                Welcome To Onyx Dashboard
+              </Typography> */}
+              {/* <div className={classes.person}>
+                <Typography
+                  className={classes.name}
+                  variant="body1"
+                >
+                  Takamaru Ayako
+                </Typography>
+                <Typography
+                  className={classes.bio}
+                  variant="body2"
+                >
+                  Manager at inVision
+                </Typography>
+              </div> */}
+            </div>
           </div>
         </Grid>
       </Grid>
@@ -296,4 +288,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default CompleteSignUp;

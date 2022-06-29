@@ -7,7 +7,6 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Grid,
   TextField,
   CircularProgress
 } from '@mui/material';
@@ -31,8 +30,8 @@ interface Props {
 }
 
 interface User {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   contact: string;
   userId: string;
@@ -42,11 +41,11 @@ const contactRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const alphabetRegExp = /^[A-Za-z]+$/i;
 const schema = yup.object().shape({
-  firstname: yup
+  firstName: yup
     .string()
     .matches(alphabetRegExp, 'First name is not valid')
     .required('First name is required'),
-  lastname: yup
+  lastName: yup
     .string()
     .matches(alphabetRegExp, 'Last name is not valid')
     .required('Last name is required'),
@@ -80,7 +79,9 @@ const ProfileDetails: React.FC<Props> = ({ className, ...rest }) => {
   const userId = user?._id;
 
   const updateProfile = async (newAdmin: User) => {
-    const { data } = await axios.put(`Admin/updateprofile/${userId}`, newAdmin);
+    const { data } = await axios.put(`/Admin/edit_admin/${userId}`, {
+      newAdmin
+    });
     return data.data;
   };
   const { mutate, isLoading } = useMutation(updateProfile, {
@@ -117,51 +118,50 @@ const ProfileDetails: React.FC<Props> = ({ className, ...rest }) => {
           />
           <Divider />
           <CardContent>
-            <Grid container spacing={3}>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  error={Boolean(errors.firstname)}
-                  {...register('firstname')}
-                  fullWidth
-                  helperText={errors.firstname?.message}
-                  label="First name"
-                  name="firstname"
-                  // onChange={handleChange}
-                  required
-                  defaultValue={user?.firstname}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  error={Boolean(errors.lastname)}
-                  {...register('lastname')}
-                  helperText={errors.lastname?.message}
-                  fullWidth
-                  label="Last name"
-                  name="lastname"
-                  // onChange={handleChange}
-                  required
-                  defaultValue={user?.lastname}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  error={Boolean(errors.email)}
-                  {...register('email')}
-                  helperText={errors.email?.message}
-                  fullWidth
-                  label="Email Address"
-                  name="email"
-                  type="email"
-                  // disabled={disabledInput()}
-                  // onChange={handleChange}
-                  defaultValue={user?.email}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
+            <TextField
+              error={Boolean(errors.firstName)}
+              {...register('firstName')}
+              fullWidth
+              helperText={errors.firstName?.message}
+              label="First name"
+              name="firstName"
+              // onChange={handleChange}
+              required
+              defaultValue={user?.firstName}
+              variant="outlined"
+              sx={{ paddingBottom: '15px' }}
+            />
+
+            <TextField
+              error={Boolean(errors.lastName)}
+              {...register('lastName')}
+              helperText={errors.lastName?.message}
+              fullWidth
+              label="Last name"
+              name="lastName"
+              // onChange={handleChange}
+              required
+              defaultValue={user?.lastName}
+              variant="outlined"
+              sx={{ paddingBottom: '15px' }}
+            />
+
+            <TextField
+              error={Boolean(errors.email)}
+              {...register('email')}
+              helperText={errors.email?.message}
+              fullWidth
+              label="Email Address"
+              name="email"
+              type="email"
+              // disabled={disabledInput()}
+              // onChange={handleChange}
+              defaultValue={user?.email}
+              variant="outlined"
+              sx={{ paddingBottom: '15px' }}
+            />
+
+            {/* <Grid item md={6} xs={12}>
                 <TextField
                   error={Boolean(errors.contact)}
                   {...register('contact')}
@@ -174,8 +174,7 @@ const ProfileDetails: React.FC<Props> = ({ className, ...rest }) => {
                   defaultValue={user?.contact}
                   variant="outlined"
                 />
-              </Grid>
-            </Grid>
+              </Grid> */}
           </CardContent>
           <Divider />
           <Box display="flex" justifyContent="flex-end" p={2}>

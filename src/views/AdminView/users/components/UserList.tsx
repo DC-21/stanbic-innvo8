@@ -4,9 +4,7 @@ import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-
 import { Chip, IconButton, Tooltip } from '@mui/material';
-
 import { useNavigate } from 'react-router-dom';
 import Toolbar from './Toolbar';
 import { CustomModal, useModal } from '../../../../components/Modal';
@@ -15,14 +13,14 @@ import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
 
 const getUser = async (): Promise<any[]> => {
-  const { data } = await axios.get('/dashboard/employee/list');
-  return data.employees;
+  const { data } = await axios.get('/Admin/view_admins');
+  return data.admins;
 };
 
 const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const { open, handleClose, handleClickOpen } = useModal();
-  const { data, isLoading } = useQuery(['AgsUser'], getUser);
+  const { data, isLoading } = useQuery(['AdminUser'], getUser);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -38,7 +36,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
-      name: 'firstname',
+      name: 'firstName',
       label: 'First name',
       options: {
         filter: true,
@@ -46,7 +44,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
-      name: 'lastname',
+      name: 'lastName',
       label: 'Last name',
       options: {
         filter: true,
@@ -62,20 +60,25 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
-      name: 'phone',
-      label: 'Phone',
+      name: 'gender',
+      label: 'Gender',
       options: {
         filter: true,
         sort: false
       }
     },
     {
-      name: 'department',
+      name: 'userType',
       label: 'Role',
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value) => <Chip label={value} />
+        customBodyRender: (value) => (
+          <Chip
+            sx={{ backgroundColor: '#0133a1', color: '#fff' }}
+            label={value}
+          />
+        )
       }
     },
     {
@@ -87,11 +90,12 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const [userId] = tableMeta.rowData;
+          console.log(userId);
 
           return (
             <Tooltip title="Edit">
               <IconButton
-                onClick={() => navigate(`/app/customers/edit/${userId}`)}
+                onClick={() => navigate(`/app/users/edit/${userId}`)}
                 size="large"
               >
                 <EditIcon />
@@ -107,7 +111,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       <Toolbar handleClickOpen={handleClickOpen} />
 
       <CustomModal
-        title="ADD AGS USER"
+        title="ADD USER"
         subTitle="Add a new user to the dashboard"
         open={open}
         maxWidth="sm"
@@ -118,7 +122,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
 
       <MUIDataTable
         options={{ elevation: 0 }}
-        title="AGS users"
+        title="users"
         columns={columns}
         data={data || []}
       />

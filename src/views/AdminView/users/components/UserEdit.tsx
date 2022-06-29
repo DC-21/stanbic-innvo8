@@ -18,15 +18,16 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../../clientProvider/baseConfig';
 // @ts-ignore
-import { User } from '../../../../clientProvider/queries/UsersQueries';
+import { User } from '../../../../types';
 import { useNotify } from '../../../../redux/actions/notifications/notificationActions';
+// import branch from '../../../../components/branch';
 
 interface Props {
   data: User;
 }
 
 const createUser = async (user: User) =>
-  axios.patch(`/dashboard/employee/update/${user._id}`, { user });
+  axios.put(`/Admin/edit_admin/${user._id}`, user);
 
 const UserEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
   const { data } = props;
@@ -47,10 +48,8 @@ const UserEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
   const { mutate, isLoading } = useMutation(createUser, {
     onSuccess: (response) => {
       const { message } = response.data;
-      if (response.status === 200 || response.status === 201) {
-        dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-        setTimeout(() => navigate(-1), 1000);
-      }
+      dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
+      setTimeout(() => navigate(-1), 1000);
     },
     onError: (err: any) => {
       const message = err.response.data.message || err.message;
@@ -62,7 +61,7 @@ const UserEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['AgsUser']);
+      queryClient.invalidateQueries(['AdminUser']);
     }
   });
 
@@ -81,65 +80,87 @@ const UserEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
-              label="First name"
-              variant="outlined"
+              error={!!errors.firstName}
               fullWidth
               size="small"
-              margin="normal"
-              error={!!errors.firstname}
-              {...register('firstname', { required: true })}
+              label="First Name"
+              type="text"
+              variant="outlined"
+              {...register('firstName')}
+              sx={{ paddingBottom: '15px' }}
             />
             <TextField
-              label="Last name"
-              variant="outlined"
+              error={!!errors.lastName}
               fullWidth
               size="small"
-              margin="normal"
-              error={!!errors.lastname}
-              {...register('lastname', { required: true })}
+              label="Last Name"
+              type="text"
+              variant="outlined"
+              {...register('lastName')}
+              sx={{ paddingBottom: '15px' }}
             />
             <TextField
-              label="Email"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              size="small"
-              type="email"
               error={!!errors.email}
-              {...register('email', { required: true })}
+              fullWidth
+              size="small"
+              label="Email address"
+              type="text"
+              variant="outlined"
+              {...register('email')}
+              sx={{ paddingBottom: '15px' }}
             />
             <TextField
-              variant="outlined"
+              error={!!errors.userType}
               fullWidth
-              margin="normal"
               size="small"
-              label="Phone number"
-              type="phone"
-              error={!!errors.phone}
-              {...register('phone', { required: true })}
+              label="Role"
+              type="text"
+              variant="outlined"
+              {...register('userType')}
+              disabled
             />
-
             <Controller
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value } }) => (
                 <TextField
-                  {...field}
                   select
-                  label="Role"
+                  label="Gender"
                   variant="outlined"
-                  size="small"
+                  value={value}
+                  onChange={onChange}
                   margin="normal"
+                  size="small"
                   fullWidth
-                  helperText={error?.message}
-                  error={Boolean(error?.message)}
                 >
-                  <MenuItem value="admin">Admin</MenuItem>
-                  <MenuItem value="consultant">B2B Consultant</MenuItem>
+                  <MenuItem value="Male">Male</MenuItem>
+                  <MenuItem value="Female">Female</MenuItem>
                 </TextField>
               )}
-              rules={{ required: 'Role is required' }}
-              name="department"
+              rules={{ required: true }}
+              name="gender"
               control={control}
             />
+            {/* <Controller
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  select
+                  label="Location"
+                  variant="outlined"
+                  value={value}
+                  onChange={onChange}
+                  margin="normal"
+                  size="small"
+                  fullWidth
+                >
+                  {branch.map((item) => {
+                    // eslint-disable-next-line react/jsx-key
+                    return <MenuItem value={item}>{item}</MenuItem>;
+                  })}
+                </TextField>
+              )}
+              rules={{ required: true }}
+              name="branch"
+              control={control}
+            /> */}
             <DialogActions>
               <Button
                 disabled={isLoading}
@@ -153,9 +174,6 @@ const UserEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
                 type="submit"
               >
                 Submit
-              </Button>
-              <Button variant="outlined" color="primary">
-                Cancel
               </Button>
             </DialogActions>
           </form>

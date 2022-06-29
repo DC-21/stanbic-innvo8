@@ -19,6 +19,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { axios } from '../../clientProvider';
 import { useNotify } from '../../redux/actions/notifications/notificationActions';
+import Logo from '../../components/Logo';
 // import { loginSuccess } from '../../redux/actions/userActions/userActions';
 // import { RootState } from '../../redux/reducers/rootReducer';
 
@@ -82,6 +83,7 @@ const useStyles = makeStyles((theme: any) => ({
   contentBody: {
     flexGrow: 1,
     display: 'flex',
+    width: '100%',
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
       justifyContent: 'center'
@@ -89,8 +91,8 @@ const useStyles = makeStyles((theme: any) => ({
   },
   form: {
     width: 100,
-    paddingLeft: 100,
-    paddingRight: 10,
+    paddingLeft: 40,
+    paddingRight: 40,
     paddingBottom: 125,
     flexBasis: 700,
     [theme.breakpoints.down('sm')]: {
@@ -121,6 +123,7 @@ const useStyles = makeStyles((theme: any) => ({
 interface Inputs {
   password: string;
   confirmPassword: string;
+  resetPin: string;
 }
 const schema = yup.object().shape({
   password: yup
@@ -155,21 +158,16 @@ function ResetPassword() {
 
   const grantAccess = async (data: Inputs) => {
     const { data: response } = await axios.patch(
-      `/Admin/resetpassword/${resetPasswordToken}`,
+      `/Auth/resetpassword/${resetPasswordToken}`,
       data
     );
     return response;
   };
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
-      const { message, status } = response;
-      if (status === 200 || status === 201 || status === 202) {
-        dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-        setTimeout(() => navigate('/'), 100);
-      }
-      if (status >= 400 || status <= 500) {
-        dispatch(enqueueSnackbar({ message, options: { variant: 'error' } }));
-      }
+      const { message } = response;
+      dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
+      setTimeout(() => navigate('/'), 100);
     },
     onError: (error: AxiosError) => {
       dispatch(
@@ -192,21 +190,18 @@ function ResetPassword() {
   return (
     <div className={classes.root}>
       <Grid className={classes.grid} container>
-        <Grid className={classes.quoteContainer} item lg={6}>
-          <div className={classes.quote}>
-            {/* <div className={classes.quoteInner}>
-              <Typography
-                className={classes.quoteText}
-                variant="h1"
-              >
-                Welcome To The Onyx Dashboard
-              </Typography>
-
-            </div> */}
-          </div>
-        </Grid>
-        <Grid className={classes.content} item xs={12} sm={8} md={5}>
+        <Grid className={classes.content} item xs={12} sm={8} md={4}>
           <div className={classes.content}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                paddingTop: '200px',
+                paddingBottom: '1px'
+              }}
+            >
+              <Logo />
+            </div>
             <div className={classes.contentBody}>
               <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                 <Typography
@@ -221,9 +216,18 @@ function ResetPassword() {
                   style={{ textAlign: 'center' }}
                   gutterBottom
                 >
-                  Enter Your Password Below
+                  Enter Your New Password Below
                 </Typography>
-
+                <TextField
+                  error={Boolean(errors.resetPin?.message)}
+                  className={classes.textField}
+                  fullWidth
+                  label="Verification Code"
+                  type="text"
+                  variant="outlined"
+                  {...register('resetPin')}
+                />
+                <p>{errors.password?.message}</p>
                 <TextField
                   error={Boolean(errors.password?.message)}
                   className={classes.textField}
@@ -264,6 +268,19 @@ function ResetPassword() {
                 </Button>
               </form>
             </div>
+          </div>
+        </Grid>
+        <Grid className={classes.quoteContainer} item lg={8}>
+          <div className={classes.quote}>
+            {/* <div className={classes.quoteInner}>
+              <Typography
+                className={classes.quoteText}
+                variant="h1"
+              >
+                Welcome To The Onyx Dashboard
+              </Typography>
+
+            </div> */}
           </div>
         </Grid>
       </Grid>
