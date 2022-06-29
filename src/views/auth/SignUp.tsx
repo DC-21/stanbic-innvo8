@@ -4,20 +4,21 @@ import { makeStyles } from '@mui/styles';
 import {
   Grid,
   Button,
-  IconButton,
   TextField,
   Link,
   Typography,
-  CircularProgress
+  CircularProgress,
+  MenuItem
 } from '@mui/material';
 // import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import { axios } from '../../../clientProvider';
-import { useNotify } from '../../../redux/actions/notifications/notificationActions';
-import Logo from '../../../components/Logo';
+import { axios } from '../../clientProvider';
+import { useNotify } from '../../redux/actions/notifications/notificationActions';
+import Logo from '../../components/Logo';
+import branch from '../../components/branch';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -78,6 +79,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
   contentBody: {
     flexGrow: 1,
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
@@ -86,8 +88,8 @@ const useStyles = makeStyles((theme: any) => ({
   },
   form: {
     width: 100,
-    marginLeft: 40,
-    marginRight: 40,
+    paddingLeft: 40,
+    paddingRight: 40,
     paddingBottom: 125,
     flexBasis: 700,
     [theme.breakpoints.down('sm')]: {
@@ -113,14 +115,20 @@ const useStyles = makeStyles((theme: any) => ({
     margin: theme.spacing(2, 0)
   }
 }));
-const registerAdmin = async (admin: Data) => {
-  const { data: response } = await axios.patch('/Admin/signup', admin);
+const registerAdmin = async (data: Data) => {
+  const { data: response } = await axios.post('/Auth/signup', data);
   return response;
 };
 export interface Data {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  userType: string;
+  branch: string;
+  gender: string;
 }
+
 function SignUp() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -130,20 +138,16 @@ function SignUp() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors }
   } = useForm<Data>({
     mode: 'onChange'
   });
   const { mutate, isLoading } = useMutation(registerAdmin, {
     onSuccess: (data) => {
-      const { message, status } = data;
-      if (status === 200 || status === 201 || status === 202) {
-        dispatch(notification({ message, options: { variant: 'success' } }));
-        setTimeout(() => navigate('/'), 1500);
-      }
-      if (status >= 400 || status <= 500) {
-        dispatch(notification({ message, options: { variant: 'error' } }));
-      }
+      const { message } = data;
+      dispatch(notification({ message, options: { variant: 'success' } }));
+      setTimeout(() => navigate('/'), 1500);
     },
     onError: (error: AxiosError) => {
       dispatch(
@@ -172,14 +176,11 @@ function SignUp() {
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                paddingTop: '150px',
+                paddingTop: '60px',
                 paddingBottom: '1px'
               }}
             >
               <Logo />
-            </div>
-            <div className={classes.contentHeader}>
-              <IconButton>{/* <ArrowBackIcon /> */}</IconButton>
             </div>
             <div className={classes.contentBody}>
               <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -188,7 +189,7 @@ function SignUp() {
                   variant="h2"
                   style={{ textAlign: 'center' }}
                 >
-                  Complete Sign Up
+                  Sign Up
                 </Typography>
                 <Typography
                   color="textSecondary"
@@ -197,24 +198,101 @@ function SignUp() {
                 >
                   Hey there! Lets get Started
                 </Typography>
-
+                <TextField
+                  error={!!errors.firstName}
+                  className={classes.textField}
+                  fullWidth
+                  size="small"
+                  label="First Name"
+                  type="text"
+                  variant="outlined"
+                  {...register('firstName')}
+                />
+                <TextField
+                  error={!!errors.lastName}
+                  className={classes.textField}
+                  fullWidth
+                  size="small"
+                  label="Last Name"
+                  type="text"
+                  variant="outlined"
+                  {...register('lastName')}
+                />
                 <TextField
                   error={!!errors.email}
                   className={classes.textField}
                   fullWidth
+                  size="small"
                   label="Email address"
                   type="text"
                   variant="outlined"
                   {...register('email')}
                 />
+
                 <TextField
                   error={!!errors.password}
                   className={classes.textField}
                   fullWidth
+                  size="small"
                   label="Password"
                   type="password"
                   variant="outlined"
                   {...register('password')}
+                  autoComplete="off"
+                />
+                <TextField
+                  error={!!errors.userType}
+                  className={classes.textField}
+                  defaultValue="Team Lead"
+                  fullWidth
+                  size="small"
+                  label="Role"
+                  type="text"
+                  variant="outlined"
+                  {...register('userType')}
+                  disabled
+                />
+                <Controller
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      select
+                      label="Gender"
+                      variant="outlined"
+                      value={value}
+                      onChange={onChange}
+                      margin="normal"
+                      size="small"
+                      fullWidth
+                    >
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Female</MenuItem>
+                    </TextField>
+                  )}
+                  rules={{ required: true }}
+                  name="gender"
+                  control={control}
+                />
+                <Controller
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      select
+                      label="Location"
+                      variant="outlined"
+                      value={value}
+                      onChange={onChange}
+                      margin="normal"
+                      size="small"
+                      fullWidth
+                    >
+                      {branch.map((item) => {
+                        // eslint-disable-next-line react/jsx-key
+                        return <MenuItem value={item}>{item}</MenuItem>;
+                      })}
+                    </TextField>
+                  )}
+                  rules={{ required: true }}
+                  name="branch"
+                  control={control}
                 />
                 {/* <div className={classes.policy}>
                   <Checkbox

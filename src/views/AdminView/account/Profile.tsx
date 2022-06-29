@@ -37,10 +37,10 @@ const Profile: React.FC<Props> = ({ className, ...rest }) => {
         <Box alignItems="center" display="flex" flexDirection="column">
           <Avatar className={classes.avatar} />
           <Typography color="textPrimary" gutterBottom variant="h3">
-            {user?.firstname}
+            {user?.firstName}
           </Typography>
           <Typography color="textSecondary" variant="body1">
-            {`${user?.lastname}`}
+            {`${user?.lastName}`}
           </Typography>
           <Typography color="textSecondary" variant="body1">
             {`${user?.email}`}

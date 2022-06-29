@@ -12,10 +12,16 @@ const ProtectedRoutes: FC<Props> = ({ component: Component }) => {
 
   const isAuthenticated = user;
 
-  if (isAuthenticated && user?.sysRole === 'Admin') {
+  if (isAuthenticated && user?.userType === 'Admin') {
     return <Component />;
   }
-  if (isAuthenticated && user?.sysRole === 'Basic') {
+  if (isAuthenticated && user?.userType === 'Judge') {
+    return <Component />;
+  }
+  if (isAuthenticated && user?.userType === 'Team Lead') {
+    return <Component />;
+  }
+  if (isAuthenticated && user?.userType === 'Team Member') {
     return <Component />;
   }
   return <Navigate to="/" />;

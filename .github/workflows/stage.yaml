@@ -20,7 +20,7 @@ jobs:
             cd /home/ubuntu
             sudo systemctl stop nginx
             sudo rm -r -f client
-            git clone git@github.com:BongoHive/ags-dashboard-frontend.git client 
+            git clone git@github.com:BongoHive/stanbic-innvo8.git client 
             cd client
             git checkout stage
             yarn install

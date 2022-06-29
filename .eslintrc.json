@@ -8,8 +8,8 @@
     "airbnb/hooks",
     "eslint:recommended",
     "plugin:react/jsx-runtime",
-    "plugin:prettier/recommended",
-    "plugin:react/recommended" // Uses the recommended rules from @eslint-plugin-react
+    "plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
+    "plugin:prettier/recommended"
   ],
   "settings": {
     "react": {

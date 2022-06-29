@@ -1,27 +1,32 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { FunctionComponent } from 'react';
-import { Button, DialogActions, TextField } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import {
+  Button,
+  CircularProgress,
+  DialogActions,
+  MenuItem,
+  TextField
+} from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNotify } from '../../../../redux/actions/notifications/notificationActions';
 import axios from '../../../../clientProvider/baseConfig';
 
 interface Inputs {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone: string;
-  role?: string;
-  department: string;
+  userType: string;
+  gender: string;
 }
 interface Props {
   handleClose: () => void;
 }
 
 const createUser = async (user: Inputs) => {
-  const response = await axios.post('/dashboard/employee/create', { user });
+  const response = await axios.post('/Admin/new_admin', user);
   return response;
 };
 
@@ -30,15 +35,18 @@ const UserForm: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
   const dispatch = useDispatch();
   const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
-  const { handleSubmit } = useForm<Inputs>({ mode: 'onChange' });
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors }
+  } = useForm<Inputs>({ mode: 'onChange' });
 
-  const { mutate } = useMutation(createUser, {
+  const { mutate, isLoading } = useMutation(createUser, {
     onSuccess: (response) => {
       const { message } = response.data;
-      if (response.status === 200 || response.status === 201) {
-        dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-        setTimeout(() => handleClose(), 1000);
-      }
+      dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
+      setTimeout(() => handleClose(), 1000);
     },
     onError: (err: any) => {
       dispatch(
@@ -49,7 +57,7 @@ const UserForm: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['AgsUser']);
+      queryClient.invalidateQueries(['AdminUser']);
     }
   });
 
@@ -63,48 +71,81 @@ const UserForm: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
+        error={!!errors.firstName}
         label="First name"
         variant="outlined"
         fullWidth
         size="small"
-        name="firstname"
         margin="normal"
+        {...register('firstName')}
       />
       <TextField
+        error={!!errors.lastName}
         label="Last name"
         variant="outlined"
         fullWidth
         size="small"
         margin="normal"
-        name="lastname"
+        {...register('lastName')}
       />
       <TextField
+        error={!!errors.email}
         label="Email"
         variant="outlined"
         fullWidth
-        name="email"
         margin="normal"
         size="small"
         type="email"
+        {...register('email')}
       />
-      <TextField
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        size="small"
-        label="Phone number"
-        type="phone"
-        name="phone"
+      <Controller
+        render={({ field: { onChange, value } }) => (
+          <TextField
+            select
+            label="Gender"
+            variant="outlined"
+            value={value}
+            onChange={onChange}
+            margin="normal"
+            size="small"
+            fullWidth
+          >
+            <MenuItem value="Male">Male</MenuItem>
+            <MenuItem value="Female">Female</MenuItem>
+          </TextField>
+        )}
+        rules={{ required: true }}
+        name="gender"
+        control={control}
       />
-
+      <Controller
+        render={({ field: { onChange, value } }) => (
+          <TextField
+            select
+            label="Role"
+            variant="outlined"
+            value={value}
+            onChange={onChange}
+            margin="normal"
+            size="small"
+            fullWidth
+          >
+            <MenuItem value="Judge">Judge</MenuItem>
+            <MenuItem value="Admin">Admin</MenuItem>
+          </TextField>
+        )}
+        rules={{ required: true }}
+        name="userType"
+        control={control}
+      />
       <DialogActions>
         <Button
           variant="contained"
           color="primary"
-          // startIcon={
-          //   isLoading ? <CircularProgress color="inherit" size={24} /> : null
-          // }
           type="submit"
+          startIcon={
+            isLoading ? <CircularProgress color="inherit" size={26} /> : null
+          }
         >
           Submit
         </Button>

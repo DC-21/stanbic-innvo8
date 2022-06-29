@@ -3,6 +3,7 @@ import React from 'react';
 import AdminLayout from '../../layouts/AdminLayout';
 import AccountView from './account';
 import Dashboard from './dashboard';
+import UserEditView from './users/components/UserEditView';
 import User from './users/index';
 //  import MainLayout from './layouts/MainLayout';
 
@@ -15,6 +16,10 @@ export const AdminRoutes = [
       {
         path: 'users',
         element: <User />
+      },
+      {
+        path: 'users/edit/:id',
+        element: <UserEditView />
       },
       {
         path: 'account',
