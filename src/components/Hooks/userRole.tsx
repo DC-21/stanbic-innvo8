@@ -3,7 +3,7 @@ import { RootState } from '../../redux/reducers/rootReducer';
 
 const useRole = () => {
   const { user } = useSelector((store: RootState) => store.user);
-  const sysRole = user?.sysRole;
+  const sysRole = user?.userType;
   if (sysRole === 'Admin') {
     return false;
   }

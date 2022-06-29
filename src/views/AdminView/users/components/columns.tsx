@@ -4,7 +4,7 @@ import React from 'react';
 
 const columns: MUIDataTableColumn[] = [
   {
-    name: 'firstname',
+    name: 'firstName',
     label: 'First name',
     options: {
       filter: true,
@@ -12,7 +12,7 @@ const columns: MUIDataTableColumn[] = [
     }
   },
   {
-    name: 'lastname',
+    name: 'lastName',
     label: 'Last name',
     options: {
       filter: true,

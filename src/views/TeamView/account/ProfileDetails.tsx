@@ -31,8 +31,8 @@ interface Props {
 }
 
 interface User {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   contact: string;
   userId: string;
@@ -42,11 +42,11 @@ const contactRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const alphabetRegExp = /^[A-Za-z]+$/i;
 const schema = yup.object().shape({
-  firstname: yup
+  firstName: yup
     .string()
     .matches(alphabetRegExp, 'First name is not valid')
     .required('First name is required'),
-  lastname: yup
+  lastName: yup
     .string()
     .matches(alphabetRegExp, 'Last name is not valid')
     .required('Last name is required'),
@@ -120,29 +120,29 @@ const ProfileDetails: React.FC<Props> = ({ className, ...rest }) => {
             <Grid container spacing={3}>
               <Grid item md={6} xs={12}>
                 <TextField
-                  error={Boolean(errors.firstname)}
-                  {...register('firstname')}
+                  error={Boolean(errors.firstName)}
+                  {...register('firstName')}
                   fullWidth
-                  helperText={errors.firstname?.message}
+                  helperText={errors.firstName?.message}
                   label="First name"
-                  name="firstname"
+                  name="firstName"
                   // onChange={handleChange}
                   required
-                  defaultValue={user?.firstname}
+                  defaultValue={user?.firstName}
                   variant="outlined"
                 />
               </Grid>
               <Grid item md={6} xs={12}>
                 <TextField
-                  error={Boolean(errors.lastname)}
-                  {...register('lastname')}
-                  helperText={errors.lastname?.message}
+                  error={Boolean(errors.lastName)}
+                  {...register('lastName')}
+                  helperText={errors.lastName?.message}
                   fullWidth
                   label="Last name"
-                  name="lastname"
+                  name="lastName"
                   // onChange={handleChange}
                   required
-                  defaultValue={user?.lastname}
+                  defaultValue={user?.lastName}
                   variant="outlined"
                 />
               </Grid>

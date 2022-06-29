@@ -1,4 +1,3 @@
-/* eslint-disable react/function-component-definition */
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
@@ -15,7 +14,9 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import makeStyles from '@mui/styles/makeStyles';
 // import { RootState } from '../../redux/reducers/rootReducer';
+import { useSelector } from 'react-redux';
 import Logo from '../../components/Logo';
+import { RootState } from '../../redux/reducers/rootReducer';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -45,7 +46,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   avatarIcon: {
     cursor: 'pointer',
     width: 54,
-    height: 54
+    height: 54,
+    backgroundColor: '#0133A1'
   }
 }));
 
@@ -53,19 +55,38 @@ interface Props {
   className?: string;
   onMobileNavOpen?: () => void;
 }
+function stringToColor(string: string) {
+  let hash = 0;
+  let i;
 
-const TopBar: React.FC<Props> = ({ className, onMobileNavOpen, ...rest }) => {
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = '#0133A1';
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  /* eslint-enable no-bitwise */
+
+  return color;
+}
+
+function stringAvatar(name: string) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name)
+    },
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
+  };
+}
+
+function TopBar({ className, onMobileNavOpen, ...rest }: Props) {
   const classes = useStyles();
-  //   const { notifyList } = useSelector((store: RootState) => store.notifyList);
-  //   const { user } = useSelector((store: RootState) => store.user);
-  // //   const isAuthenticated = user;
-  //   const filteredNotifyList = notifyList.filter(
-  //     (element, index) =>
-  //       index ===
-  //       notifyList.findIndex(
-  //         (e) => e.key === element.key && e.key === element.key
-  //       )
-  //   );
+  const { user } = useSelector((store: RootState) => store.user);
   return (
     <AppBar
       className={clsx(classes.root, className)}
@@ -74,7 +95,7 @@ const TopBar: React.FC<Props> = ({ className, onMobileNavOpen, ...rest }) => {
       sx={{ backgroundColor: '#fff' }}
     >
       <Toolbar>
-        <RouterLink to="/app/dashboard">
+        <RouterLink to="/judge/dashboard">
           <Logo />
         </RouterLink>
         <Box style={{ marginLeft: 'auto', flex: 1 }}>
@@ -82,8 +103,11 @@ const TopBar: React.FC<Props> = ({ className, onMobileNavOpen, ...rest }) => {
             className={classes.avatarIcon}
             component={RouterLink}
             // src={user.avatar}
-            to="/app/account"
+            to="/judge/account"
             style={{ marginLeft: 'auto', flex: 1 }}
+            {...stringAvatar(
+              `${user?.firstName.toUpperCase()} ${user?.lastName.toUpperCase()}`
+            )}
           />
         </Box>
         <Hidden lgUp>
@@ -100,6 +124,6 @@ const TopBar: React.FC<Props> = ({ className, onMobileNavOpen, ...rest }) => {
       </Toolbar>
     </AppBar>
   );
-};
+}
 
 export default TopBar;
