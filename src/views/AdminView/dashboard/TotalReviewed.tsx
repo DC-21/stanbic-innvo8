@@ -28,7 +28,7 @@ const getCohorts = async (): Promise<number> => {
   return data.data?.cohortsCount;
 };
 
-const TotalCohorts: FC<React.PropsWithChildren<Props>> = ({
+const TotalReviewed: FC<React.PropsWithChildren<Props>> = ({
   className,
   ...rest
 }) => {
@@ -41,7 +41,7 @@ const TotalCohorts: FC<React.PropsWithChildren<Props>> = ({
         <Grid container justifyContent="space-between">
           <Grid item md={9}>
             <Typography color="textSecondary" gutterBottom variant="h6">
-              Incomplete
+              Reviewed
             </Typography>
             <Typography color="textPrimary" variant="h3">
               {data || 0}
@@ -58,8 +58,8 @@ const TotalCohorts: FC<React.PropsWithChildren<Props>> = ({
   );
 };
 
-TotalCohorts.propTypes = {
+TotalReviewed.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalCohorts;
+export default TotalReviewed;

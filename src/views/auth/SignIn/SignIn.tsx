@@ -163,7 +163,7 @@ function SignIn() {
     onError: (error: AxiosError) => {
       dispatch(
         enqueueSnackbar({
-          message: error.response?.data.error,
+          message: error.response?.data.message,
           options: { variant: 'error' }
         })
       );

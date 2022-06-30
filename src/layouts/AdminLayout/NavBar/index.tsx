@@ -23,6 +23,11 @@ export const items = [
     title: 'Manage Users'
   },
   {
+    href: '/app/teams',
+    icon: SupervisorAccountOutlinedIcon,
+    title: 'Manage Teams'
+  },
+  {
     href: '/app/account',
     icon: AccountCircleOutlinedIcon,
     title: 'Account'
