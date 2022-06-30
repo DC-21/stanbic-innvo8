@@ -4,40 +4,49 @@ import React, { FC } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import { green } from '@mui/material/colors';
+import { red } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import MoneyIcon from '@mui/icons-material/Money';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: '100%'
   },
   avatar: {
-    backgroundColor: green[600],
+    backgroundColor: red[600],
     height: 46,
     width: 46
+  },
+  differenceIcon: {
+    color: red[900]
+  },
+  differenceValue: {
+    color: red[900],
+    marginRight: theme.spacing(1)
   }
 }));
-const getZambianBusinesses = async (): Promise<number> => {
+
+const getFinnishBusinesses = async (): Promise<number> => {
   const data = await axios.get('#');
-  return data.data?.count;
+  return data.data?.businessCount;
 };
 
-const TotalZambianBusinesses: FC<React.PropsWithChildren<any>> = ({
+const TotalPendingSubmissions: FC<React.PropsWithChildren<any>> = ({
   className,
   ...rest
 }) => {
   const classes = useStyles();
-  const { data } = useQuery(['zambianBusinessesCount'], getZambianBusinesses);
+  const { data } = useQuery(['finnishBusinessesCount'], getFinnishBusinesses);
+
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <CardContent>
         <Grid container justifyContent="space-between">
           <Grid item md={9}>
             <Typography color="textSecondary" gutterBottom variant="h6">
-              Draft
+              Pending Submissions
             </Typography>
             <Typography color="textPrimary" variant="h3">
               {data || 0}
@@ -45,7 +54,7 @@ const TotalZambianBusinesses: FC<React.PropsWithChildren<any>> = ({
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <PeopleIcon />
+              <MoneyIcon />
             </Avatar>
           </Grid>
         </Grid>
@@ -53,9 +62,8 @@ const TotalZambianBusinesses: FC<React.PropsWithChildren<any>> = ({
     </Card>
   );
 };
-
-TotalZambianBusinesses.propTypes = {
+TotalPendingSubmissions.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalZambianBusinesses;
+export default TotalPendingSubmissions;

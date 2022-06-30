@@ -12,8 +12,6 @@ function Logout() {
 
   dispatch(logOut());
   localStorage.removeItem('token');
-  localStorage.removeItem('refreshToken');
-  setTimeout(() => window.location.reload(), 1);
   dispatch(
     notification({
       message: 'You have been logged out, please login',
