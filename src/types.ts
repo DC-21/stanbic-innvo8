@@ -15,3 +15,13 @@ export interface User {
   __v: number;
   password: string;
 }
+
+export interface Teams {
+  _id: string;
+  name: string;
+  description: string;
+  leadId: User;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}
