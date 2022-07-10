@@ -152,7 +152,7 @@ function SignUp() {
     onError: (error: AxiosError) => {
       dispatch(
         notification({
-          message: error.response?.data.error,
+          message: error.response?.data,
           options: { variant: 'error' }
         })
       );
@@ -162,8 +162,10 @@ function SignUp() {
     }
   });
   const onSubmit = (data: Data) => {
+    console.log('zude', data);
     const admin = {
-      ...data
+      ...data,
+      isActive: true
     };
     mutate(admin);
   };
@@ -240,7 +242,7 @@ function SignUp() {
                   {...register('password')}
                   autoComplete="off"
                 />
-                <TextField
+                {/* <TextField
                   error={!!errors.userType}
                   className={classes.textField}
                   defaultValue="Team Lead"
@@ -251,6 +253,25 @@ function SignUp() {
                   variant="outlined"
                   {...register('userType')}
                   disabled
+                /> */}
+                <Controller
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      select
+                      label="Role"
+                      variant="outlined"
+                      value={value}
+                      onChange={onChange}
+                      margin="normal"
+                      size="small"
+                      fullWidth
+                    >
+                      <MenuItem value="Team Lead">Team Lead</MenuItem>
+                    </TextField>
+                  )}
+                  rules={{ required: true }}
+                  name="userType"
+                  control={control}
                 />
                 <Controller
                   render={({ field: { onChange, value } }) => (

@@ -144,19 +144,14 @@ function ForgotPassword() {
   });
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
-      const { message, status } = response;
-      if (status === 200 || status === 201 || status === 202) {
-        dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-        setTimeout(() => navigate('/'), 1000);
-      }
-      if (status >= 400 || status <= 500) {
-        dispatch(enqueueSnackbar({ message, options: { variant: 'error' } }));
-      }
+      const { message } = response;
+      dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
+      setTimeout(() => navigate('/'), 1000);
     },
     onError: (error: AxiosError) => {
       dispatch(
         enqueueSnackbar({
-          message: error.response?.data.error,
+          message: error.response?.data,
           options: { variant: 'error' }
         })
       );

@@ -4,8 +4,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useSearchParams } from 'react-router-dom';
-import UserList from '../users/components/UserList';
-import TeamMemberList from '../teams/components/TeamMember/TeamMemberList';
+import PendingApplications from './PendingApplications';
+import AcceptedApplications from './AcceptedApplications';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -40,7 +40,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
+export default function Applications() {
   const [searchParams, setSearchParams] = useSearchParams({ index: '0' });
   const value = parseInt(searchParams.get('index') || '0', 10);
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -48,22 +48,27 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ width: '100%', paading: '10px' }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: 'divider'
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="User Management"
         >
-          <Tab label="Users" {...a11yProps(0)} />
-          <Tab label="Team Members" {...a11yProps(1)} />
+          <Tab label="Pending" {...a11yProps(0)} />
+          <Tab label="Accepted" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <UserList />
+        <PendingApplications />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TeamMemberList />
+        <AcceptedApplications />
       </TabPanel>
     </Box>
   );

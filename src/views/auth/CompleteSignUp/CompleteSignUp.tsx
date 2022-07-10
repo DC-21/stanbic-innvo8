@@ -135,19 +135,14 @@ function CompleteSignUp() {
   });
   const { mutate, isLoading } = useMutation(registerAdmin, {
     onSuccess: (data) => {
-      const { message, status } = data;
-      if (status === 200 || status === 201 || status === 202) {
-        dispatch(notification({ message, options: { variant: 'success' } }));
-        setTimeout(() => navigate('/'), 1500);
-      }
-      if (status >= 400 || status <= 500) {
-        dispatch(notification({ message, options: { variant: 'error' } }));
-      }
+      const { message } = data;
+      dispatch(notification({ message, options: { variant: 'success' } }));
+      setTimeout(() => navigate('/'), 1500);
     },
     onError: (error: AxiosError) => {
       dispatch(
         notification({
-          message: error.response?.data.error,
+          message: error.response?.data,
           options: { variant: 'error' }
         })
       );
