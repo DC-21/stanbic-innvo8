@@ -25,3 +25,17 @@ export interface Teams {
   updatedAt: Date;
   __v: number;
 }
+
+export interface Application {
+  _id: string;
+  title: string;
+  category: string;
+  problem: string;
+  proposedSolution: string;
+  status: string;
+  teamId: Teams;
+  votes: any[];
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}

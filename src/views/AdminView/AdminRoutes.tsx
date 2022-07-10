@@ -7,7 +7,10 @@ import UserEditView from './users/components/UserEditView';
 import User from './users/index';
 import Teams from './teams/index';
 import TeamEditView from './teams/components/TeamEditView';
-//  import MainLayout from './layouts/MainLayout';
+import NotFoundView from '../errors/NotFoundView';
+import TeamMemberEditView from './teams/components/TeamMember/TeamMemberEditView';
+import Applications from './Applications';
+import ApplicationViewDetails from './Applications/ApplicationViewDetails';
 
 export const AdminRoutes = [
   {
@@ -24,6 +27,10 @@ export const AdminRoutes = [
         element: <UserEditView />
       },
       {
+        path: 'users/team_member/edit/:id',
+        element: <TeamMemberEditView />
+      },
+      {
         path: 'teams',
         element: <Teams />
       },
@@ -32,9 +39,18 @@ export const AdminRoutes = [
         element: <TeamEditView />
       },
       {
+        path: 'applications',
+        element: <Applications />
+      },
+      {
+        path: 'applications/view/:id',
+        element: <ApplicationViewDetails />
+      },
+      {
         path: 'account',
         element: <AccountView />
-      }
+      },
+      { path: '404', element: <NotFoundView /> }
     ]
   }
 ];

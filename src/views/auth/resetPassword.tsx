@@ -172,7 +172,7 @@ function ResetPassword() {
     onError: (error: AxiosError) => {
       dispatch(
         enqueueSnackbar({
-          message: error.response?.data.error,
+          message: error.response?.data,
           options: { variant: 'error' }
         })
       );

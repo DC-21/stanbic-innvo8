@@ -79,9 +79,7 @@ const ProfileDetails: React.FC<Props> = ({ className, ...rest }) => {
   const userId = user?._id;
 
   const updateProfile = async (newAdmin: User) => {
-    const { data } = await axios.put(`/Admin/edit_admin/${userId}`, {
-      newAdmin
-    });
+    const { data } = await axios.put(`/Admin/edit_admin/${userId}`, newAdmin);
     return data.data;
   };
   const { mutate, isLoading } = useMutation(updateProfile, {
@@ -102,9 +100,9 @@ const ProfileDetails: React.FC<Props> = ({ className, ...rest }) => {
       queryClient.invalidateQueries(['updateProfile']);
     }
   });
-  const onSubmit = (data: User) => {
+  const onSubmit = (inputs: Omit<User, '_id'>) => {
     const newAdmin = {
-      ...data
+      ...inputs
     };
     mutate(newAdmin);
   };

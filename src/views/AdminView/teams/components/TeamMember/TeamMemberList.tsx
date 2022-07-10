@@ -6,21 +6,22 @@ import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
 import { Chip, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Toolbar from './Toolbar';
-import { CustomModal, useModal } from '../../../../components/Modal';
-import UserForm from './UserForm';
-import axios from '../../../../clientProvider/baseConfig';
-import Loading from '../../../../components/Loading';
+// import Toolbar from './Toolbar';
+import { CustomModal, useModal } from '../../../../../components/Modal';
+import TeamMemberForm from './TeamMemberForm';
+import axios from '../../../../../clientProvider/baseConfig';
+import Loading from '../../../../../components/Loading';
 
-const getUser = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Admin/view_admins');
-  return data.admins;
-};
-
-const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
+const UserList = () => {
   const navigate = useNavigate();
-  const { open, handleClose, handleClickOpen } = useModal();
-  const { data, isLoading } = useQuery(['AdminUser'], getUser);
+  const { open, handleClose } = useModal();
+
+  const getUser = async (): Promise<any[]> => {
+    const { data } = await axios.get('/User/view_users');
+    return data.Users;
+  };
+
+  const { data, isLoading } = useQuery(['TeamMembers'], getUser);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -68,6 +69,14 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
+      name: 'branch',
+      label: 'Branch',
+      options: {
+        filter: true,
+        sort: false
+      }
+    },
+    {
       name: 'userType',
       label: 'Role',
       options: {
@@ -90,10 +99,14 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const [userId] = tableMeta.rowData;
+          console.log(userId);
+
           return (
             <Tooltip title="Edit">
               <IconButton
-                onClick={() => navigate(`/app/users/edit/${userId}`)}
+                onClick={() =>
+                  navigate(`/app/users/team_member/edit/${userId}`)
+                }
                 size="large"
               >
                 <EditIcon />
@@ -106,7 +119,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
   ];
   return (
     <>
-      <Toolbar handleClickOpen={handleClickOpen} />
+      {/* <Toolbar handleClickOpen={handleClickOpen} /> */}
 
       <CustomModal
         title="ADD USER"
@@ -115,11 +128,16 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         maxWidth="sm"
         handleClose={handleClose}
       >
-        <UserForm handleClose={handleClose} />
+        <TeamMemberForm handleClose={handleClose} />
       </CustomModal>
 
       <MUIDataTable
-        options={{ elevation: 0 }}
+        options={{
+          elevation: 0,
+          enableNestedDataAccess: '.',
+          responsive: 'simple',
+          filterType: 'dropdown'
+        }}
         title="users"
         columns={columns}
         data={data || []}

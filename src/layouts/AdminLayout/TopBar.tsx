@@ -88,6 +88,7 @@ function stringAvatar(name: string) {
 function TopBar({ className, onMobileNavOpen, ...rest }: Props) {
   const classes = useStyles();
   const { user } = useSelector((store: RootState) => store.user);
+
   return (
     <AppBar
       className={clsx(classes.root, className)}

@@ -1,9 +1,8 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/extensions */
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import Page from '../../components/Page';
 
 const useStyles = makeStyles((theme: any) => ({
@@ -23,7 +22,6 @@ const useStyles = makeStyles((theme: any) => ({
 
 function NotFoundView() {
   const classes = useStyles();
-  const navigate = useNavigate();
 
   return (
     <Page title="404">
@@ -37,13 +35,6 @@ function NotFoundView() {
           <Typography align="center" color="textPrimary" variant="h1">
             404: The page you are looking for isn’t here
           </Typography>
-          <Button
-            variant="text"
-            onClick={() => navigate('/')}
-            sx={{ color: 'red', marginLeft: '200px' }}
-          >
-            <h2>Click Here to go back to login</h2>
-          </Button>
           <Box textAlign="center">
             <img
               alt="Under development"
