@@ -18,14 +18,19 @@ export const items = [
     title: 'Dashboard'
   },
   {
+    href: '/app/applications',
+    icon: DashboardOutlinedIcon,
+    title: 'Applications'
+  },
+  {
     href: '/app/users',
     icon: SupervisorAccountOutlinedIcon,
-    title: 'Manage Users'
+    title: 'Users'
   },
   {
     href: '/app/teams',
     icon: SupervisorAccountOutlinedIcon,
-    title: 'Manage Teams'
+    title: 'Teams'
   },
   {
     href: '/app/account',
