@@ -13,17 +13,17 @@ import NavItem from './NavItem';
 
 export const items = [
   {
-    href: '/app/dashboard',
+    href: '/judge/dashboard',
     icon: DashboardOutlinedIcon,
     title: 'Dashboard'
   },
   {
-    href: '/app/admin',
+    href: '/judge/submissions',
     icon: SupervisorAccountOutlinedIcon,
-    title: 'Admin'
+    title: 'Submissions'
   },
   {
-    href: '/app/account',
+    href: '/judge/account',
     icon: AccountCircleOutlinedIcon,
     title: 'Account'
   }

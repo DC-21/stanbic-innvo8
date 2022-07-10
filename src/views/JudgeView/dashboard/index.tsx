@@ -3,10 +3,9 @@ import { Container, Grid } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import Page from '../../../components/Page';
-import TotalFinnishBusinesses from './TotalFinnishBusinesses';
-import TotalCohorts from './TotalCohorts';
-import TotalZambianBusinesses from './TotalZambianBusinesses';
-import TotalBds from './TotalBds';
+import CompletedVotes from './CompletedVotes';
+import PendingReview from './PendingReview';
+import TotalSubmission from './TotalSubmission';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,19 +22,17 @@ function Dashboard() {
       Judge
       <Container className={clsx(classes.root)} maxWidth={false}>
         <Grid container spacing={3}>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TotalZambianBusinesses />
+          <Grid item lg={4} sm={4} xl={4} xs={12}>
+            <TotalSubmission />
           </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TotalFinnishBusinesses />
+          <Grid item lg={4} sm={4} xl={4} xs={12}>
+            <PendingReview />
           </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TotalCohorts />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TotalBds />
+          <Grid item lg={4} sm={4} xl={4} xs={12}>
+            <CompletedVotes />
           </Grid>
         </Grid>
+        table
       </Container>
     </Page>
   );

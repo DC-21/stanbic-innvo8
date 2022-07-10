@@ -63,7 +63,8 @@ const UserForm: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
 
   const onSubmit = (data: Inputs) => {
     const user = {
-      ...data
+      ...data,
+      isActive: true
     };
     mutate(user);
   };

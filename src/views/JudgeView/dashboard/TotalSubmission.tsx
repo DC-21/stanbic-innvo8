@@ -1,11 +1,12 @@
 /* eslint-disable react/function-component-definition */
+/* eslint-disable no-use-before-define */
 import React, { FC } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import { orange } from '@mui/material/colors';
+import { indigo } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
@@ -14,34 +15,30 @@ const useStyles = makeStyles(() => ({
     height: '100%'
   },
   avatar: {
-    backgroundColor: orange[600],
+    backgroundColor: indigo[600],
     height: 46,
     width: 46
   }
 }));
-interface Props {
-  className?: string;
-}
 
-const getCohorts = async (): Promise<number> => {
+const getBds = async (): Promise<number> => {
   const data = await axios.get('#');
-  return data.data?.cohortsCount;
+  return data.data?.founders;
 };
 
-const TotalCohorts: FC<React.PropsWithChildren<Props>> = ({
+const TotalSubmission: FC<React.PropsWithChildren<any>> = ({
   className,
   ...rest
 }) => {
   const classes = useStyles();
-  const { data } = useQuery(['cohortCount'], getCohorts);
-
+  const { data } = useQuery(['bdsCount'], getBds);
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <CardContent>
         <Grid container justifyContent="space-between">
           <Grid item md={9}>
             <Typography color="textSecondary" gutterBottom variant="h6">
-              Incomplete
+              Total Submission
             </Typography>
             <Typography color="textPrimary" variant="h3">
               {data || 0}
@@ -49,7 +46,7 @@ const TotalCohorts: FC<React.PropsWithChildren<Props>> = ({
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <InsertChartIcon />
+              <AttachMoneyIcon />
             </Avatar>
           </Grid>
         </Grid>
@@ -58,8 +55,8 @@ const TotalCohorts: FC<React.PropsWithChildren<Props>> = ({
   );
 };
 
-TotalCohorts.propTypes = {
+TotalSubmission.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalCohorts;
+export default TotalSubmission;

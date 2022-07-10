@@ -4,9 +4,9 @@ import React, { FC } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import { indigo } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
@@ -15,27 +15,29 @@ const useStyles = makeStyles(() => ({
     height: '100%'
   },
   avatar: {
-    backgroundColor: indigo[600],
+    backgroundColor: green[600],
     height: 46,
     width: 46
   }
 }));
-
-const getBds = async (): Promise<number> => {
+const getPendingReview = async (): Promise<number> => {
   const data = await axios.get('#');
-  return data.data?.founders;
+  return data.data?.count;
 };
 
-const TotalBds: FC<React.PropsWithChildren<any>> = ({ className, ...rest }) => {
+const PendingReview: FC<React.PropsWithChildren<any>> = ({
+  className,
+  ...rest
+}) => {
   const classes = useStyles();
-  const { data } = useQuery(['bdsCount'], getBds);
+  const { data } = useQuery(['zambianBusinessesCount'], getPendingReview);
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <CardContent>
         <Grid container justifyContent="space-between">
           <Grid item md={9}>
             <Typography color="textSecondary" gutterBottom variant="h6">
-              Complete
+              Pending Review
             </Typography>
             <Typography color="textPrimary" variant="h3">
               {data || 0}
@@ -43,7 +45,7 @@ const TotalBds: FC<React.PropsWithChildren<any>> = ({ className, ...rest }) => {
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <AttachMoneyIcon />
+              <PeopleIcon />
             </Avatar>
           </Grid>
         </Grid>
@@ -52,8 +54,8 @@ const TotalBds: FC<React.PropsWithChildren<any>> = ({ className, ...rest }) => {
   );
 };
 
-TotalBds.propTypes = {
+PendingReview.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalBds;
+export default PendingReview;
