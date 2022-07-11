@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { useSearchParams } from 'react-router-dom';
 import PendingSubmissions from './PendingSubmissions';
 import AcceptedSubmissions from './AcceptedSubmissions';
+import WaitingSubmissions from './WaitingSubmissions';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -61,13 +62,17 @@ export default function Submissions() {
           aria-label="User Management"
         >
           <Tab label="Pending" {...a11yProps(0)} />
-          <Tab label="Accepted" {...a11yProps(1)} />
+          <Tab label="Waiting" {...a11yProps(1)} />
+          <Tab label="Accepted" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <PendingSubmissions />
       </TabPanel>
       <TabPanel value={value} index={1}>
+        <WaitingSubmissions />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
         <AcceptedSubmissions />
       </TabPanel>
     </Box>

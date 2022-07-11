@@ -54,7 +54,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['AdminUser']);
+      queryClient.invalidateQueries(['submissions']);
     }
   });
   const onSubmit = (data: Inputs) => {
