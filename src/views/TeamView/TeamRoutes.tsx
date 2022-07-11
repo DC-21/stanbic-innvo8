@@ -5,6 +5,7 @@ import TeamLayout from '../../layouts/TeamLayout';
 import NotFoundView from '../errors/NotFoundView';
 import AccountView from '../TeamView/account';
 import Dashboard from './dashboard';
+import TeamsView from './teams';
 
 export const TeamRoutes = [
   {
@@ -15,6 +16,10 @@ export const TeamRoutes = [
       {
         path: 'account',
         element: <AccountView />
+      },
+      {
+        path: 'teams',
+        element: <TeamsView />
       },
       { path: '404', element: <NotFoundView /> },
       { path: '*', element: <Navigate to="/team/404" /> }
