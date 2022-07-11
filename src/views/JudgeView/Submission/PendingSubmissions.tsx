@@ -10,7 +10,7 @@ import axios from '../../../clientProvider/baseConfig';
 import Loading from '../../../components/Loading';
 
 const getPendingSubmissions = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Innovation/view_innovations');
+  const { data } = await axios.get('/Innovation/view_pending_innovations');
   return data.Innovations;
 };
 

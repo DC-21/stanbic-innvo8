@@ -12,34 +12,37 @@ import {
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation } from 'react-query';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
+import { RootState } from '../../../redux/reducers/rootReducer';
 import { Application } from '../../../types';
 
 interface Inputs {
-  firstName: string;
-  lastName: string;
-  email: string;
-  userType: string;
-  gender: string;
-  votes: number;
+  score: number;
 }
-
-const createUser = async (user: Inputs) => {
-  const response = await axios.post('/Admin/new_admin', user);
-  return response;
-};
 
 interface Props {
   application: Application | undefined;
 }
 const ViewSubmission: React.FC<Props> = ({ application }) => {
+  const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
+  const { id } = useParams();
+
+  const createScore = async (submission: Inputs) => {
+    const response = await axios.post(
+      `/Innovation/vote_innovation/${id}`,
+      submission
+    );
+    return response;
+  };
+
   const { control, handleSubmit } = useForm<Inputs>({ mode: 'onChange' });
-  const { mutate, isLoading } = useMutation(createUser, {
+  const { mutate, isLoading } = useMutation(createScore, {
     onSuccess: (response) => {
       const { message } = response.data;
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
@@ -48,7 +51,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
     onError: (err: any) => {
       dispatch(
         enqueueSnackbar({
-          message: err?.response?.data?.message,
+          message: err.response?.data,
           options: { variant: 'error' }
         })
       );
@@ -58,11 +61,11 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
     }
   });
   const onSubmit = (data: Inputs) => {
-    const user = {
+    const submission = {
       ...data,
-      isActive: true
+      judge: user?._id
     };
-    mutate(user);
+    mutate(submission);
   };
   return (
     <div
@@ -131,7 +134,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
           </FormLabel>
           <Controller
             render={({ field: { onChange, value } }) => (
-              <RadioGroup aria-label="vote" value={value} onChange={onChange}>
+              <RadioGroup aria-label="score" value={value} onChange={onChange}>
                 <FormControlLabel
                   labelPlacement="end"
                   value={1}
@@ -165,7 +168,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
               </RadioGroup>
             )}
             rules={{ required: true }}
-            name="votes"
+            name="score"
             control={control}
           />
         </div>

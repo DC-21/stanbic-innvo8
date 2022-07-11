@@ -72,7 +72,7 @@ export default function Submissions() {
       <TabPanel value={value} index={1}>
         <WaitingSubmissions />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={2}>
         <AcceptedSubmissions />
       </TabPanel>
     </Box>
