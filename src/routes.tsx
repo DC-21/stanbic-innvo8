@@ -27,7 +27,7 @@ const routes = [
   { path: 'signup', element: <SignUp /> },
   { path: 'completeSignUp', element: <CompleteSignUp /> },
   { path: 'forgot-password', element: <ForgotPassword /> },
-  { path: 'resetpassword/:resetPasswordToken', element: <ResetPassword /> },
+  { path: 'resetpassword', element: <ResetPassword /> },
   ...AdminRoutes,
   ...TeamRoutes,
   ...JudgeRoutes

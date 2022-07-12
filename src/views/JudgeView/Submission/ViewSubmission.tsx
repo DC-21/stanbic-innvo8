@@ -9,6 +9,7 @@ import {
   TextField,
   Typography
 } from '@mui/material';
+import { AxiosError } from 'axios';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation } from 'react-query';
@@ -33,7 +34,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
   const queryClient = useQueryClient();
   const { id } = useParams();
 
-  const createScore = async (submission: Inputs) => {
+  const createScore = async (submission: any) => {
     const response = await axios.post(
       `/Innovation/vote_innovation/${id}`,
       submission
@@ -48,7 +49,8 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
       // setTimeout(() => handleClose(), 1000);
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError) => {
+      console.log(err.response?.data);
       dispatch(
         enqueueSnackbar({
           message: err.response?.data,
@@ -62,9 +64,9 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
   });
   const onSubmit = (data: Inputs) => {
     const submission = {
-      ...data,
-      judge: user?._id
+      votes: [{ judge: user?._id, score: +data.score }]
     };
+    console.log(submission);
     mutate(submission);
   };
   return (
@@ -128,39 +130,47 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
         value={application?.category}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <FormLabel id="demo-controlled-radio-buttons-group">
-            Vote Here
+        <div style={{ paddingTop: '15px', paddingBottom: '10px' }}>
+          <FormLabel
+            id="demo-controlled-radio-buttons-group"
+            sx={{ color: '#0133a1' }}
+          >
+            <b>Vote Here</b>
           </FormLabel>
           <Controller
             render={({ field: { onChange, value } }) => (
-              <RadioGroup aria-label="score" value={value} onChange={onChange}>
+              <RadioGroup
+                row
+                aria-label="score"
+                value={value}
+                onChange={onChange}
+              >
                 <FormControlLabel
-                  labelPlacement="end"
+                  labelPlacement="bottom"
                   value={1}
                   control={<Radio />}
                   label="1"
                 />
                 <FormControlLabel
-                  labelPlacement="end"
+                  labelPlacement="bottom"
                   value={2}
                   control={<Radio />}
                   label="2"
                 />
                 <FormControlLabel
-                  labelPlacement="end"
+                  labelPlacement="bottom"
                   value={3}
                   control={<Radio />}
                   label="3"
                 />
                 <FormControlLabel
-                  labelPlacement="end"
+                  labelPlacement="bottom"
                   value={4}
                   control={<Radio />}
                   label="4"
                 />
                 <FormControlLabel
-                  labelPlacement="end"
+                  labelPlacement="bottom"
                   value={5}
                   control={<Radio />}
                   label="5"
@@ -172,19 +182,19 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
             control={control}
           />
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          startIcon={
-            isLoading ? <CircularProgress color="inherit" size={26} /> : null
-          }
-        >
-          Submit
-        </Button>
-        <Button variant="outlined" color="primary">
-          Cancel
-        </Button>
+        <div style={{ paddingTop: '15px', gap: '2px' }}>
+          <Button
+            sx={{ gap: '2px', marginRight: '10px' }}
+            variant="contained"
+            color="primary"
+            type="submit"
+            startIcon={
+              isLoading ? <CircularProgress color="inherit" size={26} /> : null
+            }
+          >
+            Submit
+          </Button>
+        </div>
       </form>
     </div>
   );

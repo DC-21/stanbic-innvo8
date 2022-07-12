@@ -59,6 +59,15 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
+      name: 'totalVotes',
+      label: 'Total Votes',
+      options: {
+        filter: true,
+        sort: false,
+        viewColumns: false
+      }
+    },
+    {
       name: 'status',
       label: 'Status',
       options: {
