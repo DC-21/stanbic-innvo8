@@ -4,23 +4,29 @@ import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { IconButton, Tooltip } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Button, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
+import { RootState } from '../../../../redux/reducers/rootReducer';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
+import AddTeamMember from './AddTeamMember';
 
-const getUser = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Team/view_teams');
-  return data.Teams;
+const getUser = async (id: string | undefined): Promise<any[]> => {
+  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
+  return data.data;
 };
 
 const ListTeamMembers = () => {
   const navigate = useNavigate();
-
-  const { data, isLoading } = useQuery(['Teams'], getUser);
-
+  const { user } = useSelector((state: RootState) => state.user);
+  const { open, handleClickOpen, handleClose, selected, setSelected } =
+    useModalWithData();
+  const { data, isLoading } = useQuery(['Teams'], () => getUser(user?._id));
+  console.log(data, 'data');
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -86,7 +92,48 @@ const ListTeamMembers = () => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const [userId] = tableMeta.rowData;
-          console.log(userId);
+
+          return (
+            <Button
+              color="primary"
+              onClick={() => {
+                setSelected(userId);
+                handleClickOpen();
+              }}
+              variant="contained"
+              size="small"
+            >
+              add members
+            </Button>
+          );
+        }
+      }
+    },
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        viewColumns: false,
+        sort: false,
+        customBodyRender: () => {
+          return (
+            <Button disabled size="small" color="primary" variant="contained">
+              View
+            </Button>
+          );
+        }
+      }
+    },
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        viewColumns: false,
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          const [userId] = tableMeta.rowData;
 
           return (
             <Tooltip title="Edit">
@@ -103,17 +150,29 @@ const ListTeamMembers = () => {
     }
   ];
   return (
-    <MUIDataTable
-      options={{
-        elevation: 0,
-        enableNestedDataAccess: '.',
-        responsive: 'simple',
-        filterType: 'dropdown'
-      }}
-      title="Team Members"
-      columns={columns}
-      data={data || []}
-    />
+    <>
+      {selected && (
+        <CustomModal
+          title="Team"
+          subTitle="Add team members to team"
+          open={open}
+          handleClose={handleClose}
+        >
+          <AddTeamMember handleClose={handleClose} leadId={selected} />
+        </CustomModal>
+      )}
+      <MUIDataTable
+        options={{
+          elevation: 0,
+          enableNestedDataAccess: '.',
+          responsive: 'simple',
+          filterType: 'dropdown'
+        }}
+        title="Team Members"
+        columns={columns}
+        data={data || []}
+      />
+    </>
   );
 };
 
