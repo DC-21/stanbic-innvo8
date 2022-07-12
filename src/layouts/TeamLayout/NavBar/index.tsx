@@ -23,6 +23,11 @@ export const items = [
     title: 'Team'
   },
   {
+    href: '/team/innovation-proposal',
+    icon: AccountCircleOutlinedIcon,
+    title: 'Create Innovation Proposal'
+  },
+  {
     href: '/team/account',
     icon: AccountCircleOutlinedIcon,
     title: 'Account'
