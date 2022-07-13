@@ -3,7 +3,7 @@ import useModal from './useModal';
 
 const useModalWithData = (initialSelected = null) => {
   const { open, handleClickOpen, handleClose } = useModal();
-  const [selected, setSelected] = useState(initialSelected);
+  const [selected, setSelected] = useState<any | null>(initialSelected);
   const setModalState = (state: boolean) => {
     handleClickOpen();
     if (state === false) {

@@ -13,17 +13,22 @@ import NavItem from './NavItem';
 
 export const items = [
   {
-    href: '/app/dashboard',
+    href: '/team/dashboard',
     icon: DashboardOutlinedIcon,
     title: 'Dashboard'
   },
   {
-    href: '/app/admin',
+    href: '/team/teams',
     icon: SupervisorAccountOutlinedIcon,
-    title: 'Admin'
+    title: 'Team'
   },
   {
-    href: '/app/account',
+    href: '/team/innovation-proposal',
+    icon: AccountCircleOutlinedIcon,
+    title: 'Create Innovation Proposal'
+  },
+  {
+    href: '/team/account',
     icon: AccountCircleOutlinedIcon,
     title: 'Account'
   }

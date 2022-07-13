@@ -15,7 +15,7 @@ import {
 } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { axios } from '../../clientProvider';
 import { useNotify } from '../../redux/actions/notifications/notificationActions';
@@ -141,9 +141,9 @@ function ResetPassword() {
   const navigate = useNavigate();
   const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
-  const location = useLocation();
-  const urlString = location.pathname.split('/');
-  const resetPasswordToken = urlString[2];
+  // const location = useLocation();
+  // const urlString = location.pathname.split('/');
+  // const resetPasswordToken = urlString[2];
   const {
     register,
     handleSubmit,
@@ -157,10 +157,7 @@ function ResetPassword() {
   // password.current = watch('password', '');
 
   const grantAccess = async (data: Inputs) => {
-    const { data: response } = await axios.patch(
-      `/Auth/resetpassword/${resetPasswordToken}`,
-      data
-    );
+    const { data: response } = await axios.patch(`/Auth/reset_password`, data);
     return response;
   };
   const { mutate, isLoading } = useMutation(grantAccess, {

@@ -107,17 +107,27 @@ const UserEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
               type="text"
               variant="outlined"
               {...register('email')}
-              sx={{ paddingBottom: '15px' }}
+              sx={{ paddingBottom: '10px' }}
             />
-            <TextField
-              error={!!errors.userType}
-              fullWidth
-              size="small"
-              label="Role"
-              type="text"
-              variant="outlined"
-              {...register('userType')}
-              disabled
+            <Controller
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  select
+                  label="Role"
+                  variant="outlined"
+                  value={value}
+                  onChange={onChange}
+                  margin="normal"
+                  size="small"
+                  fullWidth
+                >
+                  <MenuItem value="Judge">Judge</MenuItem>
+                  <MenuItem value="Admin">Admin</MenuItem>
+                </TextField>
+              )}
+              rules={{ required: true }}
+              name="userType"
+              control={control}
             />
             <Controller
               render={({ field: { onChange, value } }) => (

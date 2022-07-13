@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 import AccountView from './account';
 import Dashboard from './dashboard';
@@ -50,7 +51,8 @@ export const AdminRoutes = [
         path: 'account',
         element: <AccountView />
       },
-      { path: '404', element: <NotFoundView /> }
+      { path: '404', element: <NotFoundView /> },
+      { path: '*', element: <Navigate to="/app/404" /> }
     ]
   }
 ];

@@ -4,9 +4,10 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useSearchParams } from 'react-router-dom';
-import PendingApplications from './PendingApplications';
-import AcceptedApplications from './AcceptedApplications';
-import ReviewedApplications from './ReviewedApplications';
+import PendingSubmissions from './PendingSubmissions';
+import AcceptedSubmissions from './AcceptedSubmissions';
+import WaitingSubmissions from './WaitingSubmissions';
+import ReviewedSubmissions from './ReviewSubmission';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,7 +42,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function Applications() {
+export default function Submissions() {
   const [searchParams, setSearchParams] = useSearchParams({ index: '0' });
   const value = parseInt(searchParams.get('index') || '0', 10);
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -63,18 +64,21 @@ export default function Applications() {
         >
           <Tab label="Pending" {...a11yProps(0)} />
           <Tab label="Reviewed" {...a11yProps(1)} />
-          <Tab label="Accepted" {...a11yProps(1)} />
+          <Tab label="Waiting" {...a11yProps(2)} />
+          <Tab label="Accepted" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <PendingApplications />
+        <PendingSubmissions />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ReviewedApplications />
+        <ReviewedSubmissions />
       </TabPanel>
-
       <TabPanel value={value} index={2}>
-        <AcceptedApplications />
+        <WaitingSubmissions />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <AcceptedSubmissions />
       </TabPanel>
     </Box>
   );

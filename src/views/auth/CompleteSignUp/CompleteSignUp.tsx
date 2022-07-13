@@ -112,14 +112,16 @@ const useStyles = makeStyles((theme: any) => ({
     margin: theme.spacing(2, 0)
   }
 }));
-const registerAdmin = async (admin: Data) => {
-  const { data: response } = await axios.patch('/Auth/set_password', admin);
-  return response;
-};
 export interface Data {
   email: string;
   password: string;
 }
+
+const registerAdmin = async (admin: Data) => {
+  const { data: response } = await axios.patch('/Auth/set_password', admin);
+  return response;
+};
+
 function CompleteSignUp() {
   const classes = useStyles();
   const dispatch = useDispatch();
