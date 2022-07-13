@@ -1,12 +1,13 @@
 import clsx from 'clsx';
-import { Container, Grid } from '@mui/material';
+import { Card, CardContent, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import Page from '../../../components/Page';
-import TotalFinnishBusinesses from './TotalFinnishBusinesses';
-import TotalCohorts from './TotalCohorts';
-import TotalZambianBusinesses from './TotalZambianBusinesses';
-import TotalBds from './TotalBds';
+
+// import TotalFinnishBusinesses from './TotalFinnishBusinesses';
+// import TotalCohorts from './TotalCohorts';
+// import TotalZambianBusinesses from './TotalZambianBusinesses';
+// import TotalBds from './TotalBds';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,20 +23,23 @@ function Dashboard() {
     <Page title="Dashboard">
       team
       <Container className={clsx(classes.root)} maxWidth={false}>
-        <Grid container spacing={3}>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TotalZambianBusinesses />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TotalFinnishBusinesses />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TotalCohorts />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TotalBds />
-          </Grid>
-        </Grid>
+        <Container>
+          <Card>
+            <CardContent>
+              <Typography variant="h2">
+                Welcome to Stanbic Innov8 2.0
+              </Typography>
+              <Typography variant="h4">
+                To submit your proposal, please follow the instructions below
+              </Typography>
+              <ul>
+                <li>Create a team</li>
+                <li>Add members to your team</li>
+                <li>Submit your proposal</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </Container>
       </Container>
     </Page>
   );

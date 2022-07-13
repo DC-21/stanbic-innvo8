@@ -10,7 +10,7 @@ import axios from '../../../clientProvider/baseConfig';
 import Loading from '../../../components/Loading';
 
 const getPendingSubmissions = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Innovation/view_innovations');
+  const { data } = await axios.get('/Innovation/view_pending_innovations');
   return data.Innovations;
 };
 
@@ -18,7 +18,7 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['Teams'], getPendingSubmissions);
+  const { data, isLoading } = useQuery(['submissions'], getPendingSubmissions);
 
   if (isLoading) {
     return <Loading size={40} />;

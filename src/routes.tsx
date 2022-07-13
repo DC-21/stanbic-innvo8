@@ -11,6 +11,7 @@ import CompleteSignUp from './views/auth/CompleteSignUp/CompleteSignUp';
 import { TeamRoutes } from './views/TeamView/TeamRoutes';
 import NotFoundView from './views/errors/NotFoundView';
 import { JudgeRoutes } from './views/JudgeView/JudgeRoutes';
+import Logout from './views/auth/logout';
 
 const routes = [
   {
@@ -18,14 +19,15 @@ const routes = [
     element: <MainLayout />,
     children: [
       { path: '404', element: <NotFoundView /> },
-      { path: '*', element: <Navigate to="/404" /> }
+      { path: '*', element: <Navigate to="/404" /> },
+      { path: 'logout', element: <Logout /> }
     ]
   },
   { path: '/', element: <SignIn /> },
   { path: 'signup', element: <SignUp /> },
   { path: 'completeSignUp', element: <CompleteSignUp /> },
   { path: 'forgot-password', element: <ForgotPassword /> },
-  { path: 'resetpassword/:resetPasswordToken', element: <ResetPassword /> },
+  { path: 'resetpassword', element: <ResetPassword /> },
   ...AdminRoutes,
   ...TeamRoutes,
   ...JudgeRoutes

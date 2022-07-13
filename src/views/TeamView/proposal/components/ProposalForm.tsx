@@ -4,10 +4,11 @@ import { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useQueryClient, useMutation } from 'react-query';
+import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { axios } from '../../../../clientProvider';
+import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 
 export type ProposalFormInputs = {
@@ -18,11 +19,24 @@ export type ProposalFormInputs = {
   teamId: string | undefined;
 };
 
+const getTeam = async (
+  id: string | undefined
+): Promise<Record<string, string>> => {
+  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
+  return data.data;
+};
 const ProposalForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
   const { user } = useSelector((state: RootState) => state.user);
+  const {
+    data: teamData,
+    isLoading: isLoadingTeam,
+    isError
+  } = useQuery(['team', user?._id], () => getTeam(user?._id));
+  console.log(teamData, 'teamData');
   const {
     register,
     handleSubmit,
@@ -51,10 +65,12 @@ const ProposalForm = () => {
   const onSubmit = (data: ProposalFormInputs) => {
     const formData = {
       ...data,
-      leadId: user?._id
+      teamId: teamData?._id
     };
     mutate(formData);
   };
+  if (isLoadingTeam) return <Loading size={45} />;
+  if (isError) return <div>Error</div>;
   return (
     <div
       style={{

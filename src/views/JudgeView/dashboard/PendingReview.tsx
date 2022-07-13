@@ -21,8 +21,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 const getPendingReview = async (): Promise<number> => {
-  const data = await axios.get('#');
-  return data.data?.count;
+  const data = await axios.get('/Innovation/count_pending_innovations');
+  return data.data.Innovations;
 };
 
 const PendingReview: FC<React.PropsWithChildren<any>> = ({

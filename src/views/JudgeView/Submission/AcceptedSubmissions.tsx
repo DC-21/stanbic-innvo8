@@ -18,7 +18,7 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['Teams'], getSubmissions);
+  const { data, isLoading } = useQuery(['submissions'], getSubmissions);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -52,6 +52,15 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
     {
       name: 'teamId.name',
       label: 'Team',
+      options: {
+        filter: true,
+        sort: false,
+        viewColumns: false
+      }
+    },
+    {
+      name: 'totalVotes',
+      label: 'Total Votes',
       options: {
         filter: true,
         sort: false,
