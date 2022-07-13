@@ -88,8 +88,6 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const [userId] = tableMeta.rowData;
-          console.log(userId);
-
           return (
             <Tooltip title="Edit">
               <IconButton

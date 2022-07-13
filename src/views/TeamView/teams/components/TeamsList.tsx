@@ -26,7 +26,6 @@ const ListTeamMembers = () => {
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
   const { data, isLoading } = useQuery(['Teams'], () => getUser(user?._id));
-  console.log(data, 'data');
   if (isLoading) {
     return <Loading size={40} />;
   }

@@ -28,7 +28,6 @@ function AddTeam({ handleClose }: Props) {
     {
       onSuccess: (response) => {
         const { message } = response.data;
-        console.log(response, 'response');
         enqueueSnackbar(message, { variant: 'success' });
         setTimeout(() => handleClose(), 1500);
       },

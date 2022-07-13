@@ -1,7 +1,6 @@
 /* eslint-disable react/function-component-definition */
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
@@ -9,7 +8,6 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { Box, Divider, Drawer, Hidden } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import NavItem from './NavItem';
-// import { RootState } from '../../../redux/reducers/rootReducer';
 
 export const items = [
   {
@@ -71,7 +69,6 @@ interface Props {
 const NavBar: React.FC<Props> = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
-  // const { user } = useSelector((store: RootState) => store.user);
 
   useEffect(() => {
     if (openMobile && onMobileClose) {

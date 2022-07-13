@@ -6,6 +6,7 @@ import {
   AppBar,
   Avatar,
   Box,
+  Divider,
   Hidden,
   IconButton,
   Theme,
@@ -122,6 +123,7 @@ function TopBar({ className, onMobileNavOpen, ...rest }: Props) {
           </div>
         </Hidden>
       </Toolbar>
+      <Divider variant="fullWidth" sx={{ backgroundColor: '#0133A1' }} />
     </AppBar>
   );
 }

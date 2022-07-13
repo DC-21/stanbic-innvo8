@@ -22,7 +22,6 @@ function Dashboard() {
 
   return (
     <Page title="Dashboard">
-      admin
       <Container className={clsx(classes.root)} maxWidth={false}>
         <Grid container spacing={3}>
           <Grid item lg={4} sm={6} xl={3} xs={12}>

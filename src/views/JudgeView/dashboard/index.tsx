@@ -19,7 +19,6 @@ function Dashboard() {
 
   return (
     <Page title="Dashboard">
-      Judge
       <Container className={clsx(classes.root)} maxWidth={false}>
         <Grid container spacing={3}>
           <Grid item lg={4} sm={4} xl={4} xs={12}>

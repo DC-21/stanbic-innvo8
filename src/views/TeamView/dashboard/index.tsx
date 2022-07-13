@@ -21,7 +21,6 @@ function Dashboard() {
 
   return (
     <Page title="Dashboard">
-      team
       <Container className={clsx(classes.root)} maxWidth={false}>
         <Container>
           <Card>

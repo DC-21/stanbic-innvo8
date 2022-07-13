@@ -4,13 +4,18 @@ import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { Chip, IconButton, Tooltip } from '@mui/material';
+import { Button, Chip, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Toolbar from './Toolbar';
-import { CustomModal, useModal } from '../../../../components/Modal';
+import {
+  CustomModal,
+  useModal,
+  useModalWithData
+} from '../../../../components/Modal';
 import UserForm from './UserForm';
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
+import DeleteAdmin from '../DeleteAdmin';
 
 const getUser = async (): Promise<any[]> => {
   const { data } = await axios.get('/Admin/view_admins');
@@ -21,11 +26,19 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const { open, handleClose, handleClickOpen } = useModal();
   const { data, isLoading } = useQuery(['AdminUser'], getUser);
+  const { selected, setSelected } = useModalWithData();
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+
+  const handleClickOpenModal = () => {
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   if (isLoading) {
     return <Loading size={40} />;
   }
-
   const columns: MUIDataTableColumn[] = [
     {
       name: '_id',
@@ -102,6 +115,34 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
           );
         }
       }
+    },
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          const [id] = tableMeta.rowData;
+          return (
+            <Button
+              onClick={() => {
+                setSelected(id);
+                handleClickOpenModal();
+              }}
+              variant="contained"
+              size="small"
+              style={{
+                boxShadow: '1px 1px',
+                color: '#fff',
+                backgroundColor: 'red'
+              }}
+            >
+              Delete
+            </Button>
+          );
+        }
+      }
     }
   ];
   return (
@@ -109,13 +150,22 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       <Toolbar handleClickOpen={handleClickOpen} />
 
       <CustomModal
-        title="ADD USER"
-        subTitle="Add a new user to the dashboard"
+        title="Add Admin/Judge"
+        subTitle="Add a new Admin/Judge to the dashboard"
         open={open}
         maxWidth="sm"
         handleClose={handleClose}
       >
         <UserForm handleClose={handleClose} />
+      </CustomModal>
+      <CustomModal
+        open={openModal}
+        handleClose={handleCloseModal}
+        title="Delete Admin/Judge"
+      >
+        {openModal ? (
+          <DeleteAdmin selected={selected} handleClose={handleCloseModal} />
+        ) : null}
       </CustomModal>
 
       <MUIDataTable
