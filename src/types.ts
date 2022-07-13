@@ -25,7 +25,11 @@ export interface Teams {
   updatedAt: Date;
   __v: number;
 }
-
+export interface Vote {
+  judge: string;
+  score: number;
+  _id: string;
+}
 export interface Application {
   _id: string;
   title: string;
@@ -34,7 +38,9 @@ export interface Application {
   proposedSolution: string;
   status: string;
   teamId: Teams;
-  votes: any[];
+  votes: Vote;
+  totalVotedJudges: number;
+  totalVotes: number;
   createdAt: Date;
   updatedAt: Date;
   __v: number;

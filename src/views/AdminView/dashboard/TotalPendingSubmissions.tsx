@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const getFinnishBusinesses = async (): Promise<number> => {
-  const data = await axios.get('#');
-  return data.data?.businessCount;
+const getpendingCount = async (): Promise<number> => {
+  const data = await axios.get('/Innovation/count_pending_innovations');
+  return data.data?.Innovations;
 };
 
 const TotalPendingSubmissions: FC<React.PropsWithChildren<any>> = ({
@@ -38,7 +38,7 @@ const TotalPendingSubmissions: FC<React.PropsWithChildren<any>> = ({
   ...rest
 }) => {
   const classes = useStyles();
-  const { data } = useQuery(['finnishBusinessesCount'], getFinnishBusinesses);
+  const { data } = useQuery(['pendingCount'], getpendingCount);
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>

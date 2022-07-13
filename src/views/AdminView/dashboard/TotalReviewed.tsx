@@ -24,8 +24,8 @@ interface Props {
 }
 
 const getCohorts = async (): Promise<number> => {
-  const data = await axios.get('#');
-  return data.data?.cohortsCount;
+  const data = await axios.get('/Innovation/count_reviewed_innovations');
+  return data.data?.Innovations;
 };
 
 const TotalReviewed: FC<React.PropsWithChildren<Props>> = ({

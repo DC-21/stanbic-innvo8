@@ -21,8 +21,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 const getTotalApplications = async (): Promise<number> => {
-  const { data } = await axios.get('/Team/count_teams');
-  return data.Teams;
+  const { data } = await axios.get('/Innovation/count_innovations');
+  return data.Innovations;
 };
 
 const TotalApplications: FC<React.PropsWithChildren<any>> = ({

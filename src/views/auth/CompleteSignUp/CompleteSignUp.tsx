@@ -7,12 +7,15 @@ import {
   TextField,
   Link,
   Typography,
-  CircularProgress
+  CircularProgress,
+  InputAdornment,
+  IconButton
 } from '@mui/material';
 // import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { AxiosError } from 'axios';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
@@ -112,15 +115,20 @@ const useStyles = makeStyles((theme: any) => ({
     margin: theme.spacing(2, 0)
   }
 }));
-const registerAdmin = async (admin: Data) => {
-  const { data: response } = await axios.patch('/Auth/set_password', admin);
-  return response;
-};
 export interface Data {
   email: string;
   password: string;
 }
+
+const registerAdmin = async (admin: Data) => {
+  const { data: response } = await axios.patch('/Auth/set_password', admin);
+  return response;
+};
+
 function CompleteSignUp() {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -203,9 +211,22 @@ function CompleteSignUp() {
                   className={classes.textField}
                   fullWidth
                   label="Password"
-                  type="password"
                   variant="outlined"
                   {...register('password')}
+                  type={showPassword ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
                 {/* <div className={classes.policy}>
                   <Checkbox

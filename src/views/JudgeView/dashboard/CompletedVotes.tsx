@@ -1,44 +1,39 @@
 /* eslint-disable react/function-component-definition */
-/* eslint-disable no-use-before-define */
 import React, { FC } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import { red } from '@mui/material/colors';
+import { orange } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import MoneyIcon from '@mui/icons-material/Money';
+import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
   },
   avatar: {
-    backgroundColor: red[600],
+    backgroundColor: orange[600],
     height: 46,
     width: 46
-  },
-  differenceIcon: {
-    color: red[900]
-  },
-  differenceValue: {
-    color: red[900],
-    marginRight: theme.spacing(1)
   }
 }));
+interface Props {
+  className?: string;
+}
 
-const getFinnishBusinesses = async (): Promise<number> => {
+const getCompletedVotes = async (): Promise<number> => {
   const data = await axios.get('#');
-  return data.data?.businessCount;
+  return data.data?.cohortsCount;
 };
 
-const TotalFinnishBusinesses: FC<React.PropsWithChildren<any>> = ({
+const CompletedVotes: FC<React.PropsWithChildren<Props>> = ({
   className,
   ...rest
 }) => {
   const classes = useStyles();
-  const { data } = useQuery(['finnishBusinessesCount'], getFinnishBusinesses);
+  const { data } = useQuery(['CompletedVotes'], getCompletedVotes);
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
@@ -46,7 +41,7 @@ const TotalFinnishBusinesses: FC<React.PropsWithChildren<any>> = ({
         <Grid container justifyContent="space-between">
           <Grid item md={9}>
             <Typography color="textSecondary" gutterBottom variant="h6">
-              Submitted
+              Completed Votes
             </Typography>
             <Typography color="textPrimary" variant="h3">
               {data || 0}
@@ -54,7 +49,7 @@ const TotalFinnishBusinesses: FC<React.PropsWithChildren<any>> = ({
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <MoneyIcon />
+              <InsertChartIcon />
             </Avatar>
           </Grid>
         </Grid>
@@ -62,8 +57,9 @@ const TotalFinnishBusinesses: FC<React.PropsWithChildren<any>> = ({
     </Card>
   );
 };
-TotalFinnishBusinesses.propTypes = {
+
+CompletedVotes.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalFinnishBusinesses;
+export default CompletedVotes;

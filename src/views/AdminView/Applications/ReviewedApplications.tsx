@@ -9,16 +9,16 @@ import { RemoveRedEye } from '@mui/icons-material';
 import axios from '../../../clientProvider/baseConfig';
 import Loading from '../../../components/Loading';
 
-const getUser = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Innovation/view_accepted_innovations');
+const getApp = async (): Promise<any[]> => {
+  const { data } = await axios.get('/Innovation/view_reviewed_innovations');
   return data.Innovations;
 };
 
-const AcceptedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
+const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['Teams'], getUser);
+  const { data, isLoading } = useQuery(['Teams'], getApp);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -122,4 +122,4 @@ const AcceptedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   );
 };
 
-export default AcceptedApplications;
+export default ReviewedApplications;

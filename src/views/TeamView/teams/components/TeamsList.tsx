@@ -4,25 +4,28 @@ import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { IconButton, Tooltip } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Button, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import Toolbar from './Toolbar';
-import { CustomModal, useModal } from '../../../../components/Modal';
-import TeamForm from './TeamForm';
+
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
+import { RootState } from '../../../../redux/reducers/rootReducer';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
+import AddTeamMember from './AddTeamMember';
 
-const getUser = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Team/view_teams');
-  return data.Teams;
+const getUser = async (id: string | undefined): Promise<any[]> => {
+  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
+  return data.data;
 };
 
-const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
+const ListTeamMembers = () => {
   const navigate = useNavigate();
-  const { open, handleClose, handleClickOpen } = useModal();
-  const { data, isLoading } = useQuery(['Teams'], getUser);
-
+  const { user } = useSelector((state: RootState) => state.user);
+  const { open, handleClickOpen, handleClose, selected, setSelected } =
+    useModalWithData();
+  const { data, isLoading } = useQuery(['Teams'], () => getUser(user?._id));
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -88,6 +91,49 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const [userId] = tableMeta.rowData;
+
+          return (
+            <Button
+              color="primary"
+              onClick={() => {
+                setSelected(userId);
+                handleClickOpen();
+              }}
+              variant="contained"
+              size="small"
+            >
+              add members
+            </Button>
+          );
+        }
+      }
+    },
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        viewColumns: false,
+        sort: false,
+        customBodyRender: () => {
+          return (
+            <Button disabled size="small" color="primary" variant="contained">
+              View
+            </Button>
+          );
+        }
+      }
+    },
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        viewColumns: false,
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          const [userId] = tableMeta.rowData;
+
           return (
             <Tooltip title="Edit">
               <IconButton
@@ -104,18 +150,16 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
   ];
   return (
     <>
-      <Toolbar handleClickOpen={handleClickOpen} />
-
-      <CustomModal
-        title="ADD USER"
-        subTitle="Add a new user to the dashboard"
-        open={open}
-        maxWidth="sm"
-        handleClose={handleClose}
-      >
-        <TeamForm handleClose={handleClose} />
-      </CustomModal>
-
+      {selected && (
+        <CustomModal
+          title="Team"
+          subTitle="Add team members to team"
+          open={open}
+          handleClose={handleClose}
+        >
+          <AddTeamMember handleClose={handleClose} leadId={selected} />
+        </CustomModal>
+      )}
       <MUIDataTable
         options={{
           elevation: 0,
@@ -123,12 +167,12 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
           responsive: 'simple',
           filterType: 'dropdown'
         }}
-        title="users"
+        title="Team Members"
         columns={columns}
-        data={data || []}
+        data={[data] || []}
       />
     </>
   );
 };
 
-export default UserList;
+export default ListTeamMembers;

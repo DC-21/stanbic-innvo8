@@ -11,7 +11,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  contact: string;
+  contact?: string;
   password: string;
   branch: string;
   gender: string;

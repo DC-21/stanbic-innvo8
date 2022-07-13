@@ -21,8 +21,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 const getTotalUsers = async (): Promise<number> => {
-  const { data } = await axios.get('/Team/count_teams');
-  return data.Teams;
+  const { data } = await axios.get('/User/count_users');
+  return data.Users;
 };
 
 const TotalUsers: FC<React.PropsWithChildren<any>> = ({
