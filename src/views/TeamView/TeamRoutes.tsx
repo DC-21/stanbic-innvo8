@@ -5,6 +5,7 @@ import TeamLayout from '../../layouts/TeamLayout';
 import NotFoundView from '../errors/NotFoundView';
 import AccountView from '../TeamView/account';
 import Dashboard from './dashboard';
+import InnovationProposal from './proposal';
 import TeamsView from './teams';
 
 export const TeamRoutes = [
@@ -16,6 +17,11 @@ export const TeamRoutes = [
       {
         path: 'account',
         element: <AccountView />
+      },
+      {
+        path: 'innovation-proposal',
+
+        element: <InnovationProposal />
       },
       {
         path: 'teams',

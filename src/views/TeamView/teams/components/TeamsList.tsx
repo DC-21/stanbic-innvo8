@@ -170,7 +170,7 @@ const ListTeamMembers = () => {
         }}
         title="Team Members"
         columns={columns}
-        data={data || []}
+        data={[data] || []}
       />
     </>
   );
