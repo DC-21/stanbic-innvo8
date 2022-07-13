@@ -1,11 +1,16 @@
 /* eslint-disable react/function-component-definition */
 import {
   Button,
+  Card,
   CircularProgress,
   FormControlLabel,
   FormLabel,
   Radio,
   RadioGroup,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
   TextField,
   Typography
 } from '@mui/material';
@@ -14,7 +19,7 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
 import { RootState } from '../../../redux/reducers/rootReducer';
@@ -30,6 +35,7 @@ interface Props {
 const ViewSubmission: React.FC<Props> = ({ application }) => {
   const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
   const { id } = useParams();
@@ -47,10 +53,9 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
     onSuccess: (response) => {
       const { message } = response.data;
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-      // setTimeout(() => handleClose(), 1000);
+      setTimeout(() => navigate('/judge/submissions'), 1000);
     },
     onError: (err: AxiosError) => {
-      console.log(err.response?.data);
       dispatch(
         enqueueSnackbar({
           message: err.response?.data,
@@ -66,7 +71,6 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
     const submission = {
       votes: [{ judge: user?._id, score: +data.score }]
     };
-    console.log(submission);
     mutate(submission);
   };
   return (
@@ -80,7 +84,11 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
         marginTop: '5px'
       }}
     >
-      <Typography variant="h5" color="primary">
+      <Typography variant="h3" color="primary">
+        <b>Team: {application?.teamId.name}</b>
+      </Typography>
+      <br />
+      <Typography variant="h6" color="primary">
         1. What’s the title of your innovation?
       </Typography>
       <TextField
@@ -92,7 +100,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
         type="text"
         value={application?.title}
       />
-      <Typography variant="h5" color="primary">
+      <Typography variant="h6" color="primary">
         2. What problem are you solving?
       </Typography>
       <TextField
@@ -104,7 +112,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
         type="text"
         value={application?.problem}
       />
-      <Typography variant="h5" color="primary">
+      <Typography variant="h6" color="primary">
         3. What is the proposed solution?
       </Typography>
       <TextField
@@ -117,7 +125,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
         type="text"
         value={application?.proposedSolution}
       />
-      <Typography variant="h5" color="primary">
+      <Typography variant="h6" color="primary">
         4. Which category/sector does your innovation fall under?
       </Typography>
       <TextField
@@ -129,6 +137,28 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
         type="text"
         value={application?.category}
       />
+      <Card style={{ flexGrow: 1, padding: 20 }}>
+        <Table sx={{ backgroundColor: '#fff' }}>
+          <TableBody>
+            <TableRow>
+              <TableCell>
+                <Typography variant="h6" color="primary">
+                  Total Judges Who Voted
+                </Typography>
+              </TableCell>
+              <TableCell>:{application?.totalVotedJudges}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography variant="h6" color="primary">
+                  Total Votes
+                </Typography>
+              </TableCell>
+              <TableCell>:{application?.totalVotes}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </Card>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div style={{ paddingTop: '15px', paddingBottom: '10px' }}>
           <FormLabel

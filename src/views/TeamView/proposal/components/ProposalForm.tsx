@@ -36,7 +36,6 @@ const ProposalForm = () => {
     isLoading: isLoadingTeam,
     isError
   } = useQuery(['team', user?._id], () => getTeam(user?._id));
-  console.log(teamData, 'teamData');
   const {
     register,
     handleSubmit,

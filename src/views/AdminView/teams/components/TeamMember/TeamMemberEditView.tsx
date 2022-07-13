@@ -13,7 +13,6 @@ const getAdminById = async (userId: string | undefined): Promise<Teams> => {
 
 function TeamMemberEditView() {
   const params = useParams();
-  console.log('userId', params);
   const { isLoading, data } = useQuery(['TeamMembers', params.id], () =>
     getAdminById(params.id)
   );

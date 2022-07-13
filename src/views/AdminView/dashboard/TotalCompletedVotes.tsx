@@ -22,8 +22,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const getBds = async (): Promise<number> => {
-  const data = await axios.get('#');
-  return data.data?.founders;
+  const data = await axios.get('/Innovation/count_accepted_innovations');
+  return data.data?.Innovations;
 };
 
 const TotalBds: FC<React.PropsWithChildren<any>> = ({ className, ...rest }) => {
