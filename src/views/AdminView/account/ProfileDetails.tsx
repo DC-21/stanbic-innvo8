@@ -50,7 +50,7 @@ const ProfileDetails: FunctionComponent<React.PropsWithChildren<Props>> = (
   const { mutate, isLoading } = useMutation(editUser, {
     onSuccess: (response) => {
       const { message } = response.data;
-      dispatch(updateDetails(response.data));
+      dispatch(updateDetails(data));
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
     },
     onError: (err: any) => {
