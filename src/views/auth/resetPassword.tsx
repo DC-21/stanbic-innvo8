@@ -127,7 +127,8 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('Password is required')
-    .min(8, 'Password is too short - should be longer than 8 characters.'),
+    .min(8, 'Password is too short - should be longer than 8 characters.')
+    .max(32, 'Password must be less than 32 characters'),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password'), null, ''], "Passwords don't match")
@@ -234,6 +235,7 @@ function ResetPassword() {
                   variant="outlined"
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
+                  helperText={errors.password?.message}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -248,7 +250,6 @@ function ResetPassword() {
                     )
                   }}
                 />
-                <p>{errors.password?.message}</p>
                 <TextField
                   error={Boolean(errors.confirmPassword?.message)}
                   className={classes.textField}
@@ -257,6 +258,7 @@ function ResetPassword() {
                   variant="outlined"
                   {...register('confirmPassword')}
                   type={showPassword ? 'text' : 'password'}
+                  helperText={errors.confirmPassword?.message}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -271,8 +273,6 @@ function ResetPassword() {
                     )
                   }}
                 />
-
-                <p>{errors.confirmPassword?.message}</p>
 
                 <Button
                   className={classes.signInButton}

@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme: any) => ({
   }
 }));
 const grantAccess = async (data: Inputs) => {
-  const { data: response } = await axios.patch('/Auth/forgotpassword', data);
+  const { data: response } = await axios.post('/Auth/forgot_password', data);
   return response;
 };
 interface Inputs {

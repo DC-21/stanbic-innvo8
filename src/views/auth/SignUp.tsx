@@ -13,6 +13,8 @@ import {
   IconButton
 } from '@mui/material';
 // import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
@@ -132,6 +134,14 @@ export interface Data {
   gender: string;
 }
 
+const schema = yup.object().shape({
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password is too short - should be longer than 8 characters.')
+    .max(32, 'Password must be less than 32 characters')
+});
+
 function SignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -147,7 +157,8 @@ function SignUp() {
     control,
     formState: { errors }
   } = useForm<Data>({
-    mode: 'onChange'
+    mode: 'onChange',
+    resolver: yupResolver(schema)
   });
   const { mutate, isLoading } = useMutation(registerAdmin, {
     onSuccess: (data) => {
@@ -255,6 +266,7 @@ function SignUp() {
                   label="Password"
                   variant="outlined"
                   {...register('password')}
+                  helperText={errors.password?.message}
                   type={showPassword ? 'text' : 'password'}
                   InputProps={{
                     endAdornment: (

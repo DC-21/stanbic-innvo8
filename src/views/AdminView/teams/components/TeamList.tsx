@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import { IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import Toolbar from './Toolbar';
+// import Toolbar from './Toolbar';
 import { CustomModal, useModal } from '../../../../components/Modal';
 import TeamForm from './TeamForm';
 import axios from '../../../../clientProvider/baseConfig';
@@ -20,7 +20,7 @@ const getUser = async (): Promise<any[]> => {
 
 const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
-  const { open, handleClose, handleClickOpen } = useModal();
+  const { open, handleClose } = useModal();
   const { data, isLoading } = useQuery(['Teams'], getUser);
 
   if (isLoading) {
@@ -104,7 +104,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
   ];
   return (
     <>
-      <Toolbar handleClickOpen={handleClickOpen} />
+      {/* <Toolbar handleClickOpen={handleClickOpen} /> */}
 
       <CustomModal
         title="ADD USER"

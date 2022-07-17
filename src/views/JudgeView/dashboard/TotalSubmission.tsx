@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import { indigo } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
@@ -46,7 +46,7 @@ const TotalSubmission: FC<React.PropsWithChildren<any>> = ({
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <AttachMoneyIcon />
+              <TipsAndUpdatesIcon />
             </Avatar>
           </Grid>
         </Grid>
