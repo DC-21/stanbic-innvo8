@@ -20,7 +20,7 @@ function Account() {
     <Page className={classes.root} title="Account">
       <Container maxWidth="lg">
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={12} lg={12} md={12} xl={12}>
+          <Grid item xs={12} sm={12} lg={12} md={12}>
             <Profile />
           </Grid>
         </Grid>

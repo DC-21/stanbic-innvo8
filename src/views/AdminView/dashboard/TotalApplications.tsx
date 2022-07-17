@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import { green } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
@@ -45,7 +45,7 @@ const TotalApplications: FC<React.PropsWithChildren<any>> = ({
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <PeopleIcon />
+              <LibraryBooksIcon />
             </Avatar>
           </Grid>
         </Grid>

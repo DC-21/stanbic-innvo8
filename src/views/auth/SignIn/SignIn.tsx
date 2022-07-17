@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
 import { loginSuccess } from '../../../redux/actions/userActions/userActions';
@@ -123,6 +125,14 @@ const grantAccess = async (user: Inputs) => {
 
 type Inputs = { email: string; password: string };
 
+const schema = yup.object().shape({
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password is too short - should be longer than 8 characters.')
+    .max(32, 'Password must be less than 32 characters')
+});
+
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -137,7 +147,8 @@ function SignIn() {
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>({
-    mode: 'onChange'
+    mode: 'onChange',
+    resolver: yupResolver(schema)
   });
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
@@ -227,6 +238,7 @@ function SignIn() {
                   variant="outlined"
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
+                  helperText={errors.password?.message}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">

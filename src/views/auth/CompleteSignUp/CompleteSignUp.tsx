@@ -17,6 +17,8 @@ import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { AxiosError } from 'axios';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
 import Logo from '../../../components/Logo';
@@ -118,12 +120,25 @@ const useStyles = makeStyles((theme: any) => ({
 export interface Data {
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 const registerAdmin = async (admin: Data) => {
   const { data: response } = await axios.patch('/Auth/set_password', admin);
   return response;
 };
+
+const schema = yup.object().shape({
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password is too short - should be longer than 8 characters.')
+    .max(32, 'Password must be less than 32 characters'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null, ''], "Passwords don't match")
+    .required('Password confirmation is required')
+});
 
 function CompleteSignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -139,7 +154,8 @@ function CompleteSignUp() {
     handleSubmit,
     formState: { errors }
   } = useForm<Data>({
-    mode: 'onChange'
+    mode: 'onChange',
+    resolver: yupResolver(schema)
   });
   const { mutate, isLoading } = useMutation(registerAdmin, {
     onSuccess: (data) => {
@@ -194,7 +210,7 @@ function CompleteSignUp() {
                   gutterBottom
                   style={{ textAlign: 'center' }}
                 >
-                  Hey there! Lets get Started
+                  <p>Hey there! enter your email and create your password</p>
                 </Typography>
 
                 <TextField
@@ -214,6 +230,30 @@ function CompleteSignUp() {
                   variant="outlined"
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
+                  helperText={errors.password?.message}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <TextField
+                  error={Boolean(errors.confirmPassword?.message)}
+                  className={classes.textField}
+                  fullWidth
+                  label="Confirm Password"
+                  variant="outlined"
+                  {...register('confirmPassword')}
+                  type={showPassword ? 'text' : 'password'}
+                  helperText={errors.confirmPassword?.message}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">

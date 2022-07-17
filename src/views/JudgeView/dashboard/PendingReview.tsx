@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import { green } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 }));
 const getPendingReview = async (): Promise<number> => {
   const data = await axios.get('/Innovation/count_pending_innovations');
-  return data.data.Innovations;
+  return data.data?.Innovations;
 };
 
 const PendingReview: FC<React.PropsWithChildren<any>> = ({
@@ -45,7 +45,7 @@ const PendingReview: FC<React.PropsWithChildren<any>> = ({
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <PeopleIcon />
+              <PendingActionsIcon />
             </Avatar>
           </Grid>
         </Grid>

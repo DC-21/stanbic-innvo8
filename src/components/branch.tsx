@@ -29,6 +29,6 @@ const branch = [
   'Solwezi Branch',
   'Soweto Branch',
   'Waterfalls Mall Branch',
-  'Woodlans Mall Branch'
+  'Woodlands Mall Branch'
 ];
 export default branch;

@@ -106,9 +106,7 @@ function TopBar({ className, onMobileNavOpen, ...rest }: Props) {
             // src={user.avatar}
             to="/judge/account"
             style={{ marginLeft: 'auto', flex: 1 }}
-            {...stringAvatar(
-              `${user?.firstName.toUpperCase()} ${user?.lastName.toUpperCase()}`
-            )}
+            {...stringAvatar(`${user?.firstName} ${user?.lastName}`)}
           />
         </Box>
         <Hidden lgUp>
