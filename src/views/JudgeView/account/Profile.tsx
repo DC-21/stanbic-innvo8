@@ -1,60 +1,24 @@
-/* eslint-disable react/function-component-definition */
 import React from 'react';
-import clsx from 'clsx';
-// import moment from 'moment';
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography
-} from '@mui/material';
+import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-import makeStyles from '@mui/styles/makeStyles';
+import { axios } from '../../../clientProvider';
+import Loading from '../../../components/Loading';
 import { RootState } from '../../../redux/reducers/rootReducer';
+import { User } from '../../../types';
+import ProfileDetails from './ProfileDetails';
 
-const useStyles = makeStyles(() => ({
-  root: {},
-  avatar: {
-    height: 100,
-    width: 100
-  }
-}));
-
-interface Props {
-  className?: string;
-}
-const Profile: React.FC<Props> = ({ className, ...rest }) => {
+function Profile() {
   const { user } = useSelector((store: RootState) => store.user);
-  const classes = useStyles();
+  const id = user?._id;
+  const getAdminById = async (): Promise<User> => {
+    const { data } = await axios.get(`/Admin/view_admin/${id}`);
+    return data.data;
+  };
+  const { isLoading, data } = useQuery(['admin', id], () => getAdminById());
 
-  return (
-    <Card className={clsx(classes.root, className)} {...rest}>
-      <CardContent>
-        <Box alignItems="center" display="flex" flexDirection="column">
-          <Avatar className={classes.avatar} />
-          <Typography color="textPrimary" gutterBottom variant="h3">
-            {user?.firstName}
-          </Typography>
-          <Typography color="textSecondary" variant="body1">
-            {`${user?.lastName}`}
-          </Typography>
-          <Typography color="textSecondary" variant="body1">
-            {`${user?.email}`}
-          </Typography>
-        </Box>
-      </CardContent>
-      <Divider />
-      <CardActions>
-        <Button color="primary" fullWidth variant="text">
-          Upload picture
-        </Button>
-      </CardActions>
-    </Card>
-  );
-};
+  if (isLoading) return <Loading size={40} />;
+  if (!data) return null;
+  return <ProfileDetails data={data} />;
+}
 
 export default Profile;

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import MoneyIcon from '@mui/icons-material/Money';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
@@ -54,7 +54,7 @@ const TotalPendingSubmissions: FC<React.PropsWithChildren<any>> = ({
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <MoneyIcon />
+              <PendingActionsIcon />
             </Avatar>
           </Grid>
         </Grid>
