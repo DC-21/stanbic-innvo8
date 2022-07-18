@@ -9,16 +9,16 @@ import { RemoveRedEye } from '@mui/icons-material';
 import axios from '../../../clientProvider/baseConfig';
 import Loading from '../../../components/Loading';
 
-const getPendingSubmissions = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Innovation/view_pending_innovations');
+const getApp = async (): Promise<any[]> => {
+  const { data } = await axios.get('/Innovation/view_reviewed_innovations');
   return data.Innovations;
 };
 
-const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
+const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['submissions'], getPendingSubmissions);
+  const { data, isLoading } = useQuery(['Teams'], getApp);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -59,12 +59,26 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
+      name: 'totalVotes',
+      label: 'Total Votes',
+      options: {
+        filter: true,
+        sort: false,
+        viewColumns: false
+      }
+    },
+    {
       name: 'status',
       label: 'Status',
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value) => <Chip label={value} />
+        customBodyRender: (value) => (
+          <Chip
+            sx={{ backgroundColor: '#0133a1', color: '#fff' }}
+            label={value}
+          />
+        )
       }
     },
     {
@@ -78,7 +92,7 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
           const [userId] = tableMeta.rowData;
           return (
             <Button
-              variant="contained"
+              variant="outlined"
               color="primary"
               onClick={() => {
                 navigate(`${location.pathname}/view/${userId}`);
@@ -108,4 +122,4 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   );
 };
 
-export default PendingSubmissions;
+export default ReviewedApplications;

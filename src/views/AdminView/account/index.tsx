@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Container, Grid } from '@mui/material';
 import Page from '../../../components/Page';
-import ProfileDetails from './ProfileDetails';
+// import ProfileDetails from './ProfileDetails';
+import Profile from './Profile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,11 +20,8 @@ function Account() {
     <Page className={classes.root} title="Account">
       <Container maxWidth="lg">
         <Grid container spacing={3}>
-          <Grid item lg={4} md={6} xs={12}>
-            {/* <Profile /> */}
-          </Grid>
-          <Grid item lg={12} md={12} xs={12}>
-            <ProfileDetails />
+          <Grid item xs={12} sm={12} lg={12} md={12}>
+            <Profile />
           </Grid>
         </Grid>
       </Container>

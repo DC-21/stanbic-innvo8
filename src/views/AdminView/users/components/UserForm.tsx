@@ -51,7 +51,7 @@ const UserForm: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
     onError: (err: any) => {
       dispatch(
         enqueueSnackbar({
-          message: err?.response?.data?.message,
+          message: err?.response?.data,
           options: { variant: 'error' }
         })
       );

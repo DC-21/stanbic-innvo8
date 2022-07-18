@@ -52,7 +52,7 @@ const UserEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
       setTimeout(() => navigate(-1), 1000);
     },
     onError: (err: any) => {
-      const message = err.response.data.message || err.message;
+      const message = err.response?.data;
       dispatch(
         enqueueSnackbar({
           message,
@@ -149,28 +149,6 @@ const UserEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
               name="gender"
               control={control}
             />
-            {/* <Controller
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  select
-                  label="Location"
-                  variant="outlined"
-                  value={value}
-                  onChange={onChange}
-                  margin="normal"
-                  size="small"
-                  fullWidth
-                >
-                  {branch.map((item) => {
-                    // eslint-disable-next-line react/jsx-key
-                    return <MenuItem value={item}>{item}</MenuItem>;
-                  })}
-                </TextField>
-              )}
-              rules={{ required: true }}
-              name="branch"
-              control={control}
-            /> */}
             <DialogActions>
               <Button
                 disabled={isLoading}

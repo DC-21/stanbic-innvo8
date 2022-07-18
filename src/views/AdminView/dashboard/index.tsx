@@ -9,6 +9,7 @@ import TotalTeams from './TotalTeams';
 import TotalBds from './TotalCompletedVotes';
 import TotalApplications from './TotalApplications';
 import TotalUsers from './TotalUsers';
+import AllSubmissions from '../../JudgeView/dashboard/AllSubmissions';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,7 +23,6 @@ function Dashboard() {
 
   return (
     <Page title="Dashboard">
-      admin
       <Container className={clsx(classes.root)} maxWidth={false}>
         <Grid container spacing={3}>
           <Grid item lg={4} sm={6} xl={3} xs={12}>
@@ -42,6 +42,9 @@ function Dashboard() {
           </Grid>
           <Grid item lg={4} sm={6} xl={3} xs={12}>
             <TotalBds />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <AllSubmissions />
           </Grid>
         </Grid>
       </Container>

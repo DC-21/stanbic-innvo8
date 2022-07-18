@@ -6,6 +6,7 @@ import {
   AppBar,
   Avatar,
   Box,
+  Divider,
   Hidden,
   IconButton,
   Theme,
@@ -45,8 +46,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   avatarIcon: {
     cursor: 'pointer',
-    width: 54,
-    height: 54,
+    width: 50,
+    height: 50,
     backgroundColor: '#0133A1'
   }
 }));
@@ -105,9 +106,7 @@ function TopBar({ className, onMobileNavOpen, ...rest }: Props) {
             // src={user.avatar}
             to="/judge/account"
             style={{ marginLeft: 'auto', flex: 1 }}
-            {...stringAvatar(
-              `${user?.firstName.toUpperCase()} ${user?.lastName.toUpperCase()}`
-            )}
+            {...stringAvatar(`${user?.firstName} ${user?.lastName}`)}
           />
         </Box>
         <Hidden lgUp>
@@ -122,6 +121,7 @@ function TopBar({ className, onMobileNavOpen, ...rest }: Props) {
           </div>
         </Hidden>
       </Toolbar>
+      <Divider variant="fullWidth" sx={{ backgroundColor: '#0133A1' }} />
     </AppBar>
   );
 }

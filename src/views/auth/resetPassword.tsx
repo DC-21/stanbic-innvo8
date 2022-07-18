@@ -5,23 +5,21 @@ import {
   Button,
   TextField,
   Typography,
-  CircularProgress
+  CircularProgress,
+  InputAdornment,
+  IconButton
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import {
-  useDispatch
-  // useSelector
-} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { axios } from '../../clientProvider';
 import { useNotify } from '../../redux/actions/notifications/notificationActions';
 import Logo from '../../components/Logo';
-// import { loginSuccess } from '../../redux/actions/userActions/userActions';
-// import { RootState } from '../../redux/reducers/rootReducer';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -129,13 +127,17 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('Password is required')
-    .min(8, 'Password is too short - should be longer than 8 characters.'),
+    .min(8, 'Password is too short - should be longer than 8 characters.')
+    .max(32, 'Password must be less than 32 characters'),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password'), null, ''], "Passwords don't match")
     .required('Password confirmation is required')
 });
 function ResetPassword() {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -230,22 +232,47 @@ function ResetPassword() {
                   className={classes.textField}
                   fullWidth
                   label="Password"
-                  type="password"
                   variant="outlined"
                   {...register('password')}
+                  type={showPassword ? 'text' : 'password'}
+                  helperText={errors.password?.message}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
-                <p>{errors.password?.message}</p>
                 <TextField
                   error={Boolean(errors.confirmPassword?.message)}
                   className={classes.textField}
                   fullWidth
                   label="Confirm Password"
-                  type="password"
                   variant="outlined"
                   {...register('confirmPassword')}
+                  type={showPassword ? 'text' : 'password'}
+                  helperText={errors.confirmPassword?.message}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
-
-                <p>{errors.confirmPassword?.message}</p>
 
                 <Button
                   className={classes.signInButton}

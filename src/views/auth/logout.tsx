@@ -1,12 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-// import Pusher from 'pusher-js';
 import { useNotify } from '../../redux/actions/notifications/notificationActions';
 import { logOut } from '../../redux/actions/userActions/userActions';
 
 function Logout() {
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const notification = useNotify();
 

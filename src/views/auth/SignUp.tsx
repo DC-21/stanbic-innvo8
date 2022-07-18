@@ -8,13 +8,18 @@ import {
   Link,
   Typography,
   CircularProgress,
-  MenuItem
+  MenuItem,
+  InputAdornment,
+  IconButton
 } from '@mui/material';
 // import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { axios } from '../../clientProvider';
 import { useNotify } from '../../redux/actions/notifications/notificationActions';
 import Logo from '../../components/Logo';
@@ -129,7 +134,18 @@ export interface Data {
   gender: string;
 }
 
+const schema = yup.object().shape({
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password is too short - should be longer than 8 characters.')
+    .max(32, 'Password must be less than 32 characters')
+});
+
 function SignUp() {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -141,7 +157,8 @@ function SignUp() {
     control,
     formState: { errors }
   } = useForm<Data>({
-    mode: 'onChange'
+    mode: 'onChange',
+    resolver: yupResolver(schema)
   });
   const { mutate, isLoading } = useMutation(registerAdmin, {
     onSuccess: (data) => {
@@ -162,7 +179,6 @@ function SignUp() {
     }
   });
   const onSubmit = (data: Data) => {
-    console.log('zude', data);
     const admin = {
       ...data,
       isActive: true
@@ -231,7 +247,7 @@ function SignUp() {
                   {...register('email')}
                 />
 
-                <TextField
+                {/* <TextField
                   error={!!errors.password}
                   className={classes.textField}
                   fullWidth
@@ -241,19 +257,31 @@ function SignUp() {
                   variant="outlined"
                   {...register('password')}
                   autoComplete="off"
-                />
-                {/* <TextField
-                  error={!!errors.userType}
-                  className={classes.textField}
-                  defaultValue="Team Lead"
+                /> */}
+                <TextField
+                  error={!!errors.password}
                   fullWidth
                   size="small"
-                  label="Role"
-                  type="text"
+                  className={classes.textField}
+                  label="Password"
                   variant="outlined"
-                  {...register('userType')}
-                  disabled
-                /> */}
+                  {...register('password')}
+                  helperText={errors.password?.message}
+                  type={showPassword ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
                 <Controller
                   render={({ field: { onChange, value } }) => (
                     <TextField

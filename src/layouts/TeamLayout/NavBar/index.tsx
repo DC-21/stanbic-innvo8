@@ -1,7 +1,6 @@
 /* eslint-disable react/function-component-definition */
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
@@ -9,7 +8,6 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { Box, Divider, Drawer, Hidden } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import NavItem from './NavItem';
-// import { RootState } from '../../../redux/reducers/rootReducer';
 
 export const items = [
   {
@@ -75,46 +73,24 @@ const NavBar: React.FC<Props> = ({ onMobileClose, openMobile }) => {
   }, [location.pathname]);
 
   const content = (
-    <>
-      <Divider variant="fullWidth" sx={{ color: 'primary.main' }} />
-      <Box
-        height="100%"
-        display="flex"
-        flexDirection="column"
-        sx={{ backgroundColor: '#FAFAFA', border: 'none' }}
-      >
-        {/* <Box
-          alignItems="center"
-          display="flex"
-          flexDirection="column"
-          p={2}
-          sx={{ border: 'none' }}
-        >
-          <Typography color="textSecondary" variant="body2">
-            {user?.email === 'admin@karton.com' ? (
-              <Typography variant="h6">Super Admin</Typography>
-            ) : (
-              user?.sysRole
-            )}
-          </Typography>
-          <Typography color="textPrimary" variant="h5">
-            {user?.firstName} {user?.lastName}
-          </Typography>
-        </Box> */}
-
-        <Box p={2}>
-          <NavItem items={items} />
-        </Box>
-        <br />
-        <br />
-        <br />
-        <br />
-        <Divider />
-        <Box p={2}>
-          <NavItem items={logout} />
-        </Box>
+    <Box
+      height="100%"
+      display="flex"
+      flexDirection="column"
+      sx={{ backgroundColor: '#FAFAFA', border: 'none' }}
+    >
+      <Box p={2}>
+        <NavItem items={items} />
       </Box>
-    </>
+      <br />
+      <br />
+      <br />
+      <br />
+      <Divider />
+      <Box p={2}>
+        <NavItem items={logout} />
+      </Box>
+    </Box>
   );
 
   return (

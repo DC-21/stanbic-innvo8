@@ -6,6 +6,7 @@ import Page from '../../../components/Page';
 import CompletedVotes from './CompletedVotes';
 import PendingReview from './PendingReview';
 import TotalSubmission from './TotalSubmission';
+import AllSubmissions from './AllSubmissions';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -19,7 +20,6 @@ function Dashboard() {
 
   return (
     <Page title="Dashboard">
-      Judge
       <Container className={clsx(classes.root)} maxWidth={false}>
         <Grid container spacing={3}>
           <Grid item lg={4} sm={4} xl={4} xs={12}>
@@ -31,8 +31,10 @@ function Dashboard() {
           <Grid item lg={4} sm={4} xl={4} xs={12}>
             <CompletedVotes />
           </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <AllSubmissions />
+          </Grid>
         </Grid>
-        table
       </Container>
     </Page>
   );

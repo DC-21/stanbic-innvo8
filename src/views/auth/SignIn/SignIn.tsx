@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
 import { loginSuccess } from '../../../redux/actions/userActions/userActions';
@@ -123,6 +125,14 @@ const grantAccess = async (user: Inputs) => {
 
 type Inputs = { email: string; password: string };
 
+const schema = yup.object().shape({
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password is too short - should be longer than 8 characters.')
+    .max(32, 'Password must be less than 32 characters')
+});
+
 function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -137,7 +147,8 @@ function SignIn() {
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>({
-    mode: 'onChange'
+    mode: 'onChange',
+    resolver: yupResolver(schema)
   });
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
@@ -161,7 +172,6 @@ function SignIn() {
       }, 600);
     },
     onError: (error: AxiosError) => {
-      console.log(error.response?.data);
       dispatch(
         enqueueSnackbar({
           message: error.response?.data,
@@ -220,15 +230,6 @@ function SignIn() {
                   variant="outlined"
                   {...register('email')}
                 />
-                {/* <TextField
-                  error={!!errors.password}
-                  className={classes.textField}
-                  fullWidth
-                  label="Password"
-                  type="password"
-                  variant="outlined"
-                  {...register('password')}
-                /> */}
                 <TextField
                   error={!!errors.password}
                   fullWidth
@@ -237,6 +238,7 @@ function SignIn() {
                   variant="outlined"
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
+                  helperText={errors.password?.message}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -269,9 +271,14 @@ function SignIn() {
                   Sign In
                 </Button>
                 <Grid container>
-                  <Grid item xs>
+                  <Grid item xs={6}>
                     <Link href="/forgot-password" variant="body2">
                       Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Link href="/signup" variant="body2">
+                      If you are not registered, Sign up here
                     </Link>
                   </Grid>
                 </Grid>
@@ -279,7 +286,7 @@ function SignIn() {
             </div>
           </div>
         </Grid>
-        <Grid className={classes.quoteContainer} item lg={8}>
+        <Grid className={classes.quoteContainer} item xs={12} lg={8}>
           <div className={classes.quote}>
             {/* <div className={classes.quoteInner}>
               <Typography

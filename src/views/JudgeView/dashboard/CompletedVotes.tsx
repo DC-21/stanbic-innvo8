@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
@@ -24,8 +24,8 @@ interface Props {
 }
 
 const getCompletedVotes = async (): Promise<number> => {
-  const data = await axios.get('#');
-  return data.data?.cohortsCount;
+  const data = await axios.get('/Innovation/count_accepted_innovations');
+  return data.data?.Innovations;
 };
 
 const CompletedVotes: FC<React.PropsWithChildren<Props>> = ({
@@ -49,7 +49,7 @@ const CompletedVotes: FC<React.PropsWithChildren<Props>> = ({
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <InsertChartIcon />
+              <DoneAllIcon />
             </Avatar>
           </Grid>
         </Grid>

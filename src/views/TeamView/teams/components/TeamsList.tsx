@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { Button, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment';
+// import moment from 'moment';
 
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
@@ -26,7 +26,6 @@ const ListTeamMembers = () => {
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
   const { data, isLoading } = useQuery(['Teams'], () => getUser(user?._id));
-  console.log(data, 'data');
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -74,15 +73,15 @@ const ListTeamMembers = () => {
         viewColumns: false
       }
     },
-    {
-      name: 'createdAt',
-      label: 'Created At',
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: (value) => moment(new Date(value)).format('L')
-      }
-    },
+    // {
+    //   name: 'createdAt',
+    //   label: 'Created At',
+    //   options: {
+    //     filter: true,
+    //     sort: false,
+    //     customBodyRender: (value) => moment(new Date(value)).format('L')
+    //   }
+    // },
     {
       name: '',
       label: '',

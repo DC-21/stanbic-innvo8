@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import { indigo } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useQuery } from 'react-query';
 import { axios } from '../../../clientProvider';
 
@@ -22,8 +22,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const getBds = async (): Promise<number> => {
-  const data = await axios.get('#');
-  return data.data?.founders;
+  const data = await axios.get('/Innovation/count_accepted_innovations');
+  return data.data?.Innovations;
 };
 
 const TotalBds: FC<React.PropsWithChildren<any>> = ({ className, ...rest }) => {
@@ -43,7 +43,7 @@ const TotalBds: FC<React.PropsWithChildren<any>> = ({ className, ...rest }) => {
           </Grid>
           <Grid item md={3}>
             <Avatar className={classes.avatar}>
-              <AttachMoneyIcon />
+              <DoneAllIcon />
             </Avatar>
           </Grid>
         </Grid>
