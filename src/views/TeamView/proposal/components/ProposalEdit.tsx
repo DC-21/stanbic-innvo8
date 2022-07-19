@@ -1,26 +1,16 @@
 /* eslint-disable react/function-component-definition */
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CircularProgress,
-  TextField,
-  Typography,
-  Container
-} from '@mui/material';
+import { Button, CircularProgress, TextField, Typography } from '@mui/material';
 
 import { AxiosError } from 'axios';
-import { isEmpty } from 'lodash';
+
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useQueryClient, useMutation, useQuery } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { axios } from '../../../../clientProvider';
-import Loading from '../../../../components/Loading';
+
 import { RootState } from '../../../../redux/reducers/rootReducer';
 
 export type ProposalFormInputs = {
@@ -31,23 +21,13 @@ export type ProposalFormInputs = {
   teamId: string | undefined;
 };
 
-const getTeam = async (
-  id: string | undefined
-): Promise<Record<string, string>> => {
-  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
-  return data.data;
-};
-const ProposalForm = () => {
+const ProposalEdit = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const { user } = useSelector((state: RootState) => state.user);
-  const {
-    data: teamData,
-    isLoading: isLoadingTeam,
-    isError
-  } = useQuery(['team', user?._id], () => getTeam(user?._id));
+  console.log(user);
   const {
     register,
     handleSubmit,
@@ -75,43 +55,10 @@ const ProposalForm = () => {
   );
   const onSubmit = (data: ProposalFormInputs) => {
     const formData = {
-      ...data,
-      leadId: user?._id,
-      teamId: teamData?._id
+      ...data
     };
     mutate(formData);
   };
-
-  if (isLoadingTeam) return <Loading size={45} />;
-  if (isError) return <div>Error</div>;
-  if (isEmpty(teamData)) {
-    return (
-      <Container sx={{ mt: 15 }} maxWidth="md">
-        <Card sx={{ m: 'auto' }}>
-          <CardContent>
-            <Typography sx={{ textTransform: 'uppercase' }} variant="h2">
-              No team found
-            </Typography>
-            <Typography variant="h4">
-              You are not a member of any team. Please contact your lead to join
-              a team.
-            </Typography>
-          </CardContent>
-          <CardActionArea>
-            <CardActions sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <Button
-                onClick={() => navigate('/team/teams')}
-                variant="contained"
-                color="primary"
-              >
-                Create Team
-              </Button>
-            </CardActions>
-          </CardActionArea>
-        </Card>
-      </Container>
-    );
-  }
 
   return (
     <div
@@ -196,4 +143,4 @@ const ProposalForm = () => {
   );
 };
 
-export default ProposalForm;
+export default ProposalEdit;
