@@ -18,7 +18,7 @@ const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['Teams'], getApp);
+  const { data, isLoading } = useQuery(['submissions'], getApp);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -115,7 +115,7 @@ const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
         responsive: 'simple',
         filterType: 'dropdown'
       }}
-      title="users"
+      title="Applications"
       columns={columns}
       data={data || []}
     />

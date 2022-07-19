@@ -129,7 +129,6 @@ export interface Data {
   lastName: string;
   email: string;
   password: string;
-  userType: string;
   branch: string;
   gender: string;
 }
@@ -181,7 +180,8 @@ function SignUp() {
   const onSubmit = (data: Data) => {
     const admin = {
       ...data,
-      isActive: true
+      isActive: true,
+      userType: 'Team Lead'
     };
     mutate(admin);
   };
@@ -246,18 +246,6 @@ function SignUp() {
                   variant="outlined"
                   {...register('email')}
                 />
-
-                {/* <TextField
-                  error={!!errors.password}
-                  className={classes.textField}
-                  fullWidth
-                  size="small"
-                  label="Password"
-                  type="password"
-                  variant="outlined"
-                  {...register('password')}
-                  autoComplete="off"
-                /> */}
                 <TextField
                   error={!!errors.password}
                   fullWidth
@@ -281,25 +269,6 @@ function SignUp() {
                       </InputAdornment>
                     )
                   }}
-                />
-                <Controller
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      select
-                      label="Role"
-                      variant="outlined"
-                      value={value}
-                      onChange={onChange}
-                      margin="normal"
-                      size="small"
-                      fullWidth
-                    >
-                      <MenuItem value="Team Lead">Team Lead</MenuItem>
-                    </TextField>
-                  )}
-                  rules={{ required: true }}
-                  name="userType"
-                  control={control}
                 />
                 <Controller
                   render={({ field: { onChange, value } }) => (

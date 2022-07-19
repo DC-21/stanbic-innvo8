@@ -121,8 +121,8 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             Total Votes: {application?.totalVotes}
           </Typography>
           <Typography variant="h5" color="primary">
-            Team Lead: {application?.teamId?.leadId.firstName}{' '}
-            {application?.teamId?.leadId.lastName}
+            Team Lead: {application?.teamId?.leadId?.firstName}{' '}
+            {application?.teamId?.leadId?.lastName}
           </Typography>
         </Grid>
       </Grid>

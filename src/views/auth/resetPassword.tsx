@@ -143,9 +143,7 @@ function ResetPassword() {
   const navigate = useNavigate();
   const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
-  // const location = useLocation();
-  // const urlString = location.pathname.split('/');
-  // const resetPasswordToken = urlString[2];
+
   const {
     register,
     handleSubmit,
@@ -155,8 +153,6 @@ function ResetPassword() {
     mode: 'onChange',
     resolver: yupResolver(schema)
   });
-  // const password = useRef({});
-  // password.current = watch('password', '');
 
   const grantAccess = async (data: Inputs) => {
     const { data: response } = await axios.patch(`/Auth/reset_password`, data);
@@ -226,7 +222,6 @@ function ResetPassword() {
                   variant="outlined"
                   {...register('resetPin')}
                 />
-                <p>{errors.password?.message}</p>
                 <TextField
                   error={Boolean(errors.password?.message)}
                   className={classes.textField}
