@@ -19,7 +19,7 @@ export const TeamRoutes = [
         element: <AccountView />
       },
       {
-        path: 'innovation-proposal',
+        path: 'innovation-idea',
 
         element: <InnovationProposal />
       },

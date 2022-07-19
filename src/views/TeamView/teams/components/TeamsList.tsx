@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/function-component-definition */
 import * as React from 'react';
+import { isEmpty } from 'lodash';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
@@ -26,6 +27,8 @@ const ListTeamMembers = () => {
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
   const { data, isLoading } = useQuery(['Teams'], () => getUser(user?._id));
+
+  console.log(data, 'team data');
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -169,7 +172,7 @@ const ListTeamMembers = () => {
         }}
         title="Team Members"
         columns={columns}
-        data={[data] || []}
+        data={isEmpty(data) ? [] : [data]}
       />
     </>
   );

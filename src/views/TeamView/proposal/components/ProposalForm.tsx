@@ -1,6 +1,18 @@
 /* eslint-disable react/function-component-definition */
-import { Button, CircularProgress, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CircularProgress,
+  TextField,
+  Typography,
+  Container
+} from '@mui/material';
+
 import { AxiosError } from 'axios';
+import { isEmpty } from 'lodash';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -64,12 +76,43 @@ const ProposalForm = () => {
   const onSubmit = (data: ProposalFormInputs) => {
     const formData = {
       ...data,
+      leadId: user?._id,
       teamId: teamData?._id
     };
     mutate(formData);
   };
+
   if (isLoadingTeam) return <Loading size={45} />;
   if (isError) return <div>Error</div>;
+  if (isEmpty(teamData)) {
+    return (
+      <Container sx={{ mt: 15 }} maxWidth="md">
+        <Card sx={{ m: 'auto' }}>
+          <CardContent>
+            <Typography sx={{ textTransform: 'uppercase' }} variant="h2">
+              No team found
+            </Typography>
+            <Typography variant="h4">
+              You are not a member of any team. Please contact your lead to join
+              a team.
+            </Typography>
+          </CardContent>
+          <CardActionArea>
+            <CardActions sx={{ display: 'flex', alignItems: 'flex-end' }}>
+              <Button
+                onClick={() => navigate('/team/teams')}
+                variant="contained"
+                color="primary"
+              >
+                Create Team
+              </Button>
+            </CardActions>
+          </CardActionArea>
+        </Card>
+      </Container>
+    );
+  }
+
   return (
     <div
       style={{
@@ -123,7 +166,7 @@ const ProposalForm = () => {
           type="text"
         />
         <Typography variant="h5" color="primary">
-          4. Which category/sector does your innovation fall under?
+          4. What Challenge Statement Does Your solution address?
         </Typography>
         <TextField
           error={Boolean(errors.category)}
