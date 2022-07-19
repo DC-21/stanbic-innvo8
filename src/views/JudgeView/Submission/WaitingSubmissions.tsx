@@ -20,7 +20,10 @@ const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['submissions'], getPendingSubmissions);
+  const { data, isLoading } = useQuery(
+    ['WaitingSubmissions'],
+    getPendingSubmissions
+  );
 
   const { selected, setSelected, open, handleClose, handleClickOpen } =
     useModalWithData();
@@ -47,7 +50,7 @@ const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
           responsive: 'simple',
           filterType: 'dropdown'
         }}
-        title="Application"
+        title="Waiting submissions"
         columns={[
           {
             name: '_id',

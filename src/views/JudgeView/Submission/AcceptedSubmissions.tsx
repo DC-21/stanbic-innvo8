@@ -20,7 +20,7 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['submissions'], getSubmissions);
+  const { data, isLoading } = useQuery(['AcceptedSubmissions'], getSubmissions);
 
   const { selected, setSelected, open, handleClose, handleClickOpen } =
     useModalWithData();
@@ -47,7 +47,7 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
           responsive: 'simple',
           filterType: 'dropdown'
         }}
-        title="Application"
+        title="Accepted submissions"
         columns={[
           {
             name: '_id',

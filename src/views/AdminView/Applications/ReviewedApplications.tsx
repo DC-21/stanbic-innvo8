@@ -18,7 +18,7 @@ const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['submissions'], getApp);
+  const { data, isLoading } = useQuery(['ReviewedSubmissions'], getApp);
 
   if (isLoading) {
     return <Loading size={40} />;

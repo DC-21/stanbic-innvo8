@@ -18,7 +18,10 @@ const WaitingApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['submissions'], getPendingSubmissions);
+  const { data, isLoading } = useQuery(
+    ['WaitingSubmissions'],
+    getPendingSubmissions
+  );
 
   if (isLoading) {
     return <Loading size={40} />;
