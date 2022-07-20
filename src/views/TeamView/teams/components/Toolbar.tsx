@@ -26,14 +26,14 @@ const Toolbar = ({ className, handleClickOpen, ...rest }: ToolbarProps) => {
 
   return (
     <div className={clsx(classes.root, className)} {...rest}>
-      <Box display="flex" justifyContent="flex-end">
+      <Box sx={{ mt: 6, mb: 6 }} display="flex" justifyContent="flex-end">
         <Button
           startIcon={<AddCircleOutline />}
           onClick={handleClickOpen}
           color="primary"
           variant="contained"
         >
-          Team
+          Create New Team
         </Button>
       </Box>
     </div>

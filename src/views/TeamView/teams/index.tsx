@@ -5,7 +5,7 @@ import ListTeamMembers from './components/TeamsList';
 import Toolbar from './components/Toolbar';
 import AddTeam from './components/AddTeam';
 
-function TeamsView() {
+function TeamsListView() {
   const { open, handleClickOpen, handleClose } = useModal();
   return (
     <Container maxWidth="lg">
@@ -23,4 +23,4 @@ function TeamsView() {
   );
 }
 
-export default TeamsView;
+export default TeamsListView;
