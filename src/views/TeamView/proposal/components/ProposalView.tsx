@@ -137,38 +137,38 @@ function ProposalView() {
                   <TableCell variant="head">TEAM MEMBERS INFORMATION</TableCell>
                   <TableCell />
                 </TableRow>
-                {data?.teamId.members && data?.teamId?.members.length > 0
-                  ? data?.teamId.members.map((member) => (
-                      <>
-                        <Table size="small" key={member._id}>
-                          <TableRow>
-                            <TableCell variant="head">First Name</TableCell>
-                            <TableCell>{member.firstName}</TableCell>
-                          </TableRow>
-
-                          <TableRow>
-                            <TableCell variant="head">Last Name</TableCell>
-                            <TableCell>{member.lastName}</TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell variant="head">Email</TableCell>
-                            <TableCell>{member.email}</TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell variant="head">Branch name</TableCell>
-                            <TableCell>{member.branch}</TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell variant="head">Gender</TableCell>
-                            <TableCell>{data?.leadId?.gender}</TableCell>
-                          </TableRow>
-                        </Table>
-                        <br />
-                        <br />
-                      </>
-                    ))
-                  : null}
               </Table>
+              {data?.teamId.members && data?.teamId?.members.length > 0
+                ? data?.teamId.members.map((member) => (
+                    <>
+                      <Table size="small" key={member._id}>
+                        <TableRow>
+                          <TableCell variant="head">First Name</TableCell>
+                          <TableCell>{member.firstName}</TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                          <TableCell variant="head">Last Name</TableCell>
+                          <TableCell>{member.lastName}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell variant="head">Email</TableCell>
+                          <TableCell>{member.email}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell variant="head">Branch name</TableCell>
+                          <TableCell>{member.branch}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell variant="head">Gender</TableCell>
+                          <TableCell>{data?.leadId?.gender}</TableCell>
+                        </TableRow>
+                      </Table>
+                      <br />
+                      <br />
+                    </>
+                  ))
+                : null}
             </CardContent>
           </Card>
         </Grid>

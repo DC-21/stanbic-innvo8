@@ -102,7 +102,7 @@ const ListTeamMembers = () => {
                 setSelected(userId);
                 handleClickOpen();
               }}
-              variant="contained"
+              variant="outlined"
               size="small"
             >
               add members
@@ -118,9 +118,15 @@ const ListTeamMembers = () => {
         filter: true,
         viewColumns: false,
         sort: false,
-        customBodyRender: () => {
+        customBodyRender: (value, tableMeta) => {
+          const [id] = tableMeta.rowData;
           return (
-            <Button disabled size="small" color="primary" variant="contained">
+            <Button
+              onClick={() => navigate('/team/teams/view', { state: { id } })}
+              size="small"
+              color="primary"
+              variant="contained"
+            >
               View
             </Button>
           );
