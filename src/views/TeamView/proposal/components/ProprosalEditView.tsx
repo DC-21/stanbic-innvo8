@@ -5,7 +5,17 @@ import { axios } from '../../../../clientProvider';
 import Loading from '../../../../components/Loading';
 import ProposalEdit from './ProposalEdit';
 
-const getInnovationProposal = async (id: any): Promise<Record<any, any>> => {
+export interface Proposal {
+  _id?: string;
+  title: string;
+  category: string;
+  problem: string;
+  proposedSolution: string;
+  status: string;
+  teamId: string | undefined;
+}
+
+const getInnovationProposal = async (id: any): Promise<Proposal> => {
   // eslint-disable-next-line no-shadow
   const { data } = await axios.get(
     // @ts-ignore
@@ -27,10 +37,10 @@ function ProposalEditView() {
   if (isLoading) {
     return <Loading size={40} />;
   }
-  console.log(data, 'proposal edit view');
+
   if (isError) {
     return <div>Error</div>;
   }
-  return <ProposalEdit />;
+  return <ProposalEdit proposal={data} />;
 }
 export default ProposalEditView;

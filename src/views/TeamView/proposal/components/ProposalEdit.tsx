@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { axios } from '../../../../clientProvider';
 
 import { RootState } from '../../../../redux/reducers/rootReducer';
+import { Proposal } from './ProprosalEditView';
 
 export type ProposalFormInputs = {
   title: string;
@@ -21,7 +22,11 @@ export type ProposalFormInputs = {
   teamId: string | undefined;
 };
 
-const ProposalEdit = () => {
+interface ProposalEditProps {
+  proposal: Omit<Proposal, 'status'>;
+}
+
+const ProposalEdit = ({ proposal }: ProposalEditProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -33,16 +38,19 @@ const ProposalEdit = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<ProposalFormInputs>({
-    mode: 'onChange'
+    mode: 'onChange',
+    defaultValues: {
+      ...proposal
+    }
   });
   const { mutate, isLoading } = useMutation(
     async (data: ProposalFormInputs) =>
-      axios.post('/Innovation/new_innovation', data),
+      axios.put(`/Innovation/edit_innovation/${proposal._id}`, data),
     {
       onSuccess: (response) => {
         const { message } = response.data;
         enqueueSnackbar(message, { variant: 'success' });
-        setTimeout(() => navigate('/team/dashboard'), 1500);
+        setTimeout(() => navigate(-1), 1500);
       },
       onError: (error: AxiosError) => {
         enqueueSnackbar(error.response?.data, { variant: 'error' });
