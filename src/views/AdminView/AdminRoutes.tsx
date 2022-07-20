@@ -12,6 +12,7 @@ import NotFoundView from '../errors/NotFoundView';
 import TeamMemberEditView from './teams/components/TeamMember/TeamMemberEditView';
 import Applications from './Applications';
 import ApplicationViewDetails from './Applications/ApplicationViewDetails';
+import TeamDetails from './teams/components/TeamDetails';
 
 export const AdminRoutes = [
   {
@@ -34,6 +35,10 @@ export const AdminRoutes = [
       {
         path: 'teams',
         element: <Teams />
+      },
+      {
+        path: 'teams/view/:id',
+        element: <TeamDetails />
       },
       {
         path: 'teams/edit/:id',

@@ -15,12 +15,29 @@ export interface User {
   __v: number;
   password: string;
 }
+export interface LeadId {
+  _id: string;
+  userType: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  gender: string;
+  branch: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+  teamId: string;
+  resetPin: string;
+}
 
 export interface Teams {
   _id: string;
   name: string;
   description: string;
-  leadId: User;
+  leadId: LeadId;
+  members: User[];
   createdAt: Date;
   updatedAt: Date;
   __v: number;
@@ -36,6 +53,7 @@ export interface Application {
   category: string;
   problem: string;
   proposedSolution: string;
+  leadId: LeadId;
   status: string;
   teamId: Teams;
   votes: Vote;
