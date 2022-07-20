@@ -5,7 +5,7 @@ import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
 import { Box, Button, Chip, Typography } from '@mui/material';
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { RemoveRedEye, AddCircleOutline } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { isArray } from 'lodash';
@@ -23,7 +23,6 @@ const getIdeasByTeamLead = async (
 const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
 
-  const location = useLocation();
   const { user } = useSelector((state: RootState) => state.user);
 
   const { data, isLoading } = useQuery(['submissions'], () =>
@@ -85,13 +84,13 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
         viewColumns: false,
         sort: false,
         customBodyRender: (value, tableMeta) => {
-          const [userId] = tableMeta.rowData;
+          const [id] = tableMeta.rowData;
           return (
             <Button
               variant="contained"
               color="primary"
               onClick={() => {
-                navigate(`${location.pathname}/view/${userId}`);
+                navigate('/team/innovation-view', { state: { id } });
               }}
               size="small"
               startIcon={<RemoveRedEye />}
