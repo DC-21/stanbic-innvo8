@@ -44,6 +44,84 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
     return response;
   };
 
+  const disableVoting = () => {
+    if (
+      application?.status === 'Accepted' ||
+      application?.status === 'Waiting'
+    ) {
+      return <div style={{ display: 'none' }} />;
+    }
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div style={{ paddingTop: '15px', paddingBottom: '10px' }}>
+          <FormLabel
+            id="demo-controlled-radio-buttons-group"
+            sx={{ color: '#0133a1' }}
+          >
+            <b>Vote Here</b>
+          </FormLabel>
+          <Controller
+            render={({ field: { onChange, value } }) => (
+              <RadioGroup
+                row
+                aria-label="score"
+                value={value}
+                onChange={onChange}
+              >
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={1}
+                  control={<Radio />}
+                  label="1"
+                />
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={2}
+                  control={<Radio />}
+                  label="2"
+                />
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={3}
+                  control={<Radio />}
+                  label="3"
+                />
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={4}
+                  control={<Radio />}
+                  label="4"
+                />
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={5}
+                  control={<Radio />}
+                  label="5"
+                />
+              </RadioGroup>
+            )}
+            rules={{ required: true }}
+            name="score"
+            control={control}
+          />
+        </div>
+        <div style={{ paddingTop: '15px', gap: '2px' }}>
+          <Button
+            sx={{ gap: '2px', marginRight: '10px' }}
+            variant="contained"
+            color="primary"
+            type="submit"
+            startIcon={
+              isLoading ? <CircularProgress color="inherit" size={26} /> : null
+            }
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
+    );
+  };
+
   const { control, handleSubmit } = useForm<Inputs>({ mode: 'onChange' });
   const { mutate, isLoading } = useMutation(createScore, {
     onSuccess: (response) => {
@@ -183,9 +261,16 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
             Total Votes: {application?.totalVotes}
           </Typography>
           <Typography variant="h5" color="primary">
-            Team Lead: {application?.teamId?.leadId.firstName}{' '}
-            {application?.teamId?.leadId.lastName}
+            Team Lead: {application?.leadId?.firstName}{' '}
+            {application?.leadId?.lastName}
           </Typography>
+          {application?.teamId.members.map((item) => {
+            return (
+              <Typography variant="h5" color="primary" key={item._id}>
+                Team Member: {item?.firstName} {item?.lastName}
+              </Typography>
+            );
+          })}
         </Grid>
         <Grid
           item
@@ -205,75 +290,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
             borderRadius: '10px'
           }}
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div style={{ paddingTop: '15px', paddingBottom: '10px' }}>
-              <FormLabel
-                id="demo-controlled-radio-buttons-group"
-                sx={{ color: '#0133a1' }}
-              >
-                <b>Vote Here</b>
-              </FormLabel>
-              <Controller
-                render={({ field: { onChange, value } }) => (
-                  <RadioGroup
-                    row
-                    aria-label="score"
-                    value={value}
-                    onChange={onChange}
-                  >
-                    <FormControlLabel
-                      labelPlacement="bottom"
-                      value={1}
-                      control={<Radio />}
-                      label="1"
-                    />
-                    <FormControlLabel
-                      labelPlacement="bottom"
-                      value={2}
-                      control={<Radio />}
-                      label="2"
-                    />
-                    <FormControlLabel
-                      labelPlacement="bottom"
-                      value={3}
-                      control={<Radio />}
-                      label="3"
-                    />
-                    <FormControlLabel
-                      labelPlacement="bottom"
-                      value={4}
-                      control={<Radio />}
-                      label="4"
-                    />
-                    <FormControlLabel
-                      labelPlacement="bottom"
-                      value={5}
-                      control={<Radio />}
-                      label="5"
-                    />
-                  </RadioGroup>
-                )}
-                rules={{ required: true }}
-                name="score"
-                control={control}
-              />
-            </div>
-            <div style={{ paddingTop: '15px', gap: '2px' }}>
-              <Button
-                sx={{ gap: '2px', marginRight: '10px' }}
-                variant="contained"
-                color="primary"
-                type="submit"
-                startIcon={
-                  isLoading ? (
-                    <CircularProgress color="inherit" size={26} />
-                  ) : null
-                }
-              >
-                Submit
-              </Button>
-            </div>
-          </form>
+          {disableVoting()}
         </Grid>
       </Grid>
     </div>

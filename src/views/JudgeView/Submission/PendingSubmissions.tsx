@@ -18,7 +18,10 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['submissions'], getPendingSubmissions);
+  const { data, isLoading } = useQuery(
+    ['PendingSubmissions'],
+    getPendingSubmissions
+  );
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -78,7 +81,7 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
           const [userId] = tableMeta.rowData;
           return (
             <Button
-              variant="contained"
+              variant="outlined"
               color="primary"
               onClick={() => {
                 navigate(`${location.pathname}/view/${userId}`);
@@ -101,7 +104,7 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
         responsive: 'simple',
         filterType: 'dropdown'
       }}
-      title="users"
+      title="Pending submissions"
       columns={columns}
       data={data || []}
     />

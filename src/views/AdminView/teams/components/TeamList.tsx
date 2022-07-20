@@ -4,10 +4,11 @@ import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { IconButton, Tooltip } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Button, IconButton, Tooltip } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 // import Toolbar from './Toolbar';
+import { RemoveRedEye } from '@mui/icons-material';
 import { CustomModal, useModal } from '../../../../components/Modal';
 import TeamForm from './TeamForm';
 import axios from '../../../../clientProvider/baseConfig';
@@ -20,6 +21,7 @@ const getUser = async (): Promise<any[]> => {
 
 const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { open, handleClose } = useModal();
   const { data, isLoading } = useQuery(['Teams'], getUser);
 
@@ -100,10 +102,35 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
           );
         }
       }
+    },
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        viewColumns: false,
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          const [userId] = tableMeta.rowData;
+          return (
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                navigate(`${location.pathname}/view/${userId}`);
+              }}
+              size="small"
+              startIcon={<RemoveRedEye />}
+            >
+              view
+            </Button>
+          );
+        }
+      }
     }
   ];
   return (
-    <>
+    <div style={{ marginTop: '10px' }}>
       {/* <Toolbar handleClickOpen={handleClickOpen} /> */}
 
       <CustomModal
@@ -123,11 +150,11 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
           responsive: 'simple',
           filterType: 'dropdown'
         }}
-        title="users"
+        title="Teams"
         columns={columns}
         data={data || []}
       />
-    </>
+    </div>
   );
 };
 

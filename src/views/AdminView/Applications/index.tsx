@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import PendingApplications from './PendingApplications';
 import AcceptedApplications from './AcceptedApplications';
 import ReviewedApplications from './ReviewedApplications';
+import WaitingApplications from './WaitingApplications';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -63,7 +64,8 @@ export default function Applications() {
         >
           <Tab label="Pending" {...a11yProps(0)} />
           <Tab label="Reviewed" {...a11yProps(1)} />
-          <Tab label="Accepted" {...a11yProps(1)} />
+          <Tab label="Waiting" {...a11yProps(2)} />
+          <Tab label="Accepted" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -72,8 +74,10 @@ export default function Applications() {
       <TabPanel value={value} index={1}>
         <ReviewedApplications />
       </TabPanel>
-
       <TabPanel value={value} index={2}>
+        <WaitingApplications />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
         <AcceptedApplications />
       </TabPanel>
     </Box>

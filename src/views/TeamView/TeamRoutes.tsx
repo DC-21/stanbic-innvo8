@@ -6,6 +6,9 @@ import NotFoundView from '../errors/NotFoundView';
 import AccountView from '../TeamView/account';
 import Dashboard from './dashboard';
 import InnovationProposal from './proposal';
+import ProposalForm from './proposal/components/ProposalForm';
+import ProposalView from './proposal/components/ProposalView';
+import ProposalEditView from './proposal/components/ProprosalEditView';
 import TeamsView from './teams';
 
 export const TeamRoutes = [
@@ -19,10 +22,13 @@ export const TeamRoutes = [
         element: <AccountView />
       },
       {
-        path: 'innovation-proposal',
+        path: 'innovation-idea',
 
         element: <InnovationProposal />
       },
+      { path: 'innovation-create', element: <ProposalForm /> },
+      { path: 'innovation-edit', element: <ProposalEditView /> },
+      { path: 'innovation-view', element: <ProposalView /> },
       {
         path: 'teams',
         element: <TeamsView />

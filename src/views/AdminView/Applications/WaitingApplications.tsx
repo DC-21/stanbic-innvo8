@@ -8,38 +8,27 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
 import axios from '../../../clientProvider/baseConfig';
 import Loading from '../../../components/Loading';
-import { CustomModal, useModalWithData } from '../../../components/Modal';
-import WaitingButton from './WaitingButton';
 
-const getSubmissions = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Innovation/view_accepted_innovations');
+const getPendingSubmissions = async (): Promise<any[]> => {
+  const { data } = await axios.get('/Innovation/view_waiting_innovations');
   return data.Innovations;
 };
 
-const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
+const WaitingApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['AcceptedSubmissions'], getSubmissions);
+  const { data, isLoading } = useQuery(
+    ['WaitingSubmissions'],
+    getPendingSubmissions
+  );
 
-  const { selected, setSelected, open, handleClose, handleClickOpen } =
-    useModalWithData();
   if (isLoading) {
     return <Loading size={40} />;
   }
 
   return (
     <Container style={{ marginTop: 28 }}>
-      <CustomModal
-        open={open}
-        handleClose={handleClose}
-        title="Put submission on waiting list"
-      >
-        {open ? (
-          <WaitingButton selected={selected} handleClose={handleClose} />
-        ) : null}
-      </CustomModal>
-
       <MUIDataTable
         options={{
           elevation: 0,
@@ -47,7 +36,7 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
           responsive: 'simple',
           filterType: 'dropdown'
         }}
-        title="Accepted submissions"
+        title="Applications"
         columns={[
           {
             name: '_id',
@@ -133,30 +122,6 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
                 );
               }
             }
-          },
-          {
-            name: '',
-            label: '',
-            options: {
-              filter: true,
-              sort: false,
-              customBodyRender: (value, tableMeta) => {
-                const [id] = tableMeta.rowData;
-                return (
-                  <Button
-                    onClick={() => {
-                      setSelected(id);
-                      handleClickOpen();
-                    }}
-                    variant="contained"
-                    size="small"
-                    style={{ boxShadow: '1px 1px', color: 'primary.main' }}
-                  >
-                    Waiting
-                  </Button>
-                );
-              }
-            }
           }
         ]}
         data={data || []}
@@ -165,4 +130,4 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   );
 };
 
-export default AcceptedSubmissions;
+export default WaitingApplications;

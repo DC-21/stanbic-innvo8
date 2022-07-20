@@ -19,7 +19,10 @@ const getPendingSubmissions = async (): Promise<any[]> => {
 const ReviewedSubmissions = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { data, isLoading } = useQuery(['submissions'], getPendingSubmissions);
+  const { data, isLoading } = useQuery(
+    ['ReviewedSubmissions'],
+    getPendingSubmissions
+  );
 
   const { selected, setSelected, open, handleClose, handleClickOpen } =
     useModalWithData();
@@ -46,7 +49,7 @@ const ReviewedSubmissions = () => {
           responsive: 'simple',
           filterType: 'dropdown'
         }}
-        title="Application"
+        title="Reviewed submissions"
         columns={[
           {
             name: '_id',
