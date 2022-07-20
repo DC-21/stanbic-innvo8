@@ -1,12 +1,12 @@
 /* eslint-disable react/function-component-definition */
 import { Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
-import { Application } from '../../../types';
+import { Teams } from '../../../../types';
 
 interface Props {
-  application: Application | undefined;
+  team: Teams | undefined;
 }
-const ViewApplication: React.FC<Props> = ({ application }) => {
+const TeamView: React.FC<Props> = ({ team }) => {
   return (
     <div
       style={{
@@ -37,24 +37,13 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
           }}
         >
           <Typography variant="h3" color="primary">
-            <b>Team: {application?.teamId.name}</b>
+            Team: <b>{team?.name}</b>
           </Typography>
           <br />
           <Typography variant="h6" color="primary">
-            1. What’s the title of your innovation?
+            Description:
           </Typography>
-          <TextField
-            aria-readonly
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            type="text"
-            value={application?.title}
-          />
-          <Typography variant="h6" color="primary">
-            2. What problem are you solving?
-          </Typography>
+
           <TextField
             multiline
             rows={4}
@@ -64,33 +53,7 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             margin="normal"
             size="small"
             type="text"
-            value={application?.problem}
-          />
-          <Typography variant="h6" color="primary">
-            3. What is the proposed solution?
-          </Typography>
-          <TextField
-            multiline
-            rows={6}
-            aria-readonly
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            type="text"
-            value={application?.proposedSolution}
-          />
-          <Typography variant="h6" color="primary">
-            4. Which category/sector does your innovation fall under?
-          </Typography>
-          <TextField
-            aria-readonly
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            type="text"
-            value={application?.category}
+            value={team?.description}
           />
         </Grid>
 
@@ -110,21 +73,12 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             marginTop: '5px',
             gap: '20px',
             borderRadius: '10px'
-            // columnCount: 2
           }}
         >
           <Typography variant="h5" color="primary">
-            Total Judges Who Voted: {application?.totalVotedJudges}
+            Team Lead: {team?.leadId?.firstName} {team?.leadId?.lastName}
           </Typography>
-
-          <Typography variant="h5" color="primary">
-            Total Votes: {application?.totalVotes}
-          </Typography>
-          <Typography variant="h5" color="primary">
-            Team Lead: {application?.leadId?.firstName}{' '}
-            {application?.leadId?.lastName}
-          </Typography>
-          {application?.teamId.members.map((item) => {
+          {team?.members.map((item) => {
             console.log(item);
             return (
               <Typography variant="h5" color="primary" key={item._id}>
@@ -138,4 +92,4 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
   );
 };
 
-export default ViewApplication;
+export default TeamView;

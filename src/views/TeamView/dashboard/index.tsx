@@ -29,12 +29,12 @@ function Dashboard() {
                 Welcome to Stanbic Innov8 2.0
               </Typography>
               <Typography variant="h4">
-                To submit your proposal, please follow the instructions below
+                To submit your idea, please follow the instructions below
               </Typography>
               <ul>
                 <li>Create a team</li>
-                <li>Add members to your team</li>
-                <li>Submit your proposal</li>
+                <li>Add your team members</li>
+                <li>Submit your idea</li>
               </ul>
             </CardContent>
           </Card>
