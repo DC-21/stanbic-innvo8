@@ -7,13 +7,13 @@ import { RootState } from '../redux/reducers/rootReducer';
 interface Props {
   component: React.ElementType;
 }
-const ProtectedRoutes: FC<Props> = ({ component: Component }) => {
+const AuthRoutes: FC<Props> = ({ component: Component }) => {
   const { user } = useSelector((store: RootState) => store.user);
 
   const isAuthenticated = user;
 
   if (isAuthenticated && user?.userType === 'Admin') {
-    return <Component />;
+    return <Component Role={user.userType === 'Admin'} />;
   }
   if (isAuthenticated && user?.userType === 'Judge') {
     return <Component />;
@@ -27,4 +27,4 @@ const ProtectedRoutes: FC<Props> = ({ component: Component }) => {
   return <Navigate to="/" />;
 };
 
-export default ProtectedRoutes;
+export default AuthRoutes;
