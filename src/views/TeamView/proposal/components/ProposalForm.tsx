@@ -8,14 +8,17 @@ import {
   CircularProgress,
   TextField,
   Typography,
-  Container
+  Container,
+  FormControlLabel,
+  Radio,
+  RadioGroup
 } from '@mui/material';
 
 import { AxiosError } from 'axios';
 import { isEmpty } from 'lodash';
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -37,6 +40,34 @@ const getTeam = async (
   const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
   return data.data;
 };
+
+export const challengeStatements = [
+  { label: 'Theme: Financial Inclusion', value: 'Theme:Financial Inclusion' },
+  {
+    label: 'Theme: (Processes) Product Validation',
+    value: 'Theme: (Processes) Product Validation'
+  },
+  {
+    label: 'Theme:  (Processes) Digitization',
+    value: 'Theme:  (Processes) Digitization'
+  },
+  {
+    label: 'Theme: (Processes) Digital Transformation',
+    value: 'Theme: (Processes) Digital Transformation'
+  },
+  {
+    label: 'Theme: Knowledge Gap (Internal)',
+    value: 'Theme: Knowledge Gap (Internal)'
+  },
+  {
+    label: 'Theme: Knowledge gap (External)',
+    value: 'Theme: Knowledge Gap (External)'
+  },
+  {
+    label: 'Theme: Organizational  Culture',
+    value: 'Theme: Organizational  Culture'
+  }
+];
 const ProposalForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -51,6 +82,7 @@ const ProposalForm = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors }
   } = useForm<ProposalFormInputs>({
     mode: 'onChange'
@@ -168,14 +200,23 @@ const ProposalForm = () => {
         <Typography variant="h5" color="primary">
           4. What Challenge Statement Does Your solution address?
         </Typography>
-        <TextField
-          error={Boolean(errors.category)}
-          variant="outlined"
-          fullWidth
-          {...register('category', { required: true })}
-          margin="normal"
-          size="small"
-          type="text"
+
+        <Controller
+          render={({ field }) => (
+            <RadioGroup aria-label="score" {...field}>
+              {challengeStatements.map((challengeStatement) => (
+                <FormControlLabel
+                  key={challengeStatement.value}
+                  value={challengeStatement.value}
+                  control={<Radio />}
+                  label={challengeStatement.label}
+                />
+              ))}
+            </RadioGroup>
+          )}
+          rules={{ required: true }}
+          name="category"
+          control={control}
         />
 
         <Button

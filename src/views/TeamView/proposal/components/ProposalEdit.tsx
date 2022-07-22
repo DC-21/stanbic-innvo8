@@ -1,17 +1,26 @@
 /* eslint-disable react/function-component-definition */
-import { Button, CircularProgress, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  CircularProgress,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography
+} from '@mui/material';
 
 import { AxiosError } from 'axios';
 
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { axios } from '../../../../clientProvider';
 
 import { RootState } from '../../../../redux/reducers/rootReducer';
+import { challengeStatements } from './ProposalForm';
 import { Proposal } from './ProprosalEditView';
 
 export type ProposalFormInputs = {
@@ -36,6 +45,7 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors }
   } = useForm<ProposalFormInputs>({
     mode: 'onChange',
@@ -123,14 +133,22 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
         <Typography variant="h5" color="primary">
           4. What Challenge Statement Does Your solution address?
         </Typography>
-        <TextField
-          error={Boolean(errors.category)}
-          variant="outlined"
-          fullWidth
-          {...register('category', { required: true })}
-          margin="normal"
-          size="small"
-          type="text"
+        <Controller
+          render={({ field }) => (
+            <RadioGroup aria-label="score" {...field}>
+              {challengeStatements.map((challengeStatement) => (
+                <FormControlLabel
+                  key={challengeStatement.value}
+                  value={challengeStatement.value}
+                  control={<Radio />}
+                  label={challengeStatement.label}
+                />
+              ))}
+            </RadioGroup>
+          )}
+          rules={{ required: true }}
+          name="category"
+          control={control}
         />
 
         <Button
