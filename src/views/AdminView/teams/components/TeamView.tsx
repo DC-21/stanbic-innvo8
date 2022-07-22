@@ -1,5 +1,15 @@
 /* eslint-disable react/function-component-definition */
-import { Grid, TextField, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Grid,
+  Table,
+  TableCell,
+  TableRow,
+  Typography
+} from '@mui/material';
 import React from 'react';
 import { Teams } from '../../../../types';
 
@@ -8,87 +18,116 @@ interface Props {
 }
 const TeamView: React.FC<Props> = ({ team }) => {
   return (
-    <div
-      style={{
-        flexGrow: 1,
-        padding: '20px',
-        marginLeft: '35px',
-        marginRight: '15px',
-        marginTop: '5px'
-      }}
-    >
-      <Grid container spacing={3}>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
-          style={{
-            backgroundColor: '#fff',
-            flexGrow: 1,
-            padding: '20px',
-            marginLeft: '15px',
-            marginRight: '15px',
-            marginTop: '5px',
-            gap: '20px',
-            borderRadius: '10px'
-          }}
-        >
-          <Typography variant="h3" color="primary">
-            Team: <b>{team?.name}</b>
-          </Typography>
-          <br />
-          <Typography variant="h6" color="primary">
-            Description:
-          </Typography>
+    <Container maxWidth="lg">
+      <Grid container sx={{ mt: 1 }} spacing={4}>
+        {/**
+         * Team Leaner Card
+         */}
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardHeader
+              title={<Typography color="primary">Team members</Typography>}
+              subheader={
+                <Typography color="primary">Team Lead information</Typography>
+              }
+            />
+            <CardContent>
+              <Table size="small">
+                <TableRow>
+                  <TableCell variant="head">First Name</TableCell>
+                  <TableCell>{team?.leadId?.firstName}</TableCell>
+                </TableRow>
 
-          <TextField
-            multiline
-            rows={4}
-            aria-readonly
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            type="text"
-            value={team?.description}
-          />
+                <TableRow>
+                  <TableCell variant="head">Last Name</TableCell>
+                  <TableCell>{team?.leadId?.lastName}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell variant="head">Email</TableCell>
+                  <TableCell>{team?.leadId?.email}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell variant="head">Branch name</TableCell>
+                  <TableCell>{team?.leadId?.branch}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell variant="head">Gender</TableCell>
+                  <TableCell>{team?.leadId?.gender}</TableCell>
+                </TableRow>
+                <br />
+                <br />
+                <TableRow>
+                  <TableCell variant="head">
+                    <Typography color="primary">
+                      Team Member Information
+                    </Typography>
+                  </TableCell>
+                  <TableCell />
+                </TableRow>
+              </Table>
+              {team?.members && team?.members.length > 0
+                ? team?.members.map((member) => (
+                    <Table size="small" key={member._id}>
+                      {/* <Table size="small" key={member._id}> */}
+                      <TableRow>
+                        <TableCell variant="head">First Name</TableCell>
+                        <TableCell>{member.firstName}</TableCell>
+                      </TableRow>
+
+                      <TableRow>
+                        <TableCell variant="head">Last Name</TableCell>
+                        <TableCell>{member.lastName}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell variant="head">Email</TableCell>
+                        <TableCell>{member.email}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell variant="head">Branch name</TableCell>
+                        <TableCell>{member.branch}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell variant="head">Gender</TableCell>
+                        <TableCell>{team?.leadId?.gender}</TableCell>
+                      </TableRow>
+                      {/* </Table> */}
+                      <br />
+                      <br />
+                    </Table>
+                  ))
+                : null}
+            </CardContent>
+          </Card>
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
-          style={{
-            backgroundColor: '#fff',
-            flexGrow: 1,
-            padding: '20px',
-            marginLeft: '15px',
-            marginRight: '15px',
-            marginTop: '5px',
-            gap: '20px',
-            borderRadius: '10px'
-          }}
-        >
-          <Typography variant="h5" color="primary">
-            Team Lead: {team?.leadId?.firstName} {team?.leadId?.lastName}
-          </Typography>
-          {team?.members.map((item) => {
-            console.log(item);
-            return (
-              <Typography variant="h5" color="primary" key={item._id}>
-                Team Member: {item.firstName} {item.lastName}
-              </Typography>
-            );
-          })}
+        {/**
+         * Team Name Card
+         */}
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardHeader
+              title={<Typography color="primary">Team</Typography>}
+              subheader={
+                <Typography color="primary">Team information</Typography>
+              }
+            />
+            <CardContent>
+              <Table size="small">
+                <TableRow>
+                  <TableCell variant="head">Team Name</TableCell>
+                  <TableCell>{team?.name}</TableCell>
+                </TableRow>
+
+                <TableRow>
+                  <TableCell variant="head">Team Description</TableCell>
+                  <TableCell>{team?.description}</TableCell>
+                </TableRow>
+              </Table>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
-    </div>
+    </Container>
   );
 };
 
