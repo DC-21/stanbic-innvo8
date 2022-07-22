@@ -28,7 +28,7 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const { data, isLoading } = useQuery(['submissions'], () =>
     getIdeasByTeamLead(user?._id)
   );
-  console.log(data);
+
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -142,6 +142,7 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
       </Box>
       <Box sx={{ mt: 4, mb: 4 }} display="flex" justifyContent="flex-end">
         <Button
+          disabled={user?.userType === 'Team Member'}
           startIcon={<AddCircleOutline />}
           color="primary"
           onClick={() => navigate(`/team/innovation-create`)}

@@ -42,30 +42,37 @@ const getTeam = async (
 };
 
 export const challengeStatements = [
-  { label: 'Theme: Financial Inclusion', value: 'Theme:Financial Inclusion' },
   {
-    label: 'Theme: (Processes) Product Validation',
-    value: 'Theme: (Processes) Product Validation'
+    label: ` How might Stanbic Bank Zambia create products that meet the needs of people outside of their typical customer? `,
+    value: ` How might Stanbic Bank Zambia create products that meet the needs of people outside of their typical customer?`
   },
   {
-    label: 'Theme:  (Processes) Digitization',
-    value: 'Theme:  (Processes) Digitization'
+    label: `How might Stanbic Bank Zambia ensure they create products that have value and address their customers’ problems?`,
+    value: `How might Stanbic Bank Zambia ensure they create products that have value and address their customers’ problems?`
   },
   {
-    label: 'Theme: (Processes) Digital Transformation',
-    value: 'Theme: (Processes) Digital Transformation'
+    label: `How might Stanbic Bank Zambia drive its digital processes to ensure efficiency?`,
+    value: `How might Stanbic Bank Zambia drive its digital processes to ensure efficiency?`
   },
   {
-    label: 'Theme: Knowledge Gap (Internal)',
-    value: 'Theme: Knowledge Gap (Internal)'
+    label: `How might Stanbic Bank Zambia not only digitise processes but implement digital transformation and automation as well?
+    `,
+    value: `How might Stanbic Bank Zambia not only digitise processes but implement digital transformation and automation as well?
+    `
   },
   {
-    label: 'Theme: Knowledge gap (External)',
-    value: 'Theme: Knowledge Gap (External)'
+    label: `How might Stanbic Bank Zambia improve internal communication and bridge the knowledge gap among their staff with regards to their new products and services?`,
+    value: `How might Stanbic Bank Zambia improve internal communication and bridge the knowledge gap among their staff with regards to their new products and services?`
   },
   {
-    label: 'Theme: Organizational  Culture',
-    value: 'Theme: Organizational  Culture'
+    label: `How might Stanbic Bank Zambia ensure that all customers (potential and existing) are made aware of new products/services/features?`,
+    value: `How might Stanbic Bank Zambia ensure that all customers (potential and existing) are made aware of new products/services/features?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia intentionally influence organisational culture thereby boosting morale? 
+    `,
+    value: `How might Stanbic Bank Zambia intentionally influence organisational culture thereby boosting morale? 
+    `
   }
 ];
 const ProposalForm = () => {
