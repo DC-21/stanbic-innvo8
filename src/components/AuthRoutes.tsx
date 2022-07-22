@@ -13,7 +13,7 @@ const AuthRoutes: FC<Props> = ({ component: Component }) => {
   const isAuthenticated = user;
 
   if (isAuthenticated && user?.userType === 'Admin') {
-    return <Component Role={user.userType === 'Admin'} />;
+    return <Component />;
   }
   if (isAuthenticated && user?.userType === 'Judge') {
     return <Component />;
