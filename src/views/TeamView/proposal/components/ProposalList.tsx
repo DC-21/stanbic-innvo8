@@ -3,7 +3,7 @@
 import * as React from 'react';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { Button, Chip, Container, Typography } from '@mui/material';
+import { Button, Chip, Card, Typography, CardContent } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
@@ -130,14 +130,16 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
     }
   ];
   // @ts-ignore
-  if (error.response.status === 404) {
+  if (error?.response.data === 404) {
     return (
-      <Container>
-        <Typography>No Innovation idea Found</Typography>
-        <Typography>
-          To submit your Innovation idea click on add new idea button
-        </Typography>
-      </Container>
+      <Card>
+        <CardContent>
+          <Typography>No Innovation idea Found</Typography>
+          <Typography>
+            To submit your Innovation idea click on add new idea button
+          </Typography>
+        </CardContent>
+      </Card>
     );
   }
   return (

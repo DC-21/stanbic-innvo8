@@ -10,8 +10,9 @@ import {
   Button,
   IconButton,
   Tooltip,
-  Container,
-  Typography
+  Typography,
+  Card,
+  CardContent
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -169,18 +170,18 @@ const ListTeamMembers = () => {
       }
     }
   ];
-  // @ts-ignore
-  console.log(error?.response.status, 'error');
-  // if(error.status === 404){
-  //   Error404Fallback
-  // }
+
   // @ts-ignore
   if (error?.response.status === 404) {
     return (
-      <Container>
-        <Typography>Team not found</Typography>
-        <Typography>To add a team, click on create new team button</Typography>
-      </Container>
+      <Card>
+        <CardContent>
+          <Typography>No team found</Typography>
+          <Typography>
+            Please add a team by clicking on the create new team button
+          </Typography>
+        </CardContent>
+      </Card>
     );
   }
   return (

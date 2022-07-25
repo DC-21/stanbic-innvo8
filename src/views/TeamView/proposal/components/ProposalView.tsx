@@ -57,7 +57,7 @@ function ProposalView() {
   console.log(data, 'things here');
   return (
     <Container maxWidth="lg">
-      <Grid container sx={{ mt: 4 }} spacing={4}>
+      <Grid container sx={{ mt: 4 }} spacing={2}>
         <Grid item xs={12} md={4}>
           <Card>
             <CardHeader
@@ -109,7 +109,7 @@ function ProposalView() {
                 <TableCell variant="head">TEAM LEAD DETAILS</TableCell>
                 <TableCell />
               </TableRow> */}
-              <Table size="small">
+              <Table size="small" sx={{ p: 1, mr: 1 }}>
                 <TableRow>
                   <TableCell variant="head">First Name</TableCell>
                   <TableCell>{data?.leadId?.firstName}</TableCell>
