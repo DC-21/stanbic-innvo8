@@ -2,21 +2,19 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { RootState } from '../redux/reducers/rootReducer';
+import { RootState } from '../../redux/reducers/rootReducer';
 
 interface Props {
   component: React.ElementType;
 }
-const AuthRoutes: FC<Props> = ({ component: Component }) => {
+const JudgeAuthRoutes: FC<Props> = ({ component: Component }) => {
   const { user } = useSelector((store: RootState) => store.user);
-
   const isAuthenticated = user;
 
-  if (isAuthenticated && user?.userType === 'Admin') {
+  if (isAuthenticated && user?.userType === 'Judge') {
     return <Component />;
   }
-
   return <Navigate to="/logout" />;
 };
 
-export default AuthRoutes;
+export default JudgeAuthRoutes;

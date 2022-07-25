@@ -30,7 +30,10 @@ const TotalApplications: FC<React.PropsWithChildren<any>> = ({
   ...rest
 }) => {
   const classes = useStyles();
-  const { data } = useQuery(['getTotalApplications'], getTotalApplications);
+  const { data } = useQuery(
+    ['AdminGetTotalApplications'],
+    getTotalApplications
+  );
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <CardContent>
