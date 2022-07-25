@@ -13,44 +13,45 @@ import TeamMemberEditView from './teams/components/TeamMember/TeamMemberEditView
 import Applications from './Applications';
 import ApplicationViewDetails from './Applications/ApplicationViewDetails';
 import TeamDetails from './teams/components/TeamDetails';
+import AuthRoutes from '../../components/AuthRoutes';
 
 export const AdminRoutes = [
   {
     path: 'app',
     element: <AdminLayout />,
     children: [
-      { path: 'dashboard', element: <Dashboard /> },
+      { path: 'dashboard', element: <AuthRoutes component={Dashboard} /> },
       {
         path: 'users',
-        element: <User />
+        element: <AuthRoutes component={User} />
       },
       {
         path: 'users/edit/:id',
-        element: <UserEditView />
+        element: <AuthRoutes component={UserEditView} />
       },
       {
         path: 'users/team_member/edit/:id',
-        element: <TeamMemberEditView />
+        element: <AuthRoutes component={TeamMemberEditView} />
       },
       {
         path: 'teams',
-        element: <Teams />
+        element: <AuthRoutes component={Teams} />
       },
       {
         path: 'teams/view/:id',
-        element: <TeamDetails />
+        element: <AuthRoutes component={TeamDetails} />
       },
       {
         path: 'teams/edit/:id',
-        element: <TeamEditView />
+        element: <AuthRoutes component={TeamEditView} />
       },
       {
         path: 'applications',
-        element: <Applications />
+        element: <AuthRoutes component={Applications} />
       },
       {
         path: 'applications/view/:id',
-        element: <ApplicationViewDetails />
+        element: <AuthRoutes component={ApplicationViewDetails} />
       },
       {
         path: 'account',

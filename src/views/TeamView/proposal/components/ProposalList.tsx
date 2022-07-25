@@ -3,10 +3,10 @@
 import * as React from 'react';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { Box, Button, Chip, Typography } from '@mui/material';
+import { Button, Chip, Card, Typography, CardContent } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
-import { RemoveRedEye, AddCircleOutline } from '@mui/icons-material';
+import { RemoveRedEye } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { isArray } from 'lodash';
 import { axios } from '../../../../clientProvider';
@@ -25,10 +25,10 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
 
   const { user } = useSelector((state: RootState) => state.user);
 
-  const { data, isLoading } = useQuery(['submissions'], () =>
+  const { data, error, isLoading } = useQuery(['submissions'], () =>
     getIdeasByTeamLead(user?._id)
   );
-  console.log(data);
+
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -129,39 +129,31 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     }
   ];
+  // @ts-ignore
+  if (error?.response.data === 404) {
+    return (
+      <Card>
+        <CardContent>
+          <Typography>No Innovation idea Found</Typography>
+          <Typography>
+            To submit your Innovation idea click on add new idea button
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+  }
   return (
-    <>
-      <Box sx={{ mt: 12 }}>
-        <Typography sx={{ textTransform: 'uppercase' }} variant="h4">
-          Innovation ideas(proprosal)
-        </Typography>
-        <Typography sx={{ fontSize: 20 }}>
-          This is the place where you can add, view and edit your Innovation
-          Ideas (proposal)
-        </Typography>
-      </Box>
-      <Box sx={{ mt: 4, mb: 4 }} display="flex" justifyContent="flex-end">
-        <Button
-          startIcon={<AddCircleOutline />}
-          color="primary"
-          onClick={() => navigate(`/team/innovation-create`)}
-          variant="contained"
-        >
-          Add New Idea
-        </Button>
-      </Box>
-      <MUIDataTable
-        options={{
-          elevation: 0,
-          enableNestedDataAccess: '.',
-          responsive: 'simple',
-          filterType: 'dropdown'
-        }}
-        title="Innovation Ideas (proposal)"
-        columns={columns}
-        data={isArray(data) ? data : [data]}
-      />
-    </>
+    <MUIDataTable
+      options={{
+        elevation: 0,
+        enableNestedDataAccess: '.',
+        responsive: 'simple',
+        filterType: 'dropdown'
+      }}
+      title="Innovation Ideas (proposal)"
+      columns={columns}
+      data={isArray(data) ? data : [data]}
+    />
   );
 };
 

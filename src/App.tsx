@@ -38,6 +38,7 @@ const App: React.FC<React.PropsWithChildren<unknown>> = () => {
        */
       defaultOptions: {
         queries: {
+          retry: 1,
           networkMode: 'offlineFirst'
         },
         mutations: {
