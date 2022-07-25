@@ -7,7 +7,7 @@ import { RootState } from '../redux/reducers/rootReducer';
 interface Props {
   component: React.ElementType;
 }
-const ProtectedRoutes: FC<Props> = ({ component: Component }) => {
+const AuthRoutes: FC<Props> = ({ component: Component }) => {
   const { user } = useSelector((store: RootState) => store.user);
 
   const isAuthenticated = user;
@@ -15,16 +15,8 @@ const ProtectedRoutes: FC<Props> = ({ component: Component }) => {
   if (isAuthenticated && user?.userType === 'Admin') {
     return <Component />;
   }
-  if (isAuthenticated && user?.userType === 'Judge') {
-    return <Component />;
-  }
-  if (isAuthenticated && user?.userType === 'Team Lead') {
-    return <Component />;
-  }
-  if (isAuthenticated && user?.userType === 'Team Member') {
-    return <Component />;
-  }
-  return <Navigate to="/" />;
+
+  return <Navigate to="/logout" />;
 };
 
-export default ProtectedRoutes;
+export default AuthRoutes;

@@ -9,7 +9,8 @@ import InnovationProposal from './proposal';
 import ProposalForm from './proposal/components/ProposalForm';
 import ProposalView from './proposal/components/ProposalView';
 import ProposalEditView from './proposal/components/ProprosalEditView';
-import TeamsView from './teams';
+import TeamsListView from './teams';
+import TeamView from './teams/components/TeamView';
 
 export const TeamRoutes = [
   {
@@ -31,7 +32,11 @@ export const TeamRoutes = [
       { path: 'innovation-view', element: <ProposalView /> },
       {
         path: 'teams',
-        element: <TeamsView />
+        element: <TeamsListView />
+      },
+      {
+        path: 'teams/view',
+        element: <TeamView />
       },
       { path: '404', element: <NotFoundView /> },
       { path: '*', element: <Navigate to="/team/404" /> }

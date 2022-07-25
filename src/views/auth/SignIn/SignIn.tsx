@@ -277,8 +277,9 @@ function SignIn() {
                     </Link>
                   </Grid>
                   <Grid item xs={6}>
+                    <i>Dont have an account?</i>
                     <Link href="/signup" variant="body2">
-                      If you are not registered, Sign up here
+                      <i>Sign up here as a team lead</i>
                     </Link>
                   </Grid>
                 </Grid>

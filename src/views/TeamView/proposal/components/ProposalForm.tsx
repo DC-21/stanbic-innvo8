@@ -8,14 +8,17 @@ import {
   CircularProgress,
   TextField,
   Typography,
-  Container
+  Container,
+  FormControlLabel,
+  Radio,
+  RadioGroup
 } from '@mui/material';
 
 import { AxiosError } from 'axios';
 import { isEmpty } from 'lodash';
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -37,6 +40,41 @@ const getTeam = async (
   const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
   return data.data;
 };
+
+export const challengeStatements = [
+  {
+    label: ` How might Stanbic Bank Zambia create products that meet the needs of people outside of their typical customer? `,
+    value: ` How might Stanbic Bank Zambia create products that meet the needs of people outside of their typical customer?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia ensure they create products that have value and address their customers’ problems?`,
+    value: `How might Stanbic Bank Zambia ensure they create products that have value and address their customers’ problems?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia drive its digital processes to ensure efficiency?`,
+    value: `How might Stanbic Bank Zambia drive its digital processes to ensure efficiency?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia not only digitise processes but implement digital transformation and automation as well?
+    `,
+    value: `How might Stanbic Bank Zambia not only digitise processes but implement digital transformation and automation as well?
+    `
+  },
+  {
+    label: `How might Stanbic Bank Zambia improve internal communication and bridge the knowledge gap among their staff with regards to their new products and services?`,
+    value: `How might Stanbic Bank Zambia improve internal communication and bridge the knowledge gap among their staff with regards to their new products and services?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia ensure that all customers (potential and existing) are made aware of new products/services/features?`,
+    value: `How might Stanbic Bank Zambia ensure that all customers (potential and existing) are made aware of new products/services/features?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia intentionally influence organisational culture thereby boosting morale? 
+    `,
+    value: `How might Stanbic Bank Zambia intentionally influence organisational culture thereby boosting morale? 
+    `
+  }
+];
 const ProposalForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -51,6 +89,7 @@ const ProposalForm = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors }
   } = useForm<ProposalFormInputs>({
     mode: 'onChange'
@@ -168,14 +207,23 @@ const ProposalForm = () => {
         <Typography variant="h5" color="primary">
           4. What Challenge Statement Does Your solution address?
         </Typography>
-        <TextField
-          error={Boolean(errors.category)}
-          variant="outlined"
-          fullWidth
-          {...register('category', { required: true })}
-          margin="normal"
-          size="small"
-          type="text"
+
+        <Controller
+          render={({ field }) => (
+            <RadioGroup aria-label="score" {...field}>
+              {challengeStatements.map((challengeStatement) => (
+                <FormControlLabel
+                  key={challengeStatement.value}
+                  value={challengeStatement.value}
+                  control={<Radio />}
+                  label={challengeStatement.label}
+                />
+              ))}
+            </RadioGroup>
+          )}
+          rules={{ required: true }}
+          name="category"
+          control={control}
         />
 
         <Button
