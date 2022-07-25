@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { Button, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
 // import moment from 'moment';
 
 import axios from '../../../../clientProvider/baseConfig';
@@ -15,6 +16,7 @@ import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import { CustomModal, useModalWithData } from '../../../../components/Modal';
 import AddTeamMember from './AddTeamMember';
+// import Error404Fallback from '../../../../components/ErrorBoundary/Error404';
 
 const getUser = async (id: string | undefined): Promise<any[]> => {
   const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
@@ -26,7 +28,9 @@ const ListTeamMembers = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
-  const { data, isLoading } = useQuery(['Teams'], () => getUser(user?._id));
+  const { data, error, isLoading } = useQuery(['Teams'], () =>
+    getUser(user?._id)
+  );
 
   console.log(data, 'team data');
   if (isLoading) {
@@ -157,6 +161,11 @@ const ListTeamMembers = () => {
       }
     }
   ];
+  // @ts-ignore
+  console.log(error?.response, 'error');
+  // if(error.status === 404){
+  //   Error404Fallback
+  // }
   return (
     <>
       {selected && (
