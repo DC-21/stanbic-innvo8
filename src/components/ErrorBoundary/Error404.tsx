@@ -15,8 +15,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: 12
   }
 }));
+interface Error404Props {
+  error: {
+    data: string;
+    status: number;
+  };
+}
 
-function Error404Fallback({ error, resetErrorBoundary }) {
+function Error404Fallback({ error }: Error404Props) {
   const classes = useStyles();
   const navigate = useNavigate();
   return (
@@ -26,14 +32,14 @@ function Error404Fallback({ error, resetErrorBoundary }) {
       <Typography variant="h6">
         There was a problem, please try again later.
       </Typography>
-      <pre style={{ whiteSpace: 'normal' }}>{error.message}</pre>
+      <pre style={{ whiteSpace: 'normal' }}>{error.data}</pre>
       <Button
         className={classes.button}
         startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
         color="secondary"
         variant="contained"
         onClick={() => {
-          resetErrorBoundary();
+          // resetErrorBoundary();
           navigate('/app/dashboard');
         }}
       >

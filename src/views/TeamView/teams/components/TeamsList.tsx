@@ -6,7 +6,13 @@ import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import {
+  Button,
+  IconButton,
+  Tooltip,
+  Container,
+  Typography
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 // import moment from 'moment';
@@ -16,7 +22,9 @@ import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import { CustomModal, useModalWithData } from '../../../../components/Modal';
 import AddTeamMember from './AddTeamMember';
+
 // import Error404Fallback from '../../../../components/ErrorBoundary/Error404';
+// import { Container } from '@mui/system';
 
 const getUser = async (id: string | undefined): Promise<any[]> => {
   const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
@@ -162,10 +170,19 @@ const ListTeamMembers = () => {
     }
   ];
   // @ts-ignore
-  console.log(error?.response, 'error');
+  console.log(error?.response.status, 'error');
   // if(error.status === 404){
   //   Error404Fallback
   // }
+  // @ts-ignore
+  if (error?.response.status === 404) {
+    return (
+      <Container>
+        <Typography>Team not found</Typography>
+        <Typography>To add a team, click on create new team button</Typography>
+      </Container>
+    );
+  }
   return (
     <>
       {selected && (
