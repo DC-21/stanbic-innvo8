@@ -52,13 +52,23 @@ const App: React.FC<React.PropsWithChildren<unknown>> = () => {
            * Only show error toasts if we already have data in the cache
            * which indicates a failed background update
            */
-          if (query.state.data === undefined) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            enqueueSnackbar(`Something went wrong: ${error?.message}`, {
-              variant: 'error'
-            });
+          // @ts-ignore
+          if (!query?.state?.error?.response?.status === 404) {
+            if (query.state.data === undefined) {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              enqueueSnackbar(`Something went wrong: ${error?.message}`, {
+                variant: 'error'
+              });
+            }
           }
+          // } else if (query.state.data === undefined) {
+          //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //   // @ts-ignore
+          //   enqueueSnackbar(`Something went wrong: ${error?.message}`, {
+          //     variant: 'error'
+          //   });
+          // }
         }
       })
     })
