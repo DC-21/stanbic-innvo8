@@ -129,8 +129,9 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     }
   ];
+
   // @ts-ignore
-  if (error?.response.data === 404) {
+  if (error?.response.status === 404) {
     return (
       <Card>
         <CardContent>

@@ -95,7 +95,9 @@ const WaitingApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
             options: {
               filter: true,
               sort: false,
-              customBodyRender: (value) => <Chip label={value} />
+              customBodyRender: (value) => (
+                <Chip variant="outlined" color="primary" label={value} />
+              )
             }
           },
           {
