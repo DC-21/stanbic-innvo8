@@ -5,6 +5,8 @@ import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccount
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import GroupsIcon from '@mui/icons-material/Groups';
 import { Box, Divider, Drawer, Hidden } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import NavItem from './NavItem';
@@ -17,7 +19,7 @@ export const items = [
   },
   {
     href: '/app/applications',
-    icon: DashboardOutlinedIcon,
+    icon: LibraryBooksIcon,
     title: 'Applications'
   },
   {
@@ -27,7 +29,7 @@ export const items = [
   },
   {
     href: '/app/teams',
-    icon: SupervisorAccountOutlinedIcon,
+    icon: GroupsIcon,
     title: 'Teams'
   },
   {
