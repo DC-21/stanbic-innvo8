@@ -87,10 +87,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         filter: true,
         sort: false,
         customBodyRender: (value) => (
-          <Chip
-            sx={{ backgroundColor: '#0133a1', color: '#fff' }}
-            label={value}
-          />
+          <Chip variant="outlined" color="primary" label={value} />
         )
       }
     },
