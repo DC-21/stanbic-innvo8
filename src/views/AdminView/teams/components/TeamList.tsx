@@ -148,7 +148,8 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
           elevation: 0,
           enableNestedDataAccess: '.',
           responsive: 'simple',
-          filterType: 'dropdown'
+          filterType: 'dropdown',
+          selectableRows: 'none'
         }}
         title="Teams"
         columns={columns}

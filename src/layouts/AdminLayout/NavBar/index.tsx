@@ -112,7 +112,7 @@ const NavBar: React.FC<Props> = ({ onMobileClose, openMobile }) => {
           {content}
         </Drawer>
       </Hidden>
-      <Hidden mdDown>
+      <Hidden lgDown>
         <Drawer
           anchor="left"
           classes={{ paper: classes.desktopDrawer }}

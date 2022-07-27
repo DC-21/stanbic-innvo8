@@ -166,7 +166,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       </CustomModal>
 
       <MUIDataTable
-        options={{ elevation: 0 }}
+        options={{ elevation: 0, selectableRows: 'none' }}
         title="users"
         columns={columns}
         data={data || []}

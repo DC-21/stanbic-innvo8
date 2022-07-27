@@ -7,7 +7,7 @@ import AccountView from '../JudgeView/account';
 import JudgeAuthRoutes from './JudgeAuthRoutes';
 import Dashboard from './dashboard';
 import Submissions from './Submission';
-import SubmissionViewDetails from './Submission/ApplicationViewDetails';
+import SubmissionViewDetails from './Submission/component/ApplicationViewDetails';
 //  import MainLayout from './layouts/MainLayout';
 
 export const JudgeRoutes = [
