@@ -1,15 +1,14 @@
 import React from 'react';
 import { Typography, Grid, Container } from '@mui/material';
 
-export default function Section() {
+export default function Eligibilitysection() {
   return (
-    <div className="topPadding">
-      <Container>
+    <div className="topPadding2">
+      <Container fixed>
         <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
-          <Grid item xs={6} className="section2" spacing={2}>
-            <Typography className="heading">
-              About Project Innov8 2.0
-            </Typography>
+          <Grid item xs={6} className="woman" spacing={2} />
+          <Grid item xs={6} className="section3">
+            <Typography className="heading">Eligibility Criteria</Typography>
             <Typography>
               Building on the first iteration in 2021, Project Innov8 2.0 is an
               opportunity for bold Stanbic staff to form cross-departmental
@@ -32,7 +31,6 @@ export default function Section() {
               Impactful new product or product improvements
             </Typography>
           </Grid>
-          <Grid item xs={6} className="woman" />
         </Grid>
       </Container>
     </div>

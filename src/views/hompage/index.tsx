@@ -1,14 +1,18 @@
 import React from 'react';
 import './App.css';
-import { Container } from '@mui/material';
 import AppBar from './Components/AppBar';
+import Header from './Components/Header';
+import Section from './Components/Section';
+import Eligibilitysection from './Components/Eligibilitysection';
 
 function Homepage() {
   return (
-    <Container maxWidth="lg">
+    <div>
       <AppBar />
-      <h1>hello</h1>
-    </Container>
+      <Header />
+      <Section />
+      <Eligibilitysection />
+    </div>
   );
 }
 
