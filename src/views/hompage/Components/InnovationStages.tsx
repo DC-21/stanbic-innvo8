@@ -12,9 +12,6 @@ export default function InnoationStages() {
   return (
     <div className="topPadding2">
       <Container>
-        <Typography>Innovation Stages</Typography>
-        You can expect to develop your idea and innovation skills through
-        coaching and sprints which involve:
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6} spacing={2}>
             <Card sx={{ maxWidth: 500 }}>
