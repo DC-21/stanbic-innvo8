@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: any) => ({
     height: '100%'
   },
   quoteContainer: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none'
     }
   },
@@ -185,7 +185,15 @@ function ResetPassword() {
   return (
     <div className={classes.root}>
       <Grid className={classes.grid} container>
-        <Grid className={classes.content} item xs={12} sm={8} md={4}>
+        <Grid
+          className={classes.content}
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={4}
+          xl={4}
+        >
           <div className={classes.content}>
             <div
               style={{
@@ -289,7 +297,15 @@ function ResetPassword() {
             </div>
           </div>
         </Grid>
-        <Grid className={classes.quoteContainer} item lg={8}>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={4}
+          xl={4}
+        >
           <div className={classes.quote}>
             {/* <div className={classes.quoteInner}>
               <Typography

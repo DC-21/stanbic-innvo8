@@ -6,22 +6,21 @@ import { useQuery } from 'react-query';
 import { Button, Chip, Container } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
-import axios from '../../../clientProvider/baseConfig';
-import Loading from '../../../components/Loading';
-import { CustomModal, useModalWithData } from '../../../components/Modal';
-import AcceptButton from './AcceptButton';
+import axios from '../../../../clientProvider/baseConfig';
+import Loading from '../../../../components/Loading';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
+import AcceptButton from '../actionButtons/AcceptButton';
 
 const getPendingSubmissions = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Innovation/view_waiting_innovations');
+  const { data } = await axios.get('/Innovation/view_reviewed_innovations');
   return data.Innovations;
 };
 
-const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
+const ReviewedSubmissions = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const { data, isLoading } = useQuery(
-    ['WaitingSubmissions'],
+    ['ReviewedSubmissions'],
     getPendingSubmissions
   );
 
@@ -48,9 +47,10 @@ const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
           elevation: 0,
           enableNestedDataAccess: '.',
           responsive: 'simple',
-          filterType: 'dropdown'
+          filterType: 'dropdown',
+          selectableRows: 'none'
         }}
-        title="Waiting submissions"
+        title="Reviewed submissions"
         columns={[
           {
             name: '_id',
@@ -167,5 +167,4 @@ const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
     </Container>
   );
 };
-
-export default WaitingSubmissions;
+export default ReviewedSubmissions;
