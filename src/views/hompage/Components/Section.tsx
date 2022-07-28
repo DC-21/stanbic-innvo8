@@ -4,11 +4,11 @@ import { Typography, Grid, Container } from '@mui/material';
 export default function Section() {
   return (
     <div className="topPadding">
-      <Container>
+      <Container fixed>
         <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} className="section2" spacing={2}>
             <Typography className="heading">
-              About Project Innov8 2.0
+              <span className="normalH"> About</span> Project Innov8 2.0
             </Typography>
             <Typography>
               Building on the first iteration in 2021, Project Innov8 2.0 is an

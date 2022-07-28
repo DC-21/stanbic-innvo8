@@ -17,8 +17,16 @@
     height: 600px;
     width: 100%;
     min-width: 500px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: contain;
+    -o-background-size: contain;
 }
-
+.normalH{
+    font-weight: 300;
+}
 .text{
     color: #0133A1;
     font-weight: bold;
@@ -71,13 +79,38 @@ inline-size: min-content;
 {
 color: #0133A1;
 font-weight: 600;
-font-size: 21px;
-padding-top: 8px;
+font-size: 23px;
+padding-top: 10px;
+padding-bottom: 10px;
 }
 .woman
 {
-    background-image: url(/public/images/woman-having-online-class-meeting-through-e-learning-system.png);
+    background-image:
+    linear-gradient(to bottom, #0134a118, #0134a1ba),
+    url('/public/images/woman-having-online-class-meeting-through-e-learning-system.png');
 min-width: 400px;
 width: 300px;
 height: 500px;
+background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+}
+.african-man
+{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-image:
+    linear-gradient(to bottom, #0134a118, #0134a195),
+     url(/public/images/african-man-black-suit-man-writing-glass.jpeg);
+min-width: 400px;
+width: 300px;
+height: 500px;
+
 }
