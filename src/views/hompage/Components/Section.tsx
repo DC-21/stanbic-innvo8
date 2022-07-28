@@ -4,7 +4,7 @@ import { Typography, Grid, Container } from '@mui/material';
 export default function Section() {
   return (
     <div className="topPadding">
-      <Container fixed>
+      <Container fixed id="About">
         <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} className="section2" spacing={2}>
             <Typography className="heading">
