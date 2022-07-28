@@ -182,7 +182,8 @@ const UserList = () => {
           elevation: 0,
           enableNestedDataAccess: '.',
           responsive: 'simple',
-          filterType: 'dropdown'
+          filterType: 'dropdown',
+          selectableRows: 'none'
         }}
         title="users"
         columns={columns}

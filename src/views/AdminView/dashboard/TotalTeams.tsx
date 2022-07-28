@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import { green } from '@mui/material/colors';
+import { yellow } from '@mui/material/colors';
 import makeStyles from '@mui/styles/makeStyles';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { useQuery } from 'react-query';
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     height: '100%'
   },
   avatar: {
-    backgroundColor: green[600],
+    backgroundColor: yellow[600],
     height: 46,
     width: 46
   }
