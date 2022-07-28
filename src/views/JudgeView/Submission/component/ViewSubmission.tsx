@@ -16,10 +16,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { axios } from '../../../clientProvider';
-import { useNotify } from '../../../redux/actions/notifications/notificationActions';
-import { RootState } from '../../../redux/reducers/rootReducer';
-import { Application } from '../../../types';
+import { axios } from '../../../../clientProvider';
+import { useNotify } from '../../../../redux/actions/notifications/notificationActions';
+import { RootState } from '../../../../redux/reducers/rootReducer';
+import { Application } from '../../../../types';
 
 interface Inputs {
   score: number;

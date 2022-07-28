@@ -1,11 +1,10 @@
 /* eslint-disable react/function-component-definition */
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
-import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import { Box, Divider, Drawer, Hidden } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import NavItem from './NavItem';
@@ -19,7 +18,7 @@ export const items = [
   },
   {
     href: '/judge/submissions',
-    icon: SupervisorAccountOutlinedIcon,
+    icon: TipsAndUpdatesIcon,
     title: 'Submissions'
   },
   {
@@ -103,7 +102,7 @@ const NavBar: React.FC<Props> = ({ onMobileClose, openMobile }) => {
           {content}
         </Drawer>
       </Hidden>
-      <Hidden mdDown>
+      <Hidden lgDown>
         <Drawer
           anchor="left"
           classes={{ paper: classes.desktopDrawer }}

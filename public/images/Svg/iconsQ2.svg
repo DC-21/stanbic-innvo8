@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="76.714" height="73.267" viewBox="0 0 76.714 73.267">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #0a2240;
+      }
+    </style>
+  </defs>
+  <g id="icons_Q2" data-name="icons Q2" transform="translate(-2 -1.977)">
+    <path id="Path_1" data-name="Path 1" class="cls-1" d="M75.227,12.478H59.536v-6.8a3.661,3.661,0,0,0-2.964-3.661A3.487,3.487,0,0,0,52.562,5.5v6.974H28.153v-6.8a3.661,3.661,0,0,0-2.964-3.661A3.487,3.487,0,0,0,21.179,5.5v6.974H5.487A3.487,3.487,0,0,0,2,15.965V71.757a3.487,3.487,0,0,0,3.487,3.487h69.74a3.487,3.487,0,0,0,3.487-3.487V15.965A3.487,3.487,0,0,0,75.227,12.478ZM71.74,68.27H8.974V33.4H71.74Zm0-41.844H8.974V19.452H71.74Z" transform="translate(0 0)"/>
+    <rect id="Rectangle_12" data-name="Rectangle 12" class="cls-1" width="14" height="14" rx="2" transform="translate(12 40)"/>
+    <rect id="Rectangle_13" data-name="Rectangle 13" class="cls-1" width="14" height="14" rx="2" transform="translate(54 40)"/>
+    <rect id="Rectangle_14" data-name="Rectangle 14" class="cls-1" width="14" height="14" rx="2" transform="translate(33 40)"/>
+  </g>
+</svg>

@@ -6,8 +6,8 @@ import { useQuery } from 'react-query';
 import { Button, Chip } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
-import axios from '../../../clientProvider/baseConfig';
-import Loading from '../../../components/Loading';
+import axios from '../../../../clientProvider/baseConfig';
+import Loading from '../../../../components/Loading';
 
 const getPendingSubmissions = async (): Promise<any[]> => {
   const { data } = await axios.get('/Innovation/view_pending_innovations');
@@ -102,7 +102,8 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
         elevation: 0,
         enableNestedDataAccess: '.',
         responsive: 'simple',
-        filterType: 'dropdown'
+        filterType: 'dropdown',
+        selectableRows: 'none'
       }}
       title="Pending submissions"
       columns={columns}

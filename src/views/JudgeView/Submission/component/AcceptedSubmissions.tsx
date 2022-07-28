@@ -6,23 +6,21 @@ import { useQuery } from 'react-query';
 import { Button, Chip, Container } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
-import axios from '../../../clientProvider/baseConfig';
-import Loading from '../../../components/Loading';
-import { CustomModal, useModalWithData } from '../../../components/Modal';
-import AcceptButton from './AcceptButton';
+import axios from '../../../../clientProvider/baseConfig';
+import Loading from '../../../../components/Loading';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
+import WaitingButton from '../actionButtons/WaitingButton';
 
-const getPendingSubmissions = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Innovation/view_reviewed_innovations');
+const getSubmissions = async (): Promise<any[]> => {
+  const { data } = await axios.get('/Innovation/view_accepted_innovations');
   return data.Innovations;
 };
 
-const ReviewedSubmissions = () => {
+const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { data, isLoading } = useQuery(
-    ['ReviewedSubmissions'],
-    getPendingSubmissions
-  );
+
+  const { data, isLoading } = useQuery(['AcceptedSubmissions'], getSubmissions);
 
   const { selected, setSelected, open, handleClose, handleClickOpen } =
     useModalWithData();
@@ -35,10 +33,10 @@ const ReviewedSubmissions = () => {
       <CustomModal
         open={open}
         handleClose={handleClose}
-        title="Accept Submission"
+        title="Put submission on waiting list"
       >
         {open ? (
-          <AcceptButton selected={selected} handleClose={handleClose} />
+          <WaitingButton selected={selected} handleClose={handleClose} />
         ) : null}
       </CustomModal>
 
@@ -47,9 +45,10 @@ const ReviewedSubmissions = () => {
           elevation: 0,
           enableNestedDataAccess: '.',
           responsive: 'simple',
-          filterType: 'dropdown'
+          filterType: 'dropdown',
+          selectableRows: 'none'
         }}
-        title="Reviewed submissions"
+        title="Accepted submissions"
         columns={[
           {
             name: '_id',
@@ -154,7 +153,7 @@ const ReviewedSubmissions = () => {
                     size="small"
                     style={{ boxShadow: '1px 1px', color: 'primary.main' }}
                   >
-                    Accept
+                    Waiting
                   </Button>
                 );
               }
@@ -166,4 +165,5 @@ const ReviewedSubmissions = () => {
     </Container>
   );
 };
-export default ReviewedSubmissions;
+
+export default AcceptedSubmissions;

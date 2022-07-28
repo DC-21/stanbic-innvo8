@@ -12,7 +12,7 @@ import { TeamRoutes } from './views/TeamView/TeamRoutes';
 import NotFoundView from './views/errors/NotFoundView';
 import { JudgeRoutes } from './views/JudgeView/JudgeRoutes';
 import Logout from './views/auth/logout';
-import Home from './views/common/home';
+import Home from './views/hompage';
 
 const routes = [
   {

@@ -7,27 +7,27 @@ import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import { CircularProgress } from '@mui/material';
-import { axios } from '../../../clientProvider';
-import { useNotify } from '../../../redux/actions/notifications/notificationActions';
+import { axios } from '../../../../clientProvider';
+import { useNotify } from '../../../../redux/actions/notifications/notificationActions';
 
 export interface ConfirmationDialogRawProps {
   selected: Record<string, string>;
   handleClose: () => void;
 }
 
-function AcceptApplication(props: ConfirmationDialogRawProps) {
+function WaitingApplication(props: ConfirmationDialogRawProps) {
   const { handleClose, selected } = props;
   const dispatch = useDispatch();
   const notification = useNotify();
   const queryClient = useQueryClient();
   const id = selected;
 
-  const acceptApp = async () => {
-    const data = await axios.patch(`/Innovation/accept_innovation/${id}`);
+  const waitingApp = async () => {
+    const data = await axios.patch(`/Innovation/waiting_innovation/${id}`);
     return data;
   };
 
-  const { mutate, isLoading } = useMutation(acceptApp, {
+  const { mutate, isLoading } = useMutation(waitingApp, {
     onSuccess: (response) => {
       const { message } = response.data;
       dispatch(notification({ message, options: { variant: 'success' } }));
@@ -42,14 +42,14 @@ function AcceptApplication(props: ConfirmationDialogRawProps) {
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['submissions']);
+      queryClient.invalidateQueries(['AcceptedSubmissions']);
     }
   });
 
   return (
     <div>
       <DialogContentText>
-        Are you sure you want to accept this submission?
+        Are you sure you want to put this submission on the waiting list?
       </DialogContentText>
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">
@@ -71,4 +71,4 @@ function AcceptApplication(props: ConfirmationDialogRawProps) {
     </div>
   );
 }
-export default AcceptApplication;
+export default WaitingApplication;
