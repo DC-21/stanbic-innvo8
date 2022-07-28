@@ -67,10 +67,25 @@ inline-size: min-content;
     padding-top: 50px;
     padding-bottom: 50px;
 }
-
-
+.cardheight{
+    display: block;
+    margin-top: 20px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    align-items: center;
+}
+.spacing{ line-height: 20px;
+padding-bottom: 30px;
+}
 .topPadding2{
     background-color: #ffffff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    min-width: 450px;
+}
+.topPaddingGradient{
+    background-image: linear-gradient(to left, #4B38A9, #E30F93);
+
     padding-top: 50px;
     padding-bottom: 50px;
     min-width: 450px;
@@ -112,5 +127,20 @@ background-repeat: no-repeat;
 min-width: 400px;
 width: 300px;
 height: 500px;
+
+}
+.text-bot
+{
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    transform: translate(-50%,-50%);
+}
+.headingTitle{
+    position: absolute;
+    
+  width: 50%;
+  padding: 20px;
+ color: #0133A1;
 
 }
