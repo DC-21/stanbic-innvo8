@@ -5,6 +5,7 @@ import Header from './Components/Header';
 import Section from './Components/Section';
 import Eligibilitysection from './Components/Eligibilitysection';
 import Cards from './Components/cards';
+import InnoationStages from './Components/InnovationStages';
 
 function Homepage() {
   return (
@@ -14,6 +15,7 @@ function Homepage() {
       <Section />
       <Eligibilitysection />
       <Cards />
+      <InnoationStages />
     </div>
   );
 }
