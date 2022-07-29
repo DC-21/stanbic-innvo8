@@ -6,21 +6,24 @@ import { useQuery } from 'react-query';
 import { Button, Chip, Container } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
-import axios from '../../../clientProvider/baseConfig';
-import Loading from '../../../components/Loading';
-import { CustomModal, useModalWithData } from '../../../components/Modal';
-import WaitingButton from './WaitingButton';
+import axios from '../../../../clientProvider/baseConfig';
+import Loading from '../../../../components/Loading';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
+import AcceptButton from '../actionButtons/AcceptButton';
 
-const getSubmissions = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Innovation/view_accepted_innovations');
+const getPendingSubmissions = async (): Promise<any[]> => {
+  const { data } = await axios.get('/Innovation/view_waiting_innovations');
   return data.Innovations;
 };
 
-const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
+const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['submissions'], getSubmissions);
+  const { data, isLoading } = useQuery(
+    ['WaitingSubmissions'],
+    getPendingSubmissions
+  );
 
   const { selected, setSelected, open, handleClose, handleClickOpen } =
     useModalWithData();
@@ -33,10 +36,10 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
       <CustomModal
         open={open}
         handleClose={handleClose}
-        title="Put submission on waiting list"
+        title="Accept Submission"
       >
         {open ? (
-          <WaitingButton selected={selected} handleClose={handleClose} />
+          <AcceptButton selected={selected} handleClose={handleClose} />
         ) : null}
       </CustomModal>
 
@@ -45,9 +48,10 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
           elevation: 0,
           enableNestedDataAccess: '.',
           responsive: 'simple',
-          filterType: 'dropdown'
+          filterType: 'dropdown',
+          selectableRows: 'none'
         }}
-        title="Application"
+        title="Waiting submissions"
         columns={[
           {
             name: '_id',
@@ -152,7 +156,7 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
                     size="small"
                     style={{ boxShadow: '1px 1px', color: 'primary.main' }}
                   >
-                    Waiting
+                    Accept
                   </Button>
                 );
               }
@@ -165,4 +169,4 @@ const AcceptedSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   );
 };
 
-export default AcceptedSubmissions;
+export default WaitingSubmissions;

@@ -41,7 +41,7 @@ const CompletedVotes: FC<React.PropsWithChildren<Props>> = ({
         <Grid container justifyContent="space-between">
           <Grid item md={9}>
             <Typography color="textSecondary" gutterBottom variant="h6">
-              Completed Votes
+              Accepted Innovations
             </Typography>
             <Typography color="textPrimary" variant="h3">
               {data || 0}

@@ -1,12 +1,21 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/function-component-definition */
 import * as React from 'react';
+import { isEmpty } from 'lodash';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import {
+  Button,
+  IconButton,
+  Tooltip,
+  Typography,
+  Card,
+  CardContent
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
 // import moment from 'moment';
 
 import axios from '../../../../clientProvider/baseConfig';
@@ -14,6 +23,9 @@ import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import { CustomModal, useModalWithData } from '../../../../components/Modal';
 import AddTeamMember from './AddTeamMember';
+
+// import Error404Fallback from '../../../../components/ErrorBoundary/Error404';
+// import { Container } from '@mui/system';
 
 const getUser = async (id: string | undefined): Promise<any[]> => {
   const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
@@ -25,7 +37,11 @@ const ListTeamMembers = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
-  const { data, isLoading } = useQuery(['Teams'], () => getUser(user?._id));
+  const { data, error, isLoading } = useQuery(['Teams'], () =>
+    getUser(user?._id)
+  );
+
+  console.log(data, 'team data');
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -99,7 +115,7 @@ const ListTeamMembers = () => {
                 setSelected(userId);
                 handleClickOpen();
               }}
-              variant="contained"
+              variant="outlined"
               size="small"
             >
               add members
@@ -115,9 +131,15 @@ const ListTeamMembers = () => {
         filter: true,
         viewColumns: false,
         sort: false,
-        customBodyRender: () => {
+        customBodyRender: (value, tableMeta) => {
+          const [id] = tableMeta.rowData;
           return (
-            <Button disabled size="small" color="primary" variant="contained">
+            <Button
+              onClick={() => navigate('/team/teams/view', { state: { id } })}
+              size="small"
+              color="primary"
+              variant="contained"
+            >
               View
             </Button>
           );
@@ -148,6 +170,20 @@ const ListTeamMembers = () => {
       }
     }
   ];
+
+  // @ts-ignore
+  if (error?.response.status === 404) {
+    return (
+      <Card>
+        <CardContent>
+          <Typography>No team found</Typography>
+          <Typography>
+            Please add a team by clicking on the create new team button
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+  }
   return (
     <>
       {selected && (
@@ -169,7 +205,7 @@ const ListTeamMembers = () => {
         }}
         title="Team Members"
         columns={columns}
-        data={[data] || []}
+        data={isEmpty(data) ? [] : [data]}
       />
     </>
   );

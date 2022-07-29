@@ -6,8 +6,8 @@ import { useQuery } from 'react-query';
 import { Button, Chip } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
-import axios from '../../../clientProvider/baseConfig';
-import Loading from '../../../components/Loading';
+import axios from '../../../../clientProvider/baseConfig';
+import Loading from '../../../../components/Loading';
 
 const getPendingSubmissions = async (): Promise<any[]> => {
   const { data } = await axios.get('/Innovation/view_pending_innovations');
@@ -18,7 +18,10 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['submissions'], getPendingSubmissions);
+  const { data, isLoading } = useQuery(
+    ['PendingSubmissions'],
+    getPendingSubmissions
+  );
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -78,7 +81,7 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
           const [userId] = tableMeta.rowData;
           return (
             <Button
-              variant="contained"
+              variant="outlined"
               color="primary"
               onClick={() => {
                 navigate(`${location.pathname}/view/${userId}`);
@@ -99,9 +102,10 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
         elevation: 0,
         enableNestedDataAccess: '.',
         responsive: 'simple',
-        filterType: 'dropdown'
+        filterType: 'dropdown',
+        selectableRows: 'none'
       }}
-      title="users"
+      title="Pending submissions"
       columns={columns}
       data={data || []}
     />

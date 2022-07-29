@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import { Box, Button } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { AddCircleOutline } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/reducers/rootReducer';
 
 const useStyles = makeStyles((theme) => ({
   root: { marginTop: 22, marginBottom: 22 },
@@ -23,17 +25,19 @@ interface ToolbarProps {
 
 const Toolbar = ({ className, handleClickOpen, ...rest }: ToolbarProps) => {
   const classes = useStyles();
+  const { user } = useSelector((state: RootState) => state.user);
 
   return (
     <div className={clsx(classes.root, className)} {...rest}>
-      <Box display="flex" justifyContent="flex-end">
+      <Box sx={{ mt: 6, mb: 6 }} display="flex" justifyContent="flex-end">
         <Button
+          disabled={user?.userType === 'Team Member'}
           startIcon={<AddCircleOutline />}
           onClick={handleClickOpen}
           color="primary"
           variant="contained"
         >
-          Team
+          Create New Team
         </Button>
       </Box>
     </div>

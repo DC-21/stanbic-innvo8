@@ -121,9 +121,17 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             Total Votes: {application?.totalVotes}
           </Typography>
           <Typography variant="h5" color="primary">
-            Team Lead: {application?.teamId?.leadId.firstName}{' '}
-            {application?.teamId?.leadId.lastName}
+            Team Lead: {application?.leadId?.firstName}{' '}
+            {application?.leadId?.lastName}
           </Typography>
+          {application?.teamId.members.map((item) => {
+            console.log(item);
+            return (
+              <Typography variant="h5" color="primary" key={item._id}>
+                Team Member: {item.firstName} {item.lastName}
+              </Typography>
+            );
+          })}
         </Grid>
       </Grid>
     </div>

@@ -1,0 +1,145 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+  }
+  html, body {
+    height: 100%;
+  }
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+.Header{
+    background-image: url(/public/images/Innov8header.png);
+    height: 600px;
+    width: 100%;
+    min-width: 500px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+}
+.normalH{
+    font-weight: 300;
+}
+.text{
+    color: #0133A1;
+    font-weight: bold;
+
+}
+.section {
+
+background-color:#dedede;
+
+}
+
+.section2{
+    background-color:#ffffff;
+   width: max-content;
+   padding: 30px;
+   max-height: min-content;
+   -webkit-text-size-adjust: none;
+   text-size-adjust: none;
+   min-width: 400px;
+vertical-align: middle;
+inline-size: min-content;
+
+}
+
+.section3{
+    background-color:#F3F3F4;
+   width: max-content;
+   padding: 30px;
+   max-height: min-content;
+   -webkit-text-size-adjust: none;
+   text-size-adjust: none;
+   min-width: 400px;
+vertical-align: middle;
+inline-size: min-content;
+
+}
+.topPadding{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.cardheight{
+    display: block;
+    margin-top: 20px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    align-items: center;
+}
+.spacing{ line-height: 20px;
+padding-bottom: 30px;
+}
+.topPadding2{
+    background-color: #ffffff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    min-width: 450px;
+}
+.topPaddingGradient{
+    background-image: linear-gradient(to left, #4B38A9, #E30F93);
+
+    padding-top: 50px;
+    padding-bottom: 50px;
+    min-width: 450px;
+}
+.heading
+{
+color: #0133A1;
+font-weight: 600;
+font-size: 23px;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.woman
+{
+    background-image:
+    linear-gradient(to bottom, #0134a118, #0134a1ba),
+    url('/public/images/woman-having-online-class-meeting-through-e-learning-system.png');
+min-width: 400px;
+width: 300px;
+height: 500px;
+background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+}
+.african-man
+{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-image:
+    linear-gradient(to bottom, #0134a118, #0134a195),
+     url(/public/images/african-man-black-suit-man-writing-glass.jpeg);
+min-width: 400px;
+width: 300px;
+height: 500px;
+
+}
+.text-bot
+{
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    transform: translate(-50%,-50%);
+}
+.headingTitle{
+    
+  width: 590px;
+  
+ color: #0133A1;
+
+}

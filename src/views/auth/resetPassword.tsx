@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: any) => ({
     height: '100%'
   },
   quoteContainer: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none'
     }
   },
@@ -143,9 +143,7 @@ function ResetPassword() {
   const navigate = useNavigate();
   const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
-  // const location = useLocation();
-  // const urlString = location.pathname.split('/');
-  // const resetPasswordToken = urlString[2];
+
   const {
     register,
     handleSubmit,
@@ -155,8 +153,6 @@ function ResetPassword() {
     mode: 'onChange',
     resolver: yupResolver(schema)
   });
-  // const password = useRef({});
-  // password.current = watch('password', '');
 
   const grantAccess = async (data: Inputs) => {
     const { data: response } = await axios.patch(`/Auth/reset_password`, data);
@@ -189,7 +185,15 @@ function ResetPassword() {
   return (
     <div className={classes.root}>
       <Grid className={classes.grid} container>
-        <Grid className={classes.content} item xs={12} sm={8} md={4}>
+        <Grid
+          className={classes.content}
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={4}
+          xl={4}
+        >
           <div className={classes.content}>
             <div
               style={{
@@ -226,7 +230,6 @@ function ResetPassword() {
                   variant="outlined"
                   {...register('resetPin')}
                 />
-                <p>{errors.password?.message}</p>
                 <TextField
                   error={Boolean(errors.password?.message)}
                   className={classes.textField}
@@ -294,7 +297,15 @@ function ResetPassword() {
             </div>
           </div>
         </Grid>
-        <Grid className={classes.quoteContainer} item lg={8}>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={4}
+          xl={4}
+        >
           <div className={classes.quote}>
             {/* <div className={classes.quoteInner}>
               <Typography

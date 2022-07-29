@@ -18,7 +18,7 @@ const PendingApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['Teams'], getUser);
+  const { data, isLoading } = useQuery(['PendingSubmissions'], getUser);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -65,10 +65,7 @@ const PendingApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
         filter: true,
         sort: false,
         customBodyRender: (value) => (
-          <Chip
-            sx={{ backgroundColor: '#0133a1', color: '#fff' }}
-            label={value}
-          />
+          <Chip variant="outlined" color="primary" label={value} />
         )
       }
     },
@@ -104,9 +101,10 @@ const PendingApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
         elevation: 0,
         enableNestedDataAccess: '.',
         responsive: 'simple',
-        filterType: 'dropdown'
+        filterType: 'dropdown',
+        selectableRows: 'none'
       }}
-      title="users"
+      title="Applications"
       columns={columns}
       data={data || []}
     />

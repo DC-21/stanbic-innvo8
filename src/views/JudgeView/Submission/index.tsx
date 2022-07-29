@@ -4,10 +4,10 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useSearchParams } from 'react-router-dom';
-import PendingSubmissions from './PendingSubmissions';
-import AcceptedSubmissions from './AcceptedSubmissions';
-import WaitingSubmissions from './WaitingSubmissions';
-import ReviewedSubmissions from './ReviewSubmission';
+import PendingSubmissions from './component/PendingSubmissions';
+import ReviewedSubmissions from './component/ReviewSubmission';
+import WaitingSubmissions from './component/WaitingSubmissions';
+import AcceptedSubmissions from './component/AcceptedSubmissions';
 
 interface TabPanelProps {
   children?: React.ReactNode;

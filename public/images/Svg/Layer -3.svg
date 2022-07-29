@@ -1,0 +1,22 @@
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #0a2240;
+      }
+    </style>
+  </defs>
+  <g id="invisible_box" data-name="invisible box">
+    <rect id="Rectangle_16" data-name="Rectangle 16" class="cls-1" width="84" height="84"/>
+  </g>
+  <g id="icons_Q2" data-name="icons Q2" transform="translate(3.5 3.652)">
+    <g id="Group_15" data-name="Group 15" transform="translate(0 0)">
+      <ellipse id="Ellipse_9" data-name="Ellipse 9" class="cls-2" cx="9" cy="8.5" rx="9" ry="8.5" transform="translate(29.5 0.348)"/>
+      <path id="Path_5" data-name="Path 5" class="cls-2" d="M75.5,45.5H72V35a3.5,3.5,0,0,0-3.5-3.5H44V26.25H56.25v-7C51.525,16.8,46.1,14,40.5,14s-11.025,2.8-15.75,5.25v7H37V31.5H12.5A3.5,3.5,0,0,0,9,35V45.5H5.5A3.5,3.5,0,0,0,2,49V63a3.5,3.5,0,0,0,3.5,3.5h14A3.5,3.5,0,0,0,23,63V49a3.5,3.5,0,0,0-3.5-3.5H16v-7H37v7H33.5A3.5,3.5,0,0,0,30,49V63a3.5,3.5,0,0,0,3.5,3.5h14A3.5,3.5,0,0,0,51,63V49a3.5,3.5,0,0,0-3.5-3.5H44v-7H65v7H61.5A3.5,3.5,0,0,0,58,49V63a3.5,3.5,0,0,0,3.5,3.5h14A3.5,3.5,0,0,0,79,63V49A3.5,3.5,0,0,0,75.5,45.5ZM16,59.5H9v-7h7Zm28,0H37v-7h7Zm28,0H65v-7h7Z" transform="translate(-2 6.848)"/>
+    </g>
+  </g>
+</svg>

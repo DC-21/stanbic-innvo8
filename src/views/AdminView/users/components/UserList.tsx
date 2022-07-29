@@ -87,10 +87,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         filter: true,
         sort: false,
         customBodyRender: (value) => (
-          <Chip
-            sx={{ backgroundColor: '#0133a1', color: '#fff' }}
-            label={value}
-          />
+          <Chip variant="outlined" color="primary" label={value} />
         )
       }
     },
@@ -169,7 +166,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       </CustomModal>
 
       <MUIDataTable
-        options={{ elevation: 0 }}
+        options={{ elevation: 0, selectableRows: 'none' }}
         title="users"
         columns={columns}
         data={data || []}

@@ -1,9 +1,24 @@
 /* eslint-disable react/function-component-definition */
-import { Button, CircularProgress, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CircularProgress,
+  TextField,
+  Typography,
+  Container,
+  FormControlLabel,
+  Radio,
+  RadioGroup
+} from '@mui/material';
+
 import { AxiosError } from 'axios';
+import { isEmpty } from 'lodash';
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +40,41 @@ const getTeam = async (
   const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
   return data.data;
 };
+
+export const challengeStatements = [
+  {
+    label: ` How might Stanbic Bank Zambia create products that meet the needs of people outside of their typical customer? `,
+    value: ` How might Stanbic Bank Zambia create products that meet the needs of people outside of their typical customer?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia ensure they create products that have value and address their customers’ problems?`,
+    value: `How might Stanbic Bank Zambia ensure they create products that have value and address their customers’ problems?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia drive its digital processes to ensure efficiency?`,
+    value: `How might Stanbic Bank Zambia drive its digital processes to ensure efficiency?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia not only digitise processes but implement digital transformation and automation as well?
+    `,
+    value: `How might Stanbic Bank Zambia not only digitise processes but implement digital transformation and automation as well?
+    `
+  },
+  {
+    label: `How might Stanbic Bank Zambia improve internal communication and bridge the knowledge gap among their staff with regards to their new products and services?`,
+    value: `How might Stanbic Bank Zambia improve internal communication and bridge the knowledge gap among their staff with regards to their new products and services?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia ensure that all customers (potential and existing) are made aware of new products/services/features?`,
+    value: `How might Stanbic Bank Zambia ensure that all customers (potential and existing) are made aware of new products/services/features?`
+  },
+  {
+    label: `How might Stanbic Bank Zambia intentionally influence organisational culture thereby boosting morale? 
+    `,
+    value: `How might Stanbic Bank Zambia intentionally influence organisational culture thereby boosting morale? 
+    `
+  }
+];
 const ProposalForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -39,6 +89,7 @@ const ProposalForm = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors }
   } = useForm<ProposalFormInputs>({
     mode: 'onChange'
@@ -64,12 +115,43 @@ const ProposalForm = () => {
   const onSubmit = (data: ProposalFormInputs) => {
     const formData = {
       ...data,
+      leadId: user?._id,
       teamId: teamData?._id
     };
     mutate(formData);
   };
+
   if (isLoadingTeam) return <Loading size={45} />;
   if (isError) return <div>Error</div>;
+  if (isEmpty(teamData)) {
+    return (
+      <Container sx={{ mt: 15 }} maxWidth="md">
+        <Card sx={{ m: 'auto' }}>
+          <CardContent>
+            <Typography sx={{ textTransform: 'uppercase' }} variant="h2">
+              No team found
+            </Typography>
+            <Typography variant="h4">
+              You are not a member of any team. Please contact your lead to join
+              a team.
+            </Typography>
+          </CardContent>
+          <CardActionArea>
+            <CardActions sx={{ display: 'flex', alignItems: 'flex-end' }}>
+              <Button
+                onClick={() => navigate('/team/teams')}
+                variant="contained"
+                color="primary"
+              >
+                Create Team
+              </Button>
+            </CardActions>
+          </CardActionArea>
+        </Card>
+      </Container>
+    );
+  }
+
   return (
     <div
       style={{
@@ -123,16 +205,25 @@ const ProposalForm = () => {
           type="text"
         />
         <Typography variant="h5" color="primary">
-          4. Which category/sector does your innovation fall under?
+          4. What Challenge Statement Does Your solution address?
         </Typography>
-        <TextField
-          error={Boolean(errors.category)}
-          variant="outlined"
-          fullWidth
-          {...register('category', { required: true })}
-          margin="normal"
-          size="small"
-          type="text"
+
+        <Controller
+          render={({ field }) => (
+            <RadioGroup aria-label="score" {...field}>
+              {challengeStatements.map((challengeStatement) => (
+                <FormControlLabel
+                  key={challengeStatement.value}
+                  value={challengeStatement.value}
+                  control={<Radio />}
+                  label={challengeStatement.label}
+                />
+              ))}
+            </RadioGroup>
+          )}
+          rules={{ required: true }}
+          name="category"
+          control={control}
         />
 
         <Button

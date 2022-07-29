@@ -18,7 +18,7 @@ const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading } = useQuery(['Teams'], getApp);
+  const { data, isLoading } = useQuery(['ReviewedSubmissions'], getApp);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -74,10 +74,7 @@ const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
         filter: true,
         sort: false,
         customBodyRender: (value) => (
-          <Chip
-            sx={{ backgroundColor: '#0133a1', color: '#fff' }}
-            label={value}
-          />
+          <Chip variant="outlined" color="primary" label={value} />
         )
       }
     },
@@ -113,9 +110,10 @@ const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
         elevation: 0,
         enableNestedDataAccess: '.',
         responsive: 'simple',
-        filterType: 'dropdown'
+        filterType: 'dropdown',
+        selectableRows: 'none'
       }}
-      title="users"
+      title="Applications"
       columns={columns}
       data={data || []}
     />

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: any) => ({
     height: '100%'
   },
   quoteContainer: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none'
     }
   },
@@ -129,7 +129,6 @@ export interface Data {
   lastName: string;
   email: string;
   password: string;
-  userType: string;
   branch: string;
   gender: string;
 }
@@ -181,14 +180,15 @@ function SignUp() {
   const onSubmit = (data: Data) => {
     const admin = {
       ...data,
-      isActive: true
+      isActive: true,
+      userType: 'Team Lead'
     };
     mutate(admin);
   };
   return (
     <div className={classes.root}>
       <Grid className={classes.grid} container>
-        <Grid className={classes.content} xs={12} sm={8} md={4}>
+        <Grid className={classes.content} xs={12} sm={6} md={4} lg={4} xl={4}>
           <div className={classes.content}>
             <div
               style={{
@@ -246,18 +246,6 @@ function SignUp() {
                   variant="outlined"
                   {...register('email')}
                 />
-
-                {/* <TextField
-                  error={!!errors.password}
-                  className={classes.textField}
-                  fullWidth
-                  size="small"
-                  label="Password"
-                  type="password"
-                  variant="outlined"
-                  {...register('password')}
-                  autoComplete="off"
-                /> */}
                 <TextField
                   error={!!errors.password}
                   fullWidth
@@ -281,25 +269,6 @@ function SignUp() {
                       </InputAdornment>
                     )
                   }}
-                />
-                <Controller
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      select
-                      label="Role"
-                      variant="outlined"
-                      value={value}
-                      onChange={onChange}
-                      margin="normal"
-                      size="small"
-                      fullWidth
-                    >
-                      <MenuItem value="Team Lead">Team Lead</MenuItem>
-                    </TextField>
-                  )}
-                  rules={{ required: true }}
-                  name="userType"
-                  control={control}
                 />
                 <Controller
                   render={({ field: { onChange, value } }) => (
@@ -388,7 +357,15 @@ function SignUp() {
             </div>
           </div>
         </Grid>
-        <Grid className={classes.quoteContainer} item lg={8}>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          xs={12}
+          sm={6}
+          md={8}
+          lg={8}
+          xl={8}
+        >
           <div className={classes.quote}>
             <div className={classes.quoteInner}>
               {/* <Typography

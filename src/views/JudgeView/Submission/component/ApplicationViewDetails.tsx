@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { axios } from '../../../clientProvider';
-import { Application } from '../../../types';
-import Loading from '../../../components/Loading';
+import { axios } from '../../../../clientProvider';
+import { Application } from '../../../../types';
+import Loading from '../../../../components/Loading';
 import ViewSubmission from './ViewSubmission';
 
 const getSubmissionsById = async (
