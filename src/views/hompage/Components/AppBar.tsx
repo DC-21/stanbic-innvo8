@@ -79,7 +79,7 @@ export default function ButtonAppBar() {
                 variant="h6"
                 to="#"
                 component={RouterLink}
-                sx={{ paddingRight: 3, cursor: 'pointer' }}
+                sx={{ cursor: 'pointer' }}
               >
                 <Link
                   activeClass="active"
@@ -97,7 +97,7 @@ export default function ButtonAppBar() {
                 variant="h6"
                 to="#"
                 component={RouterLink}
-                sx={{ paddingRight: 3, cursor: 'pointer' }}
+                sx={{ cursor: 'pointer' }}
               >
                 <Link
                   activeClass="active"
@@ -115,7 +115,7 @@ export default function ButtonAppBar() {
                 variant="h6"
                 to="#"
                 component={RouterLink}
-                sx={{ paddingRight: 3, cursor: 'pointer' }}
+                sx={{ cursor: 'pointer' }}
               >
                 <Link
                   activeClass="active"
@@ -133,7 +133,6 @@ export default function ButtonAppBar() {
                 variant="h6"
                 to="#"
                 component={RouterLink}
-                sx={{ paddingRight: 3 }}
               >
                 FAQ
               </Typography>
@@ -142,7 +141,6 @@ export default function ButtonAppBar() {
                 variant="h6"
                 to="#"
                 component={RouterLink}
-                sx={{ paddingRight: 5 }}
               >
                 Contacts
               </Typography>

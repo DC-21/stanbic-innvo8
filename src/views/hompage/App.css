@@ -26,8 +26,6 @@
 }
 .normalH{
     font-weight: 300;
-    padding-left: 5px;
-    padding-right: 5px;
 }
 .text{
     color: #0133A1;
@@ -130,22 +128,18 @@ min-width: 400px;
 width: 300px;
 height: 500px;
 
-
-   
-   
 }
-.headingPosition{
+.text-bot
+{
     position: absolute;
-    top: 30%;
-    min-width: 300px;
-    
-
+    top: 40%;
+    left: 30%;
+    transform: translate(-50%,-50%);
 }
-
 .headingTitle{
-   
-
-width: 50%;
+    
+  width: 590px;
+  
  color: #0133A1;
- background-repeat: no-repeat;
+
 }

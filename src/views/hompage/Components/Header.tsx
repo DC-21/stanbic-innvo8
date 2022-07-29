@@ -6,22 +6,20 @@ function Header() {
   return (
     <div className="Header">
       <Container>
-        <div className="headingPosition ">
+        <div className="text-bot">
           <h1 className="headingTitle">
-            <span className="normalH"> Do you have an </span> innovative
-            business
-            <span className="normalH">
-              idea that addresses our most pressing
-            </span>
-            challenges?
+            Do you have an innovative business idea that addresses our most
+            pressing challenges?
           </h1>
           <div>
-            <Link component={RouterLink} to="/signin" variant="h6">
-              <Button size="large" variant="contained">
-                Apply Now
-              </Button>
-            </Link>
-          </div>
+            <div>
+              <Link component={RouterLink} to="/signin" variant="h6">
+                <Button size="large" variant="contained">
+                  Apply Now
+                </Button>
+              </Link>
+            </div>
+          </div>{' '}
         </div>
       </Container>
     </div>
