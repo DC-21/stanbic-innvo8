@@ -157,7 +157,8 @@ export default function ButtonAppBar() {
                     Contacts
                   </Typography>
                 </Button>
-                <Link component={RouterLink} to="/signin" variant="h6">
+
+                <Link to="/signin" variant="h6">
                   <Button sx={{ m: 1 }} variant="contained">
                     Login
                   </Button>
