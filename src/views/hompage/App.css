@@ -13,7 +13,7 @@
   }
 
 .Header{
-    background-image: url(/public/images/Innov8header.jpg);
+    background-image: url(/public/images/Innov8header.png);
     height: 600px;
     width: 100%;
     min-width: 500px;
@@ -26,6 +26,8 @@
 }
 .normalH{
     font-weight: 300;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .text{
     color: #0133A1;
@@ -128,19 +130,22 @@ min-width: 400px;
 width: 300px;
 height: 500px;
 
-}
-.text-bot
-{
-    position: absolute;
-    top: 40%;
-    left: 30%;
-    transform: translate(-50%,-50%);
-}
-.headingTitle{
-    position: absolute;
-    
-  width: 50%;
-  padding: 20px;
- color: #0133A1;
 
+   
+   
+}
+.headingPosition{
+    position: absolute;
+    top: 30%;
+    min-width: 300px;
+    
+
+}
+
+.headingTitle{
+   
+
+width: 50%;
+ color: #0133A1;
+ background-repeat: no-repeat;
 }

@@ -13,7 +13,6 @@ import {
   Drawer
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-
 import Logo from '../../../components/Logo';
 import DrawerComponent from './Drawer';
 
@@ -39,7 +38,7 @@ export default function ButtonAppBar() {
             <Typography
               className="text"
               variant="body2"
-              to="#"
+              to="#About"
               component={RouterLink}
               sx={{ flexGrow: 1 }}
             >

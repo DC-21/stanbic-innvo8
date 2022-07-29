@@ -6,6 +6,7 @@ import Section from './Components/Section';
 import Eligibilitysection from './Components/Eligibilitysection';
 import Cards from './Components/cards';
 import InnoationStages from './Components/InnovationStages';
+import Footer from './Components/Footer';
 
 function Homepage() {
   return (
@@ -16,6 +17,7 @@ function Homepage() {
       <Eligibilitysection />
       <Cards />
       <InnoationStages />
+      <Footer />
     </div>
   );
 }

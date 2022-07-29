@@ -3,7 +3,7 @@ import { Typography, Grid, Container } from '@mui/material';
 
 export default function Eligibilitysection() {
   return (
-    <div className="topPadding2">
+    <div className="topPadding2" id="#About">
       <Container fixed>
         <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} className="african-man" spacing={2} />
