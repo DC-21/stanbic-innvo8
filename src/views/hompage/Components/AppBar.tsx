@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
   },
   nav: {
-    paddingLeft: '40%',
+    paddingLeft: '36%',
     [theme.breakpoints.down('xs')]: {
       paddingLeft: 0
     }
@@ -56,97 +56,113 @@ export default function ButtonAppBar() {
           </Box>
           <Box className={classes.nav}>
             <Hidden mdDown>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-                sx={{ paddingRight: 3, cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="About"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  About
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="About"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      About
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ p: '2', cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="EligibilityCriteria"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Eligibility Criteria
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="Benefits"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Benefits
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="Stages"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Stages
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                  >
+                    FAQ
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                  >
+                    Contacts
+                  </Typography>
+                </Button>
+                <Link component={RouterLink} to="/signin" variant="h6">
+                  <Button sx={{ m: 1 }} variant="contained">
+                    Login
+                  </Button>
                 </Link>
-              </Typography>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-                sx={{ cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="EligibilityCriteria"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  Eligibility Criteria
-                </Link>
-              </Typography>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-                sx={{ cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="Benefits"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  Benefits
-                </Link>
-              </Typography>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-                sx={{ cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="Stages"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  Stages
-                </Link>
-              </Typography>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-              >
-                FAQ
-              </Typography>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-              >
-                Contacts
-              </Typography>
-              <Link component={RouterLink} to="/signin" variant="h6">
-                <Button variant="contained">Login</Button>
-              </Link>
+              </Box>
             </Hidden>
             <Hidden mdUp>
               <Box sx={{ ml: 'auto' }}>
