@@ -16,6 +16,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import Logo from '../../../components/Logo';
 import DrawerComponent from './Drawer';
+import Login from './login';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -157,14 +158,9 @@ export default function ButtonAppBar() {
                     Contacts
                   </Typography>
                 </Button>
-
-                <Link to="/signin" variant="h6">
-                  <Button sx={{ m: 1 }} variant="contained">
-                    Login
-                  </Button>
-                </Link>
               </Box>
             </Hidden>
+            <Login />
             <Hidden mdUp>
               <Box sx={{ ml: 'auto' }}>
                 <IconButton
