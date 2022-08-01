@@ -33,13 +33,13 @@ function NotFoundView() {
       >
         <Container maxWidth="md">
           <Typography align="center" color="textPrimary" variant="h1">
-            404: The page you are looking for isn’t here
+            404: Page Not Found
           </Typography>
           <Box textAlign="center">
             <img
               alt="Under development"
               className={classes.image}
-              src="/images/undraw_page_not_found_re_e9o6.svg"
+              src="/images/undraw_page_not_found_re_e9o6.png"
             />
           </Box>
         </Container>
