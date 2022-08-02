@@ -16,11 +16,13 @@ import makeStyles from '@mui/styles/makeStyles';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import Logo from '../../../components/Logo';
 import DrawerComponent from './Drawer';
+import Login from './login';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: 'white',
-    marginBottom: '2px'
+    marginBottom: '3px',
+    alignItems: 'center'
   },
   logo: {
     paddingLeft: 13,
@@ -30,9 +32,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
   },
   nav: {
-    paddingLeft: '36%',
+    paddingLeft: 20,
+    justifyContent: 'center',
     [theme.breakpoints.down('xs')]: {
-      paddingLeft: 0
+      paddingLeft: 28
     }
   }
 }));
@@ -56,7 +59,7 @@ export default function ButtonAppBar() {
           </Box>
           <Box className={classes.nav}>
             <Hidden mdDown>
-              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
@@ -157,14 +160,10 @@ export default function ButtonAppBar() {
                     Contacts
                   </Typography>
                 </Button>
-
-                <Link to="/signin" variant="h6">
-                  <Button sx={{ m: 1 }} variant="contained">
-                    Login
-                  </Button>
-                </Link>
+                <Login />
               </Box>
             </Hidden>
+
             <Hidden mdUp>
               <Box sx={{ ml: 'auto' }}>
                 <IconButton
