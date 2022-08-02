@@ -19,10 +19,10 @@
 
     height: 600px;
     width: 100%;
-    min-width: 600px;
+    min-width: 500px;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: contain;
     -webkit-background-size: cover;
     -moz-background-size: contain;
     -o-background-size: contain;
@@ -71,15 +71,13 @@ inline-size: min-content;
     padding-bottom: 50px;
 }
 .cardheight{
-    display: block;
-    width: 100%;
-    
-   padding-top: 20px;
-   margin-top: 15px;
- 
- 
-    align-items: center;
-    height: 140px
+display: block;
+width: 100%;
+min-width: 130px;
+padding-top: 20px;
+margin-top: 15px;
+align-items: center;
+height: 140px
 }
 
 .row{
@@ -159,15 +157,18 @@ height: 500px;
     background-color: #0A2240;
   padding-top:60px ;
 padding-bottom: 70px;
+width: 100%;
 }
 .footerText {
     color: #fff;
 }
 .Initiative{
    background-color: #F3F3F4;
-   height: 80px;
+   
 }
 .layout{
     padding: 20px;
-    text-align: center;}
+    text-align: center;
+}
 
+.size{width: 200px;}

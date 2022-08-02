@@ -11,10 +11,14 @@ import {
 export default function InnoationStages() {
   return (
     <div className="topPadding2">
-      <Container id="Stages">
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={6} spacing={2}>
-            <Card sx={{ maxWidth: 500 }}>
+      <Container fixed id="Stages">
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          <Grid item xs={6}>
+            <Card sx={{ pb: 3, maxWidth: 500 }}>
               <CardMedia
                 component="img"
                 height="200"
