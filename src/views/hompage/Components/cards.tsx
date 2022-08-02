@@ -8,10 +8,15 @@ import { Container, Grid } from '@mui/material';
 export default function Cards() {
   return (
     <div className="spacing topPaddingGradient">
-      <Container id="Benefits">
-        <Grid container rowSpacing={3} columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
+      <Container fixed id="Benefits">
+        <Grid
+          container
+          className="row"
+          rowSpacing={3}
+          columnSpacing={{ xs: 6, sm: 3, md: 3 }}
+        >
           <Grid item xs={6} sm={3}>
-            <Card className="cardheight" sx={{ maxWidth: 300 }}>
+            <Card className="cardheight" sx={{ maxWidth: 300, margin: 'auto' }}>
               <CardContent>
                 <Typography
                   gutterBottom
@@ -25,7 +30,7 @@ export default function Cards() {
             </Card>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Card className="cardheight" sx={{ maxWidth: 300 }}>
+            <Card className="cardheight" sx={{ maxWidth: 300, margin: 'auto' }}>
               <CardContent>
                 <Typography variant="body2">
                   One week of learning experience in building innovative
@@ -59,7 +64,7 @@ export default function Cards() {
           container
           className="spacing"
           rowSpacing={1}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          columnSpacing={{ xs: 6, sm: 3, md: 3 }}
         >
           <Grid item xs={6} sm={3}>
             <Card className="cardheight" sx={{ maxWidth: 300 }}>

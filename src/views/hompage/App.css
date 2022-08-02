@@ -19,7 +19,7 @@
 
     height: 600px;
     width: 100%;
-    min-width: 700px;
+    min-width: 600px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -72,10 +72,19 @@ inline-size: min-content;
 }
 .cardheight{
     display: block;
-    margin-top: 20px;
-    padding-top: 40px;
-    padding-bottom: 30px;
+    width: 100%;
+    
+   padding-top: 20px;
+   margin-top: 15px;
+ 
+ 
     align-items: center;
+    height: 140px
+}
+
+.row{
+
+   
 }
 .spacing{ line-height: 20px;
 padding-bottom: 30px;
@@ -140,7 +149,7 @@ height: 500px;
 }
 .headingTitle{
     
-  width: 590px;
+  width: 500px;
   
  color: #0133A1;
 
@@ -148,6 +157,17 @@ height: 500px;
 .footer
 {
     background-color: #0A2240;
-    height: 200px;
-
+  padding-top:60px ;
+padding-bottom: 70px;
 }
+.footerText {
+    color: #fff;
+}
+.Initiative{
+   background-color: #F3F3F4;
+   height: 80px;
+}
+.layout{
+    padding: 20px;
+    text-align: center;}
+

@@ -1,22 +1,29 @@
-import { Container, Grid } from '@mui/material';
 import React from 'react';
+
+import { Container, Grid, Typography } from '@mui/material';
 
 function Footer() {
   return (
-    <div className="footer">
-      <Container>
-        <Grid container spacing={3}>
-          <Grid item xs>
-            <h1>Project Innov8 2.0</h1>
+    <div>
+      <div className="Initiative">
+        <Container fixed>
+          <Grid item xs={12}>
+            <Typography className="layout"> An Initiative of</Typography>
           </Grid>
-          <Grid item xs={6}>
-            <h1>Project Innov8 2.0</h1>
+        </Container>
+      </div>
+
+      <div className="footer">
+        <Container fixed>
+          <Grid container spacing={3}>
+            <Grid item xs>
+              <h2 className="footerText">Project Innov8 2.0</h2>
+            </Grid>
+            <Grid item xs={6} />
+            <Grid item xs />
           </Grid>
-          <Grid item xs>
-            <h1>Project Innov8 2.0</h1>
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </div>
     </div>
   );
 }

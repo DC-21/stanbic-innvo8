@@ -21,7 +21,8 @@ import Login from './login';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: 'white',
-    marginBottom: '3px'
+    marginBottom: '3px',
+    alignItems: 'center'
   },
   logo: {
     paddingLeft: 13,
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   nav: {
     paddingLeft: 20,
-    alignItems: 'right',
+    justifyContent: 'center',
     [theme.breakpoints.down('xs')]: {
       paddingLeft: 28
     }
@@ -58,7 +59,7 @@ export default function ButtonAppBar() {
           </Box>
           <Box className={classes.nav}>
             <Hidden mdDown>
-              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
