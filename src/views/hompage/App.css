@@ -13,10 +13,13 @@
   }
 
 .Header{
-    background-image: url(/public/images/Innov8header.png);
+    background-image:
+    linear-gradient(to left, #0134a100, #f8f8f843),
+    url(/public/images/Innov8header.png);
+
     height: 600px;
     width: 100%;
-    min-width: 500px;
+    min-width: 700px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -132,9 +135,8 @@ height: 500px;
 .text-bot
 {
     position: absolute;
-    top: 40%;
-    left: 30%;
-    transform: translate(-50%,-50%);
+    top: 30%;
+    
 }
 .headingTitle{
     
@@ -147,4 +149,5 @@ height: 500px;
 {
     background-color: #0A2240;
     height: 200px;
+
 }

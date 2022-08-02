@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 function Header() {
   return (
     <div className="Header">
-      <Container>
+      <Container fixed>
         <div className="text-bot">
           <h1 className="headingTitle">
             Do you have an innovative business idea that addresses our most
@@ -19,7 +19,7 @@ function Header() {
                 </Button>
               </Link>
             </div>
-          </div>{' '}
+          </div>
         </div>
       </Container>
     </div>
