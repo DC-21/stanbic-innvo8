@@ -13,13 +13,16 @@
   }
 
 .Header{
-    background-image: url(/public/images/Innov8header.png);
+    background-image:
+    linear-gradient(to left, #0134a100, #f8f8f843),
+    url(/public/images/Innov8header.png);
+
     height: 600px;
     width: 100%;
     min-width: 500px;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: contain;
     -webkit-background-size: cover;
     -moz-background-size: contain;
     -o-background-size: contain;
@@ -68,11 +71,18 @@ inline-size: min-content;
     padding-bottom: 50px;
 }
 .cardheight{
-    display: block;
-    margin-top: 20px;
-    padding-top: 40px;
-    padding-bottom: 30px;
-    align-items: center;
+display: block;
+width: 100%;
+min-width: 130px;
+padding-top: 20px;
+margin-top: 15px;
+align-items: center;
+height: 140px
+}
+
+.row{
+
+   
 }
 .spacing{ line-height: 20px;
 padding-bottom: 30px;
@@ -132,14 +142,33 @@ height: 500px;
 .text-bot
 {
     position: absolute;
-    top: 40%;
-    left: 30%;
-    transform: translate(-50%,-50%);
+    top: 30%;
+    
 }
 .headingTitle{
     
-  width: 590px;
+  width: 500px;
   
  color: #0133A1;
 
 }
+.footer
+{
+    background-color: #0A2240;
+  padding-top:60px ;
+padding-bottom: 70px;
+width: 100%;
+}
+.footerText {
+    color: #fff;
+}
+.Initiative{
+   background-color: #F3F3F4;
+   
+}
+.layout{
+    padding: 20px;
+    text-align: center;
+}
+
+.size{width: 200px;}
