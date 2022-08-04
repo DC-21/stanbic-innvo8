@@ -1,17 +1,7 @@
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
-  * {
+* {
     margin: 0;
+    padding: 0;
   }
-  html, body {
-    height: 100%;
-  }
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-
 .Header{
     background-image:
     linear-gradient(to left, #0134a100, #f8f8f843),
@@ -157,7 +147,8 @@ background-repeat: no-repeat;
 background-color: #0A2240;
 padding-top:60px ;
 padding-bottom: 70px;
-width: 100%;
+min-width: 500px;
+
 }
 .footerText {
     color: #fff;
