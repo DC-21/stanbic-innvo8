@@ -8,8 +8,9 @@ function Header() {
       <Container fixed>
         <div className="text-bot">
           <h1 className="headingTitle">
-            Do you have an innovative business idea that addresses our most
-            pressing challenges?
+            Do you have an innovative <br />
+            business idea that addresses <br />
+            our most pressing challenges?
           </h1>
           <div>
             <div>

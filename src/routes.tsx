@@ -13,6 +13,7 @@ import NotFoundView from './views/errors/NotFoundView';
 import { JudgeRoutes } from './views/JudgeView/JudgeRoutes';
 import Logout from './views/auth/logout';
 import Home from './views/hompage';
+import FAQ from './views/Faq/Faq';
 
 const routes = [
   {
@@ -28,6 +29,7 @@ const routes = [
   { path: '/', element: <Home /> },
   { path: 'signin', element: <SignIn /> },
   { path: 'signup', element: <SignUp /> },
+  { path: 'faq', element: <FAQ /> },
   { path: 'completeSignUp', element: <CompleteSignUp /> },
   { path: 'forgot-password', element: <ForgotPassword /> },
   { path: 'resetpassword', element: <ResetPassword /> },

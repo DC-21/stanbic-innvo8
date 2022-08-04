@@ -1,11 +1,13 @@
-import { Container } from '@mui/material';
 import React from 'react';
+import AppBar from '../hompage/Components/AppBar';
+import Header from '../hompage/Components/Header';
 
 function FAQ() {
   return (
-    <Container>
-      <div>hello</div>
-    </Container>
+    <div>
+      <AppBar />
+      <Header />
+    </div>
   );
 }
 

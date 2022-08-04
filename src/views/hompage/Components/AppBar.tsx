@@ -17,6 +17,7 @@ import { Link, animateScroll as scroll } from 'react-scroll';
 import Logo from '../../../components/Logo';
 import DrawerComponent from './Drawer';
 import Login from './login';
+import FAQ from './Faqlink';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -141,16 +142,7 @@ export default function ButtonAppBar() {
                     </Link>
                   </Typography>
                 </Button>
-                <Button sx={{ color: '#0133A1' }}>
-                  <Typography
-                    className="text"
-                    variant="h6"
-                    to="#"
-                    component={RouterLink}
-                  >
-                    FAQ
-                  </Typography>
-                </Button>
+                <FAQ />
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
