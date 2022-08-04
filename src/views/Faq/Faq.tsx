@@ -4,7 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import Header from '../hompage/Components/Header';
 import AppBar from '../hompage/Components/AppBar';
 import Footer from '../hompage/Components/Footer';
@@ -14,6 +14,11 @@ export default function FAQ() {
     <div>
       <AppBar />
       <Header />
+      <Grid item xs={12}>
+        <Typography className="layout heading">
+          Frequently Asked Questions (FAQs)
+        </Typography>
+      </Grid>
       <div className="layoutpadding">
         <Accordion>
           <AccordionSummary
