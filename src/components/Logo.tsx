@@ -2,6 +2,8 @@
 /* eslint-disable no-use-before-define */
 import { makeStyles } from '@mui/styles';
 import React, { FC } from 'react';
+import { Link } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   logo: {
@@ -12,12 +14,14 @@ const useStyles = makeStyles(() => ({
 const Logo: FC<React.PropsWithChildren<unknown>> = (props) => {
   const classes = useStyles();
   return (
-    <img
-      alt="Logo"
-      src="/images/stanbic2.png"
-      {...props}
-      className={classes.logo}
-    />
+    <Link component={RouterLink} to="/" variant="h6">
+      <img
+        alt="Logo"
+        src="/images/stanbic2.png"
+        {...props}
+        className={classes.logo}
+      />
+    </Link>
   );
 };
 

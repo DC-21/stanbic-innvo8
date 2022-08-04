@@ -7,6 +7,7 @@ import {
   Divider
 } from '@mui/material';
 import React from 'react';
+import FAQ from './Faqlink';
 import Login from './login';
 
 interface DrawerProps {
@@ -45,7 +46,9 @@ function DrawerComponent({ setMobileNavOpen }: DrawerProps) {
         </ListItem>
         <ListItem>
           <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary=" FAQ" />
+            <ListItemText>
+              <FAQ />
+            </ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem>
