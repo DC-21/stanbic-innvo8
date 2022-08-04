@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Grid, Container } from '@mui/material';
+import { Typography, Grid, Container, Box } from '@mui/material';
 
 export default function Section() {
   return (
@@ -12,11 +12,13 @@ export default function Section() {
               Project Innov8 2.0
             </Typography>
             <Typography>
-              Building on the first iteration in 2021, Project Innov8 2.0 is an
-              opportunity for bold Stanbic staff to form cross-departmental
-              teams that are determined to develop new ideas meant to address
-              customer-centric challenges. The Challenge is open to all Stanbic
-              staff in teams of 2 to 3 Innovators.
+              <Box sx={{ mb: 1 }}>
+                Building on the first iteration in 2021, Project Innov8 2.0 is
+                an opportunity for bold Stanbic staff to form cross-departmental
+                teams that are determined to develop new ideas meant to address
+                customer-centric challenges. The Challenge is open to all
+                Stanbic staff in teams of 2 to 3 Innovators.
+              </Box>
             </Typography>
             <Typography>
               During the program, Stanbic Innovators will be supported through

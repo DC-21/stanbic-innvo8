@@ -1,45 +1,63 @@
 import React from 'react';
-import { Typography, Grid, Container } from '@mui/material';
+import { Typography, Grid, Container, Box } from '@mui/material';
 
 export default function Eligibilitysection() {
   return (
     <div className="topPadding2">
       <Container fixed id="EligibilityCriteria">
-        <Grid container className="color">
+        <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} className="african-man" />
           <Grid item xs={6} className="section3">
             <Typography className="heading">
               <span className="normalH">Eligibility</span> Criteria
             </Typography>
+
             <Typography>
-              The submitting team must be Stanbic Bank Zambia members of staff.
+              <Box sx={{ mb: 1 }}>
+                The submitting team must be Stanbic Bank Zambia members of
+                staff.
+              </Box>
             </Typography>
             <Typography>
-              Team members cannot belong to more than one innovation team.
+              <Box sx={{ mb: 1 }}>
+                Team members cannot belong to more than one innovation team.
+              </Box>
             </Typography>
             <Typography>
-              The submitting team must be based in Zambia.
+              <Box sx={{ mb: 1 }}>
+                The submitting team must be based in Zambia.
+              </Box>
             </Typography>
             <Typography>
-              The submitted idea must be aligned with the needs of Zambians.
+              <Box sx={{ mb: 1 }}>
+                The submitted idea must be aligned with the needs of Zambians.
+              </Box>
             </Typography>
             <Typography>
-              The submitting team must be made up of Zambian nationals or
-              residents.
+              <Box sx={{ mb: 1 }}>
+                The submitting team must be made up of Zambian nationals or
+                residents.
+              </Box>
             </Typography>
             <Typography>
-              The submitting team may be seeking support for customer, product,
-              and/or business model development;
+              <Box sx={{ mb: 1 }}>
+                The submitting team may be seeking support for customer,
+                product, and/or business model development;
+              </Box>
             </Typography>
             <Typography>
-              A maximum of 2 team members (preferably Team Leads) must be able
-              to attend the Sprint Week
+              <Box sx={{ mb: 1 }}>
+                A maximum of 2 team members (preferably Team Leads) must be able
+                to attend the Sprint Week
+              </Box>
             </Typography>
             <Typography>
-              <span>
-                The winning team of the incubation programme must be able{' '}
-              </span>
-              to attend a 4-week idea development programme in September 2022.
+              <Box sx={{ mb: 1 }}>
+                <span>
+                  The winning team of the incubation programme must be able{' '}
+                </span>
+                to attend a 4-week idea development programme in September 2022.
+              </Box>
             </Typography>
           </Grid>
         </Grid>

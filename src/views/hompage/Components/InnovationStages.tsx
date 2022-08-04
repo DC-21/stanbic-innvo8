@@ -12,6 +12,14 @@ export default function InnoationStages() {
   return (
     <div className="topPadding2">
       <Container fixed id="Stages">
+        <Grid item xs={12}>
+          <Typography className="layout heading">Innovation Stages</Typography>
+          <Typography className="layout ">
+            You can expect to develop your idea and innovation skills through
+            coaching and sprints which involve:
+          </Typography>
+        </Grid>
+
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}

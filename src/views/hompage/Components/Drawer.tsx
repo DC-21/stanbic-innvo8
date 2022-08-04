@@ -4,10 +4,10 @@ import {
   ListItemText,
   ListItem,
   ListItemButton,
-  Button,
   Divider
 } from '@mui/material';
 import React from 'react';
+import Login from './login';
 
 interface DrawerProps {
   setMobileNavOpen: any;
@@ -56,9 +56,7 @@ function DrawerComponent({ setMobileNavOpen }: DrawerProps) {
         <ListItem>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText>
-              <Button color="primary" variant="contained">
-                Login
-              </Button>
+              <Login />
             </ListItemText>
           </ListItemButton>
         </ListItem>

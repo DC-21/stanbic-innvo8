@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center'
   },
   logo: {
-    paddingLeft: 13,
+    justifyContent: 'left',
+    paddingLeft: 0,
     cursor: 'pointer',
     [theme.breakpoints.down('xs')]: {
       paddingLeft: 0
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   nav: {
     paddingLeft: 20,
-    justifyContent: 'center',
+
     [theme.breakpoints.down('xs')]: {
       paddingLeft: 28
     }
@@ -59,7 +60,7 @@ export default function ButtonAppBar() {
           </Box>
           <Box className={classes.nav}>
             <Hidden mdDown>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
