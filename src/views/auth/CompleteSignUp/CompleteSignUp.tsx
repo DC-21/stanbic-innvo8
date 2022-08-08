@@ -161,7 +161,7 @@ function CompleteSignUp() {
     onSuccess: (data) => {
       const { message } = data;
       dispatch(notification({ message, options: { variant: 'success' } }));
-      setTimeout(() => navigate('/'), 1500);
+      setTimeout(() => navigate('/signin'), 1500);
     },
     onError: (error: AxiosError) => {
       dispatch(
@@ -203,14 +203,16 @@ function CompleteSignUp() {
                   variant="h2"
                   style={{ textAlign: 'center' }}
                 >
-                  Complete Sign Up
+                  Complete Registration
                 </Typography>
                 <Typography
                   color="textSecondary"
                   gutterBottom
                   style={{ textAlign: 'center' }}
                 >
-                  <p>Hey there! enter your email and create your password</p>
+                  <p>
+                    Enter your email and password to complete your registration
+                  </p>
                 </Typography>
 
                 <TextField

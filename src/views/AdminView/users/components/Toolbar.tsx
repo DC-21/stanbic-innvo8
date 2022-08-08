@@ -2,7 +2,7 @@
 /* eslint-disable no-use-before-define */
 import React, { FC } from 'react';
 import clsx from 'clsx';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Tooltip } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { AddCircleOutline } from '@mui/icons-material';
 
@@ -31,14 +31,16 @@ const Toolbar: FC<React.PropsWithChildren<ToolbarProps>> = ({
   return (
     <div className={clsx(classes.root, className)} {...rest}>
       <Box display="flex" justifyContent="flex-end">
-        <Button
-          startIcon={<AddCircleOutline />}
-          onClick={handleClickOpen}
-          color="primary"
-          variant="contained"
-        >
-          Judge
-        </Button>
+        <Tooltip title="Add a judge" placement="top-start">
+          <Button
+            startIcon={<AddCircleOutline />}
+            onClick={handleClickOpen}
+            color="primary"
+            variant="contained"
+          >
+            Judge
+          </Button>
+        </Tooltip>
       </Box>
     </div>
   );
