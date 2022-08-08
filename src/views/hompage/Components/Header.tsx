@@ -15,7 +15,7 @@ function Header() {
           <br />
           <div>
             <div>
-              <Link component={RouterLink} to="/signin" variant="h6">
+              <Link component={RouterLink} to="/signup" variant="h6">
                 <Button size="large" variant="contained">
                   Apply Now
                 </Button>

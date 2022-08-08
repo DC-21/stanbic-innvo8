@@ -13,7 +13,13 @@ root.render(
   <BrowserRouter>
     <PersistGate persistor={persistor}>
       <Provider store={store}>
-        <SnackbarProvider>
+        <SnackbarProvider
+          style={{
+            paddingTop: '20px',
+            paddingBottom: '20px',
+            fontSize: '20px'
+          }}
+        >
           <App />
         </SnackbarProvider>
       </Provider>
