@@ -8,9 +8,7 @@ export default function Eligibilitysection() {
         <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} className="african-man" />
           <Grid item xs={6} className="section3">
-            <Typography className="heading">
-              <span className="normalH">Eligibility</span> Criteria
-            </Typography>
+            <Typography className="heading">Eligibility Criteria</Typography>
 
             <Typography>
               <Box sx={{ mb: 1 }}>
