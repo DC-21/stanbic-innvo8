@@ -42,19 +42,19 @@ function Footer() {
         <Container>
           <Grid container spacing={3}>
             <Grid item xs={6} alignItems="left">
-              <h3 className="footerText">Project Innov8 2.0</h3>
+              <Typography className="footerText">Project Innov8 2.0</Typography>
               <br />
             </Grid>
             <Grid item xs={6}>
-              <h3 className="footerText">Contact Info</h3>
-              <h4 className="footerText">
+              <Typography className="footerText">Contact Info</Typography>
+              <Typography className="footerText">
                 Call: +26 095 301 7526
                 <br /> Email: info@projectinnov8.co.zm
-              </h4>
-              <h4 className="footerText">
+              </Typography>
+              <Typography className="footerText">
                 STANBIC BANK ZAMBIA PLC <br />
                 Addis Ababa Drive, Lusaka, Zambia 10101
-              </h4>
+              </Typography>
             </Grid>
           </Grid>
         </Container>

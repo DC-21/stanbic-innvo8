@@ -106,7 +106,7 @@ function ResponsiveAppBar() {
               <Typography
                 className="text"
                 variant="h6"
-                to="#"
+                to=""
                 component={RouterLink}
                 sx={{ cursor: 'pointer' }}
               >

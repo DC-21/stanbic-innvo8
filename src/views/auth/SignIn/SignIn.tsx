@@ -169,7 +169,7 @@ function SignIn() {
         if (data.userType === 'Judge') {
           navigate('/judge/dashboard');
         }
-      }, 3000);
+      }, 1500);
     },
     onError: (error: AxiosError) => {
       dispatch(
