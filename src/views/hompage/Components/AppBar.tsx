@@ -2,20 +2,41 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 // import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-// import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+// import Tooltip from '@mui/material/Tooltip';
+import { Link, animateScroll as scroll } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
+import AdbIcon from '@mui/icons-material/Adb';
+import makeStyles from '@mui/styles/makeStyles';
+import { Button, Typography, IconButton, Theme } from '@mui/material';
+import Logo from '../../../components/Logo';
+import Login from './login';
+
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    backgroundColor: 'white',
+    marginBottom: '3px',
+    alignItems: 'center'
+  },
+
+  nav: {
+    paddingLeft: 20,
+
+    [theme.breakpoints.down('xs')]: {}
+  }
+}));
+
 function ResponsiveAppBar() {
+  const classes = useStyles();
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -35,9 +56,9 @@ function ResponsiveAppBar() {
   //     setAnchorElUser(null);
   //   };
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar>
+      <Container maxWidth="xl" classes={{ root: classes.root }}>
+        <Toolbar disableGutters onClick={scrollToTop}>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -53,7 +74,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none'
             }}
           >
-            LOGO desktop
+            <Logo />
           </Typography>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
@@ -72,7 +93,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none'
             }}
           >
-            LOGO mobile
+            <Login />
           </Typography>
           <Box
             sx={{
@@ -81,15 +102,98 @@ function ResponsiveAppBar() {
               display: { xs: 'none', md: 'flex' }
             }}
           >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+            <Button sx={{ color: '#0133A1' }}>
+              <Typography
+                className="text"
+                variant="h6"
+                to="#"
+                component={RouterLink}
+                sx={{ cursor: 'pointer' }}
               >
-                {page}
-              </Button>
-            ))}
+                <Link
+                  activeClass="active"
+                  to="About"
+                  spy
+                  smooth
+                  offset={-70}
+                  duration={500}
+                >
+                  About
+                </Link>
+              </Typography>
+            </Button>
+            <Button sx={{ color: '#0133A1' }}>
+              <Typography
+                className="text"
+                variant="h6"
+                to="#"
+                component={RouterLink}
+                sx={{ p: '2', cursor: 'pointer' }}
+              >
+                <Link
+                  activeClass="active"
+                  to="EligibilityCriteria"
+                  spy
+                  smooth
+                  offset={-70}
+                  duration={500}
+                >
+                  Eligibility Criteria
+                </Link>
+              </Typography>
+            </Button>
+            <Button sx={{ color: '#0133A1' }}>
+              <Typography
+                className="text"
+                variant="h6"
+                to="#"
+                component={RouterLink}
+                sx={{ cursor: 'pointer' }}
+              >
+                <Link
+                  activeClass="active"
+                  to="Benefits"
+                  spy
+                  smooth
+                  offset={-70}
+                  duration={500}
+                >
+                  Benefits
+                </Link>
+              </Typography>
+            </Button>
+            <Button sx={{ color: '#0133A1' }}>
+              <Typography
+                className="text"
+                variant="h6"
+                to="#"
+                component={RouterLink}
+                sx={{ cursor: 'pointer' }}
+              >
+                <Link
+                  activeClass="active"
+                  to="Stages"
+                  spy
+                  smooth
+                  offset={-70}
+                  duration={500}
+                >
+                  Stages
+                </Link>
+              </Typography>
+            </Button>
+
+            <Button sx={{ color: '#0133A1' }}>
+              <Typography
+                className="text"
+                variant="h6"
+                to="#"
+                component={RouterLink}
+              >
+                Contacts
+              </Typography>
+            </Button>
+            <Login />
           </Box>
           <Box
             sx={{
@@ -99,6 +203,7 @@ function ResponsiveAppBar() {
             }}
           >
             <IconButton
+              /// make this blue or black
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -126,11 +231,100 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' }
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="About"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      About
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ p: '2', cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="EligibilityCriteria"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Eligibility Criteria
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="Benefits"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Benefits
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="Stages"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Stages
+                    </Link>
+                  </Typography>
+                </Button>
+
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                  >
+                    Contacts
+                  </Typography>
+                </Button>
+                <Login />
+              </Box>
             </Menu>
           </Box>
         </Toolbar>
