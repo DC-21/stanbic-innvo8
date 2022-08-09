@@ -13,7 +13,7 @@ import { Link, animateScroll as scroll } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import makeStyles from '@mui/styles/makeStyles';
-import { Button, Typography, IconButton, Theme } from '@mui/material';
+import { Button, Typography, IconButton, Theme, MenuItem } from '@mui/material';
 import Logo from '../../../components/Logo';
 import Login from './login';
 
@@ -77,6 +77,7 @@ function ResponsiveAppBar() {
             <Logo />
           </Typography>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
           <Typography
             variant="h5"
             noWrap
@@ -93,7 +94,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none'
             }}
           >
-            <Login />
+            <Logo />
           </Typography>
           <Box
             sx={{
@@ -209,7 +210,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="primary"
             >
               <MenuIcon />
             </IconButton>
@@ -218,12 +219,12 @@ function ResponsiveAppBar() {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'left'
+                horizontal: 'right'
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'left'
+                horizontal: 'right'
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
@@ -231,7 +232,7 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' }
               }}
             >
-              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <MenuItem>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
@@ -252,6 +253,8 @@ function ResponsiveAppBar() {
                     </Link>
                   </Typography>
                 </Button>
+              </MenuItem>{' '}
+              <MenuItem>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
@@ -271,7 +274,9 @@ function ResponsiveAppBar() {
                       Eligibility Criteria
                     </Link>
                   </Typography>
-                </Button>
+                </Button>{' '}
+              </MenuItem>{' '}
+              <MenuItem>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
@@ -292,6 +297,8 @@ function ResponsiveAppBar() {
                     </Link>
                   </Typography>
                 </Button>
+              </MenuItem>
+              <MenuItem>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
@@ -312,7 +319,8 @@ function ResponsiveAppBar() {
                     </Link>
                   </Typography>
                 </Button>
-
+              </MenuItem>
+              <MenuItem>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
@@ -323,8 +331,10 @@ function ResponsiveAppBar() {
                     Contacts
                   </Typography>
                 </Button>
+              </MenuItem>
+              <MenuItem>
                 <Login />
-              </Box>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
