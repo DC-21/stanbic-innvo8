@@ -162,7 +162,7 @@ function ResetPassword() {
     onSuccess: (response) => {
       const { message } = response;
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-      setTimeout(() => navigate('/'), 100);
+      setTimeout(() => navigate('/signin'), 100);
     },
     onError: (error: AxiosError) => {
       dispatch(
@@ -219,8 +219,12 @@ function ResetPassword() {
                   style={{ textAlign: 'center' }}
                   gutterBottom
                 >
-                  Enter Your New Password Below
+                  <b>
+                    Enter the pin you received in your email and set a new
+                    password below
+                  </b>
                 </Typography>
+
                 <TextField
                   error={Boolean(errors.resetPin?.message)}
                   className={classes.textField}
@@ -302,9 +306,9 @@ function ResetPassword() {
           item
           xs={12}
           sm={6}
-          md={4}
-          lg={4}
-          xl={4}
+          md={8}
+          lg={8}
+          xl={8}
         >
           <div className={classes.quote}>
             {/* <div className={classes.quoteInner}>

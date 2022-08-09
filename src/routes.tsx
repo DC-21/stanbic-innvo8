@@ -14,6 +14,7 @@ import { JudgeRoutes } from './views/JudgeView/JudgeRoutes';
 import Logout from './views/auth/logout';
 import Home from './views/hompage';
 import FAQ from './views/Faq/Faq';
+import Section from './views/hompage/Components/Section';
 
 const routes = [
   {
@@ -30,6 +31,7 @@ const routes = [
   { path: 'signin', element: <SignIn /> },
   { path: 'signup', element: <SignUp /> },
   { path: 'faq', element: <FAQ /> },
+  { path: 'about', element: <Section /> },
   { path: 'completeSignUp', element: <CompleteSignUp /> },
   { path: 'forgot-password', element: <ForgotPassword /> },
   { path: 'resetpassword', element: <ResetPassword /> },

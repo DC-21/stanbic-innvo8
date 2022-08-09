@@ -122,21 +122,23 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         customBodyRender: (value, tableMeta) => {
           const [id] = tableMeta.rowData;
           return (
-            <Button
-              onClick={() => {
-                setSelected(id);
-                handleClickOpenModal();
-              }}
-              variant="contained"
-              size="small"
-              style={{
-                boxShadow: '1px 1px',
-                color: '#fff',
-                backgroundColor: 'red'
-              }}
-            >
-              Delete
-            </Button>
+            <Tooltip title="Delete">
+              <Button
+                onClick={() => {
+                  setSelected(id);
+                  handleClickOpenModal();
+                }}
+                variant="contained"
+                size="small"
+                style={{
+                  boxShadow: '1px 1px',
+                  color: '#fff',
+                  backgroundColor: 'red'
+                }}
+              >
+                Delete
+              </Button>
+            </Tooltip>
           );
         }
       }
