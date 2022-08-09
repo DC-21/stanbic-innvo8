@@ -27,6 +27,7 @@
     "@types/yup": "^0.29.14",
     "axios": "0.21.1",
     "clsx": "^1.1.1",
+    "env-cmd": "^10.1.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "mui-datatables": "^4.2.2",
@@ -56,8 +57,10 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env.development react-scripts start",
+    "start-production": "env-cmd -f .env.production react-scripts start ",
+    "build": "env-cmd -f .env.production react-scripts  build",
+    "stage": "env-cmd -f .env.staging react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .ts,.tsx src",
