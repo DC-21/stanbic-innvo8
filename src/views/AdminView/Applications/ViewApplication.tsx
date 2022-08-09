@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import { Grid, TextField, Typography } from '@mui/material';
+import { Divider, Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { Application } from '../../../types';
 
@@ -84,6 +84,8 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             4. Which category/sector does your innovation fall under?
           </Typography>
           <TextField
+            multiline
+            rows={5}
             aria-readonly
             variant="outlined"
             fullWidth
@@ -114,21 +116,37 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
           }}
         >
           <Typography variant="h5" color="primary">
-            Total Judges Who Voted: {application?.totalVotedJudges}
-          </Typography>
-
-          <Typography variant="h5" color="primary">
-            Total Votes: {application?.totalVotes}
+            <b>Total Votes:</b> {application?.totalVotes}
           </Typography>
           <Typography variant="h5" color="primary">
-            Team Lead: {application?.leadId?.firstName}{' '}
+            <b>Total Judges Who Voted:</b> {application?.totalVotedJudges}
+          </Typography>
+          <br />
+          <Divider />
+          <Typography variant="h5" color="primary" sx={{ paddingTop: '10px' }}>
+            <b>Judges Who Voted:</b>
+          </Typography>
+          {application?.votes.map((item) => {
+            return (
+              <ul key={item._id} style={{ paddingLeft: '20px' }}>
+                <li>
+                  <Typography variant="h5" color="primary">
+                    {item?.judge?.firstName} {item?.judge?.lastName}
+                  </Typography>
+                </li>
+              </ul>
+            );
+          })}
+          <Divider sx={{ paddingTop: '10px' }} />
+          <br />
+          <Typography variant="h5" color="primary">
+            <b>Team Lead</b>: {application?.leadId?.firstName}{' '}
             {application?.leadId?.lastName}
           </Typography>
           {application?.teamId.members.map((item) => {
-            console.log(item);
             return (
               <Typography variant="h5" color="primary" key={item._id}>
-                Team Member: {item.firstName} {item.lastName}
+                <b>Team Member</b>: {item?.firstName} {item?.lastName}
               </Typography>
             );
           })}
