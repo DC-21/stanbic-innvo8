@@ -16,14 +16,20 @@ function Footer() {
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
-            <Grid item xs={6} className="size">
+            <Grid
+              item
+              xs={6}
+              alignItems="right"
+              className="size"
+              justifyContent="right"
+            >
               <Stanbiclogo />
             </Grid>
 
             <Grid
               item
               xs={6}
-              alignItems="right"
+              alignItems="left"
               className="size"
               justifyContent="left"
             >
@@ -35,7 +41,7 @@ function Footer() {
       <div className="footer">
         <Container>
           <Grid container spacing={3}>
-            <Grid item xs={6}>
+            <Grid item xs={6} alignItems="left">
               <h3 className="footerText">Project Innov8 2.0</h3>
               <br />
             </Grid>

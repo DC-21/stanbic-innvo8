@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 // import Tooltip from '@mui/material/Tooltip';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
-import AdbIcon from '@mui/icons-material/Adb';
+
 import makeStyles from '@mui/styles/makeStyles';
 import { Button, Typography, IconButton, Theme, MenuItem } from '@mui/material';
 import Logo from '../../../components/Logo';
@@ -60,7 +60,6 @@ function ResponsiveAppBar() {
     <AppBar classes={{ root: classes.root }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters onClick={scrollToTop}>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -77,7 +76,6 @@ function ResponsiveAppBar() {
           >
             <Logo />
           </Typography>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
 
           <Typography
             variant="h5"
