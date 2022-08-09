@@ -8,6 +8,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Tooltip,
   Typography
 } from '@mui/material';
 import { AxiosError } from 'axios';
@@ -272,26 +273,28 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
             );
           })}
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
-          style={{
-            backgroundColor: '#fff',
-            flexGrow: 1,
-            padding: '20px',
-            marginLeft: '15px',
-            marginRight: '15px',
-            marginTop: '5px',
-            gap: '20px',
-            borderRadius: '10px'
-          }}
-        >
-          {disableVoting()}
-        </Grid>
+        <Tooltip title="Place your vote in this section" placement="left">
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            xl={12}
+            style={{
+              backgroundColor: '#fff',
+              flexGrow: 1,
+              padding: '20px',
+              marginLeft: '15px',
+              marginRight: '15px',
+              marginTop: '5px',
+              gap: '20px',
+              borderRadius: '10px'
+            }}
+          >
+            {disableVoting()}
+          </Grid>
+        </Tooltip>
       </Grid>
     </div>
   );

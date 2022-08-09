@@ -169,7 +169,7 @@ function SignIn() {
         if (data.userType === 'Judge') {
           navigate('/judge/dashboard');
         }
-      }, 600);
+      }, 1500);
     },
     onError: (error: AxiosError) => {
       dispatch(
@@ -284,12 +284,12 @@ function SignIn() {
                       Forgot password?
                     </Link>
                   </Grid>
-                  <Grid item xs={6}>
+                  {/* <Grid item xs={6}>
                     <i>Dont have an account?</i>
                     <Link href="/signup" variant="body2">
                       <i>Sign up here as a team lead</i>
                     </Link>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </form>
             </div>

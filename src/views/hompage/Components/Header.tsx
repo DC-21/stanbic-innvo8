@@ -8,12 +8,14 @@ function Header() {
       <Container fixed>
         <div className="text-bot">
           <h1 className="headingTitle">
-            Do you have an innovative business idea that addresses our most
-            pressing challenges?
+            Are you a team lead and have <br />
+            an innovative business idea that <br />
+            addresses our most pressing challenges?
           </h1>
+          <br />
           <div>
             <div>
-              <Link component={RouterLink} to="/signin" variant="h6">
+              <Link component={RouterLink} to="/signup" variant="h6">
                 <Button size="large" variant="contained">
                   Apply Now
                 </Button>

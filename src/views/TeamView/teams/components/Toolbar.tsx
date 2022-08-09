@@ -30,15 +30,19 @@ const Toolbar = ({ className, handleClickOpen, ...rest }: ToolbarProps) => {
   return (
     <div className={clsx(classes.root, className)} {...rest}>
       <Box sx={{ mt: 6, mb: 6 }} display="flex" justifyContent="flex-end">
-        <Button
-          disabled={user?.userType === 'Team Member'}
-          startIcon={<AddCircleOutline />}
-          onClick={handleClickOpen}
-          color="primary"
-          variant="contained"
-        >
-          Create New Team
-        </Button>
+        {user?.userType !== 'Team Member' ? (
+          <Button
+            // disabled={user?.userType === 'Team Member'}
+            startIcon={<AddCircleOutline />}
+            onClick={handleClickOpen}
+            color="primary"
+            variant="contained"
+          >
+            Create New Team
+          </Button>
+        ) : (
+          <div style={{ display: 'none' }} />
+        )}
       </Box>
     </div>
   );
