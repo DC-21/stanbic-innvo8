@@ -6,7 +6,7 @@ import BHlogo from '../../../components/BHlogo';
 function Footer() {
   return (
     <div>
-      <div className="Initiative">
+      <div className="Initiative" id="Contacts">
         <Container maxWidth="sm">
           <Grid item xs={12}>
             <Typography className="layout"> An Initiative of</Typography>
@@ -36,9 +36,20 @@ function Footer() {
         <Container>
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <h2 className="footerText">Project Innov8 2.0</h2>
+              <h3 className="footerText">Project Innov8 2.0</h3>
+              <br />
             </Grid>
-            <Grid item xs={6} />
+            <Grid item xs={6}>
+              <h3 className="footerText">Contact Info</h3>
+              <h4 className="footerText">
+                Call: +26 095 301 7526
+                <br /> Email: info@projectinnov8.co.zm
+              </h4>
+              <h4 className="footerText">
+                STANBIC BANK ZAMBIA PLC <br />
+                Addis Ababa Drive, Lusaka, Zambia 10101
+              </h4>
+            </Grid>
           </Grid>
         </Container>
       </div>

@@ -1,12 +1,21 @@
 import React from 'react';
-import { Button, Link } from '@mui/material';
+import { Button, Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 function FAQ() {
   return (
-    <Link component={RouterLink} to="/faq" variant="h6">
-      <Button sx={{ color: '#0133A1' }}>FAQ</Button>
-    </Link>
+    <Button sx={{ color: '#0133A1' }}>
+      <Link
+        style={{ textDecoration: 'none' }}
+        component={RouterLink}
+        to="/faq"
+        variant="h6"
+      >
+        <Typography className="text" variant="h6">
+          FAQ
+        </Typography>
+      </Link>
+    </Button>
   );
 }
 

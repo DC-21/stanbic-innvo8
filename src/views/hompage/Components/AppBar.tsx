@@ -16,6 +16,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import { Button, Typography, IconButton, Theme, MenuItem } from '@mui/material';
 import Logo from '../../../components/Logo';
 import Login from './login';
+import FAQ from './Faqlink';
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const useStyles = makeStyles((theme: Theme) => ({
@@ -56,8 +57,8 @@ function ResponsiveAppBar() {
   //     setAnchorElUser(null);
   //   };
   return (
-    <AppBar>
-      <Container maxWidth="xl" classes={{ root: classes.root }}>
+    <AppBar classes={{ root: classes.root }}>
+      <Container maxWidth="xl">
         <Toolbar disableGutters onClick={scrollToTop}>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
@@ -190,10 +191,21 @@ function ResponsiveAppBar() {
                 variant="h6"
                 to="#"
                 component={RouterLink}
+                sx={{ cursor: 'pointer' }}
               >
-                Contacts
+                <Link
+                  activeClass="active"
+                  to="Contacts"
+                  spy
+                  smooth
+                  offset={-70}
+                  duration={500}
+                >
+                  Contacts
+                </Link>
               </Typography>
             </Button>
+            <FAQ />
             <Login />
           </Box>
           <Box
@@ -253,7 +265,7 @@ function ResponsiveAppBar() {
                     </Link>
                   </Typography>
                 </Button>
-              </MenuItem>{' '}
+              </MenuItem>
               <MenuItem>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
@@ -274,14 +286,14 @@ function ResponsiveAppBar() {
                       Eligibility Criteria
                     </Link>
                   </Typography>
-                </Button>{' '}
-              </MenuItem>{' '}
+                </Button>
+              </MenuItem>
               <MenuItem>
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
                     variant="h6"
-                    to="#"
+                    to="Benefits"
                     component={RouterLink}
                     sx={{ cursor: 'pointer' }}
                   >
@@ -327,10 +339,23 @@ function ResponsiveAppBar() {
                     variant="h6"
                     to="#"
                     component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
                   >
-                    Contacts
+                    <Link
+                      activeClass="active"
+                      to="Contacts"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Contacts
+                    </Link>
                   </Typography>
                 </Button>
+              </MenuItem>
+              <MenuItem>
+                <FAQ />
               </MenuItem>
               <MenuItem>
                 <Login />
