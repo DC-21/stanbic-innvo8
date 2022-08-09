@@ -15,6 +15,20 @@ export interface User {
   __v: number;
   password: string;
 }
+
+export interface Judge {
+  createdAt: Date;
+  email: string;
+  firstName: string;
+  gender: string;
+  isActive: boolean;
+  lastName: string;
+  password: string;
+  updatedAt: Date;
+  userType: string;
+  __v: number;
+  _id: string;
+}
 export interface LeadId {
   _id: string;
   userType: string;
@@ -43,7 +57,7 @@ export interface Teams {
   __v: number;
 }
 export interface Vote {
-  judge: string;
+  judge: Judge;
   score: number;
   _id: string;
 }
@@ -56,7 +70,7 @@ export interface Application {
   leadId: LeadId;
   status: string;
   teamId: Teams;
-  votes: Vote;
+  votes: Vote[];
   totalVotedJudges: number;
   totalVotes: number;
   createdAt: Date;
