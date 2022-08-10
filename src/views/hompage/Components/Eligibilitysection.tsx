@@ -6,7 +6,12 @@ export default function Eligibilitysection() {
     <div className="topPadding2">
       <Container fixed id="EligibilityCriteria">
         <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
-          <Grid item xs={6} className="african-man" />
+          <Grid
+            item
+            xs={6}
+            className="african-man"
+            sx={{ display: { xs: 'none', md: 'flex' } }}
+          />
           <Grid item xs={6} className="section3">
             <Typography className="heading">Eligibility Criteria</Typography>
 

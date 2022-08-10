@@ -40,12 +40,12 @@ function Footer() {
       </div>
       <div className="footer">
         <Container>
-          <Grid container spacing={3}>
+          <Grid container sx={{ paddingRight: '10px' }} spacing={1}>
             <Grid item xs={6} alignItems="left">
               <Typography className="footerText">Project Innov8 2.0</Typography>
               <br />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} alignItems="right">
               <Typography className="footerText">Contact Info</Typography>
               <Typography className="footerText">
                 Call: +26 095 301 7526
