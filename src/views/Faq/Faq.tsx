@@ -6,13 +6,14 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Grid } from '@mui/material';
 import Header from '../hompage/Components/Header';
-import AppBar from '../hompage/Components/AppBar';
+
 import Footer from '../hompage/Components/Footer';
+import ResponsiveFAQAppBar from './faqAppbar';
 
 export default function FAQ() {
   return (
     <div>
-      <AppBar />
+      <ResponsiveFAQAppBar />
       <Header />
       <Grid item xs={12}>
         <Typography className="layout heading">
