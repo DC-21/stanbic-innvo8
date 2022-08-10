@@ -34,7 +34,12 @@ export default function Section() {
               Impactful new product or product improvements
             </Typography>
           </Grid>
-          <Grid item xs={6} className="woman" />
+          <Grid
+            item
+            xs={6}
+            className="woman"
+            sx={{ display: { xs: 'none', md: 'flex' } }}
+          />
         </Grid>
       </Container>
     </div>
