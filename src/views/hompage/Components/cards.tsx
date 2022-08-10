@@ -2,13 +2,13 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { Box, Container, Grid } from '@mui/material';
-import Icon1 from '../../../components/svgs/icon1';
-import Icon2 from '../../../components/svgs/icon2';
-import Icon3 from '../../../components/svgs/icon3';
-import Icon4 from '../../../components/svgs/icon4';
-import Icon5 from '../../../components/svgs/icon5';
-import Icon6 from '../../../components/svgs/icon6';
-import Icon7 from '../../../components/svgs/icon7';
+import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ArticleIcon from '@mui/icons-material/Article';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import GroupsIcon from '@mui/icons-material/Groups';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 
 export default function Cards() {
   return (
@@ -45,7 +45,7 @@ export default function Cards() {
             <Card className="cardheight">
               <div style={{ padding: '15px', verticalAlign: 'middle' }}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Icon1 />
+                  <CalendarMonthIcon sx={{ fontSize: 40 }} />
                 </Box>
                 <Typography variant="h6" style={{ textAlign: 'center' }}>
                   One week of learning experience in building innovative
@@ -58,7 +58,7 @@ export default function Cards() {
             <Card className="cardheight">
               <div style={{ padding: '15px', verticalAlign: 'middle' }}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Icon2 />
+                  <AlignHorizontalRightIcon sx={{ fontSize: 40 }} />
                 </Box>
 
                 <Typography variant="h6" style={{ textAlign: 'center' }}>
@@ -72,7 +72,7 @@ export default function Cards() {
             <Card className="cardheight" sx={{ maxWidth: 300 }}>
               <div style={{ padding: '20px', verticalAlign: 'middle' }}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Icon3 />
+                  <ArticleIcon sx={{ fontSize: 40 }} />
                 </Box>
                 <Typography variant="h6" style={{ textAlign: 'center' }}>
                   Access to legal, accounting, financial planning and tech
@@ -92,7 +92,7 @@ export default function Cards() {
             <Card className="cardheight">
               <div style={{ padding: '15px', verticalAlign: 'middle' }}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Icon4 />
+                  <AccountBalanceIcon sx={{ fontSize: 40 }} />
                 </Box>
                 <Typography variant="h6" style={{ textAlign: 'center' }}>
                   Access to legal, accounting, financial planning and tech
@@ -105,7 +105,7 @@ export default function Cards() {
             <Card className="cardheight">
               <div style={{ padding: '15px', verticalAlign: 'middle' }}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Icon7 />
+                  <AttachMoneyIcon sx={{ fontSize: 40 }} />
                 </Box>
                 <Typography style={{ textAlign: 'center' }} variant="h6">
                   Up to K150, 000 in prizes.
@@ -117,7 +117,7 @@ export default function Cards() {
             <Card className="cardheight">
               <div style={{ padding: '15px', verticalAlign: 'middle' }}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Icon5 />
+                  <GroupsIcon sx={{ fontSize: 40 }} />
                 </Box>
                 <Typography
                   gutterBottom
@@ -135,7 +135,7 @@ export default function Cards() {
             <Card className="cardheight" sx={{ maxWidth: 300 }}>
               <div style={{ padding: '15px', verticalAlign: 'middle' }}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Icon6 />
+                  <ConnectWithoutContactIcon sx={{ fontSize: 40 }} />
                 </Box>
                 <Typography variant="h6" style={{ textAlign: 'center' }}>
                   An opportunity to join a supportive innovators network.
