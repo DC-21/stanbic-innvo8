@@ -153,6 +153,12 @@ padding-bottom: 70px;
 .footerText {
     color: #fff;
 }
+
+.footerText2 {
+    color: #fff;
+    padding-right: 10px;
+    margin: 5px;
+}
 .Initiative{
    background-color: #F3F3F4;
    
