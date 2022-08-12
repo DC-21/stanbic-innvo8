@@ -1,184 +1,157 @@
 * {
-    margin: 0;
-    padding: 0;
-  }
-.Header{
-    background-image:
-    linear-gradient(to left, #0134a100, #f8f8f843),
-    url(/public/images/Innov8header.png);
-
-    height: 600px;
-    width: 100%;
-    /* min-width: 500px; */
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
-    -webkit-background-size: cover;
-    -moz-background-size: contain;
-    -o-background-size: contain;
+  margin: 0;
+  padding: 0;
 }
-.normalH{
-    font-weight: 300;
+.Header {
+  background-image: url(/public/images/headerImage.png);
+  height: 110vh;
+  width: 100%;
+  /* min-width: 500px; */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: fill;
+  -webkit-background-size: cover;
+  -moz-background-size: contain;
+  -o-background-size: contain;
 }
-.text{
-    color: #0133A1;
-    font-weight: bold;
-
+.normalH {
+  font-weight: 300;
+}
+.text {
+  color: #0133a1;
+  font-weight: bold;
 }
 .section {
-
-background-color:#dedede;
-
+  background-color: #dedede;
 }
 
-.section2{
-    background-color:#ffffff;
-   width: max-content;
-   padding: 30px;
-   max-height: min-content;
-   -webkit-text-size-adjust: none;
-   text-size-adjust: none;
-   /* min-width: 400px; */
-vertical-align: middle;
-inline-size: min-content;
-
+.section2 {
+  background-color: #ffffff;
+  width: max-content;
+  padding: 30px;
+  max-height: min-content;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  /* min-width: 400px; */
+  vertical-align: middle;
+  inline-size: min-content;
 }
 
-.section3{
-    background-color:#F3F3F4;
-   width: max-content;
-   padding: 30px;
-   max-height: min-content;
-   -webkit-text-size-adjust: none;
-   text-size-adjust: none;
-   /* min-width: 400px; */
-vertical-align: middle;
-inline-size: min-content;
+.section3 {
+  background-color: #f3f3f4;
+  width: max-content;
+  padding: 30px;
+  max-height: min-content;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  /* min-width: 400px; */
+  vertical-align: middle;
+  inline-size: min-content;
+}
+.topPadding {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.cardheight {
+  display: block;
+  width: 100%;
+  /* min-width: 130px; */
+  padding-top: 5px;
+  margin-top: 15px;
+  align-items: center;
+  height: 190px;
+}
 
+.spacing {
+  line-height: 20px;
+  padding-bottom: 30px;
 }
-.topPadding{
-    padding-top: 50px;
-    padding-bottom: 50px;
+.topPadding2 {
+  background-color: #ffffff;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  /* min-width: 450px; */
 }
-.cardheight{
-display: block;
-width: 100%;
-/* min-width: 130px; */
-padding-top: 5px;
-margin-top: 15px;
-align-items: center;
-height: 190px
-}
+.topPaddingGradient {
+  background-image: linear-gradient(to left, #4b38a9, #e30f93);
 
-
-.spacing{ line-height: 20px;
-padding-bottom: 30px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  /* min-width: 450px; */
 }
-.topPadding2{
-    background-color: #ffffff;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    /* min-width: 450px; */
+.heading {
+  color: #0133a1;
+  font-weight: 600;
+  font-size: 23px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
-.topPaddingGradient{
-    background-image: linear-gradient(to left, #4B38A9, #E30F93);
-
-    padding-top: 50px;
-    padding-bottom: 50px;
-    /* min-width: 450px; */
+.woman {
+  background-image: url('/public/images/about.png');
+  /* min-width: 400px; */
+  width: 300px;
+  height: 600px;
+  min-height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: contain;
+  -o-background-size: contain;
 }
-.heading
-{
-color: #0133A1;
-font-weight: 600;
-font-size: 23px;
-padding-top: 10px;
-padding-bottom: 10px;
-}
-.woman
-{
-    background-image:
-    linear-gradient(to bottom, #0134a118, #0134a1ba),
-    url('/public/images/woman-having-online-class-meeting-through-e-learning-system.png');
-/* min-width: 400px; */
-width: 300px;
-height: 600px;
-min-height: 100%;
-background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-}
-.african-man
-{
-
-    background-image:
-    linear-gradient(to bottom, #0134a118, #0134a195),
+.african-man {
+  background-image: linear-gradient(to bottom, #0134a118, #0134a195),
     url(/public/images/african-man-black-suit-man-writing-glass.jpeg);
-    /* min-width: 400px; */
-    width: 300px;
-    height: 600px;
-    min-height: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-
+  /* min-width: 400px; */
+  width: 300px;
+  height: 600px;
+  min-height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: contain;
+  -o-background-size: contain;
 }
-.text-bot
-{
-    position: absolute;
-    top: 30%;
-    
+.text-bot {
+  position: absolute;
+  top: 30%;
 }
-.headingTitle{
-    
-  
-  
- color: #0133A1;
-
+.headingTitle {
+  color: #ec008c;
 }
-.footer
-{
-background-color: #0A2240;
-padding-top:60px ;
-padding-bottom: 70px;
-/* min-width: 500px; */
-
+.footer {
+  background-color: #0a2240;
+  padding-top: 60px;
+  padding-bottom: 70px;
+  /* min-width: 500px; */
 }
 .footerText {
-    color: #fff;
+  color: #fff;
 }
 
 .footerText2 {
-    color: #fff;
-    padding-right: 10px;
-    margin: 5px;
+  color: #fff;
+  padding-right: 10px;
+  margin: 5px;
 }
-.Initiative{
-   background-color: #F3F3F4;
-   
+.Initiative {
+  background-color: #f3f3f4;
 }
-.layout{
-    padding: 20px;
-    text-align: center;
-}
-
-.size{width: 200px;}
-
-.layoutpadding{
-
-
-    padding: 20px;
+.layout {
+  padding: 20px;
+  text-align: center;
 }
 
-.faq
-{
-color: #0133A1;
-font-weight: 600;
+.size {
+  width: 200px;
+}
 
+.layoutpadding {
+  padding: 20px;
+}
+
+.faq {
+  color: #0133a1;
+  font-weight: 600;
 }

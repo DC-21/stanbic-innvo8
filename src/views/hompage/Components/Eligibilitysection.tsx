@@ -9,8 +9,12 @@ export default function Eligibilitysection() {
           <Grid
             item
             xs={6}
+            sm={2}
+            md={6}
+            lg={6}
+            xl={6}
             className="african-man"
-            sx={{ display: { xs: 'none', md: 'flex' } }}
+            sx={{ display: { xs: 'none', sm: 'flex', md: 'flex' } }}
           />
           <Grid item xs={6} className="section3">
             <Typography className="heading">Eligibility Criteria</Typography>

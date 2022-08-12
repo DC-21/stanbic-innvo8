@@ -1,5 +1,7 @@
 import React from 'react';
 import { Typography, Grid, Container, Box } from '@mui/material';
+import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 
 export default function Section() {
   return (
@@ -26,19 +28,49 @@ export default function Section() {
               winning team and 2 runners up will be selected, walking away with
               up to K150, 000 in prizes.
             </Typography>
-            <Typography className="heading">
+            <Typography
+              style={{ fontSize: '16px' }}
+              className="heading"
+              color="primary"
+            >
               Innovation Challenge Outcomes
             </Typography>
-            <Typography>Innovation-ready Change Makers</Typography>
-            <Typography>
-              Impactful new product or product improvements
-            </Typography>
+            <Box sx={{ backgroundColor: '#edf3ff' }}>
+              <PsychologyOutlinedIcon
+                sx={{
+                  float: 'left',
+                  width: '50px',
+                  height: '40px',
+                  padding: '1px'
+                }}
+              />
+              <Typography sx={{ padding: '10px' }}>
+                Innovation-ready Change Makers
+              </Typography>
+            </Box>
+            <Box sx={{ backgroundColor: '#edf3ff', marginTop: '12px' }}>
+              <Inventory2OutlinedIcon
+                sx={{
+                  float: 'left',
+                  width: '50px',
+                  height: '40px',
+                  padding: '1px'
+                }}
+              />
+              <Typography sx={{ padding: '10px' }}>
+                Impactful new product or product improvements
+              </Typography>
+            </Box>
           </Grid>
           <Grid
             item
             xs={6}
+            sm={2}
+            md={6}
+            lg={6}
+            xl={6}
             className="woman"
-            sx={{ display: { xs: 'none', md: 'flex' } }}
+            sx={{ display: { xs: 'none', sm: 'flex', md: 'flex' } }}
           />
         </Grid>
       </Container>
