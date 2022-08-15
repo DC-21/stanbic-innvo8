@@ -43,6 +43,9 @@ function Footer() {
           <Grid container sx={{ paddingRight: '10px' }} spacing={1}>
             <Grid item xs={6} alignItems="left">
               <Typography className="footerText">Project Innov8 2.0</Typography>
+              <Typography className="footerText">
+                {/* For Support: support@stanbicinnov8.raiseaticket.com */}
+              </Typography>
               <br />
             </Grid>
             <Grid item xs={6} alignItems="right">

@@ -1,147 +1,239 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { Box, Container, Grid } from '@mui/material';
-import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import ArticleIcon from '@mui/icons-material/Article';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import GroupsIcon from '@mui/icons-material/Groups';
-import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 
 export default function Cards() {
   return (
-    <div className="spacing topPaddingGradient">
-      <Container fixed id="Benefits">
-        <Grid
-          container
-          className="spacing"
-          rowSpacing={1}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        >
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight">
-              <div
-                style={{
-                  verticalAlign: 'middle',
-                  lineHeight: '400px',
-                  marginTop: '50px',
-                  padding: '20px'
+    <div
+      style={{
+        paddingTop: '50px',
+        paddingBottom: '50px',
+        backgroundColor: '#fff'
+      }}
+      id="Benefits"
+    >
+      <Typography
+        sx={{
+          textAlign: 'center',
+          color: '#0133a1',
+          fontWeight: 'bold',
+          fontSize: '2.5rem',
+          marginBottom: '25px'
+        }}
+      >
+        Challenge Benefits
+      </Typography>
+      <Container fixed>
+        <Grid container>
+          <div className="challenge" style={{ marginBottom: '20px' }} />
+          <Grid
+            item
+            sm={12}
+            md={6}
+            lg={6}
+            xl={6}
+            sx={{ paddingRight: { xs: 0, sm: 0, md: '10px' } }}
+          >
+            <Box
+              sx={{
+                backgroundColor: '#F7F7F7',
+                padding: '20px'
+              }}
+            >
+              <div style={{ marginRight: '10px' }}>
+                <TaskAltOutlinedIcon
+                  sx={{
+                    float: 'left',
+                    width: '40px',
+                    height: '50px',
+                    color: '#EC008C',
+                    paddingRight: '3px',
+                    marginTop: {
+                      xs: '6px',
+                      sm: '10px',
+                      md: '-7px'
+                    }
+                  }}
+                />
+              </div>
+
+              <Typography
+                variant="body2"
+                sx={{ padding: '10px', textAlign: 'left', marginLeft: '60px' }}
+              >
+                One week of learning experience in building innovative
+                solutions.
+              </Typography>
+            </Box>
+            <br />
+            <Box
+              sx={{
+                backgroundColor: '#F7F7F7',
+                padding: '20px',
+                paddingBottom: '30px'
+              }}
+            >
+              <div style={{ marginRight: '10px' }}>
+                <TaskAltOutlinedIcon
+                  sx={{
+                    float: 'left',
+                    width: '40px',
+                    height: '50px',
+                    color: '#EC008C',
+                    paddingRight: '3px',
+                    marginTop: {
+                      xs: '15px',
+                      sm: '10px',
+                      md: '5px'
+                    }
+                  }}
+                />
+              </div>
+
+              <Typography
+                variant="body2"
+                sx={{ padding: '10px', textAlign: 'left', marginLeft: '60px' }}
+              >
+                Personalised mentorship for all participating teams and their
+                idea validation needs.
+              </Typography>
+            </Box>
+            <br />
+            <Box
+              sx={{
+                backgroundColor: '#F7F7F7',
+                padding: '20px'
+              }}
+            >
+              <div style={{ marginRight: '10px' }}>
+                <TaskAltOutlinedIcon
+                  sx={{
+                    float: 'left',
+                    width: '40px',
+                    height: '50px',
+                    color: '#EC008C',
+                    paddingRight: '2px',
+                    marginTop: {
+                      xs: '2px',
+                      sm: '10px',
+                      md: '-10px'
+                    }
+                  }}
+                />
+              </div>
+
+              <Typography
+                variant="body2"
+                sx={{ padding: '5px', textAlign: 'left', marginLeft: '60px' }}
+              >
+                Access to legal, accounting, financial planning and tech
+                support.
+              </Typography>
+            </Box>
+            <br />
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+            <Box
+              sx={{
+                backgroundColor: '#F7F7F7',
+                padding: '20px'
+              }}
+            >
+              <div style={{ marginRight: '10px' }}>
+                <TaskAltOutlinedIcon
+                  sx={{
+                    float: 'left',
+                    width: '40px',
+                    height: '50px',
+                    color: '#EC008C',
+                    paddingRight: '3px',
+                    marginTop: {
+                      xs: '-4px',
+                      sm: '10px',
+                      md: '-7px'
+                    }
+                  }}
+                />
+              </div>
+
+              <Typography
+                variant="body2"
+                sx={{ padding: '10px', textAlign: 'left', marginLeft: '60px' }}
+              >
+                Up to K150, 000 in prizes.
+              </Typography>
+            </Box>
+            <br />
+            <Box
+              sx={{
+                backgroundColor: '#F7F7F7',
+                padding: '20px'
+              }}
+            >
+              <div style={{ marginRight: '10px' }}>
+                <TaskAltOutlinedIcon
+                  sx={{
+                    float: 'left',
+                    width: '40px',
+                    height: '50px',
+                    color: '#EC008C',
+                    paddingRight: '3px',
+                    marginTop: {
+                      xs: '35px',
+                      sm: '10px',
+                      md: '10px',
+                      lg: '10px',
+                      xl: '10px'
+                    }
+                  }}
+                />
+              </div>
+              <Typography
+                variant="body2"
+                sx={{
+                  padding: '5px',
+                  textAlign: 'left',
+                  marginLeft: '60px'
                 }}
               >
-                <Typography
-                  gutterBottom
-                  align="center"
-                  variant="h3"
-                  color="primary"
-                >
-                  Challenge Benefits
-                </Typography>
+                4-weeks of ongoing support from Stanbic Bank Zambia and a<br />
+                network of coaches and mentors to assist with go-to-market
+                <br />
+                strategies and scaling-up for the winning team.
+              </Typography>
+            </Box>
+            <br />
+            <Box
+              sx={{
+                backgroundColor: '#F7F7F7',
+                padding: '20px'
+              }}
+            >
+              <div style={{ marginRight: '10px' }}>
+                <TaskAltOutlinedIcon
+                  sx={{
+                    float: 'left',
+                    width: '40px',
+                    height: '50px',
+                    color: '#EC008C',
+                    paddingRight: '5px',
+                    marginTop: {
+                      xs: '3px',
+                      sm: '5px',
+                      md: '-10px'
+                    }
+                  }}
+                />
               </div>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight">
-              <div style={{ padding: '15px', verticalAlign: 'middle' }}>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <CalendarMonthIcon sx={{ fontSize: 40 }} />
-                </Box>
-                <Typography variant="h6" style={{ textAlign: 'center' }}>
-                  One week of learning experience in building innovative
-                  solutions.
-                </Typography>
-              </div>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight">
-              <div style={{ padding: '15px', verticalAlign: 'middle' }}>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <AlignHorizontalRightIcon sx={{ fontSize: 40 }} />
-                </Box>
 
-                <Typography variant="h6" style={{ textAlign: 'center' }}>
-                  Personalised mentorship for all participating teams and their
-                  idea validation needs.
-                </Typography>
-              </div>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight" sx={{ maxWidth: 300 }}>
-              <div style={{ padding: '20px', verticalAlign: 'middle' }}>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <ArticleIcon sx={{ fontSize: 40 }} />
-                </Box>
-                <Typography variant="h6" style={{ textAlign: 'center' }}>
-                  Access to legal, accounting, financial planning and tech
-                  support;
-                </Typography>
-              </div>
-            </Card>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          className="spacing"
-          rowSpacing={1}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        >
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight">
-              <div style={{ padding: '15px', verticalAlign: 'middle' }}>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <AccountBalanceIcon sx={{ fontSize: 40 }} />
-                </Box>
-                <Typography variant="h6" style={{ textAlign: 'center' }}>
-                  Access to legal, accounting, financial planning and tech
-                  support;
-                </Typography>
-              </div>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight">
-              <div style={{ padding: '15px', verticalAlign: 'middle' }}>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <AttachMoneyIcon sx={{ fontSize: 40 }} />
-                </Box>
-                <Typography style={{ textAlign: 'center' }} variant="h6">
-                  Up to K150, 000 in prizes.
-                </Typography>
-              </div>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight">
-              <div style={{ padding: '15px', verticalAlign: 'middle' }}>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <GroupsIcon sx={{ fontSize: 40 }} />
-                </Box>
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  style={{ textAlign: 'center' }}
-                >
-                  4-weeks of ongoing support from Stanbic Bank Zambia and a
-                  network of coaches and mentors to assist with go-to-market
-                  strategies and scaling-up for the winning team.
-                </Typography>
-              </div>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight" sx={{ maxWidth: 300 }}>
-              <div style={{ padding: '15px', verticalAlign: 'middle' }}>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <ConnectWithoutContactIcon sx={{ fontSize: 40 }} />
-                </Box>
-                <Typography variant="h6" style={{ textAlign: 'center' }}>
-                  An opportunity to join a supportive innovators network.
-                </Typography>
-              </div>
-            </Card>
+              <Typography
+                variant="body2"
+                sx={{ padding: '5px', textAlign: 'left', marginLeft: '60px' }}
+              >
+                An opportunity to join a supportive innovators network.
+              </Typography>
+            </Box>
           </Grid>
         </Grid>
       </Container>
