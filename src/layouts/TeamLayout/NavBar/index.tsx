@@ -5,6 +5,7 @@ import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccount
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+// import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import { Box, Divider, Drawer, Hidden } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import NavItem from './NavItem';
@@ -90,6 +91,16 @@ const NavBar: React.FC<Props> = ({ onMobileClose, openMobile }) => {
       <Box p={2}>
         <NavItem items={logout} />
       </Box>
+      {/* <Button
+        size="small"
+        sx={{ margin: '10px' }}
+        variant="outlined"
+        startIcon={<MailOutlinedIcon />}
+      >
+        <a href="mailto:support@stanbicinnov8.raiseaticket.com">
+          Contact Support
+        </a>
+      </Button> */}
     </Box>
   );
 

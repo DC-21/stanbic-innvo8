@@ -72,7 +72,8 @@ export default function Section() {
                 sx={{
                   float: 'left',
                   width: '50px',
-                  height: '40px'
+                  height: '40px',
+                  marginTop: { xs: '10px', sm: '10px', md: '3px' }
                 }}
               />
               <Typography

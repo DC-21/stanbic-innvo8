@@ -231,7 +231,7 @@ export default function Cards() {
                 variant="body2"
                 sx={{ padding: '5px', textAlign: 'left', marginLeft: '60px' }}
               >
-                An opportunity to join a supportive innovators network.
+                An opportunity to join a supportive network of innovators.
               </Typography>
             </Box>
           </Grid>

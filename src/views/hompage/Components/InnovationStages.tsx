@@ -51,14 +51,11 @@ export default function InnovationStages() {
             </Typography>
 
             <Box sx={{ paddingTop: '5px' }}>
-              <Typography variant="h4">Objective:</Typography>
+              <Typography variant="body1">
+                Objective: Explore the potential of a business idea by
+                validating the market and testing all assumptions
+              </Typography>
               <ul style={{ padding: '10px' }}>
-                <li>
-                  <Typography variant="body1">
-                    Explore the potential of a business idea by validating the
-                    market and testing all assumptions
-                  </Typography>
-                </li>
                 <li>
                   <Typography variant="body1">
                     5 day virtual sprint programmes
@@ -66,7 +63,7 @@ export default function InnovationStages() {
                 </li>
                 <li>
                   <Typography variant="body1">
-                    30 Stanbic Innovators (10 of 3 staff members)
+                    30 Stanbic Innovators (10 teams of 3 staff members per team)
                   </Typography>
                 </li>
                 <li>
@@ -76,7 +73,16 @@ export default function InnovationStages() {
             </Box>
             <br />
             <Box>
-              <Typography variant="h4">Support:</Typography>
+              <Typography
+                variant="h2"
+                sx={{
+                  textAlign: 'center',
+                  paddingTop: '10px',
+                  paddingBottom: '10px'
+                }}
+              >
+                Support
+              </Typography>
 
               <ul style={{ padding: '10px' }}>
                 <li>
@@ -87,11 +93,6 @@ export default function InnovationStages() {
                 <li>
                   <Typography variant="body1">
                     Coaching by Stanbic and external experts
-                  </Typography>
-                </li>
-                <li>
-                  <Typography variant="body1">
-                    30 Stanbic Innovators (10 of 3 staff members)
                   </Typography>
                 </li>
                 <li>

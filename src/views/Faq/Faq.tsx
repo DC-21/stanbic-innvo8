@@ -19,7 +19,7 @@ export default function FAQ() {
       <AppBar />
       {pathname === '/faq' ? null : <Header />}
 
-      <div className="layoutpadding">
+      <div className="layoutpadding" style={{ backgroundColor: '#fff' }}>
         <Typography
           variant="h1"
           sx={{
