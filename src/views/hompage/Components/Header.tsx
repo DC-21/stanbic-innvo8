@@ -7,10 +7,16 @@ function Header() {
     <div className="Header">
       <Container fixed>
         <div className="text-bot">
-          <h1 className="headingTitle">
-            Are you a team lead and have <br />
-            an innovative business idea that <br />
-            addresses our most pressing challenges?
+          <h1
+            className="headingTitle"
+            style={{
+              fontSize: 'clamp(1rem, 7vw, 4rem)',
+              fontFamily: 'Roboto,Helvetica,Arial,sans-serif'
+            }}
+          >
+            Do you have
+            <br /> an innovative
+            <br /> business idea?
           </h1>
           <br />
           <div>

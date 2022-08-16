@@ -177,6 +177,7 @@ function ResponsiveFAQAppBar() {
                       smooth
                       offset={-70}
                       duration={500}
+                      onClick={handleCloseNavMenu}
                     >
                       Contacts
                     </Link>
