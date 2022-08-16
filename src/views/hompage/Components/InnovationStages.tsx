@@ -26,7 +26,7 @@ export default function InnovationStages() {
         }}
       >
         You can expect to develop your idea, innovation skills through coaching
-        and sprints which invole
+        and sprints which involve:
       </Typography>
       <Container fixed>
         <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
