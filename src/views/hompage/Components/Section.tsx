@@ -20,7 +20,13 @@ export default function Section() {
       </Typography>
       <Container fixed id="About">
         <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
-          <Grid item xs={6} className="section2" spacing={2}>
+          <Grid
+            item
+            xs={6}
+            className="section2"
+            spacing={2}
+            style={{ backgroundColor: '#fff' }}
+          >
             <Typography>
               <Box sx={{ mb: 1 }}>
                 Building on the first iteration in 2021, Project Innov8 2.0 is

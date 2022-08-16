@@ -214,7 +214,10 @@ function SignUp() {
                   gutterBottom
                   style={{ textAlign: 'center' }}
                 >
-                  Hey there! Lets get Started
+                  <b>
+                    Register as a team lead to create your team, add team
+                    members and submit your idea.
+                  </b>
                 </Typography>
                 <TextField
                   error={!!errors.firstName}
