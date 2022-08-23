@@ -10,10 +10,17 @@ import Container from '@mui/material/Container';
 
 // import Tooltip from '@mui/material/Tooltip';
 import { Link, animateScroll as scroll } from 'react-scroll';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+import {
+  Link as MuiLink,
+  Button,
+  Typography,
+  IconButton,
+  Theme,
+  MenuItem
+} from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
-import { Button, Typography, IconButton, Theme, MenuItem } from '@mui/material';
 import Logo from '../../../components/Logo';
 import Login from './login';
 import FAQ from './Faqlink';
@@ -21,7 +28,7 @@ import FAQ from './Faqlink';
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    backgroundColor: 'white',
+    backgroundColor: '#f7f7f7',
     marginBottom: '3px',
     alignItems: 'center'
   },
@@ -35,6 +42,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function ResponsiveAppBar() {
   const classes = useStyles();
+  const { pathname } = useLocation();
+  console.log(pathname, 'pathname');
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
@@ -57,7 +66,11 @@ function ResponsiveAppBar() {
   //     setAnchorElUser(null);
   //   };
   return (
-    <AppBar classes={{ root: classes.root }}>
+    <AppBar
+      elevation={0}
+      classes={{ root: classes.root }}
+      sx={{ padding: '10px' }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters onClick={scrollToTop}>
           <Typography
@@ -102,108 +115,136 @@ function ResponsiveAppBar() {
               display: { xs: 'none', md: 'flex' }
             }}
           >
-            <Button sx={{ color: '#0133A1' }}>
-              <Typography
-                className="text"
-                variant="h6"
-                to=""
-                component={RouterLink}
-                sx={{ cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="About"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  About
-                </Link>
-              </Typography>
-            </Button>
-            <Button sx={{ color: '#0133A1' }}>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-                sx={{ p: '2', cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="EligibilityCriteria"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  Eligibility Criteria
-                </Link>
-              </Typography>
-            </Button>
-            <Button sx={{ color: '#0133A1' }}>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-                sx={{ cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="Benefits"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  Benefits
-                </Link>
-              </Typography>
-            </Button>
-            <Button sx={{ color: '#0133A1' }}>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-                sx={{ cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="Stages"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  Stages
-                </Link>
-              </Typography>
-            </Button>
+            {pathname === '/' ? (
+              <>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to=""
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="About"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      About
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ p: '2', cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="EligibilityCriteria"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Eligibility Criteria
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="Benefits"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Benefits
+                    </Link>
+                  </Typography>
+                </Button>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="Stages"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Stages
+                    </Link>
+                  </Typography>
+                </Button>
 
-            <Button sx={{ color: '#0133A1' }}>
-              <Typography
-                className="text"
-                variant="h6"
-                to="#"
-                component={RouterLink}
-                sx={{ cursor: 'pointer' }}
-              >
-                <Link
-                  activeClass="active"
-                  to="Contacts"
-                  spy
-                  smooth
-                  offset={-70}
-                  duration={500}
-                >
-                  Contacts
-                </Link>
-              </Typography>
-            </Button>
-            <FAQ />
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="Contacts"
+                      spy
+                      smooth
+                      offset={-70}
+                      duration={500}
+                    >
+                      Contacts
+                    </Link>
+                  </Typography>
+                </Button>
+                <FAQ />
+              </>
+            ) : (
+              <>
+                <Button sx={{ color: '#0133A1' }}>
+                  <Typography
+                    className="text"
+                    variant="h6"
+                    to="#"
+                    component={RouterLink}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    {/** @ts-ignore */}
+                    <MuiLink
+                      sx={{ textDecoration: 'none' }}
+                      component={RouterLink}
+                      activeClass="active"
+                      to="/"
+                    >
+                      Home
+                    </MuiLink>
+                  </Typography>
+                </Button>
+                <FAQ />
+              </>
+            )}
+
             <Login />
           </Box>
           <Box
@@ -242,119 +283,156 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' }
               }}
             >
-              <MenuItem>
-                <Button sx={{ color: '#0133A1' }}>
-                  <Typography
-                    className="text"
-                    variant="h6"
-                    to="#"
-                    component={RouterLink}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <Link
-                      activeClass="active"
-                      to="About"
-                      spy
-                      smooth
-                      offset={-70}
-                      duration={500}
-                    >
-                      About
-                    </Link>
-                  </Typography>
-                </Button>
-              </MenuItem>
-              <MenuItem>
-                <Button sx={{ color: '#0133A1' }}>
-                  <Typography
-                    className="text"
-                    variant="h6"
-                    to="#"
-                    component={RouterLink}
-                    sx={{ p: '2', cursor: 'pointer' }}
-                  >
-                    <Link
-                      activeClass="active"
-                      to="EligibilityCriteria"
-                      spy
-                      smooth
-                      offset={-70}
-                      duration={500}
-                    >
-                      Eligibility Criteria
-                    </Link>
-                  </Typography>
-                </Button>
-              </MenuItem>
-              <MenuItem>
-                <Button sx={{ color: '#0133A1' }}>
-                  <Typography
-                    className="text"
-                    variant="h6"
-                    to="Benefits"
-                    component={RouterLink}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <Link
-                      activeClass="active"
-                      to="Benefits"
-                      spy
-                      smooth
-                      offset={-70}
-                      duration={500}
-                    >
-                      Benefits
-                    </Link>
-                  </Typography>
-                </Button>
-              </MenuItem>
-              <MenuItem>
-                <Button sx={{ color: '#0133A1' }}>
-                  <Typography
-                    className="text"
-                    variant="h6"
-                    to="#"
-                    component={RouterLink}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <Link
-                      activeClass="active"
-                      to="Stages"
-                      spy
-                      smooth
-                      offset={-70}
-                      duration={500}
-                    >
-                      Stages
-                    </Link>
-                  </Typography>
-                </Button>
-              </MenuItem>
-              <MenuItem>
-                <Button sx={{ color: '#0133A1' }}>
-                  <Typography
-                    className="text"
-                    variant="h6"
-                    to="#"
-                    component={RouterLink}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <Link
-                      activeClass="active"
-                      to="Contacts"
-                      spy
-                      smooth
-                      offset={-70}
-                      duration={500}
-                    >
-                      Contacts
-                    </Link>
-                  </Typography>
-                </Button>
-              </MenuItem>
-              <MenuItem>
-                <FAQ />
-              </MenuItem>
+              {pathname === '/' ? (
+                <>
+                  <MenuItem>
+                    <Button sx={{ color: '#0133A1' }}>
+                      <Typography
+                        className="text"
+                        variant="h6"
+                        to="#"
+                        component={RouterLink}
+                        sx={{ cursor: 'pointer' }}
+                      >
+                        <Link
+                          activeClass="active"
+                          to="About"
+                          spy
+                          smooth
+                          offset={-70}
+                          duration={500}
+                          onClick={handleCloseNavMenu}
+                        >
+                          About
+                        </Link>
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button sx={{ color: '#0133A1' }}>
+                      <Typography
+                        className="text"
+                        variant="h6"
+                        to="#"
+                        component={RouterLink}
+                        sx={{ p: '2', cursor: 'pointer' }}
+                      >
+                        <Link
+                          activeClass="active"
+                          to="EligibilityCriteria"
+                          spy
+                          smooth
+                          offset={-70}
+                          duration={500}
+                          onClick={handleCloseNavMenu}
+                        >
+                          Eligibility Criteria
+                        </Link>
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button sx={{ color: '#0133A1' }}>
+                      <Typography
+                        className="text"
+                        variant="h6"
+                        to="Benefits"
+                        component={RouterLink}
+                        sx={{ cursor: 'pointer' }}
+                      >
+                        <Link
+                          activeClass="active"
+                          to="Benefits"
+                          spy
+                          smooth
+                          offset={-70}
+                          duration={500}
+                          onClick={handleCloseNavMenu}
+                        >
+                          Benefits
+                        </Link>
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button sx={{ color: '#0133A1' }}>
+                      <Typography
+                        className="text"
+                        variant="h6"
+                        to="#"
+                        component={RouterLink}
+                        sx={{ cursor: 'pointer' }}
+                      >
+                        <Link
+                          activeClass="active"
+                          to="Stages"
+                          spy
+                          smooth
+                          offset={-70}
+                          duration={500}
+                          onClick={handleCloseNavMenu}
+                        >
+                          Stages
+                        </Link>
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button sx={{ color: '#0133A1' }}>
+                      <Typography
+                        className="text"
+                        variant="h6"
+                        to="#"
+                        component={RouterLink}
+                        sx={{ cursor: 'pointer' }}
+                      >
+                        <Link
+                          activeClass="active"
+                          to="Contacts"
+                          spy
+                          smooth
+                          offset={-70}
+                          duration={500}
+                          onClick={handleCloseNavMenu}
+                        >
+                          Contacts
+                        </Link>
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <FAQ />
+                  </MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem>
+                    <Button sx={{ color: '#0133A1' }}>
+                      <Typography
+                        className="text"
+                        variant="h6"
+                        to="#"
+                        component={RouterLink}
+                        sx={{ cursor: 'pointer' }}
+                      >
+                        <MuiLink
+                          sx={{ textDecoration: 'none' }}
+                          // @ts-ignore
+                          component={RouterLink}
+                          to="/"
+                          onClick={handleCloseNavMenu}
+                        >
+                          Home
+                        </MuiLink>
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <FAQ />
+                  </MenuItem>
+                </>
+              )}
+
               <MenuItem>
                 <Login />
               </MenuItem>

@@ -4,23 +4,33 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Grid } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import Header from '../hompage/Components/Header';
+import AppBar from '../hompage/Components/AppBar';
 
 import Footer from '../hompage/Components/Footer';
-import ResponsiveFAQAppBar from './faqAppbar';
+// import ResponsiveFAQAppBar from './faqAppbar';
 
 export default function FAQ() {
+  const { pathname } = useLocation();
   return (
     <div>
-      <ResponsiveFAQAppBar />
-      <Header />
-      <Grid item xs={12}>
-        <Typography className="layout heading">
+      {/* <ResponsiveFAQAppBar /> */}
+      <AppBar />
+      {pathname === '/faq' ? null : <Header />}
+
+      <div className="layoutpadding" style={{ backgroundColor: '#fff' }}>
+        <Typography
+          variant="h1"
+          sx={{
+            marginTop: '100px',
+            color: ' #0133a1',
+            textAlign: 'center',
+            paddingBottom: '20px'
+          }}
+        >
           Frequently Asked Questions (FAQs)
         </Typography>
-      </Grid>
-      <div className="layoutpadding">
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -63,55 +73,57 @@ export default function FAQ() {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <Typography>Eligibility Criteria</Typography>
+              <Typography>
+                <li style={{ marginBottom: 1 }}>Eligibility Criteria</li>
+              </Typography>
 
               <Typography>
-                <Box sx={{ mb: 1 }}>
+                <li style={{ marginBottom: 1 }}>
                   The submitting team must be Stanbic Bank Zambia members of
                   staff.
-                </Box>
+                </li>
               </Typography>
               <Typography>
-                <Box sx={{ mb: 1 }}>
+                <li style={{ marginBottom: 1 }}>
                   Team members cannot belong to more than one innovation team.
-                </Box>
+                </li>
               </Typography>
               <Typography>
-                <Box sx={{ mb: 1 }}>
+                <li style={{ marginBottom: 1 }}>
                   The submitting team must be based in Zambia.
-                </Box>
+                </li>
               </Typography>
               <Typography>
-                <Box sx={{ mb: 1 }}>
+                <li style={{ marginBottom: 1 }}>
                   The submitted idea must be aligned with the needs of Zambians.
-                </Box>
+                </li>
               </Typography>
               <Typography>
-                <Box sx={{ mb: 1 }}>
+                <li style={{ marginBottom: 1 }}>
                   The submitting team must be made up of Zambian nationals or
                   residents.
-                </Box>
+                </li>
               </Typography>
               <Typography>
-                <Box sx={{ mb: 1 }}>
+                <li style={{ marginBottom: 1 }}>
                   The submitting team may be seeking support for customer,
                   product, and/or business model development;
-                </Box>
+                </li>
               </Typography>
               <Typography>
-                <Box sx={{ mb: 1 }}>
+                <li style={{ marginBottom: 1 }}>
                   A maximum of 2 team members (preferably Team Leads) must be
                   able to attend the Sprint Week
-                </Box>
+                </li>
               </Typography>
               <Typography>
-                <Box sx={{ mb: 1 }}>
+                <li style={{ marginBottom: 1 }}>
                   <span>
                     The winning team of the incubation programme must be able{' '}
                   </span>
                   to attend a 4-week idea development programme in September
                   2022.
-                </Box>
+                </li>
               </Typography>
             </Typography>
           </AccordionDetails>
@@ -145,38 +157,38 @@ export default function FAQ() {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <Box sx={{ mb: 1 }}>
+              <li style={{ marginBottom: 1 }}>
                 One week of learning experience in building innovative
                 solutions.
-              </Box>
+              </li>
             </Typography>
             <Typography>
-              <Box sx={{ mb: 1 }}>
+              <li style={{ marginBottom: 1 }}>
                 Personalised mentorship for all participating teams and their
                 idea validation needs.
-              </Box>
+              </li>
             </Typography>
             <Typography>
-              <Box sx={{ mb: 1 }}>
+              <li style={{ marginBottom: 1 }}>
                 Access to legal, accounting, financial planning and tech
                 support; Access to networking opportunities with fellow
                 successful applicants and industry experts;
-              </Box>
+              </li>
             </Typography>
             <Typography>
-              <Box sx={{ mb: 1 }}>Up to K150, 000 in prizes</Box>
+              <li style={{ marginBottom: 1 }}>Up to K150, 000 in prizes</li>
             </Typography>
             <Typography>
-              <Box sx={{ mb: 1 }}>
+              <li style={{ marginBottom: 1 }}>
                 4-weeks of ongoing support from Stanbic Bank Zambia and a
                 network of coaches and mentors to assist with go-to-market
                 strategies and scaling-up for the winning team.
-              </Box>
+              </li>
             </Typography>{' '}
             <Typography>
-              <Box sx={{ mb: 1 }}>
+              <li style={{ marginBottom: 1 }}>
                 An opportunity to join a supportive innovators network.
-              </Box>
+              </li>
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -208,37 +220,39 @@ export default function FAQ() {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <Typography>
-                <Box sx={{ mb: 1 }}>Business Objective and Context</Box>
+              <Typography variant="body1">
+                <li style={{ marginBottom: 1 }}>
+                  Business Objective and Context
+                </li>
               </Typography>
 
-              <Typography>
-                <Box sx={{ mb: 1 }}>
+              <Typography variant="body1">
+                <li style={{ marginBottom: 1 }}>
                   Introduction to Lean Model Canvas (with a focus on the
                   Customer Problem)
-                </Box>
+                </li>
               </Typography>
 
-              <Typography>
-                <Box sx={{ mb: 1 }}>Customer Persona</Box>
+              <Typography variant="body1">
+                <li style={{ marginBottom: 1 }}>Customer Persona</li>
               </Typography>
 
-              <Typography>
-                <Box sx={{ mb: 1 }}>Customer Journeys</Box>
+              <Typography variant="body1">
+                <li style={{ marginBottom: 1 }}>Customer Journeys</li>
               </Typography>
 
-              <Typography>
-                <Box sx={{ mb: 1 }}>Unique Value Proposition</Box>
+              <Typography variant="body1">
+                <li style={{ marginBottom: 1 }}>Unique Value Proposition</li>
               </Typography>
 
-              <Typography>
-                <Box sx={{ mb: 1 }}>An Introduction to Pitching</Box>
+              <Typography variant="body1">
+                <li style={{ marginBottom: 1 }}>An Introduction to Pitching</li>
               </Typography>
 
-              <Typography>
-                <Box sx={{ mb: 1 }}>
+              <Typography variant="body1">
+                <li style={{ marginBottom: 1 }}>
                   Various thematic coaching sessions on Sprint Week modules.
-                </Box>
+                </li>
               </Typography>
             </Typography>
           </AccordionDetails>
@@ -255,48 +269,54 @@ export default function FAQ() {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Coaching sessions are one to one meetings with inhouse and
-              external coaches designed to address unique idea needs. Tailored
-              sessions include;
+              <li style={{ marginBottom: 1 }}>
+                Coaching sessions are one to one meetings with inhouse and
+                external coaches designed to address unique idea needs. Tailored
+                sessions include;
+              </li>
             </Typography>
 
             <Typography>
-              <Box sx={{ mb: 1 }}>Business Objective and Context</Box>
+              <li style={{ marginBottom: 1 }}>
+                Business Objective and Context
+              </li>
             </Typography>
 
             <Typography>
-              <Box sx={{ mb: 1 }}>
+              <li style={{ marginBottom: 1 }}>
                 Introduction to Lean Model Canvas (with a focus on the Customer
                 Problem)
-              </Box>
+              </li>
             </Typography>
 
             <Typography>
-              <Box sx={{ mb: 1 }}>Introduction to Interview Scripting.</Box>
+              <li style={{ marginBottom: 1 }}>
+                Introduction to Interview Scripting.
+              </li>
             </Typography>
 
             <Typography>
-              <Box sx={{ mb: 1 }}>Customer Persona</Box>
+              <li style={{ marginBottom: 1 }}>Customer Persona</li>
             </Typography>
 
             <Typography>
-              <Box sx={{ mb: 1 }}>Customer Journeys</Box>
+              <li style={{ marginBottom: 1 }}>Customer Journeys</li>
             </Typography>
 
             <Typography>
-              <Box sx={{ mb: 1 }}>Unique Value Proposition</Box>
+              <li style={{ marginBottom: 1 }}>Unique Value Proposition</li>
             </Typography>
 
             <Typography>
-              <Box sx={{ mb: 1 }}>Revenue Models</Box>
+              <li style={{ marginBottom: 1 }}>Revenue Models</li>
             </Typography>
             <Typography>
-              <Box sx={{ mb: 1 }}>An Introduction to Pitching</Box>
+              <li style={{ marginBottom: 1 }}>An Introduction to Pitching</li>
             </Typography>
             <Typography>
-              <Box sx={{ mb: 1 }}>
+              <li style={{ marginBottom: 1 }}>
                 Various thematic coaching sessions on Sprint Week modules
-              </Box>
+              </li>
             </Typography>
           </AccordionDetails>
         </Accordion>

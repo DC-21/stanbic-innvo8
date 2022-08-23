@@ -20,5 +20,5 @@
     "isolatedModules": true,
     "types": ["react/next", "react-dom/next"]
   },
-  "include": ["src", "src/views/AgsViews/activities/.tsx"]
+  "include": ["src", "src/views/AgsViews/activities/.tsx", "src/components/CardSvG"]
 }

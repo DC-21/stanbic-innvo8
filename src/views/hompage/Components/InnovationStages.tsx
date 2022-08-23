@@ -1,79 +1,116 @@
 import React from 'react';
-import {
-  Typography,
-  Grid,
-  Container,
-  Card,
-  CardMedia,
-  CardContent
-} from '@mui/material';
+import { Typography, Grid, Container, Box } from '@mui/material';
 
-export default function InnoationStages() {
+export default function InnovationStages() {
   return (
-    <div className="topPadding2">
-      <Container fixed id="Stages">
-        <Grid item xs={12}>
-          <Typography className="layout heading">Innovation Stages</Typography>
-          <Typography className="layout ">
-            You can expect to develop your idea and innovation skills through
-            coaching and sprints which involve:
-          </Typography>
-        </Grid>
+    <div className="topPadding" style={{ backgroundColor: '#fff' }}>
+      <Typography
+        id="Stages"
+        sx={{
+          textAlign: 'center',
+          color: '#0133a1',
+          fontWeight: 'bold',
+          fontSize: '2.5rem',
+          //   paddingTop: '5px',
+          marginBottom: '25px'
+        }}
+      >
+        Innovation Stages
+      </Typography>
+      <Typography
+        sx={{
+          textAlign: 'center',
+          color: '#000',
+          fontSize: '1rem',
+          marginBottom: '25px'
+        }}
+      >
+        You can expect to develop your idea, innovation skills through coaching
+        and sprints which involve:
+      </Typography>
+      <Container fixed>
+        <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid
+            item
+            xs={6}
+            className="section2"
+            spacing={2}
+            sx={{
+              display: 'inline-block'
+            }}
+          >
+            <Typography
+              variant="h2"
+              sx={{
+                textAlign: 'center',
+                paddingTop: '50px',
+                paddingBottom: '30px'
+              }}
+            >
+              Sprint
+            </Typography>
 
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          <Grid item xs={6}>
-            <Card sx={{ pb: 3, maxWidth: 500 }}>
-              <CardMedia
-                component="img"
-                height="200"
-                image="/images/Group23.png"
-                alt="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Sprint
-                </Typography>
-                <Typography variant="body2">
-                  Objective: Explore the potential of a business idea by
-                  validating the market and testing all assumptions.
-                  <Typography variant="body2">
-                    • 5 day virtual sprint programmes
+            <Box sx={{ paddingTop: '5px' }}>
+              <Typography variant="body1">
+                Objective: Explore the potential of a business idea by
+                validating the market and testing all assumptions
+              </Typography>
+              <ul style={{ padding: '10px' }}>
+                <li>
+                  <Typography variant="body1">
+                    5 day virtual sprint programmes
                   </Typography>
-                  • 30 Stanbic Innovators (10 of 3 staff members)
-                  <Typography variant="body2">• 3 winners (overall)</Typography>
-                </Typography>
-              </CardContent>
-            </Card>
+                </li>
+                <li>
+                  <Typography variant="body1">
+                    30 Stanbic Innovators (10 teams of 3 staff members per team)
+                  </Typography>
+                </li>
+                <li>
+                  <Typography variant="body1">3 winners overall</Typography>
+                </li>
+              </ul>
+            </Box>
+            <br />
+            <Box>
+              <Typography
+                variant="h2"
+                sx={{
+                  textAlign: 'center',
+                  paddingTop: '10px',
+                  paddingBottom: '10px'
+                }}
+              >
+                Support
+              </Typography>
+
+              <ul style={{ padding: '10px' }}>
+                <li>
+                  <Typography variant="body1">
+                    4 weeks of idea development for the winning team
+                  </Typography>
+                </li>
+                <li>
+                  <Typography variant="body1">
+                    Coaching by Stanbic and external experts
+                  </Typography>
+                </li>
+                <li>
+                  <Typography variant="body1">September 2022</Typography>
+                </li>
+              </ul>
+            </Box>
           </Grid>
-          <Grid item xs={6}>
-            <Card sx={{ pb: 3, maxWidth: 500 }}>
-              <CardMedia
-                component="img"
-                height="200"
-                image="/images/Group238.png"
-                alt="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Support
-                </Typography>
-                <Typography variant="body2">
-                  • 4 weeks of idea development support for the winning team.
-                </Typography>
-                <Typography variant="body2">
-                  • Coaching by Stanbic and external experts.
-                </Typography>
-                <Typography variant="body2">• September 2022 .</Typography>
-                <Typography variant="body2">
-                  <br />
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <Grid
+            item
+            xs={6}
+            sm={2}
+            md={6}
+            lg={6}
+            xl={6}
+            className="woman1"
+            sx={{ display: { xs: 'none', sm: 'flex', md: 'flex' } }}
+          />
         </Grid>
       </Container>
     </div>
