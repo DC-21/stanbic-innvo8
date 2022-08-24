@@ -10,6 +10,7 @@ import ProposalForm from './proposal/components/ProposalForm';
 import ProposalView from './proposal/components/ProposalView';
 import ProposalEditView from './proposal/components/ProprosalEditView';
 import TeamsListView from './teams';
+import TeamEditView from './teams/components/TeamEditView';
 import TeamView from './teams/components/TeamView';
 
 export const TeamRoutes = [
@@ -33,6 +34,10 @@ export const TeamRoutes = [
       {
         path: 'teams',
         element: <TeamsListView />
+      },
+      {
+        path: 'teams/edit/:id',
+        element: <TeamEditView />
       },
       {
         path: 'teams/view',
