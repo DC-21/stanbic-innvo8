@@ -37,7 +37,7 @@ const ListTeamMembers = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
-  const { data, error, isLoading } = useQuery(['Teams'], () =>
+  const { data, error, isLoading } = useQuery(['Teams1'], () =>
     getUser(user?._id)
   );
 
@@ -159,7 +159,7 @@ const ListTeamMembers = () => {
           return (
             <Tooltip title="Edit">
               <IconButton
-                onClick={() => navigate(`/app/teams/edit/${userId}`)}
+                onClick={() => navigate(`/team/teams/edit/${userId}`)}
                 size="large"
               >
                 <EditIcon />
@@ -201,7 +201,8 @@ const ListTeamMembers = () => {
           elevation: 0,
           enableNestedDataAccess: '.',
           responsive: 'simple',
-          filterType: 'dropdown'
+          filterType: 'dropdown',
+          selectableRows: 'none'
         }}
         title="Team Members"
         columns={columns}
