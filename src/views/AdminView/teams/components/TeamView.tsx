@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { Teams } from '../../../../types';
+import UpdateTeamLeadRole from '../UpdateTeamLeadRole';
 
 interface Props {
   team: Teams | undefined;
@@ -19,6 +20,7 @@ interface Props {
 const TeamView: React.FC<Props> = ({ team }) => {
   return (
     <Container maxWidth="lg">
+      <UpdateTeamLeadRole team={team} />
       <Grid container sx={{ mt: 1 }} spacing={4}>
         {/**
          * Team Leaner Card
