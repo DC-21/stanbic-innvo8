@@ -15,7 +15,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from '../../../../clientProvider/baseConfig';
 // @ts-ignore
 import { Teams } from '../../../../types';
@@ -34,6 +34,7 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const enqueueSnackbar = useNotify();
+  const params = useParams();
   const queryClient = useQueryClient();
   const {
     register,
@@ -62,6 +63,7 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries(['Teams']);
+      queryClient.invalidateQueries(['team', params.id]);
     }
   });
 
