@@ -33,7 +33,7 @@ const ProfileDetails: FunctionComponent<React.PropsWithChildren<Props>> = (
   const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
   const { user } = useSelector((store: RootState) => store.user);
-
+  const id = user?._id;
   const editUser = async (admin: User) =>
     axios.put(`/User/edit_user/${user?._id}`, admin);
 
@@ -49,7 +49,6 @@ const ProfileDetails: FunctionComponent<React.PropsWithChildren<Props>> = (
 
   const { mutate, isLoading } = useMutation(editUser, {
     onSuccess: (response) => {
-      console.log('z', response.data.data);
       const { message } = response.data;
       dispatch(updateDetails(response.data.data));
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
@@ -65,6 +64,7 @@ const ProfileDetails: FunctionComponent<React.PropsWithChildren<Props>> = (
     },
     onSettled: () => {
       queryClient.invalidateQueries(['AdminUser']);
+      queryClient.invalidateQueries(['Teams', id]);
     }
   });
 
