@@ -163,7 +163,7 @@ function SignUp() {
     onSuccess: (data) => {
       const { message } = data;
       dispatch(notification({ message, options: { variant: 'success' } }));
-      setTimeout(() => navigate('/'), 1500);
+      setTimeout(() => navigate('/signin'), 1500);
     },
     onError: (error: AxiosError) => {
       dispatch(
