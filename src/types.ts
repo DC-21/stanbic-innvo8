@@ -77,3 +77,15 @@ export interface Application {
   updatedAt: Date;
   __v: number;
 }
+
+export interface ChallengeStatement {
+  _id: string;
+  theme: string;
+  problem: string;
+  problemStatement: string;
+  challengeStatement: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+  id: string;
+}
