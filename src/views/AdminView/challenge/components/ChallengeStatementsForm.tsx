@@ -52,6 +52,7 @@ const ChallengeStatementForm: FunctionComponent<
     },
     onSettled: () => {
       queryClient.invalidateQueries(['Challenge']);
+      queryClient.invalidateQueries(['team']);
     }
   });
 

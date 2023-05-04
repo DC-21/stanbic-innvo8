@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/function-component-definition */
 import * as React from 'react';
-import { isEmpty } from 'lodash';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
@@ -159,7 +158,7 @@ const ListTeamMembers = () => {
           return (
             <Tooltip title="Edit">
               <IconButton
-                onClick={() => navigate(`/app/teams/edit/${userId}`)}
+                onClick={() => navigate(`/team/teams/edit/${userId}`)}
                 size="large"
               >
                 <EditIcon />
@@ -205,7 +204,7 @@ const ListTeamMembers = () => {
         }}
         title="Team Members"
         columns={columns}
-        data={isEmpty(data) ? [] : [data]}
+        data={data}
       />
     </>
   );

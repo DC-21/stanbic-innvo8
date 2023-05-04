@@ -8,7 +8,6 @@ import { Button, Chip, Card, Typography, CardContent } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
-import { isArray } from 'lodash';
 import { axios } from '../../../../clientProvider';
 import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
@@ -17,7 +16,8 @@ const getIdeasByTeamLead = async (
   id: string | undefined
 ): Promise<Record<any, any>> => {
   const { data } = await axios.get(`/Innovation/view_innovation_lead/${id}`);
-  return data.data;
+  console.log('xx', data);
+  return data;
 };
 
 const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
@@ -153,7 +153,7 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }}
       title="Innovation Ideas (proposal)"
       columns={columns}
-      data={isArray(data) ? data : [data]}
+      data={data}
     />
   );
 };

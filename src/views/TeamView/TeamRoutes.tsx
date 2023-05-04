@@ -38,6 +38,7 @@ export const TeamRoutes = [
         path: 'teams/view',
         element: <TeamView />
       },
+      // add routes for editing here
       { path: '404', element: <NotFoundView /> },
       { path: '*', element: <Navigate to="/team/404" /> }
     ]

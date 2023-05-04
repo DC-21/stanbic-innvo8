@@ -25,6 +25,7 @@ import { useNavigate } from 'react-router-dom';
 import { axios } from '../../../../clientProvider';
 import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
+import { ChallengeStatement } from '../../../../types';
 
 export type ProposalFormInputs = {
   title: string;
@@ -36,50 +37,19 @@ export type ProposalFormInputs = {
 
 const getTeam = async (
   id: string | undefined
-): Promise<Record<string, string>> => {
+): Promise<Record<string, undefined>> => {
   const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
-  return data.data;
+  return data.data[0]._id;
 };
 
-export const challengeStatements = [
-  {
-    label: ` How might Stanbic Bank Zambia create products that meet the needs of people outside of their typical customer? `,
-    value: ` How might Stanbic Bank Zambia create products that meet the needs of people outside of their typical customer?`
-  },
-  {
-    label: `How might Stanbic Bank Zambia ensure they create products that have value and address their customers’ problems?`,
-    value: `How might Stanbic Bank Zambia ensure they create products that have value and address their customers’ problems?`
-  },
-  {
-    label: `How might Stanbic Bank Zambia drive its digital processes to ensure efficiency?`,
-    value: `How might Stanbic Bank Zambia drive its digital processes to ensure efficiency?`
-  },
-  {
-    label: `How might Stanbic Bank Zambia not only digitise processes but implement digital transformation and automation as well?
-    `,
-    value: `How might Stanbic Bank Zambia not only digitise processes but implement digital transformation and automation as well?
-    `
-  },
-  {
-    label: `How might Stanbic Bank Zambia improve internal communication and bridge the knowledge gap among their staff with regards to their new products and services?`,
-    value: `How might Stanbic Bank Zambia improve internal communication and bridge the knowledge gap among their staff with regards to their new products and services?`
-  },
-  {
-    label: `How might Stanbic Bank Zambia ensure that all customers (potential and existing) are made aware of new products/services/features?`,
-    value: `How might Stanbic Bank Zambia ensure that all customers (potential and existing) are made aware of new products/services/features?`
-  },
-  {
-    label: `How might Stanbic Bank Zambia intentionally influence organisational culture thereby boosting morale? 
-    `,
-    value: `How might Stanbic Bank Zambia intentionally influence organisational culture thereby boosting morale? 
-    `
-  }
-];
 const ProposalForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
+  const [challengeStatements, setChallengeStatements] = React.useState<
+    ChallengeStatement[]
+  >([]);
+  const [challengeStatementId, setChallengeStatementId] = React.useState('');
   const { user } = useSelector((state: RootState) => state.user);
   const {
     data: teamData,
@@ -94,6 +64,20 @@ const ProposalForm = () => {
   } = useForm<ProposalFormInputs>({
     mode: 'onChange'
   });
+
+  React.useEffect(() => {
+    const fetchChallengeStatements = async () => {
+      try {
+        const response = await axios.get('/Challenge/view_challenges');
+        setChallengeStatements(response.data.ChallengeStatements);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchChallengeStatements();
+  }, []);
+
   const { mutate, isLoading } = useMutation(
     async (data: ProposalFormInputs) =>
       axios.post('/Innovation/new_innovation', data),
@@ -116,8 +100,10 @@ const ProposalForm = () => {
     const formData = {
       ...data,
       leadId: user?._id,
-      teamId: teamData?._id
+      teamId: typeof teamData === 'string' ? teamData : undefined,
+      challengeStatementId
     };
+    console.log(formData);
     mutate(formData);
   };
 
@@ -213,10 +199,14 @@ const ProposalForm = () => {
             <RadioGroup aria-label="score" {...field}>
               {challengeStatements.map((challengeStatement) => (
                 <FormControlLabel
-                  key={challengeStatement.value}
-                  value={challengeStatement.value}
+                  sx={{ padding: 1 }}
+                  key={challengeStatement._id}
+                  value={challengeStatement.challengeStatement}
                   control={<Radio />}
-                  label={challengeStatement.label}
+                  label={challengeStatement.challengeStatement}
+                  onClick={() =>
+                    setChallengeStatementId(challengeStatement._id)
+                  }
                 />
               ))}
             </RadioGroup>
@@ -230,6 +220,7 @@ const ProposalForm = () => {
           variant="contained"
           color="primary"
           type="submit"
+          sx={{ margin: 1 }}
           startIcon={
             isLoading ? <CircularProgress color="inherit" size={26} /> : null
           }

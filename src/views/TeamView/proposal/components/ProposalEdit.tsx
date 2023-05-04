@@ -20,8 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import { axios } from '../../../../clientProvider';
 
 import { RootState } from '../../../../redux/reducers/rootReducer';
-import { challengeStatements } from './ProposalForm';
 import { Proposal } from './ProprosalEditView';
+import { ChallengeStatement } from '../../../../types';
 
 export type ProposalFormInputs = {
   title: string;
@@ -39,7 +39,9 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
+  const [challengeStatements, setChallengeStatements] = React.useState<
+    ChallengeStatement[]
+  >([]);
   const { user } = useSelector((state: RootState) => state.user);
   console.log(user);
   const {
@@ -53,6 +55,19 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
       ...proposal
     }
   });
+
+  React.useEffect(() => {
+    const fetchChallengeStatements = async () => {
+      try {
+        const response = await axios.get('/Challenge/view_challenges');
+        setChallengeStatements(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchChallengeStatements();
+  }, []);
   const { mutate, isLoading } = useMutation(
     async (data: ProposalFormInputs) =>
       axios.put(`/Innovation/edit_innovation/${proposal._id}`, data),
@@ -138,10 +153,10 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
             <RadioGroup aria-label="score" {...field}>
               {challengeStatements.map((challengeStatement) => (
                 <FormControlLabel
-                  key={challengeStatement.value}
-                  value={challengeStatement.value}
+                  key={challengeStatement._id}
+                  value={challengeStatement.challengeStatement}
                   control={<Radio />}
-                  label={challengeStatement.label}
+                  label={challengeStatement.challengeStatement}
                 />
               ))}
             </RadioGroup>
