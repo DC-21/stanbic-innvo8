@@ -1,10 +1,9 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/function-component-definition */
 import * as React from 'react';
-import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
+import MUIDataTable from 'mui-datatables';
 import { useQuery } from 'react-query';
 import { Button, Chip, Card, Typography, CardContent } from '@mui/material';
-
 import { useNavigate } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
@@ -15,9 +14,10 @@ import { RootState } from '../../../../redux/reducers/rootReducer';
 const getIdeasByTeamLead = async (
   id: string | undefined
 ): Promise<Record<any, any>> => {
-  const { data } = await axios.get(`/Innovation/view_innovation_lead/${id}`);
-  console.log('xx', data);
-  return data;
+  const { data: response } = await axios.get(
+    `/Innovation/view_innovation_lead/${id}`
+  );
+  return response.data;
 };
 
 const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
@@ -28,12 +28,13 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const { data, error, isLoading } = useQuery(['submissions'], () =>
     getIdeasByTeamLead(user?._id)
   );
+  console.log(user?._id);
 
   if (isLoading) {
     return <Loading size={40} />;
   }
 
-  const columns: MUIDataTableColumn[] = [
+  const columns = [
     {
       name: '_id',
       label: 'ID',
@@ -51,7 +52,7 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
-      name: 'category',
+      name: 'challengeStatementId.challengeStatement',
       label: 'Category',
       options: {
         filter: true,

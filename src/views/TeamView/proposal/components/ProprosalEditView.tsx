@@ -9,6 +9,7 @@ export interface Proposal {
   _id?: string;
   title: string;
   category: string;
+  challengeStatementId: any[];
   problem: string;
   proposedSolution: string;
   status: string;

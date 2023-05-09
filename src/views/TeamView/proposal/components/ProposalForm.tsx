@@ -17,7 +17,7 @@ import {
 import { AxiosError } from 'axios';
 import { isEmpty } from 'lodash';
 import { useSnackbar } from 'notistack';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
@@ -39,13 +39,15 @@ const getTeam = async (
   id: string | undefined
 ): Promise<Record<string, undefined>> => {
   const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
-  return data.data[0]._id;
+  return data.data;
 };
 
 const ProposalForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [teamId, setTeamId] = useState<string | undefined>();
+  console.log('teamId', teamId);
   const [challengeStatements, setChallengeStatements] = React.useState<
     ChallengeStatement[]
   >([]);
@@ -85,7 +87,7 @@ const ProposalForm = () => {
       onSuccess: (response) => {
         const { message } = response.data;
         enqueueSnackbar(message, { variant: 'success' });
-        setTimeout(() => navigate('/team/dashboard'), 1500);
+        setTimeout(() => navigate('/team/innovation-idea'), 1500);
       },
       onError: (error: AxiosError) => {
         enqueueSnackbar(error.response?.data, { variant: 'error' });
@@ -100,7 +102,7 @@ const ProposalForm = () => {
     const formData = {
       ...data,
       leadId: user?._id,
-      teamId: typeof teamData === 'string' ? teamData : undefined,
+      teamId,
       challengeStatementId
     };
     console.log(formData);
@@ -213,6 +215,29 @@ const ProposalForm = () => {
           )}
           rules={{ required: true }}
           name="category"
+          control={control}
+        />
+        <Typography variant="h5" color="primary">
+          5. Select team your submitting for?
+        </Typography>
+        <Controller
+          render={({ field }) => (
+            <RadioGroup aria-label="score" {...field}>
+              {/** @ts-ignore */}
+              {teamData?.map((team) => (
+                <FormControlLabel
+                  sx={{ padding: 1 }}
+                  key={team._id}
+                  value={team.name}
+                  control={<Radio />}
+                  label={team.name}
+                  onClick={() => setTeamId(team?._id)}
+                />
+              ))}
+            </RadioGroup>
+          )}
+          rules={{ required: true }}
+          name="teamId"
           control={control}
         />
 

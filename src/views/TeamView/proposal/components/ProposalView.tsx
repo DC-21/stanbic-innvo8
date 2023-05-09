@@ -58,7 +58,7 @@ function ProposalView() {
   return (
     <Container maxWidth="lg">
       <Grid container sx={{ mt: 4 }} spacing={2}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6}>
           <Card>
             <CardHeader
               title="Innovation Idea"
@@ -89,7 +89,10 @@ function ProposalView() {
                   <TableCell variant="head">
                     What Challenge Statement Does Your solution address?
                   </TableCell>
-                  <TableCell>{data?.category}</TableCell>
+                  <TableCell>
+                    {/** @ts-ignore */}
+                    {data?.challengeStatementId?.challengeStatement}
+                  </TableCell>
                 </TableRow>
               </Table>
             </CardContent>
@@ -98,7 +101,7 @@ function ProposalView() {
         {/**
          * Team Leaner Card
          */}
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <Card>
             <CardHeader
               title="Team members"
@@ -212,7 +215,7 @@ function ProposalView() {
         {/**
          * Team Name Card
          */}
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <Card>
             <CardHeader title="Team" subheader="Team information" />
             <CardContent>

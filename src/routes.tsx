@@ -5,7 +5,7 @@ import { AdminRoutes } from './views/AdminView/AdminRoutes';
 import MainLayout from './layouts/MainLayout';
 import ForgotPassword from './views/auth/forgotPassword';
 import ResetPassword from './views/auth/resetPassword';
-import SignIn from './views/auth/SignIn';
+// import SignIn from './views/auth/SignIn';
 import SignUp from './views/auth/SignUp';
 import CompleteSignUp from './views/auth/CompleteSignUp/CompleteSignUp';
 import { TeamRoutes } from './views/TeamView/TeamRoutes';
@@ -14,6 +14,8 @@ import { JudgeRoutes } from './views/JudgeView/JudgeRoutes';
 import Logout from './views/auth/logout';
 import Home from './views/hompage';
 import FAQ from './views/Faq/Faq';
+import SingleSignIn from './views/auth/SingleSignIn';
+import AutoLogin from './views/auth/AutoLogin';
 
 const routes = [
   {
@@ -27,7 +29,8 @@ const routes = [
   },
 
   { path: '/', element: <Home /> },
-  { path: 'signin', element: <SignIn /> },
+  { path: 'signin', element: <SingleSignIn /> },
+  { path: 'ssoLogin/:ssoToken', element: <AutoLogin /> },
   { path: 'signup', element: <SignUp /> },
   { path: 'faq', element: <FAQ /> },
   { path: 'completeSignUp', element: <CompleteSignUp /> },

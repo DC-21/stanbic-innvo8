@@ -16,7 +16,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { axios } from '../../clientProvider';
 import { useNotify } from '../../redux/actions/notifications/notificationActions';
-import { loginSuccess } from '../../redux/actions/userActions/userActions';
 import Logo from '../../components/Logo';
 
 const useStyles = makeStyles((theme: any) => ({
@@ -141,27 +140,14 @@ function SingleSignIn() {
   });
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
-      const { message, data } = response;
-      console.log('msg', message);
-      dispatch(loginSuccess(response.data));
-      axios.defaults.headers = { token: response.data.token };
+      const { message } = response;
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
       setTimeout(() => {
-        if (data.userType === 'Admin') {
-          navigate('/app/dashboard');
-        }
-        if (data.userType === 'Team Lead') {
-          navigate('/team/dashboard');
-        }
-        if (data.userType === 'Team Member') {
-          navigate('/team/dashboard');
-        }
-        if (data.userType === 'Judge') {
-          navigate('/judge/dashboard');
-        }
+        navigate('/signin');
       }, 1500);
     },
     onError: (error: AxiosError) => {
+      console.log('Error', error.response?.data);
       dispatch(
         enqueueSnackbar({
           message: error.response?.data,
