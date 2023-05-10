@@ -80,7 +80,10 @@ const ChallengeStatementsList: React.FC<
       label: 'Challenge Statement',
       options: {
         filter: true,
-        sort: false
+        sort: false,
+        customBodyRender: (tableMeta) => {
+          return `${tableMeta.slice(0, 50)}...`;
+        }
       }
     },
     {

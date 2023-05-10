@@ -5,11 +5,15 @@ import { axios } from '../../../../clientProvider';
 import Loading from '../../../../components/Loading';
 import ProposalEdit from './ProposalEdit';
 
+export interface ChallengeId {
+  challengeStatement: string;
+  _id: string;
+}
 export interface Proposal {
   _id?: string;
   title: string;
   category: string;
-  challengeStatementId: any[];
+  challengeStatementId: ChallengeId;
   problem: string;
   proposedSolution: string;
   status: string;

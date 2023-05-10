@@ -155,6 +155,7 @@ function AddTeamMember({ handleClose, leadId }: Props) {
           color="primary"
           fullWidth
           size="large"
+          variant="outlined"
           type="submit"
           onClick={handleClose}
         >

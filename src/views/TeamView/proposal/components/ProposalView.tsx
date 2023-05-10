@@ -6,8 +6,11 @@ import {
   Container,
   Grid,
   Table,
+  TableBody,
   TableCell,
-  TableRow
+  TableHead,
+  TableRow,
+  Typography
 } from '@mui/material';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
@@ -45,6 +48,7 @@ type Props = Omit<Proposal, 'teamId'> & { teamId: TeamId; leadId: LeadId };
 
 const getProposal = async (id: string): Promise<Props> => {
   const { data } = await axios.get(`/Innovation/view_innovation/${id}`);
+  console.log(data.data);
   return data.data;
 };
 
@@ -54,21 +58,32 @@ function ProposalView() {
     state: { id }
   } = useLocation();
   const { data } = useQuery(['submissions', id], () => getProposal(id));
-  console.log(data, 'things here');
+
+  const members = data?.teamId.members || [];
+  if (data?.leadId) {
+    members.push(data.leadId);
+  }
   return (
     <Container maxWidth="lg">
-      <Grid container sx={{ mt: 4 }} spacing={2}>
-        <Grid item xs={12} md={6}>
+      <Card sx={{ marginTop: 2, padding: 2 }}>
+        <Typography variant="h2" color="primary" fontWeight="bold">
+          Team: {data?.teamId?.name}
+        </Typography>
+      </Card>
+
+      <Grid container sx={{ mt: 1 }} spacing={2}>
+        <Grid item xs={12} md={12}>
           <Card>
             <CardHeader
               title="Innovation Idea"
               subheader="Submitted Innovation idea (proposal) information"
+              fontWeight="bold"
             />
             <CardContent>
-              <Table size="small">
+              <Table>
                 <TableRow>
                   <TableCell variant="head">
-                    What’s the title of your innovation
+                    What’s the title of your innovation?
                   </TableCell>
                   <TableCell>{data?.title}</TableCell>
                 </TableRow>
@@ -101,134 +116,35 @@ function ProposalView() {
         {/**
          * Team Leaner Card
          */}
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardHeader
-              title="Team members"
-              subheader="Team Lead information"
-            />
-            <CardContent>
-              {/* <TableRow>
-                <TableCell variant="head">TEAM LEAD DETAILS</TableCell>
-                <TableCell />
-              </TableRow> */}
-              <Table size="small" sx={{ p: 1, mr: 1 }}>
-                <TableRow>
-                  <TableCell variant="head">First Name</TableCell>
-                  <TableCell>{data?.leadId?.firstName}</TableCell>
-                </TableRow>
 
-                <TableRow>
-                  <TableCell variant="head">Last Name</TableCell>
-                  <TableCell>{data?.leadId?.lastName}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell variant="head">Email</TableCell>
-                  <TableCell>{data?.leadId?.email}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell variant="head">Branch name</TableCell>
-                  <TableCell>{data?.leadId?.branch}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell variant="head">Gender</TableCell>
-                  <TableCell>{data?.leadId?.gender}</TableCell>
-                </TableRow>
-                <br />
-                <br />
-                <TableRow>
-                  <TableCell variant="head">TEAM MEMBERS INFORMATION</TableCell>
-                  <TableCell />
-                </TableRow>
-              </Table>
-              {data?.teamId.members && data?.teamId?.members.length > 0
-                ? data?.teamId.members.map((member) => (
-                    <>
-                      <Table size="small" key={member._id}>
-                        <TableRow>
-                          <TableCell variant="head">First Name</TableCell>
-                          <TableCell>{member.firstName}</TableCell>
-                        </TableRow>
-
-                        <TableRow>
-                          <TableCell variant="head">Last Name</TableCell>
-                          <TableCell>{member.lastName}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell variant="head">Email</TableCell>
-                          <TableCell>{member.email}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell variant="head">Branch name</TableCell>
-                          <TableCell>{member.branch}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell variant="head">Gender</TableCell>
-                          <TableCell>{data?.leadId?.gender}</TableCell>
-                        </TableRow>
-                      </Table>
-                      <br />
-                      <br />
-                    </>
-                  ))
-                : null}
-            </CardContent>
-          </Card>
-        </Grid>
-        {/* <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={12} sx={{ paddingBottom: '5%', mt: 1 }}>
           <Card>
-            <CardHeader
-              title="Team Members"
-              subheader="Team members information"
-            />
+            <CardHeader title="Team Members" fontWeight="bold" />
             <CardContent>
-              {data?.teamId.members && data?.teamId?.members.length > 0
-                ? data?.teamId.members.map((member) => (
-                    <Table size="small" key={member._id}>
-                      <TableRow>
-                        <TableCell variant="head">First Name</TableCell>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>First Name</TableCell>
+                    <TableCell>Last Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Branch name</TableCell>
+                    <TableCell>Gender</TableCell>
+                    <TableCell>Role</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {members &&
+                    members.map((member) => (
+                      <TableRow key={member._id}>
                         <TableCell>{member.firstName}</TableCell>
-                      </TableRow>
-
-                      <TableRow>
-                        <TableCell variant="head">Last Name</TableCell>
                         <TableCell>{member.lastName}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell variant="head">Email</TableCell>
                         <TableCell>{member.email}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell variant="head">Branch name</TableCell>
                         <TableCell>{member.branch}</TableCell>
+                        <TableCell>{member.gender}</TableCell>
+                        <TableCell>{member.userType}</TableCell>
                       </TableRow>
-                      <TableRow>
-                        <TableCell variant="head">Gender</TableCell>
-                        <TableCell>{data?.leadId?.gender}</TableCell>
-                      </TableRow>
-                    </Table>
-                  ))
-                : null}
-            </CardContent>
-          </Card>
-        </Grid> */}
-        {/**
-         * Team Name Card
-         */}
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardHeader title="Team" subheader="Team information" />
-            <CardContent>
-              <Table size="small">
-                <TableRow>
-                  <TableCell variant="head">Team Name</TableCell>
-                  <TableCell>{data?.teamId?.name}</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell variant="head">Team Description</TableCell>
-                  <TableCell>{data?.teamId?.description}</TableCell>
-                </TableRow>
+                    ))}
+                </TableBody>
               </Table>
             </CardContent>
           </Card>

@@ -11,6 +11,7 @@ import ProposalView from './proposal/components/ProposalView';
 import ProposalEditView from './proposal/components/ProprosalEditView';
 import TeamsListView from './teams';
 import TeamView from './teams/components/TeamView';
+import TeamEditView from './teams/components/TeamEditView';
 
 export const TeamRoutes = [
   {
@@ -35,8 +36,12 @@ export const TeamRoutes = [
         element: <TeamsListView />
       },
       {
-        path: 'teams/view',
+        path: 'teams/:id',
         element: <TeamView />
+      },
+      {
+        path: 'teams-edit/:id',
+        element: <TeamEditView />
       },
       // add routes for editing here
       { path: '404', element: <NotFoundView /> },
