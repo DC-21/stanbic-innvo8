@@ -57,11 +57,11 @@ function Dashboard() {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs className={clsx(classes.content)}>
-                <Typography variant="h2">
+                <Typography variant="h1">
                   Welcome to Stanbic Innov8 2.0
                 </Typography>
                 <br />
-                <Typography variant="h4">
+                <Typography variant="h3">
                   To submit your idea: create a team first, add your members and
                   then submit your idea
                 </Typography>
@@ -70,6 +70,7 @@ function Dashboard() {
                   variant="contained"
                   color="primary"
                   onClick={() => navigate(`/team/teams`)}
+                  size="large"
                 >
                   Create Team
                 </Button>

@@ -1,39 +1,60 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/function-component-definition */
 import * as React from 'react';
-import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
+import MUIDataTable from 'mui-datatables';
+import { Edit as EditIcon } from 'react-feather';
 import { useQuery } from 'react-query';
-import { Button, Chip, Card, Typography, CardContent } from '@mui/material';
-
+import {
+  Button,
+  Chip,
+  Card,
+  Typography,
+  CardContent,
+  IconButton,
+  Tooltip
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { RemoveRedEye } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector } from 'react-redux';
-import { isArray } from 'lodash';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
 import { axios } from '../../../../clientProvider';
 import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
+import DeleteProposal from './DeleteProposal';
 
 const getIdeasByTeamLead = async (
   id: string | undefined
 ): Promise<Record<any, any>> => {
-  const { data } = await axios.get(`/Innovation/view_innovation_lead/${id}`);
-  return data.data;
+  const { data: response } = await axios.get(
+    `/Innovation/view_innovation_user/${id}`
+  );
+  return response.data;
 };
 
 const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
 
   const { user } = useSelector((state: RootState) => state.user);
+  const { selected, setSelected } = useModalWithData();
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+
+  const handleClickOpenModal = () => {
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const { data, error, isLoading } = useQuery(['submissions'], () =>
     getIdeasByTeamLead(user?._id)
   );
+  console.log(user?._id);
 
   if (isLoading) {
     return <Loading size={40} />;
   }
 
-  const columns: MUIDataTableColumn[] = [
+  const columns = [
     {
       name: '_id',
       label: 'ID',
@@ -51,11 +72,14 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
-      name: 'category',
+      name: 'challengeStatementId.challengeStatement',
       label: 'Category',
       options: {
         filter: true,
-        sort: false
+        sort: false,
+        customBodyRender: (tableMeta) => {
+          return `${tableMeta.slice(0, 50)}...`;
+        }
       }
     },
     {
@@ -76,6 +100,60 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
         customBodyRender: (value) => <Chip label={value} />
       }
     },
+
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        viewColumns: false,
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          const [innovationId] = tableMeta.rowData;
+          return (
+            <Tooltip title="Edit" placement="top">
+              <IconButton
+                onClick={() =>
+                  navigate('/team/innovation-edit', {
+                    state: { id: innovationId }
+                  })
+                }
+                size="small"
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          );
+        }
+      }
+    },
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          const [id] = tableMeta.rowData;
+          return user?.userType === 'Team Member' ? null : (
+            <IconButton
+              onClick={() => {
+                setSelected(id);
+                handleClickOpenModal();
+              }}
+              size="small"
+              style={{
+                boxShadow: '1px 1px',
+                color: '#fff',
+                backgroundColor: 'red'
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          );
+        }
+      }
+    },
     {
       name: '',
       label: '',
@@ -93,36 +171,8 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
                 navigate('/team/innovation-view', { state: { id } });
               }}
               size="small"
-              startIcon={<RemoveRedEye />}
             >
               view
-            </Button>
-          );
-        }
-      }
-    },
-    {
-      name: '',
-      label: '',
-      options: {
-        filter: true,
-        viewColumns: false,
-        sort: false,
-        customBodyRender: (value, tableMeta) => {
-          const [innovationId] = tableMeta.rowData;
-          return (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() =>
-                navigate('/team/innovation-edit', {
-                  state: { id: innovationId }
-                })
-              }
-              size="small"
-              startIcon={<RemoveRedEye />}
-            >
-              edit
             </Button>
           );
         }
@@ -144,18 +194,32 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
     );
   }
   return (
-    <MUIDataTable
-      options={{
-        elevation: 0,
-        enableNestedDataAccess: '.',
-        responsive: 'simple',
-        filterType: 'dropdown',
-        selectableRows: 'none'
-      }}
-      title="Innovation Ideas (proposal)"
-      columns={columns}
-      data={isArray(data) ? data : [data]}
-    />
+    <>
+      <CustomModal
+        open={openModal}
+        handleClose={handleCloseModal}
+        title="Delete Innovation Idea"
+      >
+        {openModal ? (
+          <DeleteProposal selected={selected} handleClose={handleCloseModal} />
+        ) : null}
+      </CustomModal>
+      <MUIDataTable
+        options={{
+          elevation: 0,
+          enableNestedDataAccess: '.',
+          responsive: 'simple',
+          filterType: 'dropdown',
+          filter: false,
+          viewColumns: false,
+          selectableRows: 'none',
+          rowsPerPage: 20
+        }}
+        title="Innovation Ideas (proposal)"
+        columns={columns}
+        data={data}
+      />
+    </>
   );
 };
 

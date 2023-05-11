@@ -17,21 +17,19 @@ import { useNavigate } from 'react-router-dom';
 
 // import moment from 'moment';
 
-import DeleteIcon from '@mui/icons-material/Delete';
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import { CustomModal, useModalWithData } from '../../../../components/Modal';
 import AddTeamMember from './AddTeamMember';
-import DeleteTeam from './DeleteTeam';
+import { Teams } from '../../../../types';
 
 // import Error404Fallback from '../../../../components/ErrorBoundary/Error404';
 // import { Container } from '@mui/system';
 
-const getUser = async (id: string | undefined): Promise<any[]> => {
-  const { data: res } = await axios.get(`/Team/view_team_by_user/${id}`);
-  console.log('res', res);
-  return res.data;
+const getTeam = async (id: string | undefined): Promise<Teams> => {
+  const { data } = await axios.get(`/Team/view_team/${id}`);
+  return data.data;
 };
 
 const ListTeamMembers = () => {
@@ -39,18 +37,11 @@ const ListTeamMembers = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
-  const [openModal, setOpenModal] = React.useState<boolean>(false);
-
-  const handleClickOpenModal = () => {
-    setOpenModal(true);
-  };
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
   const { data, error, isLoading } = useQuery(['Teams'], () =>
-    getUser(user?._id)
+    getTeam(user?._id)
   );
 
+  console.log(data, 'team data');
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -117,7 +108,7 @@ const ListTeamMembers = () => {
         customBodyRender: (value, tableMeta) => {
           const [userId] = tableMeta.rowData;
 
-          return user?.userType === 'Team Member' ? null : (
+          return (
             <Button
               color="primary"
               onClick={() => {
@@ -161,40 +152,13 @@ const ListTeamMembers = () => {
       label: '',
       options: {
         filter: true,
-        sort: false,
-        customBodyRender: (value, tableMeta) => {
-          const [id] = tableMeta.rowData;
-          return user?.userType === 'Team Member' ? null : (
-            <IconButton
-              onClick={() => {
-                setSelected(id);
-                handleClickOpenModal();
-              }}
-              size="small"
-              style={{
-                boxShadow: '1px 1px',
-                color: '#fff',
-                backgroundColor: 'red'
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-          );
-        }
-      }
-    },
-    {
-      name: '',
-      label: '',
-      options: {
-        filter: true,
         viewColumns: false,
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const [id] = tableMeta.rowData;
           return (
             <Button
-              onClick={() => navigate(`/team/teams/${id}`, { state: { id } })}
+              onClick={() => navigate('/team/teams/view', { state: { id } })}
               size="small"
               color="primary"
               variant="contained"
@@ -232,29 +196,16 @@ const ListTeamMembers = () => {
           <AddTeamMember handleClose={handleClose} leadId={selected} />
         </CustomModal>
       )}
-      <CustomModal
-        open={openModal}
-        handleClose={handleCloseModal}
-        title="Delete Team"
-      >
-        {openModal ? (
-          <DeleteTeam selected={selected} handleClose={handleCloseModal} />
-        ) : null}
-      </CustomModal>
       <MUIDataTable
         options={{
           elevation: 0,
           enableNestedDataAccess: '.',
           responsive: 'simple',
-          filterType: 'dropdown',
-          filter: false,
-          viewColumns: false,
-          selectableRows: 'none',
-          rowsPerPage: 20
+          filterType: 'dropdown'
         }}
-        title="Teams"
+        title="Team Members"
         columns={columns}
-        data={[data]}
+        data={data}
       />
     </>
   );

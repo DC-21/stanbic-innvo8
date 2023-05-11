@@ -14,6 +14,8 @@ import Applications from './Applications';
 import ApplicationViewDetails from './Applications/ApplicationViewDetails';
 import TeamDetails from './teams/components/TeamDetails';
 import AuthRoutes from '../../components/AuthRoutes';
+import Challenge from './challenge/index';
+import EditViewChallenge from './challenge/components/EditViewChallenge';
 
 export const AdminRoutes = [
   {
@@ -52,6 +54,14 @@ export const AdminRoutes = [
       {
         path: 'applications/view/:id',
         element: <AuthRoutes component={ApplicationViewDetails} />
+      },
+      {
+        path: 'challenges',
+        element: <AuthRoutes component={Challenge} />
+      },
+      {
+        path: 'challenges/edit/:id',
+        element: <AuthRoutes component={EditViewChallenge} />
       },
       {
         path: 'account',

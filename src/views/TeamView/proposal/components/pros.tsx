@@ -1,31 +1,28 @@
 /* eslint-disable react/function-component-definition */
 import {
   Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
   CircularProgress,
-  TextField,
-  Typography,
-  Container,
   FormControlLabel,
   Radio,
-  RadioGroup
+  RadioGroup,
+  TextField,
+  Typography
 } from '@mui/material';
 
 import { AxiosError } from 'axios';
-import { isEmpty } from 'lodash';
+
 import { useSnackbar } from 'notistack';
-import React, { useState } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { axios } from '../../../../clientProvider';
-import Loading from '../../../../components/Loading';
+
 import { RootState } from '../../../../redux/reducers/rootReducer';
+import { Proposal } from './ProprosalEditView';
 import { ChallengeStatement } from '../../../../types';
+import Loading from '../../../../components/Loading';
 
 export type ProposalFormInputs = {
   title: string;
@@ -42,16 +39,27 @@ const getTeam = async (
   return data.data;
 };
 
-const ProposalForm = () => {
+interface ProposalEditProps {
+  proposal: Omit<Proposal, 'status'>;
+}
+
+const ProposalEdit = ({ proposal }: ProposalEditProps) => {
+  // console.log('pro', proposal.challengeStatementId?._id);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [teamId, setTeamId] = useState<string | undefined>();
-  console.log('teamId', teamId);
+  const [teamId, setTeamId] = React.useState<string | undefined>();
+  const [selectedChallengeStatementId, setSelectedChallengeStatementId] =
+    React.useState(proposal?.challengeStatementId?.challengeStatement || '');
+
+  const [selectedTeamId, setSelectedTeamId] = React.useState(
+    // @ts-ignore
+    proposal?.teamId?.name || ''
+  );
+  const [challengeStatementId, setChallengeStatementId] = React.useState('');
   const [challengeStatements, setChallengeStatements] = React.useState<
     ChallengeStatement[]
   >([]);
-  const [challengeStatementId, setChallengeStatementId] = React.useState('');
   const { user } = useSelector((state: RootState) => state.user);
   const {
     data: teamData,
@@ -64,13 +72,17 @@ const ProposalForm = () => {
     control,
     formState: { errors }
   } = useForm<ProposalFormInputs>({
-    mode: 'onChange'
+    mode: 'onChange',
+    defaultValues: {
+      ...proposal
+    }
   });
 
   React.useEffect(() => {
     const fetchChallengeStatements = async () => {
       try {
         const response = await axios.get('/Challenge/view_challenges');
+        console.log(response.data.ChallengeStatements);
         setChallengeStatements(response.data.ChallengeStatements);
       } catch (error) {
         console.error(error);
@@ -79,15 +91,15 @@ const ProposalForm = () => {
 
     fetchChallengeStatements();
   }, []);
-
   const { mutate, isLoading } = useMutation(
     async (data: ProposalFormInputs) =>
-      axios.post('/Innovation/new_innovation', data),
+      axios.put(`/Innovation/edit_innovation/${proposal._id}`, data),
     {
       onSuccess: (response) => {
+        console.log('response', response);
         const { message } = response.data;
         enqueueSnackbar(message, { variant: 'success' });
-        setTimeout(() => navigate('/team/innovation-idea'), 1500);
+        setTimeout(() => navigate(-1), 1500);
       },
       onError: (error: AxiosError) => {
         enqueueSnackbar(error.response?.data, { variant: 'error' });
@@ -105,40 +117,12 @@ const ProposalForm = () => {
       teamId,
       challengeStatementId
     };
-    console.log(formData);
+    console.log('formdata', formData);
     mutate(formData);
   };
 
   if (isLoadingTeam) return <Loading size={45} />;
   if (isError) return <div>Error</div>;
-  if (isEmpty(teamData)) {
-    return (
-      <Container sx={{ mt: 15 }} maxWidth="md">
-        <Card sx={{ m: 'auto' }}>
-          <CardContent>
-            <Typography sx={{ textTransform: 'uppercase' }} variant="h2">
-              No team found
-            </Typography>
-            <Typography variant="h4">
-              You are not a member of any team. Please contact your lead to join
-              a team.
-            </Typography>
-          </CardContent>
-          <CardActionArea>
-            <CardActions sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <Button
-                onClick={() => navigate('/team/teams')}
-                variant="contained"
-                color="primary"
-              >
-                Create Team
-              </Button>
-            </CardActions>
-          </CardActionArea>
-        </Card>
-      </Container>
-    );
-  }
 
   return (
     <div
@@ -148,14 +132,11 @@ const ProposalForm = () => {
         padding: '20px',
         marginLeft: '15px',
         marginRight: '15px',
-        marginTop: '20px'
+        marginTop: '5px'
       }}
     >
-      <Typography variant="h1" color="primary" fontWeight="bold">
-        Create Idea:
-      </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h4" color="primary" sx={{ paddingTop: '4%' }}>
+        <Typography variant="h5" color="primary">
           1. What’s the title of your innovation?
         </Typography>
         <TextField
@@ -164,11 +145,10 @@ const ProposalForm = () => {
           fullWidth
           {...register('title', { required: true })}
           margin="normal"
-          sx={{ paddingBottom: '4%' }}
           size="small"
           type="text"
         />
-        <Typography variant="h4" color="primary">
+        <Typography variant="h5" color="primary">
           2. What problem are you solving?
         </Typography>
         <TextField
@@ -179,11 +159,10 @@ const ProposalForm = () => {
           error={Boolean(errors.problem)}
           {...register('problem', { required: true })}
           margin="normal"
-          sx={{ paddingBottom: '4%' }}
           size="small"
           type="text"
         />
-        <Typography variant="h4" color="primary">
+        <Typography variant="h5" color="primary">
           3. What is the proposed solution?
         </Typography>
         <TextField
@@ -194,22 +173,21 @@ const ProposalForm = () => {
           fullWidth
           {...register('proposedSolution', { required: true })}
           margin="normal"
-          sx={{ paddingBottom: '4%' }}
           size="small"
           type="text"
         />
-        <Typography variant="h4" color="primary">
+        <Typography variant="h5" color="primary">
           4. What Challenge Statement Does Your solution address?
         </Typography>
-
         <Controller
           render={({ field }) => (
             <RadioGroup
               aria-label="score"
               {...field}
-              sx={{ paddingBottom: '4%' }}
+              value={selectedChallengeStatementId}
+              onChange={(e) => setSelectedChallengeStatementId(e.target.value)}
             >
-              {challengeStatements.map((challengeStatement) => (
+              {challengeStatements?.map((challengeStatement) => (
                 <FormControlLabel
                   sx={{ padding: 1 }}
                   key={challengeStatement._id}
@@ -227,7 +205,7 @@ const ProposalForm = () => {
           name="category"
           control={control}
         />
-        <Typography variant="h4" color="primary">
+        <Typography variant="h5" color="primary">
           5. Select team your submitting for?
         </Typography>
         <Controller
@@ -235,7 +213,10 @@ const ProposalForm = () => {
             <RadioGroup
               aria-label="score"
               {...field}
-              sx={{ paddingBottom: '4%' }}
+              // @ts-ignore
+              value={selectedTeamId}
+              key={selectedTeamId._id}
+              onChange={(event) => setSelectedTeamId(event.target.value)}
             >
               {/** @ts-ignore */}
               {teamData?.map((team) => (
@@ -259,20 +240,13 @@ const ProposalForm = () => {
           variant="contained"
           color="primary"
           type="submit"
-          sx={{ margin: 1 }}
-          size="large"
           startIcon={
             isLoading ? <CircularProgress color="inherit" size={26} /> : null
           }
         >
           Submit
         </Button>
-        <Button
-          variant="outlined"
-          color="primary"
-          size="large"
-          onClick={() => navigate('/team/innovation-idea')}
-        >
+        <Button variant="outlined" color="primary">
           Cancel
         </Button>
       </form>
@@ -280,4 +254,4 @@ const ProposalForm = () => {
   );
 };
 
-export default ProposalForm;
+export default ProposalEdit;

@@ -3,6 +3,7 @@
 import React, { FunctionComponent } from 'react';
 import {
   Button,
+  DialogActions,
   TextField,
   Container,
   Card,
@@ -16,18 +17,20 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../../clientProvider/baseConfig';
 // @ts-ignore
-import { Teams } from '../../../../types';
+import { ChallengeStatement } from '../../../../types';
 import { useNotify } from '../../../../redux/actions/notifications/notificationActions';
 // import branch from '../../../../components/branch';
 
 interface Props {
-  data: Teams;
+  data: ChallengeStatement;
 }
 
-const createUser = async (user: Teams) =>
-  axios.put(`/Team/edit_team/${user._id}`, user);
+const createUser = async (user: ChallengeStatement) =>
+  axios.put(`/Challenge/edit_challenge/${user._id}`, user);
 
-const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
+const EditChallengeStatement: FunctionComponent<
+  React.PropsWithChildren<Props>
+> = (props) => {
   const { data } = props;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,7 +40,7 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<Teams>({
+  } = useForm<ChallengeStatement>({
     defaultValues: data,
     mode: 'onChange'
   });
@@ -58,58 +61,81 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['AdminUser']);
+      queryClient.invalidateQueries(['Challenge']);
     }
   });
 
-  const onSubmit = (inputs: Teams) => {
-    const user = {
+  const onSubmit = (inputs: Omit<ChallengeStatement, '_id'>) => {
+    const challengeState = {
       ...inputs,
       _id: data._id
     };
-    mutate(user);
+    mutate(challengeState);
   };
 
   return (
     <Container style={{ marginTop: 28 }}>
       <Card>
-        <CardHeader title="Edit User  Information" />
+        <CardHeader title="Edit Challenge Statement" />
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
-              error={!!errors.name}
-              label="Team name"
+              error={!!errors.theme}
+              label="Theme"
               variant="outlined"
               fullWidth
               size="small"
               margin="normal"
-              {...register('name')}
+              {...register('theme')}
             />
             <TextField
-              error={!!errors.description}
-              label="Description"
+              error={!!errors.problem}
+              label="Problem"
               variant="outlined"
               fullWidth
-              multiline
-              rows={4}
               size="small"
               margin="normal"
-              {...register('description')}
+              {...register('problem')}
             />
-
-            <Button
-              disabled={isLoading}
-              variant="contained"
-              color="primary"
-              startIcon={
-                isLoading ? (
-                  <CircularProgress color="inherit" size={24} />
-                ) : null
-              }
-              type="submit"
-            >
-              Submit
-            </Button>
+            <TextField
+              error={!!errors.problemStatement}
+              label="Problem Statement"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              multiline
+              rows={3}
+              size="small"
+              type="text"
+              {...register('problemStatement')}
+            />
+            <TextField
+              error={!!errors.challengeStatement}
+              label="Challenge Statement"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              multiline
+              rows={3}
+              size="small"
+              type="text"
+              {...register('challengeStatement')}
+            />
+            <DialogActions>
+              <Button
+                disabled={isLoading}
+                variant="contained"
+                color="primary"
+                startIcon={
+                  isLoading ? (
+                    <CircularProgress color="inherit" size={24} />
+                  ) : null
+                }
+                type="submit"
+              >
+                Submit
+              </Button>
+            </DialogActions>
           </form>
         </CardContent>
       </Card>
@@ -117,4 +143,4 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
   );
 };
 
-export default TeamEdit;
+export default EditChallengeStatement;

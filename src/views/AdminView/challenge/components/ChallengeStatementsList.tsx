@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { Chip, IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import Toolbar from './Toolbar';
@@ -13,20 +13,22 @@ import {
   useModal,
   useModalWithData
 } from '../../../../components/Modal';
-import UserForm from './UserForm';
+import ChallengeStatementsForm from './ChallengeStatementsForm';
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
-import DeleteAdmin from '../DeleteAdmin';
+import DeleteAdmin from '../DeleteChallengeStatement';
 
-const getUser = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Admin/view_admins');
-  return data.admins;
+const getChallenges = async (): Promise<any[]> => {
+  const { data } = await axios.get('/Challenge/view_challenges');
+  return data.ChallengeStatements;
 };
 
-const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
+const ChallengeStatementsList: React.FC<
+  React.PropsWithChildren<unknown>
+> = () => {
   const navigate = useNavigate();
   const { open, handleClose, handleClickOpen } = useModal();
-  const { data, isLoading } = useQuery(['AdminUser'], getUser);
+  const { data, isLoading } = useQuery(['Challenge'], getChallenges);
   const { selected, setSelected } = useModalWithData();
   const [openModal, setOpenModal] = React.useState<boolean>(false);
 
@@ -50,46 +52,38 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
-      name: 'firstName',
-      label: 'First name',
+      name: 'theme',
+      label: 'Theme',
       options: {
         filter: true,
         sort: true
       }
     },
     {
-      name: 'lastName',
-      label: 'Last name',
+      name: 'problem',
+      label: 'Problem',
       options: {
         filter: true,
         sort: false
       }
     },
     {
-      name: 'email',
-      label: 'Email',
+      name: 'problemStatement',
+      label: 'Problem Statement',
       options: {
         filter: true,
         sort: false
       }
     },
     {
-      name: 'gender',
-      label: 'Gender',
+      name: 'challengeStatement',
+      label: 'Challenge Statement',
       options: {
         filter: true,
         sort: false
-      }
-    },
-    {
-      name: 'userType',
-      label: 'Role',
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: (value) => (
-          <Chip variant="outlined" color="primary" label={value} />
-        )
+        // customBodyRender: (tableMeta) => {
+        //   return `${tableMeta.slice(0, 50)}...`;
+        // }
       }
     },
     {
@@ -104,7 +98,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
           return (
             <Tooltip title="Edit">
               <IconButton
-                onClick={() => navigate(`/app/users/edit/${userId}`)}
+                onClick={() => navigate(`/app/challenges/edit/${userId}`)}
                 size="large"
               >
                 <EditIcon />
@@ -123,22 +117,20 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
         customBodyRender: (value, tableMeta) => {
           const [id] = tableMeta.rowData;
           return (
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  setSelected(id);
-                  handleClickOpenModal();
-                }}
-                size="small"
-                style={{
-                  boxShadow: '1px 1px',
-                  color: '#fff',
-                  backgroundColor: 'red'
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
+            <IconButton
+              onClick={() => {
+                setSelected(id);
+                handleClickOpenModal();
+              }}
+              size="small"
+              style={{
+                boxShadow: '1px 1px',
+                color: '#fff',
+                backgroundColor: 'red'
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
           );
         }
       }
@@ -149,18 +141,18 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
       <Toolbar handleClickOpen={handleClickOpen} />
 
       <CustomModal
-        title="Add Admin/Judge"
-        subTitle="Add a new Admin/Judge to the dashboard"
+        title="Challenge Statement"
+        subTitle="add a Challenge Statement"
         open={open}
         maxWidth="sm"
         handleClose={handleClose}
       >
-        <UserForm handleClose={handleClose} />
+        <ChallengeStatementsForm handleClose={handleClose} />
       </CustomModal>
       <CustomModal
         open={openModal}
         handleClose={handleCloseModal}
-        title="Delete Admin/Judge"
+        title="Delete Challenge Statement"
       >
         {openModal ? (
           <DeleteAdmin selected={selected} handleClose={handleCloseModal} />
@@ -169,7 +161,7 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
 
       <MUIDataTable
         options={{ elevation: 0, selectableRows: 'none' }}
-        title="users"
+        title="Challenge Statements"
         columns={columns}
         data={data || []}
       />
@@ -177,4 +169,4 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
   );
 };
 
-export default UserList;
+export default ChallengeStatementsList;

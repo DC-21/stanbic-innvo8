@@ -5,23 +5,18 @@ import {
   Button,
   TextField,
   Typography,
-  CircularProgress,
-  Link,
-  InputAdornment,
-  IconButton
+  CircularProgress
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { axios } from '../../../clientProvider';
-import { useNotify } from '../../../redux/actions/notifications/notificationActions';
-import { loginSuccess } from '../../../redux/actions/userActions/userActions';
-import Logo from '../../../components/Logo';
+import { axios } from '../../clientProvider';
+import { useNotify } from '../../redux/actions/notifications/notificationActions';
+import Logo from '../../components/Logo';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -119,24 +114,17 @@ const useStyles = makeStyles((theme: any) => ({
   }
 }));
 const grantAccess = async (user: Inputs) => {
-  const { data: response } = await axios.post('/Auth/login', user);
+  const { data: response } = await axios.post('/Auth/ssoLink', user);
   return response;
 };
 
-type Inputs = { email: string; password: string };
+type Inputs = { email: string };
 
 const schema = yup.object().shape({
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(8, 'Password is too short - should be longer than 8 characters.')
-    .max(32, 'Password must be less than 32 characters')
+  email: yup.string().email('Invalid email format').required('Required')
 });
 
-function SignIn() {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+function SingleSignIn() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -152,26 +140,14 @@ function SignIn() {
   });
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
-      const { message, data } = response;
-      dispatch(loginSuccess(response.data));
-      axios.defaults.headers = { token: response.data.token };
+      const { message } = response;
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
       setTimeout(() => {
-        if (data.userType === 'Admin') {
-          navigate('/app/dashboard');
-        }
-        if (data.userType === 'Team Lead') {
-          navigate('/team/dashboard');
-        }
-        if (data.userType === 'Team Member') {
-          navigate('/team/dashboard');
-        }
-        if (data.userType === 'Judge') {
-          navigate('/judge/dashboard');
-        }
+        navigate('/signin');
       }, 1500);
     },
     onError: (error: AxiosError) => {
+      console.log('Error', error.response?.data);
       dispatch(
         enqueueSnackbar({
           message: error.response?.data,
@@ -219,14 +195,14 @@ function SignIn() {
                   style={{ textAlign: 'center' }}
                   variant="h2"
                 >
-                  Sign in
+                  Send Magic LinK
                 </Typography>
                 <Typography
                   color="textSecondary"
                   style={{ textAlign: 'center' }}
                   gutterBottom
                 >
-                  Login with email address
+                  Please provide the email address you used to sign up.
                 </Typography>
 
                 <TextField
@@ -238,31 +214,7 @@ function SignIn() {
                   variant="outlined"
                   {...register('email')}
                 />
-                <TextField
-                  error={!!errors.password}
-                  fullWidth
-                  className={classes.textField}
-                  label="Password"
-                  variant="outlined"
-                  {...register('password')}
-                  type={showPassword ? 'text' : 'password'}
-                  helperText={errors.password?.message}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    )
-                  }}
-                />
                 <Button
-                  // startIcon={<CircularProgress />}
                   className={classes.signInButton}
                   color="primary"
                   fullWidth
@@ -276,34 +228,8 @@ function SignIn() {
                     ) : null
                   }
                 >
-                  Sign In
+                  Send Link
                 </Button>
-                <Button
-                  // startIcon={<CircularProgress />}
-                  className={classes.signInButton}
-                  color="primary"
-                  fullWidth
-                  size="large"
-                  type="submit"
-                  variant="outlined"
-                  disabled={isLoading}
-                  onClick={() => navigate('/single-signin')}
-                >
-                  Single Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Link href="/forgot-password" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  {/* <Grid item xs={6}>
-                    <i>Dont have an account?</i>
-                    <Link href="/signup" variant="body2">
-                      <i>Sign up here as a team lead</i>
-                    </Link>
-                  </Grid> */}
-                </Grid>
               </form>
             </div>
           </div>
@@ -334,4 +260,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SingleSignIn;
