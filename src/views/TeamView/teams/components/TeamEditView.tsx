@@ -1,15 +1,15 @@
+import { Grid } from '@mui/material';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { Grid } from '@mui/material';
 import { axios } from '../../../../clientProvider';
 import Loading from '../../../../components/Loading';
-
-import TeamEdit from './TeamEdit';
 import { Teams } from '../../../../types';
+import TeamEdit from './TeamEdit';
+// import TeamMemberList from './TeamMember/TeamMemberList';
 
-const getTeamById = async (Id: string | undefined): Promise<Teams> => {
-  const { data } = await axios.get(`/Team/view_team/${Id}`);
+const getTeamById = async (userId: string | undefined): Promise<Teams> => {
+  const { data } = await axios.get(`/Team/view_team/${userId}`);
   return data.data;
 };
 

@@ -36,7 +36,6 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
   const {
     register,
     handleSubmit,
-
     formState: { errors }
   } = useForm<Teams>({
     defaultValues: data,

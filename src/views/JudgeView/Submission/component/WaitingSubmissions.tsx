@@ -70,11 +70,14 @@ const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
             }
           },
           {
-            name: 'category',
+            name: 'challengeStatementId.challengeStatement',
             label: 'Category',
             options: {
               filter: true,
-              sort: false
+              sort: false,
+              customBodyRender: (tableMeta) => {
+                return `${tableMeta.slice(0, 50)}...`;
+              }
             }
           },
           {

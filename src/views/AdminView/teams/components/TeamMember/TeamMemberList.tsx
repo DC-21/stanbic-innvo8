@@ -1,34 +1,35 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/function-component-definition */
 import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { Chip, IconButton, Tooltip } from '@mui/material';
+import { Button, Chip, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 // import Toolbar from './Toolbar';
 import {
   CustomModal,
-  useModal
-  // useModalWithData
+  useModal,
+  useModalWithData
 } from '../../../../../components/Modal';
 import TeamMemberForm from './TeamMemberForm';
 import axios from '../../../../../clientProvider/baseConfig';
 import Loading from '../../../../../components/Loading';
-// import DeleteUser from '../../DeleteUser';
+import DeleteUser from '../../DeleteUser';
 
 const UserList = () => {
   const navigate = useNavigate();
   const { open, handleClose } = useModal();
-  //   const { selected, setSelected } = useModalWithData();
-  // const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const { selected, setSelected } = useModalWithData();
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
 
-  //   const handleClickOpenModal = () => {
-  //     setOpenModal(true);
-  //   };
-  //   const handleCloseModal = () => {
-  //     setOpenModal(false);
-  //   };
+  const handleClickOpenModal = () => {
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const getUser = async (): Promise<any[]> => {
     const { data } = await axios.get('/User/view_users');
@@ -124,35 +125,35 @@ const UserList = () => {
           );
         }
       }
+    },
+    {
+      name: '',
+      label: '',
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          const [id] = tableMeta.rowData;
+          return (
+            <Button
+              onClick={() => {
+                setSelected(id);
+                handleClickOpenModal();
+              }}
+              variant="contained"
+              size="small"
+              style={{
+                boxShadow: '1px 1px',
+                color: '#fff',
+                backgroundColor: 'red'
+              }}
+            >
+              Delete
+            </Button>
+          );
+        }
+      }
     }
-    // {
-    //   name: '',
-    //   label: '',
-    //   options: {
-    //     filter: true,
-    //     sort: false,
-    //     customBodyRender: (value, tableMeta) => {
-    //       const [id] = tableMeta.rowData;
-    //       return (
-    //         <Button
-    //           onClick={() => {
-    //             setSelected(id);
-    //             handleClickOpenModal();
-    //           }}
-    //           variant="contained"
-    //           size="small"
-    //           style={{
-    //             boxShadow: '1px 1px',
-    //             color: '#fff',
-    //             backgroundColor: 'red'
-    //           }}
-    //         >
-    //           Delete
-    //         </Button>
-    //       );
-    //     }
-    //   }
-    // }
   ];
   return (
     <>
@@ -167,7 +168,7 @@ const UserList = () => {
       >
         <TeamMemberForm handleClose={handleClose} />
       </CustomModal>
-      {/* <CustomModal
+      <CustomModal
         open={openModal}
         handleClose={handleCloseModal}
         title="Delete user"
@@ -175,7 +176,7 @@ const UserList = () => {
         {openModal ? (
           <DeleteUser selected={selected} handleClose={handleCloseModal} />
         ) : null}
-      </CustomModal> */}
+      </CustomModal>
 
       <MUIDataTable
         options={{
