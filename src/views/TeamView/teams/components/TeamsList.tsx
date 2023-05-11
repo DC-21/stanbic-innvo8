@@ -29,8 +29,9 @@ import DeleteTeam from './DeleteTeam';
 // import { Container } from '@mui/system';
 
 const getUser = async (id: string | undefined): Promise<any[]> => {
-  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
-  return data.data;
+  const { data: res } = await axios.get(`/Team/view_team_by_user/${id}`);
+  console.log('res', res);
+  return res.data;
 };
 
 const ListTeamMembers = () => {
@@ -50,7 +51,6 @@ const ListTeamMembers = () => {
     getUser(user?._id)
   );
 
-  console.log(data, 'team data');
   if (isLoading) {
     return <Loading size={40} />;
   }
@@ -117,7 +117,7 @@ const ListTeamMembers = () => {
         customBodyRender: (value, tableMeta) => {
           const [userId] = tableMeta.rowData;
 
-          return (
+          return user?.userType === 'Team Member' ? null : (
             <Button
               color="primary"
               onClick={() => {
@@ -164,7 +164,7 @@ const ListTeamMembers = () => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const [id] = tableMeta.rowData;
-          return user?.userType === 'Editor' ? null : (
+          return user?.userType === 'Team Member' ? null : (
             <IconButton
               onClick={() => {
                 setSelected(id);
@@ -254,7 +254,7 @@ const ListTeamMembers = () => {
         }}
         title="Teams"
         columns={columns}
-        data={data}
+        data={[data]}
       />
     </>
   );

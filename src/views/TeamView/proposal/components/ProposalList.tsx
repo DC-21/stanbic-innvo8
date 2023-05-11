@@ -26,7 +26,7 @@ const getIdeasByTeamLead = async (
   id: string | undefined
 ): Promise<Record<any, any>> => {
   const { data: response } = await axios.get(
-    `/Innovation/view_innovation_lead/${id}`
+    `/Innovation/view_innovation_user/${id}`
   );
   return response.data;
 };
@@ -135,7 +135,7 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const [id] = tableMeta.rowData;
-          return user?.userType === 'Editor' ? null : (
+          return user?.userType === 'Team Member' ? null : (
             <IconButton
               onClick={() => {
                 setSelected(id);
