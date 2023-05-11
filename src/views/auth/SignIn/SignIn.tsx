@@ -278,6 +278,19 @@ function SignIn() {
                 >
                   Sign In
                 </Button>
+                <Button
+                  // startIcon={<CircularProgress />}
+                  className={classes.signInButton}
+                  color="primary"
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="outlined"
+                  disabled={isLoading}
+                  onClick={() => navigate('/single-signin')}
+                >
+                  Single Sign In
+                </Button>
                 <Grid container>
                   <Grid item xs={6}>
                     <Link href="/forgot-password" variant="body2">

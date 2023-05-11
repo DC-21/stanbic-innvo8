@@ -8,7 +8,6 @@ import { Button, IconButton, Tooltip } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 // import Toolbar from './Toolbar';
-import { RemoveRedEye } from '@mui/icons-material';
 import { CustomModal, useModal } from '../../../../components/Modal';
 import TeamForm from './TeamForm';
 import axios from '../../../../clientProvider/baseConfig';
@@ -114,13 +113,12 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
           const [userId] = tableMeta.rowData;
           return (
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               onClick={() => {
                 navigate(`${location.pathname}/view/${userId}`);
               }}
               size="small"
-              startIcon={<RemoveRedEye />}
             >
               view
             </Button>

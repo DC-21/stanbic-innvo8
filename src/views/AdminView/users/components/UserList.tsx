@@ -4,7 +4,8 @@ import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { Button, Chip, IconButton, Tooltip } from '@mui/material';
+import { Chip, IconButton, Tooltip } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import Toolbar from './Toolbar';
 import {
@@ -123,12 +124,11 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
           const [id] = tableMeta.rowData;
           return (
             <Tooltip title="Delete">
-              <Button
+              <IconButton
                 onClick={() => {
                   setSelected(id);
                   handleClickOpenModal();
                 }}
-                variant="contained"
                 size="small"
                 style={{
                   boxShadow: '1px 1px',
@@ -136,8 +136,8 @@ const UserList: React.FC<React.PropsWithChildren<unknown>> = () => {
                   backgroundColor: 'red'
                 }}
               >
-                Delete
-              </Button>
+                <DeleteIcon />
+              </IconButton>
             </Tooltip>
           );
         }

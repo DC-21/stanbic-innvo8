@@ -16,6 +16,7 @@ import Home from './views/hompage';
 import FAQ from './views/Faq/Faq';
 import SingleSignIn from './views/auth/SingleSignIn';
 import AutoLogin from './views/auth/AutoLogin';
+import SignIn from './views/auth/SignIn/SignIn';
 
 const routes = [
   {
@@ -29,7 +30,8 @@ const routes = [
   },
 
   { path: '/', element: <Home /> },
-  { path: 'signin', element: <SingleSignIn /> },
+  { path: 'signin', element: <SignIn /> },
+  { path: 'single-signin', element: <SingleSignIn /> },
   { path: 'ssoLogin/:ssoToken', element: <AutoLogin /> },
   { path: 'signup', element: <SignUp /> },
   { path: 'faq', element: <FAQ /> },

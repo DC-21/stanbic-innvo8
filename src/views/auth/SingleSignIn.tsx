@@ -195,14 +195,14 @@ function SingleSignIn() {
                   style={{ textAlign: 'center' }}
                   variant="h2"
                 >
-                  Sign in
+                  Send Magic LinK
                 </Typography>
                 <Typography
                   color="textSecondary"
                   style={{ textAlign: 'center' }}
                   gutterBottom
                 >
-                  Login with email address
+                  Please provide the email address you used to sign up.
                 </Typography>
 
                 <TextField
@@ -228,7 +228,7 @@ function SingleSignIn() {
                     ) : null
                   }
                 >
-                  Sign In
+                  Send Link
                 </Button>
               </form>
             </div>

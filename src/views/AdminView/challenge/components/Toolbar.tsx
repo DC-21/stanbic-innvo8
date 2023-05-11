@@ -37,6 +37,7 @@ const Toolbar: FC<React.PropsWithChildren<ToolbarProps>> = ({
             onClick={handleClickOpen}
             color="primary"
             variant="contained"
+            size="large"
           >
             Challenge Statement
           </Button>
