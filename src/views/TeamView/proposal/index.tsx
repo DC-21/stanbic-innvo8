@@ -19,7 +19,7 @@ function InnovationProposal() {
   const { user } = useSelector((state: RootState) => state.user);
   return (
     <Container>
-      <Box sx={{ mt: 12 }}>
+      <Box sx={{ mt: 5 }}>
         <Card sx={{ bgcolor: `#0133a1`, color: '#ffffff' }}>
           <CardContent>
             <Typography variant="h4" sx={{ textTransform: 'uppercase' }}>
@@ -39,12 +39,12 @@ function InnovationProposal() {
           color="primary"
           onClick={() => navigate(`/team/innovation-create`)}
           variant="contained"
+          size="large"
         >
-          Add New Idea
+          New Idea
         </Button>
       </Box>
       <ProposalList />
-      {/* <ProposalForm /> */}
     </Container>
   );
 }

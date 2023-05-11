@@ -5,7 +5,6 @@ import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
 import { Button, Chip } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { RemoveRedEye } from '@mui/icons-material';
 import axios from '../../../clientProvider/baseConfig';
 import Loading from '../../../components/Loading';
 
@@ -42,11 +41,14 @@ const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
-      name: 'category',
+      name: 'challengeStatementId.challengeStatement',
       label: 'Category',
       options: {
         filter: true,
-        sort: false
+        sort: false,
+        customBodyRender: (tableMeta) => {
+          return `${tableMeta.slice(0, 50)}...`;
+        }
       }
     },
     {
@@ -95,7 +97,6 @@ const ReviewedApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
                 navigate(`${location.pathname}/view/${userId}`);
               }}
               size="small"
-              startIcon={<RemoveRedEye />}
             >
               view
             </Button>

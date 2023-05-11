@@ -47,7 +47,7 @@ const AllSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
             }
           },
           {
-            name: 'category',
+            name: 'challengeStatementId.challengeStatement',
             label: 'Category',
             options: {
               filter: true,

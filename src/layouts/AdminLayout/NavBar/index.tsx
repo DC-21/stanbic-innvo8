@@ -34,6 +34,11 @@ export const items = [
     title: 'Teams'
   },
   {
+    href: '/app/challenges',
+    icon: GroupsIcon,
+    title: 'Challenges'
+  },
+  {
     href: '/app/account',
     icon: AccountCircleOutlinedIcon,
     title: 'Account'

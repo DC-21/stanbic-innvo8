@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import { Divider, Grid, TextField, Typography } from '@mui/material';
+import { Divider, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { Application } from '../../../types';
 
@@ -40,60 +40,55 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             <b>Team: {application?.teamId.name}</b>
           </Typography>
           <br />
-          <Typography variant="h6" color="primary">
+          <Typography variant="h4" color="primary" sx={{ paddingTop: '4%' }}>
             1. What’s the title of your innovation?
           </Typography>
-          <TextField
-            aria-readonly
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            type="text"
-            value={application?.title}
-          />
-          <Typography variant="h6" color="primary">
+          <Typography
+            style={{
+              backgroundColor: '#f2f2f2',
+              padding: '10px',
+              marginTop: '8px'
+            }}
+          >
+            {application?.title}
+          </Typography>
+          <Typography variant="h4" color="primary" sx={{ paddingTop: '4%' }}>
             2. What problem are you solving?
           </Typography>
-          <TextField
-            multiline
-            rows={4}
-            aria-readonly
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            type="text"
-            value={application?.problem}
-          />
-          <Typography variant="h6" color="primary">
+          <Typography
+            style={{
+              backgroundColor: '#f2f2f2',
+              padding: '10px',
+              marginTop: '8px'
+            }}
+          >
+            {application?.problem}
+          </Typography>
+          <Typography variant="h4" color="primary" sx={{ paddingTop: '4%' }}>
             3. What is the proposed solution?
           </Typography>
-          <TextField
-            multiline
-            rows={6}
-            aria-readonly
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            type="text"
-            value={application?.proposedSolution}
-          />
-          <Typography variant="h6" color="primary">
+          <Typography
+            style={{
+              backgroundColor: '#f2f2f2',
+              padding: '10px',
+              marginTop: '8px'
+            }}
+          >
+            {application?.proposedSolution}
+          </Typography>
+          <Typography variant="h4" color="primary" sx={{ paddingTop: '4%' }}>
             4. Which category/sector does your innovation fall under?
           </Typography>
-          <TextField
-            multiline
-            rows={5}
-            aria-readonly
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            type="text"
-            value={application?.category}
-          />
+          <Typography
+            style={{
+              backgroundColor: '#f2f2f2',
+              padding: '10px',
+              marginTop: '8px'
+            }}
+          >
+            {/** @ts-ignore */}
+            {application?.challengeStatementId.challengeStatement}
+          </Typography>
         </Grid>
 
         <Grid
@@ -115,22 +110,22 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             // columnCount: 2
           }}
         >
-          <Typography variant="h5" color="primary">
+          <Typography variant="h4" color="primary">
             <b>Total Votes:</b> {application?.totalVotes}
           </Typography>
-          <Typography variant="h5" color="primary">
+          <Typography variant="h4" color="primary">
             <b>Total Judges Who Voted:</b> {application?.totalVotedJudges}
           </Typography>
           <br />
           <Divider />
-          <Typography variant="h5" color="primary" sx={{ paddingTop: '10px' }}>
+          <Typography variant="h4" color="primary" sx={{ paddingTop: '10px' }}>
             <b>Judges Who Voted:</b>
           </Typography>
           {application?.votes.map((item) => {
             return (
               <ul key={item._id} style={{ paddingLeft: '20px' }}>
                 <li>
-                  <Typography variant="h5" color="primary">
+                  <Typography variant="h4" color="primary">
                     {item?.judge?.firstName} {item?.judge?.lastName}
                   </Typography>
                 </li>
@@ -139,13 +134,13 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
           })}
           <Divider sx={{ paddingTop: '10px' }} />
           <br />
-          <Typography variant="h5" color="primary">
+          <Typography variant="h4" color="primary">
             <b>Team Lead</b>: {application?.leadId?.firstName}{' '}
             {application?.leadId?.lastName}
           </Typography>
           {application?.teamId.members.map((item) => {
             return (
-              <Typography variant="h5" color="primary" key={item._id}>
+              <Typography variant="h4" color="primary" key={item._id}>
                 <b>Team Member</b>: {item?.firstName} {item?.lastName}
               </Typography>
             );
