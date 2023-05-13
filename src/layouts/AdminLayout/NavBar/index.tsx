@@ -6,6 +6,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import CampaignIcon from '@mui/icons-material/Campaign';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { Box, Divider, Drawer, Hidden } from '@mui/material';
 // import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
@@ -35,7 +36,7 @@ export const items = [
   },
   {
     href: '/app/challenges',
-    icon: GroupsIcon,
+    icon: CampaignIcon,
     title: 'Challenges'
   },
   {

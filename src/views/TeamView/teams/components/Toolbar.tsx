@@ -37,8 +37,9 @@ const Toolbar = ({ className, handleClickOpen, ...rest }: ToolbarProps) => {
             onClick={handleClickOpen}
             color="primary"
             variant="contained"
+            size="large"
           >
-            Create New Team
+            New Team
           </Button>
         ) : (
           <div style={{ display: 'none' }} />

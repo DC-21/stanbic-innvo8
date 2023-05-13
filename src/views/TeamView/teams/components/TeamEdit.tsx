@@ -91,7 +91,7 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
               variant="outlined"
               fullWidth
               multiline
-              rows={4}
+              rows={2}
               size="small"
               margin="normal"
               {...register('description')}
@@ -101,6 +101,7 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
               disabled={isLoading}
               variant="contained"
               color="primary"
+              size="large"
               startIcon={
                 isLoading ? (
                   <CircularProgress color="inherit" size={24} />
