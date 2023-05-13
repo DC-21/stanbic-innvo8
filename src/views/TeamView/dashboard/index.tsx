@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
-import { Typography, Grid, ButtonBase, Paper, Button } from '@mui/material';
+import { Typography, Grid, Paper, Button } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import Page from '../../../components/Page';
 
@@ -15,10 +15,7 @@ const useStyles = makeStyles(() => ({
     height: '100%'
   },
   image: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    display: 'flex',
     width: '100%',
     hieght: '100%'
   },
@@ -36,25 +33,29 @@ function Dashboard() {
     <Page title="Dashboard">
       <Paper
         sx={{
+          display: 'flex',
+          justifyContent: 'center',
           p: 2,
           margin: 'auto',
-          maxWidth: '90%',
+          width: '97%',
           flexGrow: 1,
-          marginTop: 5
+          backgroundColor: 'transparent',
+          border: 'none',
+          boxShadow: 'none',
+          borderColor: 'none',
+          marginTop: '9%'
         }}
       >
         <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase sx={{ width: 328, height: 328 }}>
-              <img
-                className={clsx(classes.image)}
-                src="/images/woman-having-online-class-meeting-through-e-learning-system.jpeg"
-                alt="stanbic"
-              />
-            </ButtonBase>
+          <Grid item xs={12} sm={6} md={6}>
+            <img
+              className={clsx(classes.image)}
+              src="/images/team-work1.jpg"
+              alt="freepik.com"
+            />
           </Grid>
 
-          <Grid item xs={12} sm container>
+          <Grid item xs={12} md={6} container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs className={clsx(classes.content)}>
                 <Typography variant="h1">
