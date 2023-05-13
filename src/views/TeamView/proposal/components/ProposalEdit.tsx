@@ -44,12 +44,18 @@ interface ProposalEditProps {
 }
 
 const ProposalEdit = ({ proposal }: ProposalEditProps) => {
-  // console.log('pro', proposal.challengeStatementId?._id);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [teamId, setTeamId] = React.useState<string | undefined>();
-  const [challengeStatementId, setChallengeStatementId] = React.useState('');
+  const [teamId, setTeamId] = React.useState<string | undefined>(
+    // @ts-ignore
+    proposal?.teamId?._id || ''
+  );
+  console.log('team', teamId);
+  const [challengeStatementId, setChallengeStatementId] = React.useState(
+    proposal?.challengeStatementId?._id || ''
+  );
+  console.log('cha', challengeStatementId);
   const [challengeStatements, setChallengeStatements] = React.useState<
     ChallengeStatement[]
   >([]);
@@ -99,7 +105,7 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
       },
 
       onSettled: () => {
-        queryClient.invalidateQueries(['AdminUser']);
+        queryClient.invalidateQueries(['submissions']);
       }
     }
   );
@@ -183,15 +189,23 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
           render={({ field }) => (
             <RadioGroup
               aria-label="score"
-              defaultValue="outlined"
               {...field}
+              value={challengeStatementId}
+              onChange={(e) => {
+                const selectedChallengeStatement = challengeStatements.find(
+                  (statement) => statement.challengeStatement === e.target.value
+                );
+                if (selectedChallengeStatement) {
+                  setChallengeStatementId(selectedChallengeStatement._id);
+                }
+              }}
               sx={{ paddingBottom: '4%' }}
             >
               {challengeStatements?.map((challengeStatement) => (
                 <FormControlLabel
                   sx={{ padding: 1 }}
                   key={challengeStatement._id}
-                  value={challengeStatement.challengeStatement}
+                  value={challengeStatement._id}
                   control={<Radio />}
                   label={challengeStatement.challengeStatement}
                   onClick={() =>
@@ -201,7 +215,7 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
               ))}
             </RadioGroup>
           )}
-          rules={{ required: true }}
+          rules={{ required: false }}
           name="category"
           control={control}
         />
@@ -214,6 +228,16 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
               aria-label="score"
               defaultValue="outlined"
               {...field}
+              value={teamId}
+              onChange={(e) => {
+                // @ts-ignore
+                const selectedTeamId = teamData.find(
+                  (team) => team.name === e.target.value
+                );
+                if (selectedTeamId) {
+                  setTeamId(selectedTeamId._id);
+                }
+              }}
               sx={{ paddingBottom: '2%' }}
             >
               {/** @ts-ignore */}
@@ -221,7 +245,7 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
                 <FormControlLabel
                   sx={{ padding: 1 }}
                   key={team._id}
-                  value={team.name}
+                  value={team._id}
                   control={<Radio />}
                   label={team.name}
                   onClick={() => setTeamId(team?._id)}
@@ -229,7 +253,7 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
               ))}
             </RadioGroup>
           )}
-          rules={{ required: true }}
+          rules={{ required: false }}
           name="teamId"
           control={control}
         />

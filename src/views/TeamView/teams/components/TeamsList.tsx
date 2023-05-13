@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 // import moment from 'moment';
 
-import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteIcon from '@mui/icons-material/Delete';
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
@@ -41,9 +41,9 @@ const ListTeamMembers = () => {
     useModalWithData();
   const [openModal, setOpenModal] = React.useState<boolean>(false);
 
-  const handleClickOpenModal = () => {
-    setOpenModal(true);
-  };
+  //   const handleClickOpenModal = () => {
+  //     setOpenModal(true);
+  //   };
   const handleCloseModal = () => {
     setOpenModal(false);
   };
@@ -156,33 +156,33 @@ const ListTeamMembers = () => {
         }
       }
     },
-    {
-      name: '',
-      label: '',
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: (value, tableMeta) => {
-          const [id] = tableMeta.rowData;
-          return user?.userType === 'Team Member' ? null : (
-            <IconButton
-              onClick={() => {
-                setSelected(id);
-                handleClickOpenModal();
-              }}
-              size="small"
-              style={{
-                boxShadow: '1px 1px',
-                color: '#fff',
-                backgroundColor: 'red'
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-          );
-        }
-      }
-    },
+    // {
+    //   name: '',
+    //   label: '',
+    //   options: {
+    //     filter: true,
+    //     sort: false,
+    //     customBodyRender: (value, tableMeta) => {
+    //       const [id] = tableMeta.rowData;
+    //       return user?.userType === 'Team Member' ? null : (
+    //         <IconButton
+    //           onClick={() => {
+    //             setSelected(id);
+    //             handleClickOpenModal();
+    //           }}
+    //           size="small"
+    //           style={{
+    //             boxShadow: '1px 1px',
+    //             color: '#fff',
+    //             backgroundColor: 'red'
+    //           }}
+    //         >
+    //           <DeleteIcon />
+    //         </IconButton>
+    //       );
+    //     }
+    //   }
+    // },
     {
       name: '',
       label: '',
@@ -254,7 +254,7 @@ const ListTeamMembers = () => {
         }}
         title="Teams"
         columns={columns}
-        data={[data]}
+        data={data}
       />
     </>
   );
