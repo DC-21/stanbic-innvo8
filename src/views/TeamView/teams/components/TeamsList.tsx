@@ -14,19 +14,13 @@ import {
   CardContent
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-// import moment from 'moment';
-
-// import DeleteIcon from '@mui/icons-material/Delete';
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import { CustomModal, useModalWithData } from '../../../../components/Modal';
 import AddTeamMember from './AddTeamMember';
 import DeleteTeam from './DeleteTeam';
-
-// import Error404Fallback from '../../../../components/ErrorBoundary/Error404';
-// import { Container } from '@mui/system';
+import Page from '../../../../components/Page';
 
 const getUser = async (id: string | undefined): Promise<any[]> => {
   const { data: res } = await axios.get(`/Team/view_team_by_user/${id}`);
@@ -221,7 +215,7 @@ const ListTeamMembers = () => {
     );
   }
   return (
-    <>
+    <Page title="Team">
       {selected && (
         <CustomModal
           title="Team"
@@ -256,7 +250,7 @@ const ListTeamMembers = () => {
         columns={columns}
         data={data}
       />
-    </>
+    </Page>
   );
 };
 

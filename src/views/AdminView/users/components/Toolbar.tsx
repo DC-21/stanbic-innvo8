@@ -38,7 +38,7 @@ const Toolbar: FC<React.PropsWithChildren<ToolbarProps>> = ({
             color="primary"
             variant="contained"
           >
-            Judge
+            User
           </Button>
         </Tooltip>
       </Box>

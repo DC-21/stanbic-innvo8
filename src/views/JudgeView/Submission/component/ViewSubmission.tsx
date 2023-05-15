@@ -21,6 +21,7 @@ import { axios } from '../../../../clientProvider';
 import { useNotify } from '../../../../redux/actions/notifications/notificationActions';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import { Application } from '../../../../types';
+import Loading from '../../../../components/Loading';
 
 interface Inputs {
   score: number;
@@ -149,6 +150,10 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
     };
     mutate(submission);
   };
+
+  if (isLoading) {
+    return <Loading size={40} />;
+  }
   return (
     <div
       style={{

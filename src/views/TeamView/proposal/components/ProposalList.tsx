@@ -21,6 +21,7 @@ import { axios } from '../../../../clientProvider';
 import Loading from '../../../../components/Loading';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import DeleteProposal from './DeleteProposal';
+import Page from '../../../../components/Page';
 
 const getIdeasByTeamLead = async (
   id: string | undefined
@@ -194,7 +195,7 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
     );
   }
   return (
-    <>
+    <Page title="Innovation">
       <CustomModal
         open={openModal}
         handleClose={handleCloseModal}
@@ -219,7 +220,7 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
         columns={columns}
         data={data}
       />
-    </>
+    </Page>
   );
 };
 

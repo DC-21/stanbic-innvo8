@@ -17,6 +17,7 @@ import { useLocation } from 'react-router-dom';
 
 import { axios } from '../../../../clientProvider';
 import { Proposal } from './ProprosalEditView';
+import Loading from '../../../../components/Loading';
 
 export interface TeamId {
   _id: string;
@@ -48,7 +49,6 @@ type Props = Omit<Proposal, 'teamId'> & { teamId: TeamId; leadId: LeadId };
 
 const getProposal = async (id: string): Promise<Props> => {
   const { data } = await axios.get(`/Innovation/view_innovation/${id}`);
-  console.log(data.data);
   return data.data;
 };
 
@@ -57,11 +57,17 @@ function ProposalView() {
     // @ts-ignore
     state: { id }
   } = useLocation();
-  const { data } = useQuery(['submissions', id], () => getProposal(id));
+  const { data, isLoading } = useQuery(['submissions', id], () =>
+    getProposal(id)
+  );
 
   const members = data?.teamId.members || [];
   if (data?.leadId) {
     members.push(data.leadId);
+  }
+
+  if (isLoading) {
+    return <Loading size={40} />;
   }
   return (
     <Container maxWidth="lg">
