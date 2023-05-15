@@ -8,6 +8,7 @@ import PendingApplications from './PendingApplications';
 import AcceptedApplications from './AcceptedApplications';
 import ReviewedApplications from './ReviewedApplications';
 import WaitingApplications from './WaitingApplications';
+import Page from '../../../components/Page';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -50,36 +51,38 @@ export default function Applications() {
   };
 
   return (
-    <Box sx={{ width: '100%', paading: '10px' }}>
-      <Box
-        sx={{
-          borderBottom: 1,
-          borderColor: 'divider'
-        }}
-      >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="User Management"
+    <Page title="Applications">
+      <Box sx={{ width: '100%', paading: '10px' }}>
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: 'divider'
+          }}
         >
-          <Tab label="Pending" {...a11yProps(0)} />
-          <Tab label="Reviewed" {...a11yProps(1)} />
-          <Tab label="Waiting" {...a11yProps(2)} />
-          <Tab label="Accepted" {...a11yProps(3)} />
-        </Tabs>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="User Management"
+          >
+            <Tab label="Pending" {...a11yProps(0)} />
+            <Tab label="Reviewed" {...a11yProps(1)} />
+            <Tab label="Waiting" {...a11yProps(2)} />
+            <Tab label="Accepted" {...a11yProps(3)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <PendingApplications />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <ReviewedApplications />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <WaitingApplications />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <AcceptedApplications />
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <PendingApplications />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <ReviewedApplications />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <WaitingApplications />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <AcceptedApplications />
-      </TabPanel>
-    </Box>
+    </Page>
   );
 }

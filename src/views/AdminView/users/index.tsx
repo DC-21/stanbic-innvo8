@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { useSearchParams } from 'react-router-dom';
 import UserList from '../users/components/UserList';
 import TeamMemberList from '../teams/components/TeamMember/TeamMemberList';
+import Page from '../../../components/Page';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,23 +49,25 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="User Management"
-        >
-          <Tab label="Users" {...a11yProps(0)} />
-          <Tab label="Team Members" {...a11yProps(1)} />
-        </Tabs>
+    <Page title="Users">
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="User Management"
+          >
+            <Tab label="Users" {...a11yProps(0)} />
+            <Tab label="Team Members" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <UserList />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <TeamMemberList />
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <UserList />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <TeamMemberList />
-      </TabPanel>
-    </Box>
+    </Page>
   );
 }
