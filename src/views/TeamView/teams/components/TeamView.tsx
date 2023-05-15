@@ -11,7 +11,6 @@ import { Teams } from '../../../../types';
 
 const getTeam = async (id: string | undefined): Promise<Teams> => {
   const { data: res } = await axios.get(`/Team/view_team/${id}`);
-  console.log(res.data.members);
   return res.data.members;
 };
 
@@ -19,7 +18,6 @@ const ListTeamMembers = () => {
   const Id = useParams();
   const { data, isLoading } = useQuery(['Team-members'], () => getTeam(Id?.id));
 
-  console.log('team data', data);
   if (isLoading) {
     return <Loading size={40} />;
   }
