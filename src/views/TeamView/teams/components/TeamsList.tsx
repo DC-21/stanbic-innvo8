@@ -1,257 +1,136 @@
-/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/function-component-definition */
-import * as React from 'react';
-import { Edit as EditIcon } from 'react-feather';
-import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
-import {
-  Button,
-  IconButton,
-  Tooltip,
-  Typography,
-  Card,
-  CardContent
-} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../../../clientProvider/baseConfig';
-import Loading from '../../../../components/Loading';
+import { Card, CardContent, Typography, Box } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/reducers/rootReducer';
-import { CustomModal, useModalWithData } from '../../../../components/Modal';
-import AddTeamMember from './AddTeamMember';
-import DeleteTeam from './DeleteTeam';
-import Page from '../../../../components/Page';
+import { axios } from '../../../../clientProvider';
 
-const getUser = async (id: string | undefined): Promise<any[]> => {
+const getTeam = async (id: string | undefined): Promise<any[]> => {
   const { data: res } = await axios.get(`/Team/view_team_by_user/${id}`);
   console.log('res', res);
   return res.data;
 };
 
-const ListTeamMembers = () => {
+const TeamList = () => {
+  const { user } = useSelector((store: RootState) => store.user);
+  const [selectedTeamId, setSelectedTeamId] = useState<string | undefined>('');
+  console.log('teamId', selectedTeamId);
   const navigate = useNavigate();
-  const { user } = useSelector((state: RootState) => state.user);
-  const { open, handleClickOpen, handleClose, selected, setSelected } =
-    useModalWithData();
-  const [openModal, setOpenModal] = React.useState<boolean>(false);
 
-  //   const handleClickOpenModal = () => {
-  //     setOpenModal(true);
-  //   };
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
-  const { data, error, isLoading } = useQuery(['Teams'], () =>
-    getUser(user?._id)
-  );
+  const {
+    data: teams,
+    isError,
+    isLoading
+  } = useQuery(['Teams'], () => getTeam(user?._id));
 
   if (isLoading) {
-    return <Loading size={40} />;
-  }
-
-  const columns: MUIDataTableColumn[] = [
-    {
-      name: '_id',
-      label: 'ID',
-      options: {
-        filter: false,
-        display: 'false'
-      }
-    },
-    {
-      name: 'name',
-      label: 'Name',
-      options: {
-        filter: true,
-        sort: true
-      }
-    },
-    {
-      name: 'description',
-      label: 'Description',
-      options: {
-        filter: true,
-        sort: false
-      }
-    },
-    {
-      name: 'leadId.firstName',
-      label: 'Lead First Name',
-      options: {
-        filter: true,
-        sort: false,
-        viewColumns: false
-      }
-    },
-    {
-      name: 'leadId.lastName',
-      label: 'Lead Last Name',
-      options: {
-        filter: true,
-        sort: false,
-        viewColumns: false
-      }
-    },
-    // {
-    //   name: 'createdAt',
-    //   label: 'Created At',
-    //   options: {
-    //     filter: true,
-    //     sort: false,
-    //     customBodyRender: (value) => moment(new Date(value)).format('L')
-    //   }
-    // },
-    {
-      name: '',
-      label: '',
-      options: {
-        filter: true,
-        viewColumns: false,
-        sort: false,
-        customBodyRender: (value, tableMeta) => {
-          const [userId] = tableMeta.rowData;
-
-          return user?.userType === 'Team Member' ? null : (
-            <Button
-              color="primary"
-              onClick={() => {
-                setSelected(userId);
-                handleClickOpen();
-              }}
-              variant="outlined"
-              size="small"
-            >
-              add members
-            </Button>
-          );
-        }
-      }
-    },
-    {
-      name: '',
-      label: '',
-      options: {
-        filter: true,
-        viewColumns: false,
-        sort: false,
-        customBodyRender: (value, tableMeta) => {
-          const [userId] = tableMeta.rowData;
-
-          return (
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => navigate(`/team/teams-edit/${userId}`)}
-                size="large"
-              >
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-          );
-        }
-      }
-    },
-    // {
-    //   name: '',
-    //   label: '',
-    //   options: {
-    //     filter: true,
-    //     sort: false,
-    //     customBodyRender: (value, tableMeta) => {
-    //       const [id] = tableMeta.rowData;
-    //       return user?.userType === 'Team Member' ? null : (
-    //         <IconButton
-    //           onClick={() => {
-    //             setSelected(id);
-    //             handleClickOpenModal();
-    //           }}
-    //           size="small"
-    //           style={{
-    //             boxShadow: '1px 1px',
-    //             color: '#fff',
-    //             backgroundColor: 'red'
-    //           }}
-    //         >
-    //           <DeleteIcon />
-    //         </IconButton>
-    //       );
-    //     }
-    //   }
-    // },
-    {
-      name: '',
-      label: '',
-      options: {
-        filter: true,
-        viewColumns: false,
-        sort: false,
-        customBodyRender: (value, tableMeta) => {
-          const [id] = tableMeta.rowData;
-          return (
-            <Button
-              onClick={() => navigate(`/team/teams/${id}`, { state: { id } })}
-              size="small"
-              color="primary"
-              variant="contained"
-            >
-              View
-            </Button>
-          );
-        }
-      }
-    }
-  ];
-
-  // @ts-ignore
-  if (error?.response.status === 404) {
     return (
-      <Card>
-        <CardContent>
-          <Typography>No team found</Typography>
-          <Typography>
-            Please add a team by clicking on the create new team button
-          </Typography>
-        </CardContent>
-      </Card>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Card variant="outlined">
+          <CardContent>
+            <Typography
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              variant="h3"
+            >
+              Loading teams...
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
     );
   }
+
+  if (isError) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Card variant="outlined">
+          <CardContent>
+            <Typography
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              variant="h3"
+            >
+              Error fetching teams.
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
+    );
+  }
+
+  if (teams?.length === 0) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Card variant="outlined" sx={{ width: '100%' }}>
+          <CardContent>
+            <Typography
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              variant="h3"
+            >
+              No teams found.
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
+    );
+  }
+
   return (
-    <Page title="Team">
-      {selected && (
-        <CustomModal
-          title="Team"
-          subTitle="Add team members to team"
-          open={open}
-          handleClose={handleClose}
-        >
-          <AddTeamMember handleClose={handleClose} leadId={selected} />
-        </CustomModal>
-      )}
-      <CustomModal
-        open={openModal}
-        handleClose={handleCloseModal}
-        title="Delete Team"
-      >
-        {openModal ? (
-          <DeleteTeam selected={selected} handleClose={handleCloseModal} />
-        ) : null}
-      </CustomModal>
-      <MUIDataTable
-        options={{
-          elevation: 0,
-          enableNestedDataAccess: '.',
-          responsive: 'simple',
-          filterType: 'dropdown',
-          filter: false,
-          viewColumns: false,
-          selectableRows: 'none',
-          rowsPerPage: 20
+    <div>
+      <Typography variant="h4">Teams</Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          overflowX: 'auto',
+          width: '100%',
+          padding: 2
         }}
-        title="Teams"
-        columns={columns}
-        data={data}
-      />
-    </Page>
+      >
+        {teams?.map((team) => (
+          <Card
+            key={team.id}
+            sx={{
+              minWidth: 200,
+              margin: '0 8px',
+              cursor: 'pointer',
+              display: 'flex',
+              flexDirection: 'row',
+              overflow: 'hidden',
+              borderRadius: '15px',
+              '&:hover': {
+                boxShadow: '0 0 4px rgba(0, 0, 255, 1)'
+              },
+              padding: 2,
+              gap: '10px'
+            }}
+            onClick={() => {
+              // @ts-ignore
+              setSelectedTeamId(team._id);
+              // @ts-ignore
+              navigate(`/team/teams/${selectedTeamId}`);
+            }}
+          >
+            <CardContent>
+              <Typography variant="h4">{team.name}</Typography>
+              <Typography variant="h5" color="text.secondary">
+                {team.description}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+      <Typography variant="h4" sx={{ paddingTop: 3 }}>
+        Team Invites:
+      </Typography>
+    </div>
   );
 };
 
-export default ListTeamMembers;
+export default TeamList;

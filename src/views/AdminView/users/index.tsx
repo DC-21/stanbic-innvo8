@@ -57,7 +57,7 @@ export default function BasicTabs() {
             onChange={handleChange}
             aria-label="User Management"
           >
-            <Tab label="Users" {...a11yProps(0)} />
+            <Tab label="Admins" {...a11yProps(0)} />
             <Tab label="Team Members" {...a11yProps(1)} />
           </Tabs>
         </Box>

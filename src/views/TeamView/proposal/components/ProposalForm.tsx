@@ -1,21 +1,15 @@
 /* eslint-disable react/function-component-definition */
 import {
   Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
   CircularProgress,
   TextField,
   Typography,
-  Container,
   FormControlLabel,
   Radio,
   RadioGroup
 } from '@mui/material';
 
 import { AxiosError } from 'axios';
-import { isEmpty } from 'lodash';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -38,7 +32,7 @@ export type ProposalFormInputs = {
 const getTeam = async (
   id: string | undefined
 ): Promise<Record<string, undefined>> => {
-  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
+  const { data } = await axios.get(`/Team/view_team_by_user/${id}`);
   return data.data;
 };
 
@@ -111,34 +105,6 @@ const ProposalForm = () => {
 
   if (isLoadingTeam) return <Loading size={45} />;
   if (isError) return <div>Error</div>;
-  if (isEmpty(teamData)) {
-    return (
-      <Container sx={{ mt: 15 }} maxWidth="md">
-        <Card sx={{ m: 'auto' }}>
-          <CardContent>
-            <Typography sx={{ textTransform: 'uppercase' }} variant="h2">
-              No team found
-            </Typography>
-            <Typography variant="h4">
-              You are not a member of any team. Please contact your lead to join
-              a team.
-            </Typography>
-          </CardContent>
-          <CardActionArea>
-            <CardActions sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <Button
-                onClick={() => navigate('/team/teams')}
-                variant="contained"
-                color="primary"
-              >
-                Create Team
-              </Button>
-            </CardActions>
-          </CardActionArea>
-        </Card>
-      </Container>
-    );
-  }
 
   return (
     <div
@@ -223,7 +189,7 @@ const ProposalForm = () => {
               ))}
             </RadioGroup>
           )}
-          rules={{ required: true }}
+          rules={{ required: false }}
           name="category"
           control={control}
         />
@@ -250,7 +216,7 @@ const ProposalForm = () => {
               ))}
             </RadioGroup>
           )}
-          rules={{ required: true }}
+          rules={{ required: false }}
           name="teamId"
           control={control}
         />

@@ -27,7 +27,7 @@ export const items = [
   {
     href: '/app/users',
     icon: SupervisorAccountOutlinedIcon,
-    title: 'Users'
+    title: 'Admins'
   },
   {
     href: '/app/teams',
