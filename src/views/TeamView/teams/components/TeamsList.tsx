@@ -6,17 +6,17 @@ import { Card, CardContent, Typography, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import { axios } from '../../../../clientProvider';
+import Loading from '../../../../components/Loading';
+import TeamInvites from './TeamInvites';
 
 const getTeam = async (id: string | undefined): Promise<any[]> => {
   const { data: res } = await axios.get(`/Team/view_team_by_user/${id}`);
-  console.log('res', res);
   return res.data;
 };
 
 const TeamList = () => {
   const { user } = useSelector((store: RootState) => store.user);
   const [selectedTeamId, setSelectedTeamId] = useState<string | undefined>('');
-  console.log('teamId', selectedTeamId);
   const navigate = useNavigate();
 
   const {
@@ -26,22 +26,7 @@ const TeamList = () => {
   } = useQuery(['Teams'], () => getTeam(user?._id));
 
   if (isLoading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Card variant="outlined">
-          <CardContent>
-            <Typography
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              variant="h3"
-            >
-              Loading teams...
-            </Typography>
-          </CardContent>
-        </Card>
-      </Box>
-    );
+    return <Loading size={40} />;
   }
 
   if (isError) {
@@ -94,41 +79,50 @@ const TeamList = () => {
         }}
       >
         {teams?.map((team) => (
-          <Card
+          <a
             key={team.id}
-            sx={{
-              minWidth: 200,
-              margin: '0 8px',
-              cursor: 'pointer',
-              display: 'flex',
-              flexDirection: 'row',
-              overflow: 'hidden',
-              borderRadius: '15px',
-              '&:hover': {
-                boxShadow: '0 0 4px rgba(0, 0, 255, 1)'
-              },
-              padding: 2,
-              gap: '10px'
-            }}
-            onClick={() => {
-              // @ts-ignore
-              setSelectedTeamId(team._id);
-              // @ts-ignore
-              navigate(`/team/teams/${selectedTeamId}`);
-            }}
+            href={`/team/teams/${team._id}`}
+            style={{ textDecoration: 'none' }} // Optional: Remove underline style
           >
-            <CardContent>
-              <Typography variant="h4">{team.name}</Typography>
-              <Typography variant="h5" color="text.secondary">
-                {team.description}
-              </Typography>
-            </CardContent>
-          </Card>
+            <Card
+              sx={{
+                minWidth: 200,
+                borderBottom: '2px solid #2196F3',
+                margin: '0 8px',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'row',
+                overflow: 'hidden',
+                borderRadius: '15px',
+                '&:hover': {
+                  boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
+                  color: '#000' // Set text color to white
+                },
+                padding: 2,
+                gap: '10px'
+              }}
+              onClick={() => {
+                // @ts-ignore
+                setSelectedTeamId(team._id);
+                // @ts-ignore
+                setTimeout(
+                  () => navigate(`/team/teams/${selectedTeamId}`),
+                  100
+                );
+                // navigate(`/team/teams/${selectedTeamId}`);
+              }}
+            >
+              <CardContent>
+                <Typography variant="h4">{team.name}</Typography>
+              </CardContent>
+            </Card>
+          </a>
         ))}
       </Box>
       <Typography variant="h4" sx={{ paddingTop: 3 }}>
-        Team Invites:
+        Team Invites
       </Typography>
+      <TeamInvites />
     </div>
   );
 };
