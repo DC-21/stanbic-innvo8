@@ -6,25 +6,27 @@ import { Box, Card, CardContent, Typography } from '@mui/material';
 import { axios } from '../../../../clientProvider';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import Loading from '../../../../components/Loading';
-import {
-  CustomModal,
-  useModal,
-  useModalWithData
-} from '../../../../components/Modal';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
 import AcceptInvite from '../actionButtons/AcceptInvite';
 import RejectInvite from '../actionButtons/RejectInvite';
 
 function TeamInvites() {
   const { user } = useSelector((store: RootState) => store.user);
-  const { open, handleClose, handleClickOpen } = useModal();
   const { selected, setSelected } = useModalWithData();
   const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const handleClickOpenModal = () => {
     setOpenModal(true);
   };
   const handleCloseModal = () => {
     setOpenModal(false);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const getTeamInvites = async (): Promise<any[]> => {
@@ -65,13 +67,17 @@ function TeamInvites() {
   if (data?.length === 0) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center">
-        <Card variant="outlined" sx={{ width: '100%' }}>
+        <Card
+          elevation={1}
+          variant="outlined"
+          sx={{ width: '100%', borderRadius: '10px', border: '1px' }}
+        >
           <CardContent>
             <Typography
               display="flex"
               justifyContent="center"
               alignItems="center"
-              variant="h3"
+              variant="h4"
             >
               No Invites Found.
             </Typography>
@@ -88,13 +94,13 @@ function TeamInvites() {
           <Box
             key={invite?._id}
             sx={{
-              padding: '16px',
-              borderBottom: '1px solid #2196F3',
+              padding: 3,
+              // borderBottom: '1px solid #2196F3',
               marginBottom: '16px',
               display: 'flex',
               flexDirection: 'row',
               backgroundColor: '#fff',
-              borderRadius: '15px',
+              borderRadius: '10px',
               '&:hover': {
                 boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
                 color: '#000'
@@ -102,11 +108,15 @@ function TeamInvites() {
             }}
           >
             <Box style={{}}>
-              <Typography variant="h3">{invite?.teamId?.name}</Typography>
-              <Typography variant="body2">
+              <Typography variant="h3" color="primary">
+                {invite?.teamId?.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
                 from: {invite?.userId?.firstName} {invite?.userId?.lastName}
               </Typography>
-              <p>Branch: {invite?.userId?.branch}</p>
+              <Typography variant="body2" color="text.secondary">
+                Branch: {invite?.userId?.branch}
+              </Typography>
             </Box>
             <Box
               style={{
@@ -157,16 +167,16 @@ function TeamInvites() {
       <CustomModal
         open={open}
         handleClose={handleClose}
-        title="Delete Innovation Idea"
+        title="Accept Invitation"
       >
         {open ? (
-          <AcceptInvite selected={selected} handleClose={handleCloseModal} />
+          <AcceptInvite selected={selected} handleClose={handleClose} />
         ) : null}
       </CustomModal>
       <CustomModal
         open={openModal}
         handleClose={handleCloseModal}
-        title="Delete Innovation Idea"
+        title="Reject Invitation"
       >
         {openModal ? (
           <RejectInvite selected={selected} handleClose={handleCloseModal} />

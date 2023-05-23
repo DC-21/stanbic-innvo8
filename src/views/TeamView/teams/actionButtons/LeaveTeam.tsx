@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import { CircularProgress } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import { axios } from '../../../../clientProvider';
 import { useNotify } from '../../../../redux/actions/notifications/notificationActions';
 
@@ -15,37 +16,47 @@ export interface ConfirmationDialogRawProps {
   handleClose: () => void;
 }
 
-function AcceptInvite(props: ConfirmationDialogRawProps) {
+function LeaveTeam(props: ConfirmationDialogRawProps) {
   const { handleClose, selected } = props;
   const dispatch = useDispatch();
   const notification = useNotify();
+  const { teamId: IdTeam } = useParams();
   const queryClient = useQueryClient();
   const id = selected;
 
-  const acceptInv = async () => {
-    const data = await axios.patch(`/Invitation/accept_invitation/${id}`);
+  const leaveTeam = async (
+    userId: string | undefined,
+    teamId: string | undefined
+  ) => {
+    const data = await axios.patch('/Team/remove_user_team/', {
+      userId,
+      teamId
+    });
     return data;
   };
 
-  const { mutate, isLoading } = useMutation(acceptInv, {
-    onSuccess: (response) => {
-      const { message } = response.data;
-      dispatch(notification({ message, options: { variant: 'success' } }));
-      setTimeout(() => handleClose(), 100);
-    },
-    onError: (error: AxiosError) => {
-      dispatch(
-        notification({
-          message: error.response?.data,
-          options: { variant: 'error' }
-        })
-      );
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['acceptInvites']);
-      queryClient.invalidateQueries(['Teams']);
+  const { mutate, isLoading } = useMutation(
+    () => leaveTeam(`${id}`, `${IdTeam}`),
+    {
+      onSuccess: (response) => {
+        const { message } = response.data;
+        dispatch(notification({ message, options: { variant: 'success' } }));
+        setTimeout(() => handleClose(), 100);
+      },
+      onError: (error: AxiosError) => {
+        dispatch(
+          notification({
+            message: error.response?.data,
+            options: { variant: 'error' }
+          })
+        );
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(['Team-members']);
+        queryClient.invalidateQueries(['Teams']);
+      }
     }
-  });
+  );
 
   return (
     <div>
@@ -72,4 +83,4 @@ function AcceptInvite(props: ConfirmationDialogRawProps) {
     </div>
   );
 }
-export default AcceptInvite;
+export default LeaveTeam;

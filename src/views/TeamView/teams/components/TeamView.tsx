@@ -10,12 +10,16 @@ import {
   CircularProgress,
   Autocomplete
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AxiosError } from 'axios';
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
 import { Teams, User } from '../../../../types';
 import { useNotify } from '../../../../redux/actions/notifications/notificationActions';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
+import LeaveTeam from '../actionButtons/LeaveTeam';
+import RemoveMember from '../actionButtons/RemoveMember';
+import { RootState } from '../../../../redux/reducers/rootReducer';
 
 const getUsers = async (): Promise<User[]> => {
   const { data } = await axios.get('/User/view_users');
@@ -44,8 +48,23 @@ const ListTeamMembers = () => {
   const notification = useNotify();
   const queryClient = useQueryClient();
   const [inviteName, setInviteName] = useState('');
-  console.log(inviteName, 'xx');
+  const { selected, setSelected } = useModalWithData();
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [open, setOpen] = React.useState<boolean>(false);
+  const { user } = useSelector((store: RootState) => store.user);
 
+  const handleClickOpenModal = () => {
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const { data: usersData } = useQuery(['Users'], () => getUsers());
   const { data, refetch } = useQuery(['Team-members'], () => getTeam(id));
 
@@ -86,7 +105,9 @@ const ListTeamMembers = () => {
         padding: 10
       }}
     >
-      <Typography>{data?.name}</Typography>
+      <Typography variant="h4" color="primary" sx={{ marginBottom: 2 }}>
+        Team: {data?.name}
+      </Typography>
       <Box
         sx={{
           display: 'flex',
@@ -97,8 +118,8 @@ const ListTeamMembers = () => {
         <Autocomplete
           disablePortal
           options={usersData}
-          getOptionLabel={(user: User) =>
-            `${user?.firstName} ${user?.lastName} (${user?.branch})`
+          getOptionLabel={(users: User) =>
+            `${users?.firstName} ${users?.lastName} (${users?.branch})`
           }
           sx={{ width: '550px' }}
           renderInput={(params) => <TextField {...params} label="Search" />}
@@ -123,19 +144,166 @@ const ListTeamMembers = () => {
         </Button>
       </Box>
       {isLoading && <Loading size={24} />}{' '}
+      <Typography variant="h4" color="primary" sx={{ paddingTop: '5%' }}>
+        Team members
+      </Typography>
+      <Box
+        key={data?.leadId?._id}
+        sx={{
+          width: '710px',
+          padding: 3,
+          // borderBottom: '1px solid #2196F3',
+          marginBottom: '16px',
+          marginTop: 2,
+          display: 'flex',
+          flexDirection: 'row',
+          backgroundColor: '#fff',
+          borderRadius: '10px',
+          '&:hover': {
+            boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
+            color: '#000'
+          }
+        }}
+      >
+        <Box style={{}}>
+          <Typography variant="h3" color="primary">
+            {data?.leadId?.firstName} {data?.leadId?.lastName}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            {data?.leadId?.branch}
+          </Typography>
+        </Box>
+        <Box
+          style={{
+            marginLeft: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: '8px'
+          }}
+        >
+          <Button
+            style={{
+              marginRight: '8px',
+              backgroundColor: '#21A809',
+              color: 'white',
+              border: 'none',
+              padding: '8px 12px',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+            variant="contained"
+          >
+            Team Lead
+          </Button>
+        </Box>
+      </Box>
       {data?.members.length === 0 ? (
-        <Typography variant="body1" sx={{ paddingTop: '5%' }}>
-          No team members found.
-        </Typography>
+        <Box
+          sx={{
+            width: '710px',
+            padding: 3,
+            display: 'flex',
+            justifyContent: 'center',
+            backgroundColor: '#fff',
+            borderRadius: '10px'
+          }}
+        >
+          <Typography variant="h3">No team members found.</Typography>
+        </Box>
       ) : (
-        data?.members.map((member) => (
-          <ul key={member._id}>
-            <li key={member._id}>
-              {member.firstName} {member.lastName}
-            </li>
-          </ul>
+        data?.members?.map((member) => (
+          <Box
+            key={member?._id}
+            sx={{
+              width: '710px',
+              padding: 3,
+              // borderBottom: '1px solid #2196F3',
+              marginBottom: '16px',
+              marginTop: 1,
+              display: 'flex',
+              flexDirection: 'row',
+              backgroundColor: '#fff',
+              borderRadius: '10px',
+              '&:hover': {
+                boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
+                color: '#000'
+              }
+            }}
+          >
+            <Box style={{}}>
+              <Typography variant="h3" color="primary">
+                {member?.firstName} {member?.lastName}
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                {member?.branch}
+              </Typography>
+            </Box>
+            <Box
+              style={{
+                marginLeft: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                marginTop: '8px'
+              }}
+            >
+              {user?._id !== data?.leadId?._id ? (
+                // Show the "Leave" button only if the current user is not the lead
+                <Button
+                  style={{
+                    marginRight: '8px',
+                    backgroundColor: '#f44336',
+                    color: 'white',
+                    border: 'none',
+                    padding: '8px 12px',
+                    borderRadius: '4px',
+                    cursor: 'pointer'
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    setSelected(member?._id);
+                    handleClickOpen();
+                  }}
+                >
+                  Leave
+                </Button>
+              ) : (
+                // Show the "Remove" button only if the current user is the lead
+                <Button
+                  style={{
+                    backgroundColor: '#f44336',
+                    color: 'white',
+                    border: 'none',
+                    padding: '8px 12px',
+                    borderRadius: '4px',
+                    cursor: 'pointer'
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    setSelected(member?._id);
+                    handleClickOpenModal();
+                  }}
+                >
+                  Remove
+                </Button>
+              )}
+            </Box>
+          </Box>
         ))
       )}
+      <CustomModal open={open} handleClose={handleClose} title="Leave Team">
+        {open ? (
+          <LeaveTeam selected={selected} handleClose={handleClose} />
+        ) : null}
+      </CustomModal>
+      <CustomModal
+        open={openModal}
+        handleClose={handleCloseModal}
+        title="Remove Member"
+      >
+        {openModal ? (
+          <RemoveMember selected={selected} handleClose={handleCloseModal} />
+        ) : null}
+      </CustomModal>
     </Box>
   );
 };
