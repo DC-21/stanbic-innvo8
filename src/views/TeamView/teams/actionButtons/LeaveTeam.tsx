@@ -20,7 +20,7 @@ function LeaveTeam(props: ConfirmationDialogRawProps) {
   const { handleClose, selected } = props;
   const dispatch = useDispatch();
   const notification = useNotify();
-  const { teamId: IdTeam } = useParams();
+  const { id: IdTeam } = useParams();
   const queryClient = useQueryClient();
   const id = selected;
 
@@ -28,7 +28,7 @@ function LeaveTeam(props: ConfirmationDialogRawProps) {
     userId: string | undefined,
     teamId: string | undefined
   ) => {
-    const data = await axios.patch('/Team/remove_user_team/', {
+    const data = await axios.post('/Team/remove_user_team/', {
       userId,
       teamId
     });

@@ -42,7 +42,7 @@ function AcceptInvite(props: ConfirmationDialogRawProps) {
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['acceptInvites']);
+      queryClient.invalidateQueries(['invites']);
       queryClient.invalidateQueries(['Teams']);
     }
   });

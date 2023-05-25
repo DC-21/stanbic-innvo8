@@ -20,15 +20,17 @@ function RemoveMember(props: ConfirmationDialogRawProps) {
   const { handleClose, selected } = props;
   const dispatch = useDispatch();
   const notification = useNotify();
-  const { teamId: IdTeam } = useParams();
+  const { id: IdTeam } = useParams();
+  console.log(IdTeam, 'IdTeam');
   const queryClient = useQueryClient();
   const id = selected;
+  console.log(id, 'userId');
 
   const leaveTeam = async (
     userId: string | undefined,
     teamId: string | undefined
   ) => {
-    const data = await axios.patch('/Team/remove_user_team/', {
+    const data = await axios.post('/Team/remove_user_team/', {
       userId,
       teamId
     });
@@ -41,7 +43,7 @@ function RemoveMember(props: ConfirmationDialogRawProps) {
       onSuccess: (response) => {
         const { message } = response.data;
         dispatch(notification({ message, options: { variant: 'success' } }));
-        setTimeout(() => handleClose(), 100);
+        setTimeout(() => handleClose(), 1000);
       },
       onError: (error: AxiosError) => {
         dispatch(

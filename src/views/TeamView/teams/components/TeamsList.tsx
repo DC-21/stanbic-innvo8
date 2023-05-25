@@ -21,32 +21,33 @@ const TeamList = () => {
 
   const {
     data: teams,
-    isError,
+    // isError,
     isLoading
+    // error
   } = useQuery(['Teams'], () => getTeam(user?._id));
 
   if (isLoading) {
     return <Loading size={40} />;
   }
 
-  if (isError) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Card variant="outlined">
-          <CardContent>
-            <Typography
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              variant="h3"
-            >
-              Error fetching teams.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Box>
-    );
-  }
+  //   if (error) {
+  //     return (
+  //       <Box display="flex" justifyContent="center" alignItems="center">
+  //         <Card variant="outlined">
+  //           <CardContent>
+  //             <Typography
+  //               display="flex"
+  //               justifyContent="center"
+  //               alignItems="center"
+  //               variant="h3"
+  //             >
+  //               Error fetching teams.
+  //             </Typography>
+  //           </CardContent>
+  //         </Card>
+  //       </Box>
+  //     );
+  //   }
 
   return (
     <div>
@@ -59,7 +60,7 @@ const TeamList = () => {
           padding: 2
         }}
       >
-        {teams?.length <= 0 ? (
+        {!teams || teams.length <= 0 ? (
           <Box
             sx={{
               width: '710px',

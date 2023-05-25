@@ -43,6 +43,7 @@ function RejectInvite(props: ConfirmationDialogRawProps) {
     },
     onSettled: () => {
       queryClient.invalidateQueries(['rejectInvites']);
+      queryClient.invalidateQueries(['invites']);
     }
   });
 
