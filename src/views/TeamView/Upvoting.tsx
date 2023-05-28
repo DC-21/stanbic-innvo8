@@ -9,6 +9,7 @@ import {
   IconButton,
   Badge
 } from '@mui/material';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { AxiosError } from 'axios';
@@ -152,7 +153,11 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
                       horizontal: 'left'
                     }}
                   >
-                    <FavoriteBorderOutlinedIcon />
+                    {innov.likedBy.includes(user?._id) ? (
+                      <FavoriteOutlinedIcon />
+                    ) : (
+                      <FavoriteBorderOutlinedIcon />
+                    )}
                   </Badge>
                 </IconButton>
               </div>

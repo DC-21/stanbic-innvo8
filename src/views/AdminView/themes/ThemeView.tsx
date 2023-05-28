@@ -4,31 +4,29 @@ import * as React from 'react';
 import { Edit as EditIcon } from 'react-feather';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useQuery } from 'react-query';
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate } from 'react-router-dom';
-import Toolbar from './Toolbar';
-import {
-  CustomModal,
-  useModal,
-  useModalWithData
-} from '../../../../components/Modal';
+import { useNavigate, useParams } from 'react-router-dom';
+// import Toolbar from './Toolbar';
+import { CustomModal, useModalWithData } from '../../../components/Modal';
 // import ChallengeStatementsForm from './ChallengeStatementsForm';
-import axios from '../../../../clientProvider/baseConfig';
-import Loading from '../../../../components/Loading';
-import DeleteAdmin from '../DeleteChallengeStatement';
+import axios from '../../../clientProvider/baseConfig';
+import Loading from '../../../components/Loading';
+import DeleteChallengeStatement from '../challenge/DeleteChallengeStatement';
 
-const getChallenges = async (): Promise<any[]> => {
-  const { data } = await axios.get('/Challenge/view_challenges');
-  return data.ChallengeStatements;
+const getChallenges = async (id: string | undefined): Promise<any[]> => {
+  const { data: res } = await axios.get(
+    `/Challenge/view_challenge_by_theme/${id}`
+  );
+  return res.data;
 };
 
-const ChallengeStatementsList: React.FC<
-  React.PropsWithChildren<unknown>
-> = () => {
+const ThemeView: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
-  const { handleClickOpen } = useModal();
-  const { data, isLoading } = useQuery(['Challenge'], getChallenges);
+  const { id: themeId } = useParams();
+  const { data, isLoading } = useQuery(['Challenge'], () =>
+    getChallenges(themeId)
+  );
   const { selected, setSelected } = useModalWithData();
   const [openModal, setOpenModal] = React.useState<boolean>(false);
 
@@ -42,6 +40,7 @@ const ChallengeStatementsList: React.FC<
   if (isLoading) {
     return <Loading size={40} />;
   }
+
   const columns: MUIDataTableColumn[] = [
     {
       name: '_id',
@@ -49,14 +48,6 @@ const ChallengeStatementsList: React.FC<
       options: {
         filter: false,
         display: 'false'
-      }
-    },
-    {
-      name: 'theme',
-      label: 'Theme',
-      options: {
-        filter: true,
-        sort: true
       }
     },
     {
@@ -138,8 +129,7 @@ const ChallengeStatementsList: React.FC<
   ];
   return (
     <>
-      <Toolbar handleClickOpen={handleClickOpen} />
-
+      {/* <Toolbar handleClickOpen={handleClickOpen} /> */}
       {/* <CustomModal
         title="Challenge Statement"
         subTitle="add a Challenge Statement"
@@ -155,18 +145,26 @@ const ChallengeStatementsList: React.FC<
         title="Delete Challenge Statement"
       >
         {openModal ? (
-          <DeleteAdmin selected={selected} handleClose={handleCloseModal} />
+          <DeleteChallengeStatement
+            selected={selected}
+            handleClose={handleCloseModal}
+          />
         ) : null}
       </CustomModal>
 
-      <MUIDataTable
-        options={{ elevation: 0, selectableRows: 'none' }}
-        title="Challenge Statements"
-        columns={columns}
-        data={data || []}
-      />
+      {/** @ts-ignore */}
+      <Typography color="primary">{data?.themeId?.name}</Typography>
+
+      <div style={{ padding: 20 }}>
+        <MUIDataTable
+          options={{ elevation: 0, selectableRows: 'none' }}
+          title="Challenge Statements"
+          columns={columns}
+          data={data || []}
+        />
+      </div>
     </>
   );
 };
 
-export default ChallengeStatementsList;
+export default ThemeView;
