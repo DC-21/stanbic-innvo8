@@ -33,7 +33,6 @@ function TeamInvites() {
     const { data: response } = await axios.get(
       `/Invitation/view_invitation_by_user/${user?._id}`
     );
-    console.log(response.data);
     return response.data;
   };
 

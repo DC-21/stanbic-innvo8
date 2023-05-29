@@ -49,7 +49,6 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const { data, error, isLoading } = useQuery(['submissions'], () =>
     getIdeasByTeamLead(user?._id)
   );
-  console.log(user?._id);
 
   if (isLoading) {
     return <Loading size={40} />;

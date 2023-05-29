@@ -147,7 +147,6 @@ function SingleSignIn() {
       }, 1500);
     },
     onError: (error: AxiosError) => {
-      console.log('Error', error.response?.data);
       dispatch(
         enqueueSnackbar({
           message: error.response?.data,

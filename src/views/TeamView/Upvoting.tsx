@@ -19,9 +19,7 @@ import Loading from '../../components/Loading';
 import { RootState } from '../../redux/reducers/rootReducer';
 
 const getUser = async (): Promise<any[]> => {
-  const { data: response } = await axios.get(
-    '/Innovation/view_pending_innovations'
-  );
+  const { data: response } = await axios.get('/Innovation/view_innovations');
   return response.Innovations;
 };
 

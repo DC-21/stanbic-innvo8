@@ -23,7 +23,6 @@ function AutoLogin() {
 
   const { mutate, isLoading } = useMutation(autoLogin, {
     onSuccess: (response) => {
-      console.log('res', response);
       const { message, data } = response;
       dispatch(loginSuccess(response.data));
       axios.defaults.headers = { ssoToken };
@@ -44,7 +43,6 @@ function AutoLogin() {
       }, 1500);
     },
     onError: (error: AxiosError) => {
-      console.log('error', error.response?.data);
       dispatch(
         enqueueSnackbar({
           message: error.response?.data,
