@@ -3,6 +3,7 @@ import {
   Button,
   CircularProgress,
   FormControlLabel,
+  MenuItem,
   Radio,
   RadioGroup,
   TextField,
@@ -35,8 +36,13 @@ export type ProposalFormInputs = {
 const getTeam = async (
   id: string | undefined
 ): Promise<Record<string, undefined>> => {
-  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
+  const { data } = await axios.get(`/Team/view_team_by_user/${id}`);
   return data.data;
+};
+
+const getThemes = async (): Promise<any[]> => {
+  const { data: res } = await axios.get('/Theme/view_themes');
+  return res.Themes;
 };
 
 interface ProposalEditProps {
@@ -51,20 +57,22 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
     // @ts-ignore
     proposal?.teamId?._id || ''
   );
-  console.log('team', teamId);
   const [challengeStatementId, setChallengeStatementId] = React.useState(
     proposal?.challengeStatementId?._id || ''
   );
-  console.log('cha', challengeStatementId);
+  const [themeId, setThemeId] = React.useState(
+    proposal?.challengeStatementId?.themeId || ''
+  );
+
   const [challengeStatements, setChallengeStatements] = React.useState<
     ChallengeStatement[]
   >([]);
   const { user } = useSelector((state: RootState) => state.user);
-  const {
-    data: teamData,
-    isLoading: isLoadingTeam,
-    isError
-  } = useQuery(['team', user?._id], () => getTeam(user?._id));
+  const { data: teamData, isLoading: isLoadingTeam } = useQuery(
+    ['team', user?._id],
+    () => getTeam(user?._id)
+  );
+  const { data: themeData } = useQuery(['Theme'], () => getThemes());
   const {
     register,
     handleSubmit,
@@ -80,22 +88,25 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
   React.useEffect(() => {
     const fetchChallengeStatements = async () => {
       try {
-        const response = await axios.get('/Challenge/view_challenges');
-        console.log(response.data.ChallengeStatements);
-        setChallengeStatements(response.data.ChallengeStatements);
+        const response = await axios.get(
+          `/Challenge/view_challenge_by_theme/${themeId}`
+        );
+        setChallengeStatements(response?.data?.data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchChallengeStatements();
-  }, []);
+    if (themeId) {
+      fetchChallengeStatements();
+    }
+  }, [themeId]);
+
   const { mutate, isLoading } = useMutation(
     async (data: ProposalFormInputs) =>
       axios.put(`/Innovation/edit_innovation/${proposal._id}`, data),
     {
       onSuccess: (response) => {
-        console.log('response', response);
         const { message } = response.data;
         enqueueSnackbar(message, { variant: 'success' });
         setTimeout(() => navigate(-1), 1500);
@@ -116,12 +127,10 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
       teamId,
       challengeStatementId
     };
-    console.log('formdata', formData);
     mutate(formData);
   };
 
   if (isLoadingTeam) return <Loading size={45} />;
-  if (isError) return <div>Error</div>;
 
   return (
     <div
@@ -155,7 +164,7 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
         <Typography variant="h4" color="primary">
           2. What problem are you solving?
         </Typography>
-        <TextField
+        {/* <TextField
           variant="outlined"
           fullWidth
           multiline
@@ -166,6 +175,33 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
           margin="normal"
           size="small"
           type="text"
+        /> */}
+        <Controller
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              select
+              label="Problem"
+              variant="outlined"
+              value={value}
+              onChange={onChange}
+              margin="normal"
+              size="small"
+              fullWidth
+            >
+              {themeData?.map((theme) => (
+                <MenuItem
+                  value={theme?.name}
+                  key={theme._id}
+                  onClick={() => setThemeId(theme._id)}
+                >
+                  {theme?.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+          rules={{ required: true }}
+          name="problem"
+          control={control}
         />
         <Typography variant="h4" color="primary">
           3. What is the proposed solution?
