@@ -41,7 +41,6 @@ const ListTeamMembers = () => {
     getTeam(user?._id)
   );
 
-  console.log(data, 'team data');
   if (isLoading) {
     return <Loading size={40} />;
   }

@@ -44,7 +44,6 @@ interface ProposalEditProps {
 }
 
 const ProposalEdit = ({ proposal }: ProposalEditProps) => {
-  // console.log('pro', proposal.challengeStatementId?._id);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -82,7 +81,6 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
     const fetchChallengeStatements = async () => {
       try {
         const response = await axios.get('/Challenge/view_challenges');
-        console.log(response.data.ChallengeStatements);
         setChallengeStatements(response.data.ChallengeStatements);
       } catch (error) {
         console.error(error);
@@ -96,7 +94,6 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
       axios.put(`/Innovation/edit_innovation/${proposal._id}`, data),
     {
       onSuccess: (response) => {
-        console.log('response', response);
         const { message } = response.data;
         enqueueSnackbar(message, { variant: 'success' });
         setTimeout(() => navigate(-1), 1500);
@@ -117,7 +114,6 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
       teamId,
       challengeStatementId
     };
-    console.log('formdata', formData);
     mutate(formData);
   };
 

@@ -184,7 +184,7 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
           }}
         >
           <Typography variant="h3" color="primary">
-            <b>Team: {application?.teamId.name}</b>
+            <b>Team: {application?.teamId?.name}</b>
           </Typography>
           <br />
           <Typography variant="h4" color="primary" sx={{ paddingTop: '4%' }}>
@@ -234,7 +234,7 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             }}
           >
             {/** @ts-ignore */}
-            {application?.challengeStatementId.challengeStatement}
+            {application?.challengeStatementId?.challengeStatement}
           </Typography>
         </Grid>
 
@@ -285,7 +285,7 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             <b>Team Lead</b>: {application?.leadId?.firstName}{' '}
             {application?.leadId?.lastName}
           </Typography>
-          {application?.teamId.members.map((item) => {
+          {application?.teamId?.members.map((item) => {
             return (
               <Typography variant="h4" color="primary" key={item._id}>
                 <b>Team Member</b>: {item?.firstName} {item?.lastName}

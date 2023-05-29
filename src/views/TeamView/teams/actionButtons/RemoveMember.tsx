@@ -21,10 +21,8 @@ function RemoveMember(props: ConfirmationDialogRawProps) {
   const dispatch = useDispatch();
   const notification = useNotify();
   const { id: IdTeam } = useParams();
-  console.log(IdTeam, 'IdTeam');
   const queryClient = useQueryClient();
   const id = selected;
-  console.log(id, 'userId');
 
   const leaveTeam = async (
     userId: string | undefined,

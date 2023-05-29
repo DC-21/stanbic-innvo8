@@ -33,7 +33,6 @@ const UpdateTeamLeadRole: React.FC<Props> = ({ team }) => {
   const queryClient = useQueryClient();
   const [open, setOpen] = React.useState(false);
   const id = selected;
-  console.log('Selected', selected);
 
   const handleClickOpen = () => {
     setOpen(true);

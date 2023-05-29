@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 function ResponsiveAppBar() {
   const classes = useStyles();
   const { pathname } = useLocation();
-  console.log(pathname, 'pathname');
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
