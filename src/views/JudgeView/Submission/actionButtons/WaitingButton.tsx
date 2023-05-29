@@ -42,6 +42,8 @@ function WaitingApplication(props: ConfirmationDialogRawProps) {
       );
     },
     onSettled: () => {
+      queryClient.invalidateQueries(['WaitingSubmissions']);
+      queryClient.invalidateQueries(['ReviewedSubmissions']);
       queryClient.invalidateQueries(['AcceptedSubmissions']);
     }
   });
