@@ -23,7 +23,7 @@ function InnovationProposal() {
         <Card sx={{ bgcolor: `#0133a1`, color: '#ffffff' }}>
           <CardContent>
             <Typography variant="h4" sx={{ textTransform: 'uppercase' }}>
-              Innovation ideas(proprosal)
+              Innovation ideas(proposal)
             </Typography>
             <Typography sx={{ fontSize: 20 }}>
               This is the place where you can add, view and edit your Innovation

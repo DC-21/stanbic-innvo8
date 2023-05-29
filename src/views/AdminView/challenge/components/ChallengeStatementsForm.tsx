@@ -16,6 +16,7 @@ import { ChallengeStatement } from '../../../../types';
 
 interface Props {
   handleClose: () => void;
+  themeId: any;
 }
 
 const createChallenge = async (user: ChallengeStatement) => {
@@ -26,7 +27,7 @@ const createChallenge = async (user: ChallengeStatement) => {
 const ChallengeStatementForm: FunctionComponent<
   React.PropsWithChildren<Props>
 > = (props) => {
-  const { handleClose } = props;
+  const { handleClose, themeId } = props;
   const dispatch = useDispatch();
   const enqueueSnackbar = useNotify();
   const queryClient = useQueryClient();
@@ -58,14 +59,15 @@ const ChallengeStatementForm: FunctionComponent<
 
   const onSubmit = (data: ChallengeStatement) => {
     const user = {
-      ...data
+      ...data,
+      themeId
     };
     mutate(user);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
+      {/* <TextField
         error={!!errors.theme}
         label="Theme"
         variant="outlined"
@@ -73,7 +75,7 @@ const ChallengeStatementForm: FunctionComponent<
         size="small"
         margin="normal"
         {...register('theme')}
-      />
+      /> */}
       <TextField
         error={!!errors.problem}
         label="Problem"

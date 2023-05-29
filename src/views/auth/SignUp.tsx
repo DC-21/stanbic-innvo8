@@ -181,7 +181,7 @@ function SignUp() {
     const admin = {
       ...data,
       isActive: true,
-      userType: 'Team Lead'
+      userType: 'User'
     };
     mutate(admin);
   };

@@ -56,6 +56,17 @@ export interface Teams {
   updatedAt: Date;
   __v: number;
 }
+
+export interface Invite {
+  _id: string | undefined;
+  name: string | undefined;
+  description: string | undefined;
+  leadId: LeadId | undefined;
+  members: User[] | undefined;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+  __v: number | undefined;
+}
 export interface Vote {
   judge: Judge;
   score: number;

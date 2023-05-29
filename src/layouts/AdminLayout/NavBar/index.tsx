@@ -27,7 +27,7 @@ export const items = [
   {
     href: '/app/users',
     icon: SupervisorAccountOutlinedIcon,
-    title: 'Users'
+    title: 'Admins'
   },
   {
     href: '/app/teams',
@@ -35,9 +35,9 @@ export const items = [
     title: 'Teams'
   },
   {
-    href: '/app/challenges',
+    href: '/app/themes',
     icon: CampaignIcon,
-    title: 'Challenges'
+    title: 'Themes'
   },
   {
     href: '/app/account',
