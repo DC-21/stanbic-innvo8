@@ -139,7 +139,7 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
               )}
               <div>
                 <IconButton
-                  color="primary"
+                  color="info"
                   size="large"
                   onClick={() => upvoteMutation.mutate(innov?._id)}
                 >
