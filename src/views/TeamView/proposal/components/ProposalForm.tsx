@@ -52,7 +52,6 @@ const ProposalForm = () => {
   >([]);
   const [challengeStatementId, setChallengeStatementId] = React.useState('');
   const [themeId, setThemeId] = React.useState('');
-  console.log('themed', themeId);
   const { user } = useSelector((state: RootState) => state.user);
 
   const {
@@ -78,7 +77,6 @@ const ProposalForm = () => {
           `/Challenge/view_challenge_by_theme/${themeId}`
         );
         setChallengeStatements(response?.data?.data);
-        console.log('xxx', response?.data?.data);
       } catch (error) {
         console.error(error);
       }
