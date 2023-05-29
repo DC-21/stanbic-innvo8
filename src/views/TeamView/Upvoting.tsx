@@ -72,7 +72,7 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
     <div style={{ width: '100%' }}>
       {data?.map((innov) => (
         <Card
-          key={innov._id}
+          key={innov?._id}
           sx={{
             width: '100%',
             marginBottom: '16px',
@@ -90,14 +90,14 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
               gutterBottom
               sx={{ paddingBottom: 1 }}
             >
-              {innov.title}
+              {innov?.title}
             </Typography>
             <Typography
               variant="body1"
               color="text.secondary"
               sx={{ paddingBottom: 1 }}
             >
-              Problem: {innov.problem}
+              Theme: {innov?.problem}
             </Typography>
             <Typography
               variant="body1"
@@ -105,11 +105,11 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
               sx={{
                 paddingBottom: 1,
                 maxHeight:
-                  expandedInnovationId === innov._id ? 'none' : '2.7em',
+                  expandedInnovationId === innov?._id ? 'none' : '2.7em',
                 overflow: 'hidden'
               }}
             >
-              Solution: {innov.proposedSolution}
+              Solution: {innov?.proposedSolution}
             </Typography>
             <div
               style={{
@@ -118,7 +118,7 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
                 alignItems: 'flex-start'
               }}
             >
-              {innov.proposedSolution.length > MAX_DESCRIPTION_LENGTH && (
+              {innov?.proposedSolution?.length > MAX_DESCRIPTION_LENGTH && (
                 <button
                   style={{
                     border: 'none',
@@ -130,11 +130,11 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
                   }}
                   onClick={() =>
                     setExpandedInnovationId(
-                      expandedInnovationId === innov._id ? '' : innov._id
+                      expandedInnovationId === innov?._id ? '' : innov?._id
                     )
                   }
                 >
-                  {expandedInnovationId === innov._id
+                  {expandedInnovationId === innov?._id
                     ? 'Read Less'
                     : 'Read More'}
                 </button>
@@ -143,17 +143,17 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
                 <IconButton
                   color="primary"
                   size="large"
-                  onClick={() => upvoteMutation.mutate(innov._id)}
+                  onClick={() => upvoteMutation.mutate(innov?._id)}
                 >
                   <Badge
-                    badgeContent={innov.likes}
+                    badgeContent={innov?.likes}
                     color="primary"
                     anchorOrigin={{
                       vertical: 'top',
                       horizontal: 'left'
                     }}
                   >
-                    {innov.likedBy.includes(user?._id) ? (
+                    {innov?.likedBy?.includes(user?._id) ? (
                       <FavoriteOutlinedIcon />
                     ) : (
                       <FavoriteBorderOutlinedIcon />
