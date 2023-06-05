@@ -44,10 +44,10 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
   };
 
   const upvoteMutation = useMutation(upvoteInnovation, {
-    onSuccess: (response) => {
-      const { message } = response;
-      dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-    },
+    // onSuccess: (response) => {
+    //   const { message } = response;
+    //   dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
+    // },
     onError: (error: AxiosError) => {
       const message = error.response?.data;
       dispatch(
@@ -124,7 +124,8 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
                     textDecoration: 'underline',
                     background: 'none',
                     cursor: 'pointer',
-                    paddingTop: '10px'
+                    paddingTop: '10px',
+                    paddingBottom: '12px'
                   }}
                   onClick={() =>
                     setExpandedInnovationId(
