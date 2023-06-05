@@ -12,6 +12,7 @@ import ProposalEditView from './proposal/components/ProprosalEditView';
 import TeamsListView from './teams';
 import TeamView from './teams/components/TeamView';
 import TeamEditView from './teams/components/TeamEditView';
+import TeamProposalView from './teams/components/TeamProposalView';
 
 export const TeamRoutes = [
   {
@@ -43,6 +44,7 @@ export const TeamRoutes = [
         path: 'teams-edit/:id',
         element: <TeamEditView />
       },
+      { path: 'team-innovation-view', element: <TeamProposalView /> },
       // add routes for editing here
       { path: '404', element: <NotFoundView /> },
       { path: '*', element: <Navigate to="/team/404" /> }

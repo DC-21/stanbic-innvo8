@@ -20,6 +20,7 @@ import { CustomModal, useModalWithData } from '../../../../components/Modal';
 import LeaveTeam from '../actionButtons/LeaveTeam';
 import RemoveMember from '../actionButtons/RemoveMember';
 import { RootState } from '../../../../redux/reducers/rootReducer';
+import TeamProposalList from './TeamProposalList';
 
 const getUsers = async (): Promise<User[]> => {
   const { data } = await axios.get('/User/view_users');
@@ -69,6 +70,11 @@ const ListTeamMembers = () => {
   const { data: usersData } = useQuery(['Users'], () => getUsers());
   const { data, refetch } = useQuery(['Team-members'], () => getTeam(id));
 
+  // @ts-ignore
+  const filteredUsersData = usersData?.filter(
+    (filteredUser: User) => filteredUser?._id !== user?._id
+  );
+
   const { mutate, isLoading } = useMutation(() => sendInvite(inviteName, id), {
     onSuccess: (response) => {
       const { message } = response;
@@ -95,7 +101,7 @@ const ListTeamMembers = () => {
   if (isLoading || !usersData) {
     return <Loading size={40} />;
   }
-
+  // add pending invites list /view_invitation_by_team/teamId
   return (
     <Box
       sx={{
@@ -116,7 +122,7 @@ const ListTeamMembers = () => {
         >
           <Autocomplete
             disablePortal
-            options={usersData}
+            options={filteredUsersData ?? []}
             getOptionLabel={(users: User) =>
               `${users?.firstName} ${users?.lastName} (${users?.branch})`
             }
@@ -151,10 +157,10 @@ const ListTeamMembers = () => {
         key={data?.leadId?._id}
         sx={{
           width: '710px',
-          padding: 3,
+          padding: 2,
           // borderBottom: '1px solid #2196F3',
           marginBottom: '16px',
-          marginTop: 2,
+          marginTop: 1,
           display: 'flex',
           flexDirection: 'row',
           backgroundColor: '#fff',
@@ -166,10 +172,10 @@ const ListTeamMembers = () => {
         }}
       >
         <Box style={{}}>
-          <Typography variant="h3" color="primary">
+          <Typography variant="h4" color="primary">
             {data?.leadId?.firstName} {data?.leadId?.lastName}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body2" color="text.secondary">
             {data?.leadId?.branch}
           </Typography>
         </Box>
@@ -188,9 +194,9 @@ const ListTeamMembers = () => {
               color: 'white',
               border: 'none',
               padding: '8px 12px',
-              borderRadius: '4px',
-              cursor: 'pointer'
+              borderRadius: '4px'
             }}
+            size="small"
             variant="contained"
           >
             Team Lead
@@ -205,10 +211,11 @@ const ListTeamMembers = () => {
             display: 'flex',
             justifyContent: 'center',
             backgroundColor: '#fff',
-            borderRadius: '10px'
+            borderRadius: '10px',
+            marginBottom: '20px'
           }}
         >
-          <Typography variant="h3">No team members found.</Typography>
+          <Typography variant="h4">No team members found.</Typography>
         </Box>
       ) : (
         data?.members?.map((member) => (
@@ -231,10 +238,10 @@ const ListTeamMembers = () => {
             }}
           >
             <Box style={{}}>
-              <Typography variant="h3" color="primary">
+              <Typography variant="h4" color="primary">
                 {member?.firstName} {member?.lastName}
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography variant="body2" color="text.secondary">
                 {member?.branch}
               </Typography>
             </Box>
@@ -290,6 +297,7 @@ const ListTeamMembers = () => {
           </Box>
         ))
       )}
+      <TeamProposalList />
       <CustomModal open={open} handleClose={handleClose} title="Leave Team">
         {open ? (
           <LeaveTeam selected={selected} handleClose={handleClose} />
