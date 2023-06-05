@@ -167,7 +167,7 @@ const ThemesList = () => {
   ];
 
   return (
-    <Page title="Team">
+    <Page title="Themes">
       {selected && (
         <CustomModal
           title="Challenge Statement"

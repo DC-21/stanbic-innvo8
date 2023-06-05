@@ -30,9 +30,7 @@ export type ProposalFormInputs = {
   teamId: string | undefined;
 };
 
-const getTeam = async (
-  id: string | undefined
-): Promise<Record<string, undefined>> => {
+const getTeam = async (id: string | undefined): Promise<any[]> => {
   const { data } = await axios.get(`/Team/view_team_by_user/${id}`);
   return data.data;
 };
@@ -54,11 +52,10 @@ const ProposalForm = () => {
   const [themeId, setThemeId] = React.useState('');
   const { user } = useSelector((state: RootState) => state.user);
 
-  const {
-    data: teamData,
-    isLoading: isLoadingTeam,
-    isError
-  } = useQuery(['team', user?._id], () => getTeam(user?._id));
+  const { data: teamData, isLoading: isLoadingTeam } = useQuery(
+    ['team', user?._id],
+    () => getTeam(user?._id)
+  );
   const { data: themeData } = useQuery(['Theme'], () => getThemes());
 
   const {
@@ -116,7 +113,6 @@ const ProposalForm = () => {
   };
 
   if (isLoadingTeam) return <Loading size={45} />;
-  if (isError) return <div>Error</div>;
 
   return (
     <div
@@ -172,6 +168,7 @@ const ProposalForm = () => {
               margin="normal"
               size="small"
               fullWidth
+              sx={{ paddingBottom: '4%' }}
             >
               {themeData?.map((theme) => (
                 <MenuItem
@@ -207,31 +204,47 @@ const ProposalForm = () => {
           4. What Challenge Statement Does Your solution address?
         </Typography>
 
-        <Controller
-          render={({ field }) => (
-            <RadioGroup
-              aria-label="score"
-              {...field}
-              sx={{ paddingBottom: '4%' }}
-            >
-              {challengeStatements.map((challengeStatement) => (
-                <FormControlLabel
-                  sx={{ padding: 1 }}
-                  key={challengeStatement._id}
-                  value={challengeStatement.challengeStatement}
-                  control={<Radio />}
-                  label={challengeStatement.challengeStatement}
-                  onClick={() =>
-                    setChallengeStatementId(challengeStatement._id)
-                  }
-                />
-              ))}
-            </RadioGroup>
-          )}
-          rules={{ required: false }}
-          name="category"
-          control={control}
-        />
+        {challengeStatements?.length > 0 ? (
+          <Controller
+            render={({ field }) => (
+              <RadioGroup
+                aria-label="score"
+                {...field}
+                sx={{ paddingBottom: '4%' }}
+              >
+                {challengeStatements?.map((challengeStatement) => (
+                  <FormControlLabel
+                    sx={{ padding: 1 }}
+                    key={challengeStatement?._id}
+                    value={challengeStatement?.challengeStatement}
+                    control={<Radio />}
+                    label={challengeStatement?.challengeStatement}
+                    onClick={() =>
+                      setChallengeStatementId(challengeStatement?._id)
+                    }
+                  />
+                ))}
+              </RadioGroup>
+            )}
+            rules={{ required: false }}
+            name="category"
+            control={control}
+          />
+        ) : (
+          <Typography
+            variant="body1"
+            color="error"
+            sx={{
+              padding: 2,
+              backgroundColor: '#f2f2f1',
+              marginBottom: 2,
+              marginTop: 2
+            }}
+          >
+            No challenge statements available for the selected theme.
+          </Typography>
+        )}
+
         <Typography variant="h4" color="primary">
           5. Select team your submitting for?
         </Typography>
@@ -246,10 +259,10 @@ const ProposalForm = () => {
               {teamData?.map((team) => (
                 <FormControlLabel
                   sx={{ padding: 1 }}
-                  key={team._id}
-                  value={team.name}
+                  key={team?._id}
+                  value={team?.name}
                   control={<Radio />}
-                  label={team.name}
+                  label={team?.name}
                   onClick={() => setTeamId(team?._id)}
                 />
               ))}

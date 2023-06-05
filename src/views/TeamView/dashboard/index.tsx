@@ -1,11 +1,17 @@
 import React from 'react';
-import { Paper } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import Page from '../../../components/Page';
 import Upvoting from '../Upvoting';
 
 function Dashboard() {
   return (
     <Page title="Dashboard">
+      <Typography
+        variant="h2"
+        sx={{ display: 'flex', justifyContent: 'center', paddingTop: 5 }}
+      >
+        Innovation Feed
+      </Typography>
       <Paper
         sx={{
           display: 'flex',
@@ -18,7 +24,7 @@ function Dashboard() {
           border: 'none',
           boxShadow: 'none',
           borderColor: 'none',
-          marginTop: '9%'
+          marginTop: '5%'
         }}
       >
         <Upvoting />

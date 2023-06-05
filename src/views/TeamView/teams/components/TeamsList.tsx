@@ -97,7 +97,8 @@ const TeamList = () => {
                     color: '#000' // Set text color to white
                   },
                   padding: 3,
-                  border: 'none'
+                  border: 'none',
+                  height: '100%'
                 }}
                 onClick={() => {
                   // @ts-ignore

@@ -28,6 +28,7 @@ const getUsers = async (): Promise<User[]> => {
 
 const getTeam = async (id: string | undefined): Promise<Teams> => {
   const { data: res } = await axios.get(`/Team/view_team/${id}`);
+  console.log('res', res.data);
   return res.data;
 };
 
@@ -105,44 +106,43 @@ const ListTeamMembers = () => {
         padding: 10
       }}
     >
-      <Typography variant="h4" color="primary" sx={{ marginBottom: 2 }}>
-        Team: {data?.name}
-      </Typography>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center'
-        }}
-      >
-        <Autocomplete
-          disablePortal
-          options={usersData}
-          getOptionLabel={(users: User) =>
-            `${users?.firstName} ${users?.lastName} (${users?.branch})`
-          }
-          sx={{ width: '550px' }}
-          renderInput={(params) => <TextField {...params} label="Search" />}
-          onChange={(event, value: User | null) => {
-            if (value) {
-              setInviteName(value._id);
-            } else {
-              setInviteName('');
-            }
+      {user?._id === data?.leadId?._id ? (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center'
           }}
-        />
-        <Button
-          variant="contained"
-          sx={{ width: '150px', marginLeft: 1 }}
-          type="submit"
-          onClick={() => mutate()}
-          startIcon={
-            isLoading ? <CircularProgress color="inherit" size={26} /> : null
-          }
         >
-          Invite
-        </Button>
-      </Box>
+          <Autocomplete
+            disablePortal
+            options={usersData}
+            getOptionLabel={(users: User) =>
+              `${users?.firstName} ${users?.lastName} (${users?.branch})`
+            }
+            sx={{ width: '550px', backgroundColor: '#fff' }}
+            renderInput={(params) => <TextField {...params} label="Search" />}
+            onChange={(event, value: User | null) => {
+              if (value) {
+                setInviteName(value._id);
+              } else {
+                setInviteName('');
+              }
+            }}
+          />
+          <Button
+            variant="contained"
+            sx={{ width: '150px', marginLeft: 1 }}
+            type="submit"
+            onClick={() => mutate()}
+            startIcon={
+              isLoading ? <CircularProgress color="inherit" size={26} /> : null
+            }
+          >
+            Invite
+          </Button>
+        </Box>
+      ) : null}
       {isLoading && <Loading size={24} />}{' '}
       <Typography variant="h4" color="primary" sx={{ paddingTop: '5%' }}>
         Team members
