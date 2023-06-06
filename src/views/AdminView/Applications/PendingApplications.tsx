@@ -61,6 +61,15 @@ const PendingApplications: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
+      name: 'likes',
+      label: 'Upvotes',
+      options: {
+        filter: true,
+        sort: false,
+        viewColumns: false
+      }
+    },
+    {
       name: 'status',
       label: 'Status',
       options: {

@@ -108,12 +108,26 @@ const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
             }
           },
           {
+            name: 'likes',
+            label: 'Upvotes',
+            options: {
+              filter: true,
+              sort: false,
+              viewColumns: false
+            }
+          },
+          {
             name: 'status',
             label: 'Status',
             options: {
               filter: true,
               sort: false,
-              customBodyRender: (value) => <Chip label={value} />
+              customBodyRender: (value) => (
+                <Chip
+                  label={value}
+                  sx={{ backgroundColor: '#99B898', color: 'white' }}
+                />
+              )
             }
           },
           {

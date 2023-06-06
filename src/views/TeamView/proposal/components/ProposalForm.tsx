@@ -143,7 +143,7 @@ const ProposalForm = () => {
           type="text"
         />
         <Typography variant="h4" color="primary">
-          2. What problem are you solving?
+          2. Select a theme you are solving for?
         </Typography>
         {/* <TextField
           variant="outlined"
@@ -241,7 +241,7 @@ const ProposalForm = () => {
               marginTop: 2
             }}
           >
-            No challenge statements available for the selected theme.
+            Please select a theme in question 2
           </Typography>
         )}
 

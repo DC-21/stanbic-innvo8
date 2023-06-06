@@ -56,6 +56,15 @@ const PendingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
       }
     },
     {
+      name: 'likes',
+      label: 'Upvotes',
+      options: {
+        filter: true,
+        sort: false,
+        viewColumns: false
+      }
+    },
+    {
       name: 'teamId.name',
       label: 'Team',
       options: {
