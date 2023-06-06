@@ -21,6 +21,7 @@ import LeaveTeam from '../actionButtons/LeaveTeam';
 import RemoveMember from '../actionButtons/RemoveMember';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import TeamProposalList from './TeamProposalList';
+import PendingInvites from './PendingInvitesList';
 
 const getUsers = async (): Promise<User[]> => {
   const { data } = await axios.get('/User/view_users');
@@ -29,8 +30,14 @@ const getUsers = async (): Promise<User[]> => {
 
 const getTeam = async (id: string | undefined): Promise<Teams> => {
   const { data: res } = await axios.get(`/Team/view_team/${id}`);
-  console.log('res', res.data);
   return res.data;
+};
+
+const getPendingInvites = async (id: string | undefined): Promise<Teams> => {
+  const { data: response } = await axios.get(
+    `/Invitation/view_invitation_by_team/${id}`
+  );
+  return response.data;
 };
 
 const sendInvite = async (
@@ -69,7 +76,10 @@ const ListTeamMembers = () => {
   };
   const { data: usersData } = useQuery(['Users'], () => getUsers());
   const { data, refetch } = useQuery(['Team-members'], () => getTeam(id));
-
+  const { data: pending } = useQuery(['PendingInvites'], () =>
+    getPendingInvites(id)
+  );
+  console.log(pending, 'Pending');
   // @ts-ignore
   const filteredUsersData = usersData?.filter(
     (filteredUser: User) => filteredUser?._id !== user?._id
@@ -95,6 +105,7 @@ const ListTeamMembers = () => {
       queryClient.invalidateQueries(['acceptInvites']);
       queryClient.invalidateQueries(['Teams']);
       queryClient.invalidateQueries(['Users']);
+      queryClient.invalidateQueries(['PendingInvites']);
     }
   });
 
@@ -151,7 +162,7 @@ const ListTeamMembers = () => {
       ) : null}
       {isLoading && <Loading size={24} />}{' '}
       <Typography variant="h4" color="primary" sx={{ paddingTop: '5%' }}>
-        Team members
+        Members
       </Typography>
       <Box
         key={data?.leadId?._id}
@@ -225,7 +236,7 @@ const ListTeamMembers = () => {
               width: '710px',
               padding: 3,
               // borderBottom: '1px solid #2196F3',
-              marginBottom: '16px',
+              marginBottom: '10px',
               marginTop: 1,
               display: 'flex',
               flexDirection: 'row',
@@ -297,6 +308,7 @@ const ListTeamMembers = () => {
           </Box>
         ))
       )}
+      <PendingInvites data={pending} />
       <TeamProposalList />
       <CustomModal open={open} handleClose={handleClose} title="Leave Team">
         {open ? (

@@ -145,12 +145,12 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
                   onClick={() => upvoteMutation.mutate(innov?._id)}
                 >
                   <Badge
-                    badgeContent={innov?.likes}
-                    color="primary"
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'left'
-                    }}
+                  // badgeContent={innov?.likes}
+                  // color="primary"
+                  // anchorOrigin={{
+                  //   vertical: 'top',
+                  //   horizontal: 'left'
+                  // }}
                   >
                     {innov?.likedBy?.includes(user?._id) ? (
                       <FavoriteOutlinedIcon />
