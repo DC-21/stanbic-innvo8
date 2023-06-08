@@ -122,7 +122,10 @@ const ReviewedSubmissions = () => {
               filter: true,
               sort: false,
               customBodyRender: (value) => (
-                <Chip label={value} sx={{ backgroundColor: 'cyan' }} />
+                <Chip
+                  label={value}
+                  sx={{ backgroundColor: '#0133a1', color: '#fff' }}
+                />
               )
             }
           },

@@ -17,9 +17,10 @@ import AuthRoutes from '../../components/AuthRoutes';
 // import Challenge from './challenge/index';
 // import EditViewChallenge from './challenge/components/EditViewChallenge';
 import ThemesEditView from './themes/ThemesEditView';
-import Themes from './themes';
+// import Themes from './themes';
 import ThemeView from './themes/ThemeView';
 import EditViewChallenge from './challenge/components/EditViewChallenge';
+import ThemeTabs from './themes/tabs/ThemeTabs';
 
 export const AdminRoutes = [
   {
@@ -61,7 +62,7 @@ export const AdminRoutes = [
       },
       {
         path: 'themes',
-        element: <AuthRoutes component={Themes} />
+        element: <AuthRoutes component={ThemeTabs} />
       },
       {
         path: 'themes/edit/:id',

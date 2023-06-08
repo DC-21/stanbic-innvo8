@@ -4,9 +4,6 @@ import {
   CircularProgress,
   TextField,
   Typography,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
   MenuItem
 } from '@mui/material';
 
@@ -99,6 +96,8 @@ const ProposalForm = () => {
 
       onSettled: () => {
         queryClient.invalidateQueries(['AdminUser']);
+        queryClient.invalidateQueries(['Team-proposal']);
+        queryClient.invalidateQueries(['submissions']);
       }
     }
   );
@@ -206,25 +205,30 @@ const ProposalForm = () => {
 
         {challengeStatements?.length > 0 ? (
           <Controller
-            render={({ field }) => (
-              <RadioGroup
-                aria-label="score"
-                {...field}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                select
+                label="Challenge Statements"
+                variant="outlined"
+                value={value}
+                onChange={onChange}
+                margin="normal"
+                size="small"
+                fullWidth
                 sx={{ paddingBottom: '4%' }}
               >
                 {challengeStatements?.map((challengeStatement) => (
-                  <FormControlLabel
-                    sx={{ padding: 1 }}
+                  <MenuItem
                     key={challengeStatement?._id}
-                    value={challengeStatement?.challengeStatement}
-                    control={<Radio />}
-                    label={challengeStatement?.challengeStatement}
+                    value={challengeStatement?._id}
                     onClick={() =>
                       setChallengeStatementId(challengeStatement?._id)
                     }
-                  />
+                  >
+                    {challengeStatement?.challengeStatement}
+                  </MenuItem>
                 ))}
-              </RadioGroup>
+              </TextField>
             )}
             rules={{ required: false }}
             name="category"
@@ -249,24 +253,28 @@ const ProposalForm = () => {
           5. Select team your submitting for?
         </Typography>
         <Controller
-          render={({ field }) => (
-            <RadioGroup
-              aria-label="score"
-              {...field}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              select
+              label="Teams"
+              variant="outlined"
+              value={value}
+              onChange={onChange}
+              margin="normal"
+              size="small"
+              fullWidth
               sx={{ paddingBottom: '4%' }}
             >
-              {/** @ts-ignore */}
               {teamData?.map((team) => (
-                <FormControlLabel
-                  sx={{ padding: 1 }}
+                <MenuItem
                   key={team?._id}
-                  value={team?.name}
-                  control={<Radio />}
-                  label={team?.name}
+                  value={team?._id}
                   onClick={() => setTeamId(team?._id)}
-                />
+                >
+                  {team?.name}
+                </MenuItem>
               ))}
-            </RadioGroup>
+            </TextField>
           )}
           rules={{ required: false }}
           name="teamId"

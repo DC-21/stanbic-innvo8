@@ -125,7 +125,7 @@ const WaitingSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
               customBodyRender: (value) => (
                 <Chip
                   label={value}
-                  sx={{ backgroundColor: '#99B898', color: 'white' }}
+                  sx={{ backgroundColor: 'orange', color: 'white' }}
                 />
               )
             }
