@@ -173,8 +173,8 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
               {themeData?.map((theme) => (
                 <MenuItem
                   value={theme?.name}
-                  key={theme._id}
-                  onClick={() => setThemeId(theme._id)}
+                  key={theme?._id}
+                  onClick={() => setThemeId(theme?._id)}
                 >
                   {theme?.name}
                 </MenuItem>
@@ -230,7 +230,8 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
             </TextField>
           )}
           rules={{ required: false }}
-          name="category"
+          // @ts-ignore
+          name="challengeStatementId.challengeStatement"
           control={control}
         />
         <Typography variant="h4" color="primary">
@@ -262,7 +263,8 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
             </TextField>
           )}
           rules={{ required: false }}
-          name="teamId"
+          // @ts-ignore
+          name="teamId.name"
           control={control}
         />
 
