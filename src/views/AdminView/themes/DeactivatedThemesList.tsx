@@ -15,10 +15,10 @@ import { CustomModal, useModalWithData } from '../../../components/Modal';
 import DeleteTeam from './DeleteTeam';
 import Page from '../../../components/Page';
 import ChallengeStatementForm from '../challenge/components/ChallengeStatementsForm';
-import DeactivateTheme from './actionButtons/DeactivateTheme';
+import ActivateTheme from './actionButtons/ActivateTheme';
 
 const getThemes = async (): Promise<any[]> => {
-  const { data: res } = await axios.get('/Theme/view_active_themes');
+  const { data: res } = await axios.get('/Theme/view_deactivated_themes');
   return res.Themes;
 };
 
@@ -28,19 +28,21 @@ const ThemesList = () => {
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
   const [openModal, setOpenModal] = React.useState<boolean>(false);
-  const [openDeactModal, setOpenDeactModal] = React.useState<boolean>(false);
+  const [openActModal, setActOpenModal] = React.useState<boolean>(false);
 
-  const handleOpenModalDeact = () => {
-    setOpenDeactModal(true);
+  const handleClickActivate = () => {
+    setActOpenModal(true);
   };
-  const handleCloseModalDeact = () => {
-    setOpenDeactModal(false);
+  const handleCloseActivate = () => {
+    setActOpenModal(false);
   };
 
   const handleCloseModal = () => {
     setOpenModal(false);
   };
-  const { data, isLoading } = useQuery(['Themes'], () => getThemes());
+  const { data, isLoading } = useQuery(['Themes-deactivated'], () =>
+    getThemes()
+  );
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -134,49 +136,23 @@ const ThemesList = () => {
             <Button
               onClick={() => {
                 setSelected(id);
-                handleOpenModalDeact();
+                handleClickActivate();
               }}
               variant="contained"
               size="small"
               style={{
                 boxShadow: '1px 1px',
                 color: '#fff',
-                backgroundColor: '#E85D04'
+                backgroundColor: 'green'
               }}
             >
-              Deactivate
+              Activate
             </Button>
           );
         }
       }
     },
-    // {
-    //   name: '',
-    //   label: '',
-    //   options: {
-    //     filter: true,
-    //     sort: false,
-    //     customBodyRender: (value, tableMeta) => {
-    //       const [id] = tableMeta.rowData;
-    //       return user?.userType === 'Team Member' ? null : (
-    //         <IconButton
-    //           onClick={() => {
-    //             setSelected(id);
-    //             handleClickOpenModal();
-    //           }}
-    //           size="small"
-    //           style={{
-    //             boxShadow: '1px 1px',
-    //             color: '#fff',
-    //             backgroundColor: 'red'
-    //           }}
-    //         >
-    //           <DeleteIcon />
-    //         </IconButton>
-    //       );
-    //     }
-    //   }
-    // },
+
     {
       name: '',
       label: '',
@@ -219,15 +195,12 @@ const ThemesList = () => {
         </CustomModal>
       )}
       <CustomModal
-        title="Deactivate Theme"
-        open={openDeactModal}
+        title="Activate Theme"
+        open={openActModal}
         maxWidth="sm"
-        handleClose={handleCloseModalDeact}
+        handleClose={handleCloseActivate}
       >
-        <DeactivateTheme
-          selected={selected}
-          handleClose={handleCloseModalDeact}
-        />
+        <ActivateTheme selected={selected} handleClose={handleCloseActivate} />
       </CustomModal>
       <CustomModal
         open={openModal}

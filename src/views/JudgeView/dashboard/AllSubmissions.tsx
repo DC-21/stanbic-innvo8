@@ -88,9 +88,25 @@ const AllSubmissions: React.FC<React.PropsWithChildren<unknown>> = () => {
               filter: true,
               sort: false,
               // eslint-disable-next-line react/no-unstable-nested-components
-              customBodyRender: (value) => (
-                <Chip label={value} color="primary" />
-              )
+              customBodyRender: (value) => {
+                let chipColor = '';
+                let chipTextColor = '';
+                if (value === 'Accepted') {
+                  chipColor = 'green';
+                  chipTextColor = 'white';
+                } else if (value === 'Reviewed') {
+                  chipColor = '#0133a1';
+                  chipTextColor = 'white';
+                } else if (value === 'Waiting') {
+                  chipColor = 'orange';
+                }
+                return (
+                  <Chip
+                    label={value}
+                    style={{ backgroundColor: chipColor, color: chipTextColor }}
+                  />
+                );
+              }
             }
           }
         ]}

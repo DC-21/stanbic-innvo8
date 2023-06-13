@@ -21,7 +21,7 @@ const getIdeasByTeamLead = async (
 const TeamProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const navigate = useNavigate();
   const { id: Id } = useParams();
-  const { data, error, isLoading } = useQuery(['submissions'], () =>
+  const { data, error, isLoading } = useQuery(['Team-proposal'], () =>
     getIdeasByTeamLead(Id)
   );
 
