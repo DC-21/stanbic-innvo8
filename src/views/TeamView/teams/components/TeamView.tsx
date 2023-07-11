@@ -11,7 +11,10 @@ import {
   Autocomplete,
   Grid,
   Card,
-  Avatar
+  Avatar,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
   // CardActionArea,
   // CardContent
 } from '@mui/material';
@@ -19,6 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { AxiosError } from 'axios';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
 import { Teams, User } from '../../../../types';
@@ -272,107 +276,115 @@ const ListTeamMembers = () => {
                 </Card>
               </Box>
             ) : null}
-            {isLoading && <Loading size={24} />}{' '}
-            <Typography
-              variant="h5"
-              sx={{ paddingTop: '5%', color: '#F5B740' }}
-            >
-              Members
-            </Typography>
-            {data?.members.length === 0 ? (
-              <Box
-                sx={{
-                  // width: '710px',
-                  padding: 3,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  backgroundColor: '#fff',
-                  borderRadius: '10px',
-                  marginBottom: '20px'
-                }}
+            {isLoading && <Loading size={24} />}
+            <Accordion sx={{ margin: 1, borderRadius: '3px' }}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="member-list-content"
+                id="member-list-header"
               >
-                <Typography variant="h5">No team members found.</Typography>
-              </Box>
-            ) : (
-              data?.members?.map((member) => (
-                <Box
-                  key={member?._id}
-                  sx={{
-                    // width: '710px',
-                    padding: 2,
-                    // borderBottom: '1px solid #2196F3',
-                    // marginBottom: '10px',
-                    marginTop: 1,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    backgroundColor: '#0033A1',
-                    borderRadius: '10px',
-                    '&:hover': {
-                      boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
-                      color: '#000'
-                    }
-                  }}
-                >
-                  <Box style={{}}>
-                    <Typography variant="h5" color="white">
-                      {member?.firstName} {member?.lastName}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: '#F5B740' }}>
-                      {member?.branch}
-                    </Typography>
-                  </Box>
+                <Typography variant="h5" sx={{ color: '#F5B740' }}>
+                  Members
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                {data?.members.length === 0 ? (
                   <Box
-                    style={{
-                      marginLeft: 'auto',
+                    sx={{
+                      // width: '710px',
+                      padding: 3,
                       display: 'flex',
-                      alignItems: 'center',
-                      marginTop: '8px'
+                      justifyContent: 'center',
+                      backgroundColor: '#fff',
+                      borderRadius: '10px',
+                      marginBottom: '20px'
                     }}
                   >
-                    {user?._id !== data?.leadId?._id ? (
-                      // Show the "Leave" button only if the current user is not the lead
-                      <Button
-                        style={{
-                          marginRight: '8px',
-                          backgroundColor: '#f44336',
-                          color: 'white',
-                          border: 'none',
-                          padding: '8px 12px',
-                          borderRadius: '4px',
-                          cursor: 'pointer'
-                        }}
-                        variant="contained"
-                        onClick={() => {
-                          setSelected(member?._id);
-                          handleClickOpen();
-                        }}
-                      >
-                        Leave
-                      </Button>
-                    ) : (
-                      // Show the "Remove" button only if the current user is the lead
-                      <Button
-                        style={{
-                          backgroundColor: '#f44336',
-                          color: 'white',
-                          border: 'none',
-                          padding: '8px 12px',
-                          borderRadius: '4px',
-                          cursor: 'pointer'
-                        }}
-                        variant="contained"
-                        onClick={() => {
-                          setSelected(member?._id);
-                          handleClickOpenModal();
-                        }}
-                      >
-                        Remove
-                      </Button>
-                    )}
+                    <Typography variant="h5">No team members found.</Typography>
                   </Box>
-                </Box>
-              ))
-            )}
+                ) : (
+                  data?.members?.map((member) => (
+                    <Box
+                      key={member?._id}
+                      sx={{
+                        // width: '710px',
+                        padding: 2,
+                        // borderBottom: '1px solid #2196F3',
+                        // marginBottom: '10px',
+                        marginTop: 1,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        backgroundColor: '#0033A1',
+                        borderRadius: '10px',
+                        '&:hover': {
+                          boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
+                          color: '#000'
+                        }
+                      }}
+                    >
+                      <Box style={{}}>
+                        <Typography variant="h5" color="white">
+                          {member?.firstName} {member?.lastName}
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: '#F5B740' }}>
+                          {member?.branch}
+                        </Typography>
+                      </Box>
+                      <Box
+                        style={{
+                          marginLeft: 'auto',
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginTop: '8px'
+                        }}
+                      >
+                        {user?._id !== data?.leadId?._id ? (
+                          // Show the "Leave" button only if the current user is not the lead
+                          <Button
+                            style={{
+                              marginRight: '8px',
+                              backgroundColor: '#f44336',
+                              color: 'white',
+                              border: 'none',
+                              padding: '8px 12px',
+                              borderRadius: '4px',
+                              cursor: 'pointer'
+                            }}
+                            variant="contained"
+                            onClick={() => {
+                              setSelected(member?._id);
+                              handleClickOpen();
+                            }}
+                          >
+                            Leave
+                          </Button>
+                        ) : (
+                          // Show the "Remove" button only if the current user is the lead
+                          <Button
+                            style={{
+                              backgroundColor: '#f44336',
+                              color: 'white',
+                              border: 'none',
+                              padding: '8px 12px',
+                              borderRadius: '4px',
+                              cursor: 'pointer'
+                            }}
+                            variant="contained"
+                            onClick={() => {
+                              setSelected(member?._id);
+                              handleClickOpenModal();
+                            }}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                      </Box>
+                    </Box>
+                  ))
+                )}
+              </AccordionDetails>
+            </Accordion>
+
             <PendingInvites data={pending} />
           </Card>
         </Grid>
