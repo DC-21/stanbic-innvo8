@@ -65,7 +65,7 @@ function stringToColor(string: string) {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }
 
-  let color = '#0133A1';
+  let color = '#0033A1';
 
   for (i = 0; i < 3; i += 1) {
     const value = (hash >> (i * 8)) & 0xff;
@@ -121,7 +121,10 @@ function TopBar({ className, onMobileNavOpen, ...rest }: Props) {
           </div>
         </Hidden>
       </Toolbar>
-      <Divider variant="fullWidth" sx={{ backgroundColor: '#0133A1' }} />
+      <Divider
+        variant="fullWidth"
+        sx={{ backgroundColor: '#00A1E0', borderWidth: 2 }}
+      />
     </AppBar>
   );
 }

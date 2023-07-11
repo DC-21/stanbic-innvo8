@@ -5,7 +5,7 @@ import Header from './Components/Header';
 import Section from './Components/Section';
 import Eligibilitysection from './Components/Eligibilitysection';
 import Cards from './Components/cards';
-import InnoationStages from './Components/InnovationStages';
+// import InnoationStages from './Components/InnovationStages';
 import Footer from './Components/Footer';
 
 function Homepage() {
@@ -16,7 +16,7 @@ function Homepage() {
       <Section />
       <Eligibilitysection />
       <Cards />
-      <InnoationStages />
+      {/* <InnoationStages /> */}
       <Footer />
     </div>
   );

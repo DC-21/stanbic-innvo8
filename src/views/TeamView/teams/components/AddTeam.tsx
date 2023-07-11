@@ -1,4 +1,11 @@
-import { TextField, Button, CircularProgress, Box } from '@mui/material';
+import {
+  TextField,
+  Button,
+  CircularProgress,
+  Box,
+  Typography,
+  Card
+} from '@mui/material';
 import { AxiosError } from 'axios';
 
 import { useSnackbar } from 'notistack';
@@ -43,44 +50,53 @@ function AddTeam({ handleClose }: Props) {
   const onSubmit = (data: any) => {
     const submitData = {
       ...data,
-      leadId: user?._id
+      leadId: user?._id,
+      description: 'Team'
     };
     mutate(submitData);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
-        error={!!errors.lastName}
-        label="Team name"
-        variant="outlined"
-        fullWidth
-        size="small"
-        margin="normal"
-        {...register('name')}
-      />
-      <TextField
-        error={!!errors.lastName}
-        label="Description"
-        variant="outlined"
-        fullWidth
-        multiline
-        rows={4}
-        size="small"
-        margin="normal"
-        {...register('description')}
-      />
-      <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={isLoading ? <CircularProgress size={25} /> : null}
-          type="submit"
-        >
-          Submit
-        </Button>
-      </Box>
-    </form>
+    <Box
+      sx={{
+        padding: 2,
+        marginTop: 1,
+        borderRadius: '5px'
+      }}
+    >
+      <Card sx={{ backgroundColor: '#fff', padding: 2 }} elevation={3}>
+        <Typography display="flex" justifyContent="center">
+          Create Team
+        </Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            error={!!errors.name}
+            label="Team name"
+            variant="outlined"
+            fullWidth
+            size="small"
+            margin="normal"
+            {...register('name')}
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={isLoading ? <CircularProgress size={25} /> : null}
+              type="submit"
+              fullWidth
+            >
+              Submit
+            </Button>
+          </Box>
+        </form>
+      </Card>
+    </Box>
   );
 }
 

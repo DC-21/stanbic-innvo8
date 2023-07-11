@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Grid, Container, Box } from '@mui/material';
-import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+// import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
+// import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 
 export default function Section() {
   return (
@@ -25,70 +25,39 @@ export default function Section() {
             xs={6}
             className="section2"
             spacing={2}
-            style={{ backgroundColor: '#fff' }}
+            style={{
+              backgroundColor: '#fff',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              textAlign: 'left'
+            }}
           >
-            <Typography>
+            <Typography variant="body1" style={{ wordSpacing: 'normal' }}>
               <Box sx={{ mb: 1 }}>
-                Building on the first iteration in 2021, Project Innov8 2.0 is
-                an opportunity for bold Stanbic staff to form cross-departmental
-                teams that are determined to develop new ideas meant to address
-                customer-centric challenges. The Challenge is open to all
-                Stanbic staff in teams of 2 to 3 Innovators.
+                As Stanbic Bank drives the Nayo Nayo strategy, innovation can be
+                catalyst needed for growth and success. Introducing the Project
+                Innov8 ideation portal, a platform for you to share brilliant
+                ideas, innovative solutions, and disruptive concepts.
               </Box>
             </Typography>
-            <Typography>
-              During the program, Stanbic Innovators will be supported through
-              the process of interrogating their ideas, developing business
-              models, and pitching them to the bank. During the final pitch, a
-              winning team and 2 runners up will be selected, walking away with
-              up to K150, 000 in prizes.
+            <Typography variant="body1" style={{ wordSpacing: 'normal' }}>
+              Whether you have a revolutionary product idea, a process
+              improvement suggestion, or a game-changing strategy, this portal
+              is the perfect space to unleash your creativity. Your innovative
+              ideas have the power to transform our clients’ experience, allow
+              us to execute with excellence and to sustainably drive value and
+              growth.
             </Typography>
             <br />
             <Typography
-              style={{ fontSize: '16px' }}
-              className="heading"
+              style={{ fontSize: '16px', textAlign: 'left' }}
               color="primary"
             >
-              Innovation Challenge Outcomes
+              Lets create, innovate, and disrupt! It Can Be!
             </Typography>
             <br />
-            <Box sx={{ backgroundColor: '#edf3ff', padding: '10px' }}>
-              <PsychologyOutlinedIcon
-                sx={{
-                  float: 'left',
-                  width: '50px',
-                  height: '40px'
-                }}
-              />
-              <Typography
-                variant="body2"
-                sx={{ padding: '10px', textAlign: 'left' }}
-              >
-                Innovation-ready Change Makers
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                backgroundColor: '#edf3ff',
-                marginTop: '12px',
-                padding: '10px'
-              }}
-            >
-              <Inventory2OutlinedIcon
-                sx={{
-                  float: 'left',
-                  width: '50px',
-                  height: '40px',
-                  marginTop: { xs: '10px', sm: '10px', md: '3px' }
-                }}
-              />
-              <Typography
-                variant="body2"
-                sx={{ padding: '10px', textAlign: 'left' }}
-              >
-                Impactful new product or product improvements
-              </Typography>
-            </Box>
           </Grid>
           <Grid
             item

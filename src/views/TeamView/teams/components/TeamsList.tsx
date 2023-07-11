@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import { axios } from '../../../../clientProvider';
 import Loading from '../../../../components/Loading';
-import TeamInvites from './TeamInvites';
+// import TeamInvites from './TeamInvites';
 
 const getTeam = async (id: string | undefined): Promise<any[]> => {
   const { data: res } = await axios.get(`/Team/view_team_by_user/${id}`);
@@ -50,14 +50,18 @@ const TeamList = () => {
   //   }
 
   return (
-    <div>
-      <Typography variant="h4">Teams</Typography>
+    <Box>
+      <Typography variant="h4" paddingBottom={2}>
+        Teams
+      </Typography>
       <Box
         sx={{
           display: 'flex',
           overflowX: 'auto',
           width: '100%',
-          padding: 2
+          padding: 2,
+          backgroundColor: '#0A2240',
+          borderRadius: '10px'
         }}
       >
         {!teams || teams.length <= 0 ? (
@@ -83,7 +87,7 @@ const TeamList = () => {
               <Card
                 elevation={1}
                 sx={{
-                  minWidth: 200,
+                  minWidth: 180,
                   // borderBottom: '2px solid #2196F3',
                   margin: '0 8px',
                   cursor: 'pointer',
@@ -91,14 +95,14 @@ const TeamList = () => {
                   flexDirection: 'row',
                   overflow: 'hidden',
                   borderRadius: '10px',
-                  backgroundColor: '#fff',
+                  backgroundColor: '#00A1E0',
                   '&:hover': {
                     boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
                     color: '#000' // Set text color to white
                   },
-                  padding: 3,
+                  padding: 2,
                   border: 'none',
-                  height: '100%'
+                  height: '90%'
                 }}
                 onClick={() => {
                   // @ts-ignore
@@ -106,7 +110,7 @@ const TeamList = () => {
                 }}
               >
                 <CardContent>
-                  <Typography variant="h3" color="primary">
+                  <Typography variant="h4" color="white">
                     {team.name}
                   </Typography>
                 </CardContent>
@@ -115,11 +119,7 @@ const TeamList = () => {
           ))
         )}
       </Box>
-      <Typography variant="h4" sx={{ paddingTop: 3, paddingBottom: 2 }}>
-        Team Invites
-      </Typography>
-      <TeamInvites />
-    </div>
+    </Box>
   );
 };
 
