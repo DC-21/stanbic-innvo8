@@ -15,7 +15,15 @@ function TeamsListView() {
           <ListTeamMembers />
         </Grid>
         <Grid item md={8}>
-          <Typography variant="h4" sx={{ paddingTop: 3, paddingBottom: 2 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              paddingTop: 3,
+              paddingBottom: 2,
+              color: '#00A1E0',
+              fontStyle: 'bold'
+            }}
+          >
             Team Invites
           </Typography>
           <TeamInvites />

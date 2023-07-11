@@ -86,7 +86,7 @@ function AddTeam({ handleClose }: Props) {
           >
             <Button
               variant="contained"
-              color="primary"
+              sx={{ backgroundColor: '#0A2240' }}
               startIcon={isLoading ? <CircularProgress size={25} /> : null}
               type="submit"
               fullWidth
