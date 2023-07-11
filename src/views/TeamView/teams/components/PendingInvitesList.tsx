@@ -9,40 +9,38 @@ const PendingInvites = ({ data }) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10
+        marginTop: '20px'
       }}
     >
-      <Typography variant="h4" color="primary" sx={{}}>
+      <Typography variant="h5" sx={{ color: '#F5B740' }}>
         Pending Invitations
       </Typography>
       {data?.length === 0 ? (
         <Box
           sx={{
-            width: '710px',
-            padding: 3,
+            width: '100%',
+            // padding: 1,
             display: 'flex',
-            justifyContent: 'center',
+            // justifyContent: 'center',
             backgroundColor: '#fff',
             borderRadius: '10px',
-            marginBottom: '20px'
+            marginBottom: '10px'
           }}
         >
-          <Typography variant="h4">No team invites found.</Typography>
+          <Typography variant="h5">No team invites found.</Typography>
         </Box>
       ) : (
         data?.map((member) => (
           <Box
             key={member?.userId?._id}
             sx={{
-              width: '710px',
+              width: '100%',
               padding: 2,
-              marginBottom: '10px',
+              // marginBottom: '10px',
               marginTop: 1,
               display: 'flex',
               flexDirection: 'row',
-              backgroundColor: '#fff',
+              backgroundColor: '#EEEEEE',
               borderRadius: '10px',
               '&:hover': {
                 boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
@@ -51,7 +49,7 @@ const PendingInvites = ({ data }) => {
             }}
           >
             <Box style={{}}>
-              <Typography variant="h4" color="primary">
+              <Typography variant="h5" color="primary">
                 {member?.userId?.firstName} {member?.userId?.lastName}
               </Typography>
               <Typography variant="body2" color="text.secondary">

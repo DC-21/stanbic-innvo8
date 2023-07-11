@@ -55,7 +55,7 @@ function TeamInvites() {
               alignItems="center"
               variant="h3"
             >
-              Error fetching teams.
+              Error fetching team invites.
             </Typography>
           </CardContent>
         </Card>
@@ -98,8 +98,8 @@ function TeamInvites() {
               marginBottom: '16px',
               display: 'flex',
               flexDirection: 'row',
-              backgroundColor: '#fff',
-              borderRadius: '10px',
+              backgroundColor: '#EEEEEE',
+              borderRadius: '5px',
               '&:hover': {
                 boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
                 color: '#000'

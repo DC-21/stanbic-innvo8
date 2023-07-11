@@ -46,26 +46,26 @@ const TeamProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
         sort: true
       }
     },
-    {
-      name: 'challengeStatementId.challengeStatement',
-      label: 'Category',
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: (tableMeta) => {
-          return `${tableMeta.slice(0, 50)}...`;
-        }
-      }
-    },
-    {
-      name: 'teamId.name',
-      label: 'Team',
-      options: {
-        filter: true,
-        sort: false,
-        viewColumns: false
-      }
-    },
+    // {
+    //   name: 'challengeStatementId.challengeStatement',
+    //   label: 'Category',
+    //   options: {
+    //     filter: true,
+    //     sort: false,
+    //     customBodyRender: (tableMeta) => {
+    //       return `${tableMeta.slice(0, 50)}...`;
+    //     }
+    //   }
+    // },
+    // {
+    //   name: 'teamId.name',
+    //   label: 'Team',
+    //   options: {
+    //     filter: true,
+    //     sort: false,
+    //     viewColumns: false
+    //   }
+    // },
     {
       name: 'status',
       label: 'Status',

@@ -7,7 +7,9 @@ import {
   CardContent,
   Typography,
   IconButton,
-  Badge
+  Badge,
+  Grid,
+  Box
 } from '@mui/material';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -62,108 +64,211 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
     }
   });
 
+  const sortedData = React.useMemo(() => {
+    return data?.sort((a, b) => b.likes - a.likes) ?? [];
+  }, [data]);
+
+  const topIdeas = sortedData.slice(0, 5);
+
   if (isLoading) {
     return <Loading size={40} />;
   }
 
   return (
     <div style={{ width: '100%' }}>
-      {data?.map((innov) => (
-        <Card
-          key={innov?._id}
-          sx={{
-            width: '100%',
-            marginBottom: '16px',
-            borderRadius: '15px',
-            '&:hover': {
-              boxShadow: '0 0 4px rgba(0, 0, 255, 1)'
-            },
-            backgroundColor: '#fff'
-          }}
-        >
-          <CardContent>
-            <Typography
-              variant="h5"
-              component="div"
-              gutterBottom
-              sx={{ paddingBottom: 1 }}
-            >
-              {innov?.title}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{ paddingBottom: 1 }}
-            >
-              Theme: {innov?.problem}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
+      <Grid container spacing={2}>
+        <Grid item xs={8}>
+          {data?.map((innov) => (
+            <Card
+              key={innov?._id}
               sx={{
-                paddingBottom: 1,
-                maxHeight:
-                  expandedInnovationId === innov?._id ? 'none' : '2.7em',
-                overflow: 'hidden'
+                width: '100%',
+                marginBottom: '16px',
+                borderRadius: '15px',
+                '&:hover': {
+                  boxShadow: '0 0 4px rgba(0, 0, 255, 1)'
+                },
+                backgroundColor: '#fff'
               }}
             >
-              Solution: {innov?.proposedSolution}
-            </Typography>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start'
-              }}
-            >
-              {innov?.proposedSolution?.length > MAX_DESCRIPTION_LENGTH && (
-                <button
-                  style={{
-                    border: 'none',
-                    outline: 'none',
-                    textDecoration: 'underline',
-                    background: 'none',
-                    cursor: 'pointer',
-                    paddingTop: '10px',
-                    paddingBottom: '12px'
+              <CardContent>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  gutterBottom
+                  sx={{ paddingBottom: 1 }}
+                  color="primary"
+                >
+                  {innov?.title}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{ paddingBottom: 1 }}
+                >
+                  {innov?.problem}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="primary"
+                  sx={{ paddingBottom: 1 }}
+                >
+                  Solution
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{
+                    paddingBottom: 1,
+                    maxHeight:
+                      expandedInnovationId === innov?._id ? 'none' : '2.7em',
+                    overflow: 'hidden'
                   }}
-                  onClick={() =>
-                    setExpandedInnovationId(
-                      expandedInnovationId === innov?._id ? '' : innov?._id
-                    )
-                  }
                 >
-                  {expandedInnovationId === innov?._id
-                    ? 'Read Less'
-                    : 'Read More'}
-                </button>
-              )}
-              <div>
-                <IconButton
-                  color="info"
-                  size="large"
-                  onClick={() => upvoteMutation.mutate(innov?._id)}
+                  {innov?.proposedSolution}
+                </Typography>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start'
+                  }}
                 >
-                  <Badge
-                    badgeContent={innov?.likes}
-                    color="primary"
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'left'
+                  {innov?.proposedSolution?.length > MAX_DESCRIPTION_LENGTH && (
+                    <button
+                      style={{
+                        border: 'none',
+                        outline: 'none',
+                        textDecoration: 'underline',
+                        background: 'none',
+                        cursor: 'pointer',
+                        paddingTop: '10px',
+                        paddingBottom: '12px'
+                      }}
+                      onClick={() =>
+                        setExpandedInnovationId(
+                          expandedInnovationId === innov?._id ? '' : innov?._id
+                        )
+                      }
+                    >
+                      {expandedInnovationId === innov?._id
+                        ? 'Read Less'
+                        : 'Read More'}
+                    </button>
+                  )}
+                  <div>
+                    <IconButton
+                      color="info"
+                      size="large"
+                      onClick={() => upvoteMutation.mutate(innov?._id)}
+                    >
+                      <Badge
+                        badgeContent={innov?.likes}
+                        color="primary"
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'left'
+                        }}
+                      >
+                        {innov?.likedBy?.includes(user?._id) ? (
+                          <FavoriteOutlinedIcon />
+                        ) : (
+                          <FavoriteBorderOutlinedIcon />
+                        )}
+                      </Badge>
+                    </IconButton>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </Grid>
+        <Grid item xs={4}>
+          <Box
+            sx={{
+              backgroundColor: '#00A1E0',
+              padding: 2,
+              borderRadius: '10px',
+              marginBottom: 5
+            }}
+          >
+            <Typography
+              sx={{
+                color: '#fff',
+                font: 'BentonSans Bold',
+                fontWeight: 400,
+                fontSize: '20px'
+              }}
+            >
+              Top 5
+            </Typography>
+            {topIdeas?.map((innov) => (
+              <Card
+                key={innov?._id}
+                sx={{
+                  width: '100%',
+                  marginBottom: '16px',
+                  borderRadius: '5px',
+                  '&:hover': {
+                    boxShadow: '0 0 4px rgba(0, 0, 255, 1)'
+                  },
+                  backgroundColor: '#0A2240'
+                }}
+              >
+                <CardContent>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
                     }}
                   >
-                    {innov?.likedBy?.includes(user?._id) ? (
-                      <FavoriteOutlinedIcon />
-                    ) : (
-                      <FavoriteBorderOutlinedIcon />
-                    )}
-                  </Badge>
-                </IconButton>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      gutterBottom
+                      sx={{ paddingBottom: 1, color: '#fff' }}
+                    >
+                      {innov?.title}
+                    </Typography>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start'
+                      }}
+                    >
+                      <div>
+                        <IconButton
+                          color="info"
+                          size="large"
+                          onClick={() => upvoteMutation.mutate(innov?._id)}
+                        >
+                          <Badge
+                            badgeContent={innov?.likes}
+                            color="primary"
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left'
+                            }}
+                          >
+                            {innov?.likedBy?.includes(user?._id) ? (
+                              <FavoriteOutlinedIcon />
+                            ) : (
+                              <FavoriteBorderOutlinedIcon />
+                            )}
+                          </Badge>
+                        </IconButton>
+                      </div>
+                    </div>
+                  </Box>
+                </CardContent>
+              </Card>
+            ))}
+          </Box>
+        </Grid>
+      </Grid>
     </div>
   );
 };
