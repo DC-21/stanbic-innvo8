@@ -64,11 +64,25 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
     }
   });
 
-  const sortedData = React.useMemo(() => {
-    return data?.sort((a, b) => b.likes - a.likes) ?? [];
+  const orderedData = React.useMemo(() => {
+    return (
+      data
+        ?.slice() // Create a copy of the data array
+        .sort((a, b) => {
+          const dateA = Date.parse(a.createdAt);
+          const dateB = Date.parse(b.createdAt);
+          return dateB - dateA;
+        }) ?? []
+    );
   }, [data]);
 
-  const topIdeas = sortedData.slice(0, 5);
+  const sortedData = React.useMemo(() => {
+    return (
+      data
+        ?.slice(0, 5) // Take only the top 5 items
+        .sort((a, b) => b.likes - a.likes) ?? []
+    );
+  }, [data]);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -78,7 +92,7 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
     <div style={{ width: '100%' }}>
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          {data?.map((innov) => (
+          {orderedData?.map((innov) => (
             <Card
               key={innov?._id}
               sx={{
@@ -202,7 +216,7 @@ const Upvotes: React.FC<React.PropsWithChildren<unknown>> = () => {
             >
               Top 5
             </Typography>
-            {topIdeas?.map((innov) => (
+            {sortedData?.map((innov) => (
               <Card
                 key={innov?._id}
                 sx={{
