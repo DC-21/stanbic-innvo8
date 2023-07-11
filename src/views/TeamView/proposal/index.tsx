@@ -4,7 +4,8 @@ import {
   Box,
   Button,
   Card,
-  CardContent
+  CardContent,
+  CardActionArea
 } from '@mui/material';
 import { AddCircleOutline } from '@mui/icons-material';
 import React from 'react';
@@ -19,31 +20,48 @@ function InnovationProposal() {
   const { user } = useSelector((state: RootState) => state.user);
   return (
     <Container>
-      <Box sx={{ mt: 5 }}>
-        <Card sx={{ bgcolor: `#0133a1`, color: '#ffffff' }}>
+      <Box sx={{ mt: 5, mb: 2 }}>
+        <Card sx={{ bgcolor: `#0A2240`, color: '#ffffff' }}>
           <CardContent>
-            <Typography variant="h4" sx={{ textTransform: 'uppercase' }}>
-              Innovation ideas(proprosal)
+            <Typography
+              sx={{
+                textTransform: 'uppercase',
+                color: '#00A1E0',
+                fontWeight: 400,
+                fontSize: '20px'
+              }}
+            >
+              Idea submission
             </Typography>
-            <Typography sx={{ fontSize: 20 }}>
-              This is the place where you can add, view and edit your Innovation
-              Ideas (proposal)
+            <Typography sx={{ fontSize: 15 }}>
+              Here you can add, view and edit your Innovation Ideas
             </Typography>
           </CardContent>
+          <CardActionArea>
+            <Box
+              sx={{ mt: 1, mb: 2 }}
+              display="flex"
+              justifyContent="flex-start"
+            >
+              <Button
+                sx={{
+                  marginLeft: 2,
+                  backgroundColor: '#F5B740',
+                  color: '#000'
+                }}
+                disabled={user?.userType === 'Team Member'}
+                startIcon={<AddCircleOutline sx={{ color: '#fff' }} />}
+                onClick={() => navigate(`/team/innovation-create`)}
+                variant="contained"
+                size="large"
+              >
+                New Idea
+              </Button>
+            </Box>
+          </CardActionArea>
         </Card>
       </Box>
-      <Box sx={{ mt: 4, mb: 4 }} display="flex" justifyContent="flex-end">
-        <Button
-          disabled={user?.userType === 'Team Member'}
-          startIcon={<AddCircleOutline />}
-          color="primary"
-          onClick={() => navigate(`/team/innovation-create`)}
-          variant="contained"
-          size="large"
-        >
-          New Idea
-        </Button>
-      </Box>
+
       <ProposalList />
     </Container>
   );

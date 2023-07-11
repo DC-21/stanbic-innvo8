@@ -9,13 +9,14 @@ import { Box, Container, Grid } from '@mui/material';
 // import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 // import GroupsIcon from '@mui/icons-material/Groups';
 // import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ZambiaIcon from '../../../components/CardSvG/ZambiaIcon';
-import AvatarIcon from '../../../components/CardSvG/AvatarIcon';
+// import AvatarIcon from '../../../components/CardSvG/AvatarIcon';
 import CompleteTask from '../../../components/CardSvG/CompleteTask';
 import PathIcon from '../../../components/CardSvG/PathIcon';
 import Hand from '../../../components/CardSvG/Hand';
-import MemberIcon from '../../../components/CardSvG/MemberIcon';
-import TrainingIcon from '../../../components/CardSvG/TrainingIcon';
+// import MemberIcon from '../../../components/CardSvG/MemberIcon';
+// import TrainingIcon from '../../../components/CardSvG/TrainingIcon';
 import Group from '../../../components/CardSvG/Group';
 
 export default function Eligibilitysection() {
@@ -46,7 +47,7 @@ export default function Eligibilitysection() {
           rowSpacing={1}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         >
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Card className="cardheight" elevation={0}>
               <div
                 style={{
@@ -69,7 +70,7 @@ export default function Eligibilitysection() {
               </div>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Card className="cardheight" elevation={0}>
               <div
                 style={{
@@ -80,18 +81,18 @@ export default function Eligibilitysection() {
                 }}
               >
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <AvatarIcon />
+                  <GroupAddIcon sx={{ height: '60px', width: '60px' }} />
                 </Box>
                 <Typography
                   variant="h6"
                   style={{ textAlign: 'center', marginTop: '15px' }}
                 >
-                  Team members cannot belong to more than one innovation team.
+                  Team members can belong to more than one innovation team.
                 </Typography>
               </div>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Card className="cardheight" elevation={0}>
               <div
                 style={{
@@ -114,8 +115,15 @@ export default function Eligibilitysection() {
               </div>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight" sx={{ maxWidth: 300 }} elevation={0}>
+        </Grid>
+        <Grid
+          container
+          className="spacing"
+          rowSpacing={1}
+          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        >
+          <Grid item xs={6} sm={4}>
+            <Card className="cardheight" elevation={0}>
               <div
                 style={{
                   padding: '20px',
@@ -136,14 +144,7 @@ export default function Eligibilitysection() {
               </div>
             </Card>
           </Grid>
-        </Grid>
-        <Grid
-          container
-          className="spacing"
-          rowSpacing={1}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        >
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Card className="cardheight" elevation={0}>
               <div
                 style={{
@@ -166,7 +167,7 @@ export default function Eligibilitysection() {
               </div>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Card className="cardheight" elevation={0}>
               <div
                 style={{
@@ -185,53 +186,6 @@ export default function Eligibilitysection() {
                 >
                   The submitting team may be seeking support for customer,
                   product, and/or business model development;
-                </Typography>
-              </div>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight" elevation={0}>
-              <div
-                style={{
-                  padding: '15px',
-                  verticalAlign: 'middle',
-                  paddingTop: '30px',
-                  paddingBottom: '30px'
-                }}
-              >
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <MemberIcon />
-                </Box>
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  style={{ textAlign: 'center', marginTop: '25px' }}
-                >
-                  A maximum of 2 team members (preferably Team Leads) must be
-                  able to attend the Sprint Week
-                </Typography>
-              </div>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Card className="cardheight" elevation={0}>
-              <div
-                style={{
-                  padding: '15px',
-                  verticalAlign: 'middle',
-                  paddingTop: '30px',
-                  paddingBottom: '30px'
-                }}
-              >
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <TrainingIcon />
-                </Box>
-                <Typography
-                  variant="h6"
-                  style={{ textAlign: 'center', marginTop: '25px' }}
-                >
-                  The winning team of the incubation programme must be able to
-                  attend a 4-week idea development programme in September 2022.
                 </Typography>
               </div>
             </Card>

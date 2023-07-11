@@ -14,8 +14,13 @@ import Applications from './Applications';
 import ApplicationViewDetails from './Applications/ApplicationViewDetails';
 import TeamDetails from './teams/components/TeamDetails';
 import AuthRoutes from '../../components/AuthRoutes';
-import Challenge from './challenge/index';
+// import Challenge from './challenge/index';
+// import EditViewChallenge from './challenge/components/EditViewChallenge';
+import ThemesEditView from './themes/ThemesEditView';
+// import Themes from './themes';
+import ThemeView from './themes/ThemeView';
 import EditViewChallenge from './challenge/components/EditViewChallenge';
+import ThemeTabs from './themes/tabs/ThemeTabs';
 
 export const AdminRoutes = [
   {
@@ -56,12 +61,20 @@ export const AdminRoutes = [
         element: <AuthRoutes component={ApplicationViewDetails} />
       },
       {
-        path: 'challenges',
-        element: <AuthRoutes component={Challenge} />
+        path: 'themes',
+        element: <AuthRoutes component={ThemeTabs} />
+      },
+      {
+        path: 'themes/edit/:id',
+        element: <AuthRoutes component={ThemesEditView} />
       },
       {
         path: 'challenges/edit/:id',
         element: <AuthRoutes component={EditViewChallenge} />
+      },
+      {
+        path: 'themes/view/:id',
+        element: <AuthRoutes component={ThemeView} />
       },
       {
         path: 'account',

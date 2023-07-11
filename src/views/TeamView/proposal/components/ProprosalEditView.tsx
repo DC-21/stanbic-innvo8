@@ -8,7 +8,9 @@ import ProposalEdit from './ProposalEdit';
 export interface ChallengeId {
   challengeStatement: string;
   _id: string;
+  themeId: string;
 }
+
 export interface Proposal {
   _id?: string;
   title: string;

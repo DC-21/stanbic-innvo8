@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 function ResponsiveAppBar() {
   const classes = useStyles();
   const { pathname } = useLocation();
-  console.log(pathname, 'pathname');
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
@@ -177,7 +176,7 @@ function ResponsiveAppBar() {
                     </Link>
                   </Typography>
                 </Button>
-                <Button sx={{ color: '#0133A1' }}>
+                {/* <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
                     variant="h6"
@@ -196,7 +195,7 @@ function ResponsiveAppBar() {
                       Stages
                     </Link>
                   </Typography>
-                </Button>
+                </Button> */}
 
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography

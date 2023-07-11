@@ -130,7 +130,7 @@ const ViewSubmission: React.FC<Props> = ({ application }) => {
     onSuccess: (response) => {
       const { message } = response.data;
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
-      setTimeout(() => navigate('/judge/submissions'), 1000);
+      setTimeout(() => navigate('/app/submissions'), 1000);
     },
     onError: (err: AxiosError) => {
       dispatch(

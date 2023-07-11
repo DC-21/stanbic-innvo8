@@ -22,7 +22,7 @@ export default function Cards() {
           marginBottom: '25px'
         }}
       >
-        Challenge Benefits
+        Why We Do This!
       </Typography>
       <Container fixed>
         <Grid container>
@@ -52,7 +52,7 @@ export default function Cards() {
                     marginTop: {
                       xs: '6px',
                       sm: '10px',
-                      md: '-7px'
+                      md: '7px'
                     }
                   }}
                 />
@@ -62,8 +62,8 @@ export default function Cards() {
                 variant="body2"
                 sx={{ padding: '10px', textAlign: 'left', marginLeft: '60px' }}
               >
-                One week of learning experience in building innovative
-                solutions.
+                We believe that innovation can be the driving force behind
+                Stanbic Bank’s growth and success.
               </Typography>
             </Box>
             <br />
@@ -95,12 +95,12 @@ export default function Cards() {
                 variant="body2"
                 sx={{ padding: '10px', textAlign: 'left', marginLeft: '60px' }}
               >
-                Personalised mentorship for all participating teams and their
-                idea validation needs.
+                Your contributions here have the power to shape the future of
+                our organization and propel us to new heights..
               </Typography>
             </Box>
             <br />
-            <Box
+            {/* <Box
               sx={{
                 backgroundColor: '#F7F7F7',
                 padding: '20px'
@@ -130,7 +130,7 @@ export default function Cards() {
                 Access to legal, accounting, financial planning and tech
                 support.
               </Typography>
-            </Box>
+            </Box> */}
             <br />
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -151,7 +151,7 @@ export default function Cards() {
                     marginTop: {
                       xs: '-4px',
                       sm: '10px',
-                      md: '-7px'
+                      md: '7px'
                     }
                   }}
                 />
@@ -161,7 +161,9 @@ export default function Cards() {
                 variant="body2"
                 sx={{ padding: '10px', textAlign: 'left', marginLeft: '60px' }}
               >
-                Up to K150, 000 in prizes.
+                Whether you have a revolutionary product idea, a process
+                improvement suggestion, or a game-changing strategy, this portal
+                is the perfect space to unleash your creativity
               </Typography>
             </Box>
             <br />
@@ -197,44 +199,28 @@ export default function Cards() {
                   marginLeft: '60px'
                 }}
               >
-                4-weeks of ongoing support from Stanbic Bank Zambia and a<br />
-                network of coaches and mentors to assist with go-to-market
-                <br />
-                strategies and scaling-up for the winning team.
+                We encourage all our internal staff to participate actively, as
+                your unique perspectives and expertise are invaluable to our
+                progress.
               </Typography>
             </Box>
             <br />
-            <Box
-              sx={{
-                backgroundColor: '#F7F7F7',
-                padding: '20px'
-              }}
-            >
-              <div style={{ marginRight: '10px' }}>
-                <TaskAltOutlinedIcon
-                  sx={{
-                    float: 'left',
-                    width: '40px',
-                    height: '50px',
-                    color: '#EC008C',
-                    paddingRight: '5px',
-                    marginTop: {
-                      xs: '3px',
-                      sm: '5px',
-                      md: '-10px'
-                    }
-                  }}
-                />
-              </div>
-
-              <Typography
-                variant="body2"
-                sx={{ padding: '5px', textAlign: 'left', marginLeft: '60px' }}
-              >
-                An opportunity to join a supportive network of innovators.
-              </Typography>
-            </Box>
           </Grid>
+          <Box
+            sx={{
+              padding: '1px'
+            }}
+          >
+            <Typography
+              variant="h4"
+              color="primary"
+              sx={{ padding: '3px', textAlign: 'center', marginLeft: '60px' }}
+            >
+              Lets collaborate, innovate, and build a better future together to
+              transform client experience, execute with excellence and drive
+              sustainable growth & value. - Together It Can Be!”
+            </Typography>
+          </Box>
         </Grid>
       </Container>
     </div>

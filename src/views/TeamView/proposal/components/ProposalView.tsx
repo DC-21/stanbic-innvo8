@@ -49,7 +49,7 @@ type Props = Omit<Proposal, 'teamId'> & { teamId: TeamId; leadId: LeadId };
 
 const getProposal = async (id: string): Promise<Props> => {
   const { data } = await axios.get(`/Innovation/view_innovation/${id}`);
-  return data.data;
+  return data?.data;
 };
 
 function ProposalView() {
@@ -61,9 +61,9 @@ function ProposalView() {
     getProposal(id)
   );
 
-  const members = data?.teamId.members || [];
+  const members = data?.teamId?.members || [];
   if (data?.leadId) {
-    members.push(data.leadId);
+    members.push(data?.leadId);
   }
 
   if (isLoading) {
@@ -127,31 +127,36 @@ function ProposalView() {
           <Card>
             <CardHeader title="Team Members" fontWeight="bold" />
             <CardContent>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>First Name</TableCell>
-                    <TableCell>Last Name</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell>Branch name</TableCell>
-                    <TableCell>Gender</TableCell>
-                    <TableCell>Role</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {members &&
-                    members.map((member) => (
-                      <TableRow key={member._id}>
-                        <TableCell>{member.firstName}</TableCell>
-                        <TableCell>{member.lastName}</TableCell>
-                        <TableCell>{member.email}</TableCell>
-                        <TableCell>{member.branch}</TableCell>
-                        <TableCell>{member.gender}</TableCell>
-                        <TableCell>{member.userType}</TableCell>
+              {members?.length === 0 ? (
+                <Typography variant="body1" sx={{ paddingTop: '5%' }}>
+                  No team members found.
+                </Typography>
+              ) : (
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>First Name</TableCell>
+                      <TableCell>Last Name</TableCell>
+                      <TableCell>Email</TableCell>
+                      <TableCell>Branch name</TableCell>
+                      <TableCell>Gender</TableCell>
+                      <TableCell>Role</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {members?.map((member) => (
+                      <TableRow key={member?._id}>
+                        <TableCell>{member?.firstName}</TableCell>
+                        <TableCell>{member?.lastName}</TableCell>
+                        <TableCell>{member?.email}</TableCell>
+                        <TableCell>{member?.branch}</TableCell>
+                        <TableCell>{member?.gender}</TableCell>
+                        <TableCell>{member?.userType}</TableCell>
                       </TableRow>
                     ))}
-                </TableBody>
-              </Table>
+                  </TableBody>
+                </Table>
+              )}
             </CardContent>
           </Card>
         </Grid>

@@ -160,10 +160,7 @@ function SignIn() {
         if (data.userType === 'Admin') {
           navigate('/app/dashboard');
         }
-        if (data.userType === 'Team Lead') {
-          navigate('/team/dashboard');
-        }
-        if (data.userType === 'Team Member') {
+        if (data.userType === 'User') {
           navigate('/team/dashboard');
         }
         if (data.userType === 'Judge') {

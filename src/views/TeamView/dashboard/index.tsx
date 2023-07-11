@@ -1,36 +1,17 @@
 import React from 'react';
-import clsx from 'clsx';
-import { useNavigate } from 'react-router-dom';
-import { Typography, Grid, Paper, Button } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { Paper, Typography } from '@mui/material';
 import Page from '../../../components/Page';
-
-// import TotalFinnishBusinesses from './TotalFinnishBusinesses';
-// import TotalCohorts from './TotalCohorts';
-// import TotalZambianBusinesses from './TotalZambianBusinesses';
-// import TotalBds from './TotalBds';
-
-const useStyles = makeStyles(() => ({
-  root: {
-    height: '100%'
-  },
-  image: {
-    display: 'flex',
-    width: '100%',
-    hieght: '100%'
-  },
-  content: {
-    marginTop: '10%',
-    marginLeft: '5%'
-  }
-}));
+import Upvoting from '../Upvoting';
 
 function Dashboard() {
-  const classes = useStyles();
-  const navigate = useNavigate();
-
   return (
     <Page title="Dashboard">
+      <Typography
+        variant="h2"
+        sx={{ display: 'flex', justifyContent: 'center', paddingTop: 5 }}
+      >
+        Innovation Feed
+      </Typography>
       <Paper
         sx={{
           display: 'flex',
@@ -43,42 +24,10 @@ function Dashboard() {
           border: 'none',
           boxShadow: 'none',
           borderColor: 'none',
-          marginTop: '9%'
+          marginTop: '5%'
         }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={6}>
-            <img
-              className={clsx(classes.image)}
-              src="/images/team-work1.jpg"
-              alt="freepik.com"
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs className={clsx(classes.content)}>
-                <Typography variant="h1">
-                  Welcome to Stanbic Innov8 2.0
-                </Typography>
-                <br />
-                <Typography variant="h3">
-                  To submit your idea: create a team first, add your members and
-                  then submit your idea
-                </Typography>
-                <br />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => navigate(`/team/teams`)}
-                  size="large"
-                >
-                  Create Team
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+        <Upvoting />
       </Paper>
     </Page>
   );

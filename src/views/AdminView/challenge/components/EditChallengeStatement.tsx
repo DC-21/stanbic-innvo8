@@ -79,7 +79,7 @@ const EditChallengeStatement: FunctionComponent<
         <CardHeader title="Edit Challenge Statement" />
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <TextField
+            {/* <TextField
               error={!!errors.theme}
               label="Theme"
               variant="outlined"
@@ -87,7 +87,7 @@ const EditChallengeStatement: FunctionComponent<
               size="small"
               margin="normal"
               {...register('theme')}
-            />
+            /> */}
             <TextField
               error={!!errors.problem}
               label="Problem"

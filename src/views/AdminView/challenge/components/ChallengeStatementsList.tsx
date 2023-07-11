@@ -13,7 +13,7 @@ import {
   useModal,
   useModalWithData
 } from '../../../../components/Modal';
-import ChallengeStatementsForm from './ChallengeStatementsForm';
+// import ChallengeStatementsForm from './ChallengeStatementsForm';
 import axios from '../../../../clientProvider/baseConfig';
 import Loading from '../../../../components/Loading';
 import DeleteAdmin from '../DeleteChallengeStatement';
@@ -27,7 +27,7 @@ const ChallengeStatementsList: React.FC<
   React.PropsWithChildren<unknown>
 > = () => {
   const navigate = useNavigate();
-  const { open, handleClose, handleClickOpen } = useModal();
+  const { handleClickOpen } = useModal();
   const { data, isLoading } = useQuery(['Challenge'], getChallenges);
   const { selected, setSelected } = useModalWithData();
   const [openModal, setOpenModal] = React.useState<boolean>(false);
@@ -140,7 +140,7 @@ const ChallengeStatementsList: React.FC<
     <>
       <Toolbar handleClickOpen={handleClickOpen} />
 
-      <CustomModal
+      {/* <CustomModal
         title="Challenge Statement"
         subTitle="add a Challenge Statement"
         open={open}
@@ -148,7 +148,7 @@ const ChallengeStatementsList: React.FC<
         handleClose={handleClose}
       >
         <ChallengeStatementsForm handleClose={handleClose} />
-      </CustomModal>
+      </CustomModal> */}
       <CustomModal
         open={openModal}
         handleClose={handleCloseModal}

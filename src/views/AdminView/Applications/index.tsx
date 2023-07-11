@@ -4,11 +4,15 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useSearchParams } from 'react-router-dom';
-import PendingApplications from './PendingApplications';
-import AcceptedApplications from './AcceptedApplications';
-import ReviewedApplications from './ReviewedApplications';
-import WaitingApplications from './WaitingApplications';
+// import PendingApplications from './PendingApplications';
+// import AcceptedApplications from './AcceptedApplications';
+// import ReviewedApplications from './ReviewedApplications';
+// import WaitingApplications from './WaitingApplications';
 import Page from '../../../components/Page';
+import ReviewedSubmissions from '../../JudgeView/Submission/component/ReviewSubmission';
+import PendingSubmissions from '../../JudgeView/Submission/component/PendingSubmissions';
+import WaitingSubmissions from '../../JudgeView/Submission/component/WaitingSubmissions';
+import AcceptedSubmissions from '../../JudgeView/Submission/component/AcceptedSubmissions';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -71,16 +75,16 @@ export default function Applications() {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <PendingApplications />
+          <PendingSubmissions />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <ReviewedApplications />
+          <ReviewedSubmissions />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <WaitingApplications />
+          <WaitingSubmissions />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <AcceptedApplications />
+          <AcceptedSubmissions />
         </TabPanel>
       </Box>
     </Page>

@@ -1,21 +1,13 @@
 /* eslint-disable react/function-component-definition */
 import {
   Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
   CircularProgress,
   TextField,
   Typography,
-  Container,
-  FormControlLabel,
-  Radio,
-  RadioGroup
+  MenuItem
 } from '@mui/material';
 
 import { AxiosError } from 'axios';
-import { isEmpty } from 'lodash';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -35,11 +27,14 @@ export type ProposalFormInputs = {
   teamId: string | undefined;
 };
 
-const getTeam = async (
-  id: string | undefined
-): Promise<Record<string, undefined>> => {
-  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
+const getTeam = async (id: string | undefined): Promise<any[]> => {
+  const { data } = await axios.get(`/Team/view_team_by_user/${id}`);
   return data.data;
+};
+
+const getThemes = async (): Promise<any[]> => {
+  const { data: res } = await axios.get('/Theme/view_themes');
+  return res.Themes;
 };
 
 const ProposalForm = () => {
@@ -47,17 +42,19 @@ const ProposalForm = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [teamId, setTeamId] = useState<string | undefined>();
-  console.log('teamId', teamId);
   const [challengeStatements, setChallengeStatements] = React.useState<
     ChallengeStatement[]
   >([]);
   const [challengeStatementId, setChallengeStatementId] = React.useState('');
+  const [themeId, setThemeId] = React.useState('');
   const { user } = useSelector((state: RootState) => state.user);
-  const {
-    data: teamData,
-    isLoading: isLoadingTeam,
-    isError
-  } = useQuery(['team', user?._id], () => getTeam(user?._id));
+
+  const { data: teamData, isLoading: isLoadingTeam } = useQuery(
+    ['team', user?._id],
+    () => getTeam(user?._id)
+  );
+  const { data: themeData } = useQuery(['Theme'], () => getThemes());
+
   const {
     register,
     handleSubmit,
@@ -70,15 +67,19 @@ const ProposalForm = () => {
   React.useEffect(() => {
     const fetchChallengeStatements = async () => {
       try {
-        const response = await axios.get('/Challenge/view_challenges');
-        setChallengeStatements(response.data.ChallengeStatements);
+        const response = await axios.get(
+          `/Challenge/view_challenge_by_theme/${themeId}`
+        );
+        setChallengeStatements(response?.data?.data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchChallengeStatements();
-  }, []);
+    if (themeId) {
+      fetchChallengeStatements();
+    }
+  }, [themeId]);
 
   const { mutate, isLoading } = useMutation(
     async (data: ProposalFormInputs) =>
@@ -95,6 +96,8 @@ const ProposalForm = () => {
 
       onSettled: () => {
         queryClient.invalidateQueries(['AdminUser']);
+        queryClient.invalidateQueries(['Team-proposal']);
+        queryClient.invalidateQueries(['submissions']);
       }
     }
   );
@@ -105,40 +108,10 @@ const ProposalForm = () => {
       teamId,
       challengeStatementId
     };
-    console.log(formData);
     mutate(formData);
   };
 
   if (isLoadingTeam) return <Loading size={45} />;
-  if (isError) return <div>Error</div>;
-  if (isEmpty(teamData)) {
-    return (
-      <Container sx={{ mt: 15 }} maxWidth="md">
-        <Card sx={{ m: 'auto' }}>
-          <CardContent>
-            <Typography sx={{ textTransform: 'uppercase' }} variant="h2">
-              No team found
-            </Typography>
-            <Typography variant="h4">
-              You are not a member of any team. Please contact your lead to join
-              a team.
-            </Typography>
-          </CardContent>
-          <CardActionArea>
-            <CardActions sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <Button
-                onClick={() => navigate('/team/teams')}
-                variant="contained"
-                color="primary"
-              >
-                Create Team
-              </Button>
-            </CardActions>
-          </CardActionArea>
-        </Card>
-      </Container>
-    );
-  }
 
   return (
     <div
@@ -169,9 +142,9 @@ const ProposalForm = () => {
           type="text"
         />
         <Typography variant="h4" color="primary">
-          2. What problem are you solving?
+          2. Select a theme you are solving for?
         </Typography>
-        <TextField
+        {/* <TextField
           variant="outlined"
           fullWidth
           multiline
@@ -182,6 +155,34 @@ const ProposalForm = () => {
           sx={{ paddingBottom: '4%' }}
           size="small"
           type="text"
+        /> */}
+        <Controller
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              select
+              label="Problem"
+              variant="outlined"
+              value={value}
+              onChange={onChange}
+              margin="normal"
+              size="small"
+              fullWidth
+              sx={{ paddingBottom: '4%' }}
+            >
+              {themeData?.map((theme) => (
+                <MenuItem
+                  value={theme?.name}
+                  key={theme._id}
+                  onClick={() => setThemeId(theme._id)}
+                >
+                  {theme?.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+          rules={{ required: true }}
+          name="problem"
+          control={control}
         />
         <Typography variant="h4" color="primary">
           3. What is the proposed solution?
@@ -202,55 +203,80 @@ const ProposalForm = () => {
           4. What Challenge Statement Does Your solution address?
         </Typography>
 
-        <Controller
-          render={({ field }) => (
-            <RadioGroup
-              aria-label="score"
-              {...field}
-              sx={{ paddingBottom: '4%' }}
-            >
-              {challengeStatements.map((challengeStatement) => (
-                <FormControlLabel
-                  sx={{ padding: 1 }}
-                  key={challengeStatement._id}
-                  value={challengeStatement.challengeStatement}
-                  control={<Radio />}
-                  label={challengeStatement.challengeStatement}
-                  onClick={() =>
-                    setChallengeStatementId(challengeStatement._id)
-                  }
-                />
-              ))}
-            </RadioGroup>
-          )}
-          rules={{ required: true }}
-          name="category"
-          control={control}
-        />
+        {challengeStatements?.length > 0 ? (
+          <Controller
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                select
+                label="Challenge Statements"
+                variant="outlined"
+                value={value}
+                onChange={onChange}
+                margin="normal"
+                size="small"
+                fullWidth
+                sx={{ paddingBottom: '4%' }}
+              >
+                {challengeStatements?.map((challengeStatement) => (
+                  <MenuItem
+                    key={challengeStatement?._id}
+                    value={challengeStatement?._id}
+                    onClick={() =>
+                      setChallengeStatementId(challengeStatement?._id)
+                    }
+                  >
+                    {challengeStatement?.challengeStatement}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+            rules={{ required: false }}
+            name="category"
+            control={control}
+          />
+        ) : (
+          <Typography
+            variant="body1"
+            color="error"
+            sx={{
+              padding: 2,
+              backgroundColor: '#f2f2f1',
+              marginBottom: 2,
+              marginTop: 2
+            }}
+          >
+            Please select a theme in question 2
+          </Typography>
+        )}
+
         <Typography variant="h4" color="primary">
           5. Select team your submitting for?
         </Typography>
         <Controller
-          render={({ field }) => (
-            <RadioGroup
-              aria-label="score"
-              {...field}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              select
+              label="Teams"
+              variant="outlined"
+              value={value}
+              onChange={onChange}
+              margin="normal"
+              size="small"
+              fullWidth
               sx={{ paddingBottom: '4%' }}
             >
-              {/** @ts-ignore */}
               {teamData?.map((team) => (
-                <FormControlLabel
-                  sx={{ padding: 1 }}
-                  key={team._id}
-                  value={team.name}
-                  control={<Radio />}
-                  label={team.name}
+                <MenuItem
+                  key={team?._id}
+                  value={team?._id}
                   onClick={() => setTeamId(team?._id)}
-                />
+                >
+                  {team?.name}
+                </MenuItem>
               ))}
-            </RadioGroup>
+            </TextField>
           )}
-          rules={{ required: true }}
+          rules={{ required: false }}
           name="teamId"
           control={control}
         />

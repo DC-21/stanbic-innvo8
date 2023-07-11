@@ -2,9 +2,7 @@
 import {
   Button,
   CircularProgress,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
+  MenuItem,
   TextField,
   Typography
 } from '@mui/material';
@@ -35,8 +33,13 @@ export type ProposalFormInputs = {
 const getTeam = async (
   id: string | undefined
 ): Promise<Record<string, undefined>> => {
-  const { data } = await axios.get(`/Team/view_team_by_lead/${id}`);
+  const { data } = await axios.get(`/Team/view_team_by_user/${id}`);
   return data.data;
+};
+
+const getThemes = async (): Promise<any[]> => {
+  const { data: res } = await axios.get('/Theme/view_themes');
+  return res.Themes;
 };
 
 interface ProposalEditProps {
@@ -47,24 +50,23 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [teamId, setTeamId] = React.useState<string | undefined>(
-    // @ts-ignore
-    proposal?.teamId?._id || ''
+  const [teamId, setTeamId] = React.useState('');
+  console.log('tm', teamId);
+  const [challengeStatementId, setChallengeStatementId] = React.useState('');
+  console.log('Cha', challengeStatementId);
+  const [themeId, setThemeId] = React.useState(
+    proposal?.challengeStatementId?.themeId || ''
   );
-  console.log('team', teamId);
-  const [challengeStatementId, setChallengeStatementId] = React.useState(
-    proposal?.challengeStatementId?._id || ''
-  );
-  console.log('cha', challengeStatementId);
+
   const [challengeStatements, setChallengeStatements] = React.useState<
     ChallengeStatement[]
   >([]);
   const { user } = useSelector((state: RootState) => state.user);
-  const {
-    data: teamData,
-    isLoading: isLoadingTeam,
-    isError
-  } = useQuery(['team', user?._id], () => getTeam(user?._id));
+  const { data: teamData, isLoading: isLoadingTeam } = useQuery(
+    ['team', user?._id],
+    () => getTeam(user?._id)
+  );
+  const { data: themeData } = useQuery(['Theme'], () => getThemes());
   const {
     register,
     handleSubmit,
@@ -80,22 +82,25 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
   React.useEffect(() => {
     const fetchChallengeStatements = async () => {
       try {
-        const response = await axios.get('/Challenge/view_challenges');
-        console.log(response.data.ChallengeStatements);
-        setChallengeStatements(response.data.ChallengeStatements);
+        const response = await axios.get(
+          `/Challenge/view_challenge_by_theme/${themeId}`
+        );
+        setChallengeStatements(response?.data?.data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchChallengeStatements();
-  }, []);
+    if (themeId) {
+      fetchChallengeStatements();
+    }
+  }, [themeId]);
+
   const { mutate, isLoading } = useMutation(
     async (data: ProposalFormInputs) =>
       axios.put(`/Innovation/edit_innovation/${proposal._id}`, data),
     {
       onSuccess: (response) => {
-        console.log('response', response);
         const { message } = response.data;
         enqueueSnackbar(message, { variant: 'success' });
         setTimeout(() => navigate(-1), 1500);
@@ -116,12 +121,10 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
       teamId,
       challengeStatementId
     };
-    console.log('formdata', formData);
     mutate(formData);
   };
 
   if (isLoadingTeam) return <Loading size={45} />;
-  if (isError) return <div>Error</div>;
 
   return (
     <div
@@ -155,17 +158,32 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
         <Typography variant="h4" color="primary">
           2. What problem are you solving?
         </Typography>
-        <TextField
-          variant="outlined"
-          fullWidth
-          multiline
-          rows={4}
-          error={Boolean(errors.problem)}
-          {...register('problem', { required: true })}
-          sx={{ paddingBottom: '4%' }}
-          margin="normal"
-          size="small"
-          type="text"
+        <Controller
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              select
+              label="Problem"
+              variant="outlined"
+              value={value}
+              onChange={onChange}
+              margin="normal"
+              size="small"
+              fullWidth
+            >
+              {themeData?.map((theme) => (
+                <MenuItem
+                  value={theme?.name}
+                  key={theme?._id}
+                  onClick={() => setThemeId(theme?._id)}
+                >
+                  {theme?.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+          rules={{ required: true }}
+          name="problem"
+          control={control}
         />
         <Typography variant="h4" color="primary">
           3. What is the proposed solution?
@@ -186,75 +204,67 @@ const ProposalEdit = ({ proposal }: ProposalEditProps) => {
           4. What Challenge Statement Does Your solution address?
         </Typography>
         <Controller
-          render={({ field }) => (
-            <RadioGroup
-              aria-label="score"
-              {...field}
-              value={challengeStatementId}
-              onChange={(e) => {
-                const selectedChallengeStatement = challengeStatements.find(
-                  (statement) => statement.challengeStatement === e.target.value
-                );
-                if (selectedChallengeStatement) {
-                  setChallengeStatementId(selectedChallengeStatement._id);
-                }
-              }}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              select
+              label="Challenge Statements"
+              variant="outlined"
+              value={value}
+              onChange={onChange}
+              margin="normal"
+              size="small"
+              fullWidth
               sx={{ paddingBottom: '4%' }}
             >
               {challengeStatements?.map((challengeStatement) => (
-                <FormControlLabel
-                  sx={{ padding: 1 }}
-                  key={challengeStatement._id}
-                  value={challengeStatement._id}
-                  control={<Radio />}
-                  label={challengeStatement.challengeStatement}
+                <MenuItem
+                  key={challengeStatement?._id}
+                  value={challengeStatement?.challengeStatement}
                   onClick={() =>
-                    setChallengeStatementId(challengeStatement._id)
+                    setChallengeStatementId(challengeStatement?._id)
                   }
-                />
+                >
+                  {challengeStatement?.challengeStatement}
+                </MenuItem>
               ))}
-            </RadioGroup>
+            </TextField>
           )}
           rules={{ required: false }}
-          name="category"
+          // @ts-ignore
+          name="challengeStatementId.challengeStatement"
           control={control}
         />
         <Typography variant="h4" color="primary">
           5. Select team you are submitting for?
         </Typography>
         <Controller
-          render={({ field }) => (
-            <RadioGroup
-              aria-label="score"
-              defaultValue="outlined"
-              {...field}
-              value={teamId}
-              onChange={(e) => {
-                // @ts-ignore
-                const selectedTeamId = teamData.find(
-                  (team) => team.name === e.target.value
-                );
-                if (selectedTeamId) {
-                  setTeamId(selectedTeamId._id);
-                }
-              }}
-              sx={{ paddingBottom: '2%' }}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              select
+              label="Teams"
+              variant="outlined"
+              value={value}
+              onChange={onChange}
+              margin="normal"
+              size="small"
+              fullWidth
+              sx={{ paddingBottom: '4%' }}
             >
               {/** @ts-ignore */}
               {teamData?.map((team) => (
-                <FormControlLabel
-                  sx={{ padding: 1 }}
-                  key={team._id}
-                  value={team._id}
-                  control={<Radio />}
-                  label={team.name}
+                <MenuItem
+                  key={team?._id}
+                  value={team?.name}
                   onClick={() => setTeamId(team?._id)}
-                />
+                >
+                  {team?.name}
+                </MenuItem>
               ))}
-            </RadioGroup>
+            </TextField>
           )}
           rules={{ required: false }}
-          name="teamId"
+          // @ts-ignore
+          name="teamId.name"
           control={control}
         />
 

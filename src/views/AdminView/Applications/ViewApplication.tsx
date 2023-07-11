@@ -1,12 +1,159 @@
 /* eslint-disable react/function-component-definition */
-import { Divider, Grid, Typography } from '@mui/material';
+import {
+  Button,
+  CircularProgress,
+  Divider,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Tooltip,
+  Typography
+} from '@mui/material';
+import { AxiosError } from 'axios';
+import { Controller, useForm } from 'react-hook-form';
+import { useQueryClient, useMutation } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import React from 'react';
+import { axios } from '../../../clientProvider';
+import { useNotify } from '../../../redux/actions/notifications/notificationActions';
+import { RootState } from '../../../redux/reducers/rootReducer';
 import { Application } from '../../../types';
+import Loading from '../../../components/Loading';
 
+interface Inputs {
+  score: number;
+}
 interface Props {
   application: Application | undefined;
 }
 const ViewApplication: React.FC<Props> = ({ application }) => {
+  const { user } = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const enqueueSnackbar = useNotify();
+  const queryClient = useQueryClient();
+  const { id } = useParams();
+
+  const createScore = async (submission: any) => {
+    const response = await axios.post(
+      `/Innovation/vote_innovation/${id}`,
+      submission
+    );
+    return response;
+  };
+
+  const disableVoting = () => {
+    if (
+      application?.status === 'Accepted' ||
+      application?.status === 'Waiting'
+    ) {
+      return <div style={{ display: 'none' }} />;
+    }
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div style={{ paddingTop: '15px', paddingBottom: '10px' }}>
+          <FormLabel
+            id="demo-controlled-radio-buttons-group"
+            sx={{ color: '#0133a1' }}
+          >
+            <b>Vote Here</b>
+          </FormLabel>
+          <Controller
+            render={({ field: { onChange, value } }) => (
+              <RadioGroup
+                row
+                aria-label="score"
+                value={value}
+                onChange={onChange}
+              >
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={1}
+                  control={<Radio />}
+                  label="1"
+                />
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={2}
+                  control={<Radio />}
+                  label="2"
+                />
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={3}
+                  control={<Radio />}
+                  label="3"
+                />
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={4}
+                  control={<Radio />}
+                  label="4"
+                />
+                <FormControlLabel
+                  labelPlacement="bottom"
+                  value={5}
+                  control={<Radio />}
+                  label="5"
+                />
+              </RadioGroup>
+            )}
+            rules={{ required: true }}
+            name="score"
+            control={control}
+          />
+        </div>
+        <div style={{ paddingTop: '15px', gap: '2px' }}>
+          <Button
+            sx={{ gap: '2px', marginRight: '10px' }}
+            variant="contained"
+            color="primary"
+            type="submit"
+            size="large"
+            startIcon={
+              isLoading ? <CircularProgress color="inherit" size={26} /> : null
+            }
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
+    );
+  };
+
+  const { control, handleSubmit } = useForm<Inputs>({ mode: 'onChange' });
+  const { mutate, isLoading } = useMutation(createScore, {
+    onSuccess: (response) => {
+      const { message } = response.data;
+      dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
+      setTimeout(() => navigate('/app/applications'), 1000);
+    },
+    onError: (err: AxiosError) => {
+      dispatch(
+        enqueueSnackbar({
+          message: err.response?.data,
+          options: { variant: 'error' }
+        })
+      );
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['submissions']);
+    }
+  });
+  const onSubmit = (data: Inputs) => {
+    const submission = {
+      votes: [{ judge: user?._id, score: +data.score }]
+    };
+    mutate(submission);
+  };
+
+  if (isLoading) {
+    return <Loading size={40} />;
+  }
+
   return (
     <div
       style={{
@@ -37,7 +184,7 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
           }}
         >
           <Typography variant="h3" color="primary">
-            <b>Team: {application?.teamId.name}</b>
+            <b>Team: {application?.teamId?.name}</b>
           </Typography>
           <br />
           <Typography variant="h4" color="primary" sx={{ paddingTop: '4%' }}>
@@ -87,7 +234,7 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             }}
           >
             {/** @ts-ignore */}
-            {application?.challengeStatementId.challengeStatement}
+            {application?.challengeStatementId?.challengeStatement}
           </Typography>
         </Grid>
 
@@ -138,7 +285,7 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             <b>Team Lead</b>: {application?.leadId?.firstName}{' '}
             {application?.leadId?.lastName}
           </Typography>
-          {application?.teamId.members.map((item) => {
+          {application?.teamId?.members.map((item) => {
             return (
               <Typography variant="h4" color="primary" key={item._id}>
                 <b>Team Member</b>: {item?.firstName} {item?.lastName}
@@ -146,6 +293,28 @@ const ViewApplication: React.FC<Props> = ({ application }) => {
             );
           })}
         </Grid>
+        <Tooltip title="Place your vote in this section" placement="left">
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            xl={12}
+            style={{
+              backgroundColor: '#fff',
+              flexGrow: 1,
+              padding: '20px',
+              marginLeft: '15px',
+              marginRight: '15px',
+              marginTop: '5px',
+              gap: '20px',
+              borderRadius: '10px'
+            }}
+          >
+            {disableVoting()}
+          </Grid>
+        </Tooltip>
       </Grid>
     </div>
   );

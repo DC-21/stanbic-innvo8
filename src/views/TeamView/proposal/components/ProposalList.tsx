@@ -49,7 +49,6 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
   const { data, error, isLoading } = useQuery(['submissions'], () =>
     getIdeasByTeamLead(user?._id)
   );
-  console.log(user?._id);
 
   if (isLoading) {
     return <Loading size={40} />;
@@ -98,7 +97,25 @@ const ProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value) => <Chip label={value} />
+        customBodyRender: (value) => {
+          let chipColor = '';
+          let chipTextColor = '';
+          if (value === 'Accepted') {
+            chipColor = 'green';
+            chipTextColor = 'white';
+          } else if (value === 'Reviewed') {
+            chipColor = '#0133a1';
+            chipTextColor = 'white';
+          } else if (value === 'Waiting') {
+            chipColor = 'orange';
+          }
+          return (
+            <Chip
+              label={value}
+              style={{ backgroundColor: chipColor, color: chipTextColor }}
+            />
+          );
+        }
       }
     },
 
