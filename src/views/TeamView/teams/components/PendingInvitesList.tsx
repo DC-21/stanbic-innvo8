@@ -19,7 +19,7 @@ const PendingInvites = ({ data }) => {
         id="pending-invites-header"
       >
         <Typography variant="h5" sx={{ color: '#F5B740' }}>
-          Pending Invitations
+          Pending Invitations ({data?.length})
         </Typography>
       </AccordionSummary>
       <AccordionDetails>

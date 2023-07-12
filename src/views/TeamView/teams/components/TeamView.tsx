@@ -155,12 +155,7 @@ const ListTeamMembers = () => {
                 marginTop: 1,
                 display: 'flex',
                 flexDirection: 'row',
-                backgroundColor: '#fff',
-                borderRadius: '10px',
-                '&:hover': {
-                  boxShadow: '0 0 4px rgba(0, 0, 255, 1)',
-                  color: '#000'
-                }
+                backgroundColor: '#fff'
               }}
             >
               <Box style={{}}>
@@ -190,6 +185,7 @@ const ListTeamMembers = () => {
                   }}
                   size="small"
                   variant="contained"
+                  disabled
                 >
                   Team Lead
                 </Button>
@@ -284,7 +280,7 @@ const ListTeamMembers = () => {
                 id="member-list-header"
               >
                 <Typography variant="h5" sx={{ color: '#F5B740' }}>
-                  Members
+                  Members ({data?.members.length})
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
