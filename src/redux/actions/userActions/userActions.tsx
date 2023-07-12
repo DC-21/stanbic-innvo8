@@ -1,6 +1,9 @@
+import Cookies from 'js-cookie';
+
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
+export const SET_COOKIE = 'SET_COOKIE';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN';
@@ -40,6 +43,11 @@ export interface LoginSuccessAction {
   readonly payload: User;
 }
 
+export interface CookieAction {
+  readonly type: typeof SET_COOKIE;
+  readonly payload: User;
+}
+
 export interface RefreshTokenAction {
   readonly type: typeof REFRESH_TOKEN;
   readonly payload: User;
@@ -53,6 +61,12 @@ export const loginSuccess = (user: User): LoginSuccessAction => ({
   type: LOGIN_SUCCESS,
   payload: user
 });
+
+export const setCookie = (user: User): CookieAction => ({
+  type: SET_COOKIE,
+  payload: user
+});
+
 export const updateDetails = (user: User): UpdateAction => ({
   type: UPDATE_SUCCESS,
   payload: user
@@ -65,6 +79,7 @@ export const loginFailure = (error: string): LoginErrorAction => ({
 
 export const logOut = (): LogoutAction => {
   localStorage.removeItem('user');
+  Cookies.remove('cookieName');
   return {
     type: LOGOUT
   };
