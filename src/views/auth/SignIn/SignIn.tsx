@@ -17,11 +17,14 @@ import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Cookies from 'js-cookie';
+
 import * as yup from 'yup';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
-import { loginSuccess } from '../../../redux/actions/userActions/userActions';
+// import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 import Logo from '../../../components/Logo';
+// import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -153,7 +156,8 @@ function SignIn() {
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
       const { message, data } = response;
-      dispatch(loginSuccess(response.data));
+      // dispatch(loginSuccess(response.data));
+      Cookies.set('Stanbic', JSON.stringify(response.data));
       axios.defaults.headers = { token: response.data.token };
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
       setTimeout(() => {
@@ -284,9 +288,11 @@ function SignIn() {
                   type="submit"
                   variant="outlined"
                   disabled={isLoading}
-                  onClick={() => navigate('/single-signin')}
+                  onClick={() =>
+                    navigate('https://innov8.demo.co.zm/api/v1/microsoft')
+                  }
                 >
-                  Single Sign In
+                  Sign In With Microsoft
                 </Button>
                 <Grid container>
                   <Grid item xs={6}>

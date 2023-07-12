@@ -8,11 +8,13 @@ import {
   RefreshTokenAction,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
+  SET_COOKIE,
   LOGIN_START,
   LOGOUT,
   REFRESH_TOKEN,
   UPDATE_SUCCESS,
-  UpdateAction
+  UpdateAction,
+  CookieAction
 } from '../../actions/userActions/userActions';
 
 const INITIAL_STATE = {
@@ -34,6 +36,7 @@ export type ActionTypes =
   | LogoutAction
   | UpdateAction
   | LoginSuccessAction
+  | CookieAction
   | LoginErrorAction
   | RefreshTokenAction;
 
@@ -48,6 +51,12 @@ const userReducer = (
         loading: true
       };
     case LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false
+      };
+    case SET_COOKIE:
       return {
         ...state,
         user: action.payload,
