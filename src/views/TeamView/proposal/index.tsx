@@ -34,20 +34,20 @@ function InnovationProposal() {
               Idea submission
             </Typography>
             <Typography sx={{ fontSize: 15 }}>
-              Here you can add, view and edit your Innovation Ideas
+              Here you can add, view and edit your Innovation Ideas. Then Our
+              team of experts will carefully review each submission, providing
+              feedback and support to refine and implement the most promising
+              concepts.
             </Typography>
           </CardContent>
           <CardActionArea>
-            <Box
-              sx={{ mt: 1, mb: 2 }}
-              display="flex"
-              justifyContent="flex-start"
-            >
+            <Box sx={{ mb: 2 }} display="flex" justifyContent="flex-start">
               <Button
                 sx={{
                   marginLeft: 2,
                   backgroundColor: '#F5B740',
-                  color: '#000'
+                  color: '#fff',
+                  fontStyle: 'bold'
                 }}
                 disabled={user?.userType === 'Team Member'}
                 startIcon={<AddCircleOutline sx={{ color: '#fff' }} />}
