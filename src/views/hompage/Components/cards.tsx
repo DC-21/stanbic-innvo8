@@ -123,21 +123,21 @@ export default function Cards() {
             </Box>
           </Grid>
         </Grid>
+        <Typography
+          variant="h4"
+          color="primary"
+          sx={{
+            padding: '3px',
+            textAlign: 'center',
+            marginLeft: '60px',
+            marginTop: '20px'
+          }}
+        >
+          Lets collaborate, innovate, and build a better future together to
+          transform client experience, execute with excellence, and drive
+          sustainable growth & value - Together It Can Be!
+        </Typography>
       </Container>
-      <Typography
-        variant="h4"
-        color="primary"
-        sx={{
-          padding: '3px',
-          textAlign: 'center',
-          marginLeft: '60px',
-          marginTop: '20px'
-        }}
-      >
-        Lets collaborate, innovate, and build a better future together to
-        transform client experience, execute with excellence, and drive
-        sustainable growth & value - Together It Can Be!
-      </Typography>
     </div>
   );
 }

@@ -124,8 +124,12 @@ const ProposalForm = () => {
         marginTop: '20px'
       }}
     >
-      <Typography variant="h1" color="primary" fontWeight="bold">
-        Create Idea:
+      <Typography
+        variant="h1"
+        fontWeight="bold"
+        sx={{ color: '#00A1E0', textTransform: 'capitalize' }}
+      >
+        idea submission
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="h4" color="primary" sx={{ paddingTop: '4%' }}>
