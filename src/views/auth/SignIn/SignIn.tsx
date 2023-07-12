@@ -238,6 +238,7 @@ function SignIn() {
                   type="text"
                   variant="outlined"
                   {...register('email')}
+                  autoComplete=""
                 />
                 <TextField
                   error={!!errors.password}
@@ -279,21 +280,16 @@ function SignIn() {
                 >
                   Sign In
                 </Button>
-                <Button
-                  // startIcon={<CircularProgress />}
-                  className={classes.signInButton}
-                  color="primary"
-                  fullWidth
-                  size="large"
-                  type="submit"
-                  variant="outlined"
-                  disabled={isLoading}
-                  onClick={() =>
-                    navigate('https://innov8.demo.co.zm/api/v1/microsoft')
-                  }
-                >
-                  Sign In With Microsoft
-                </Button>
+                <a href="https://innov8.demo.co.zm/api/v1/microsoft">
+                  <Button
+                    // startIcon={<CircularProgress />}
+                    variant="outlined"
+                    color="primary"
+                    fullWidth
+                  >
+                    Sign In With Microsoft
+                  </Button>
+                </a>
                 <Grid container>
                   <Grid item xs={6}>
                     <Link href="/forgot-password" variant="body2">
