@@ -15,10 +15,13 @@ import {
 } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { useSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
 import GlobalStyles from './components/GlobalStyles';
 import theme from './theme';
 import routes from './routes';
 import Notifier from './Notifier';
+import { setCookie } from './redux/actions/userActions/userActions';
 // import { useQueryClientProvider } from './clientProvider';
 
 declare module '@mui/styles/defaultTheme' {
@@ -31,6 +34,18 @@ const App: React.FC<React.PropsWithChildren<unknown>> = () => {
   const routing = useRoutes(routes);
   const { enqueueSnackbar } = useSnackbar();
   const isOnline = onlineManager.isOnline();
+  const dispatch = useDispatch();
+  const cookieValue = Cookies.get('Stanbic');
+  const deserializedValue = JSON.parse(cookieValue || '{}');
+
+  React.useEffect(() => {
+    if (Object.keys(deserializedValue).length === 0) {
+      console.log('Cookie does not exist');
+    } else {
+      dispatch(setCookie(deserializedValue));
+    }
+  }, [deserializedValue]);
+
   const [queryClient] = React.useState<QueryClient>(
     new QueryClient({
       /**
