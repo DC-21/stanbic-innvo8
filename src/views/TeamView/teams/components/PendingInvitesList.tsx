@@ -5,11 +5,23 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button,
   Typography
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { CustomModal, useModalWithData } from '../../../../components/Modal';
+import CancelInvite from '../actionButtons/CancelInvite';
 
 const PendingInvites = ({ data }) => {
+  const { selected, setSelected } = useModalWithData();
+  const [open, setOpen] = React.useState<boolean>(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   // add pending invites list /view_invitation_by_team/teamId
   return (
     <Accordion sx={{ margin: 1, borderRadius: '5px' }}>
@@ -64,9 +76,45 @@ const PendingInvites = ({ data }) => {
                   {member?.userId?.branch}
                 </Typography>
               </Box>
+              <Box
+                style={{
+                  marginLeft: 'auto',
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginTop: '8px'
+                }}
+              >
+                <Button
+                  style={{
+                    marginRight: '8px',
+                    backgroundColor: '#f44336',
+                    color: 'white',
+                    border: 'none',
+                    padding: '8px 12px',
+                    borderRadius: '4px',
+                    cursor: 'pointer'
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    setSelected(member?._id);
+                    handleClickOpen();
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Box>
             </Box>
           ))
         )}
+        <CustomModal
+          open={open}
+          handleClose={handleClose}
+          title="Cancel Invite"
+        >
+          {open ? (
+            <CancelInvite selected={selected} handleClose={handleClose} />
+          ) : null}
+        </CustomModal>
       </AccordionDetails>
     </Accordion>
   );
