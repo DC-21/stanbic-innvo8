@@ -18,8 +18,9 @@ import { AxiosError } from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Cookies from 'js-cookie';
-
 import * as yup from 'yup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
 // import { loginSuccess } from '../../../redux/actions/userActions/userActions';
@@ -121,6 +122,7 @@ const useStyles = makeStyles((theme: any) => ({
     margin: theme.spacing(2, 0)
   }
 }));
+
 const grantAccess = async (user: Inputs) => {
   const { data: response } = await axios.post('/Auth/login', user);
   return response;
@@ -282,7 +284,12 @@ function SignIn() {
                 </Button>
                 <a href="https://innov8.demo.co.zm/api/v1/microsoft">
                   <Button
-                    // startIcon={<CircularProgress />}
+                    startIcon={
+                      <FontAwesomeIcon
+                        icon={faSignInAlt}
+                        style={{ marginRight: '0.5rem' }}
+                      />
+                    }
                     variant="outlined"
                     color="primary"
                     fullWidth

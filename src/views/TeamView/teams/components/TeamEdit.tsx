@@ -59,13 +59,19 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries(['AdminUser']);
+      queryClient.invalidateQueries(['Teams']);
+      queryClient.invalidateQueries(['rejectInvites']);
+      queryClient.invalidateQueries(['invites']);
+      queryClient.invalidateQueries(['submissions']);
+      queryClient.invalidateQueries(['question']);
     }
   });
 
   const onSubmit = (inputs: Teams) => {
     const user = {
       ...inputs,
-      _id: data._id
+      _id: data._id,
+      description: 'Zude Mwango'
     };
     mutate(user);
   };
@@ -85,7 +91,7 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
               margin="normal"
               {...register('name')}
             />
-            <TextField
+            {/* <TextField
               error={!!errors.description}
               label="Description"
               variant="outlined"
@@ -95,7 +101,7 @@ const TeamEdit: FunctionComponent<React.PropsWithChildren<Props>> = (props) => {
               size="small"
               margin="normal"
               {...register('description')}
-            />
+            /> */}
 
             <Button
               disabled={isLoading}
