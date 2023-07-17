@@ -111,6 +111,7 @@ const TeamProposalList: React.FC<React.PropsWithChildren<unknown>> = () => {
                 navigate('/team/team-innovation-view', { state: { id } });
               }}
               size="small"
+              sx={{ textTransform: 'capitalize' }}
             >
               view
             </Button>
