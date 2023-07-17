@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -18,6 +18,7 @@ import {
   // CardActionArea,
   // CardContent
 } from '@mui/material';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { useDispatch, useSelector } from 'react-redux';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -33,6 +34,7 @@ import RemoveMember from '../actionButtons/RemoveMember';
 import { RootState } from '../../../../redux/reducers/rootReducer';
 import TeamProposalList from './TeamProposalList';
 import PendingInvites from './PendingInvitesList';
+import DeleteTeam from '../actionButtons/DeleteTeam';
 
 const getUsers = async (): Promise<User[]> => {
   const { data } = await axios.get('/User/view_users');
@@ -66,6 +68,7 @@ const ListTeamMembers = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const notification = useNotify();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [inviteName, setInviteName] = useState('');
   const { selected, setSelected } = useModalWithData();
@@ -114,7 +117,7 @@ const ListTeamMembers = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries(['acceptInvites']);
-      queryClient.invalidateQueries(['Teams']);
+      queryClient.invalidateQueries(['Teams', id]);
       queryClient.invalidateQueries(['Users']);
       queryClient.invalidateQueries(['PendingInvites']);
     }
@@ -127,6 +130,19 @@ const ListTeamMembers = () => {
   return (
     <Box>
       {/* <Typography>Team Details</Typography> */}
+      {user?._id === data?.leadId?._id ? (
+        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          <DeleteTeam />
+          <Button
+            variant="text"
+            startIcon={<BorderColorIcon />}
+            onClick={() => navigate(`/team/teams-edit/${id}`)}
+            sx={{ textTransform: 'capitalize' }}
+          >
+            Edit Team
+          </Button>
+        </Box>
+      ) : null}
       <Grid
         container
         spacing={4}
@@ -181,7 +197,8 @@ const ListTeamMembers = () => {
                     color: 'white',
                     border: 'none',
                     padding: '8px 12px',
-                    borderRadius: '4px'
+                    borderRadius: '4px',
+                    textTransform: 'capitalize'
                   }}
                   size="small"
                   variant="contained"
@@ -251,7 +268,8 @@ const ListTeamMembers = () => {
                       width: '100%',
                       backgroundColor: '#00A1E0',
                       marginBottom: 2,
-                      marginTop: 2
+                      marginTop: 2,
+                      textTransform: 'capitalize'
                     }}
                     onClick={() => mutate()}
                     startIcon={
@@ -344,7 +362,8 @@ const ListTeamMembers = () => {
                               border: 'none',
                               padding: '8px 12px',
                               borderRadius: '4px',
-                              cursor: 'pointer'
+                              cursor: 'pointer',
+                              textTransform: 'capitalize'
                             }}
                             variant="contained"
                             onClick={() => {
@@ -363,7 +382,8 @@ const ListTeamMembers = () => {
                               border: 'none',
                               padding: '8px 12px',
                               borderRadius: '4px',
-                              cursor: 'pointer'
+                              cursor: 'pointer',
+                              textTransform: 'capitalize'
                             }}
                             variant="contained"
                             onClick={() => {
