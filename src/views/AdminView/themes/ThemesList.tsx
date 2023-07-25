@@ -11,11 +11,17 @@ import { AddCircleOutline } from '@mui/icons-material';
 import axios from '../../../clientProvider/baseConfig';
 import Loading from '../../../components/Loading';
 import { RootState } from '../../../redux/reducers/rootReducer';
-import { CustomModal, useModalWithData } from '../../../components/Modal';
+import {
+  CustomModal,
+  useModal,
+  useModalWithData
+} from '../../../components/Modal';
 import DeleteTeam from './DeleteTeam';
 import Page from '../../../components/Page';
 import ChallengeStatementForm from '../challenge/components/ChallengeStatementsForm';
 import DeactivateTheme from './actionButtons/DeactivateTheme';
+import Toolbar from './Toolbar';
+import AddTheme from './AddTheme';
 
 const getThemes = async (): Promise<any[]> => {
   const { data: res } = await axios.get('/Theme/view_active_themes');
@@ -27,6 +33,11 @@ const ThemesList = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const { open, handleClickOpen, handleClose, selected, setSelected } =
     useModalWithData();
+  const {
+    handleClickOpen: handleClickOpenButton,
+    open: openForm,
+    handleClose: closeForm
+  } = useModal();
   const [openModal, setOpenModal] = React.useState<boolean>(false);
   const [openDeactModal, setOpenDeactModal] = React.useState<boolean>(false);
 
@@ -205,6 +216,7 @@ const ThemesList = () => {
 
   return (
     <Page title="Themes">
+      <Toolbar handleClickOpen={handleClickOpenButton} />
       {selected && (
         <CustomModal
           title="Challenge Statement"
@@ -218,6 +230,15 @@ const ThemesList = () => {
           />
         </CustomModal>
       )}
+      <CustomModal
+        title="Add Theme"
+        subTitle=""
+        open={openForm}
+        maxWidth="sm"
+        handleClose={closeForm}
+      >
+        <AddTheme handleClose={closeForm} />
+      </CustomModal>
       <CustomModal
         title="Deactivate Theme"
         open={openDeactModal}
