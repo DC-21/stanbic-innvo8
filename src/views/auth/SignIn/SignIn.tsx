@@ -25,6 +25,7 @@ import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
 // import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 import Logo from '../../../components/Logo';
+import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 // import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 
 const useStyles = makeStyles((theme: any) => ({
@@ -158,18 +159,20 @@ function SignIn() {
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
       const { message, data } = response;
+      dispatch(loginSuccess(response.data));
+      // Cookies.set('Stanbic', JSON.stringify(response.data));
       axios.defaults.headers = { token: response.data.token };
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
       setTimeout(() => {
         switch (data.userType) {
           case 'Admin':
-            setTimeout(() => navigate('/app/dashboard'), 1500);
+            navigate('/app/dashboard');
             break;
           case 'User':
-            setTimeout(() => navigate('/team/dashboard'), 1500);
+            navigate('/team/dashboard');
             break;
           case 'Judge':
-            setTimeout(() => navigate('/judge/dashboard'), 1500);
+            navigate('/judge/dashboard');
             break;
           default:
             break;
