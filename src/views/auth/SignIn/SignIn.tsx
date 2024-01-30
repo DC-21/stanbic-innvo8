@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import * as yup from 'yup';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -158,20 +158,18 @@ function SignIn() {
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
       const { message, data } = response;
-      // dispatch(loginSuccess(response.data));
-      Cookies.set('Stanbic', JSON.stringify(response.data));
       axios.defaults.headers = { token: response.data.token };
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
       setTimeout(() => {
         switch (data.userType) {
           case 'Admin':
-            navigate('/app/dashboard');
+            setTimeout(() => navigate('/app/dashboard'), 1500);
             break;
           case 'User':
-            navigate('/team/dashboard');
+            setTimeout(() => navigate('/team/dashboard'), 1500);
             break;
           case 'Judge':
-            navigate('/judge/dashboard');
+            setTimeout(() => navigate('/judge/dashboard'), 1500);
             break;
           default:
             break;
