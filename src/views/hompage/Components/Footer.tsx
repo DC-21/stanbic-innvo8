@@ -42,15 +42,15 @@ function Footer() {
       <div className="footer">
         <Container>
           <Grid container sx={{ paddingRight: '10px' }} spacing={1}>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6} alignItems="left">
+            {/* <Grid item xs={12} sm={6} md={6} lg={6} xl={6} alignItems="left">
               <Typography className="footerText">Project Innov8 2.0</Typography>
               <br />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={6} md={6} lg={6} xl={6} alignItems="right">
               <Typography className="footerText">Contact Info</Typography>
               <Typography className="footerText">
-                Call: +26 095 301 7526
-                <br /> Email: info@projectinnov8.co.zm
+                Call: +26 0960505050
+                <br /> Email: zambiainnovationcomms@standardbank.co.za
               </Typography>
               <Typography className="footerText">
                 STANBIC BANK ZAMBIA PLC <br />

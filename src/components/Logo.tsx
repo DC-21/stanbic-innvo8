@@ -17,7 +17,7 @@ const Logo: FC<React.PropsWithChildren<unknown>> = (props) => {
     <Link component={RouterLink} to="/" variant="h6">
       <img
         alt="Logo"
-        src="/images/stanbic2.png"
+        src="/images/newlogo.png"
         {...props}
         className={classes.logo}
       />
