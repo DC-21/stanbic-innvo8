@@ -16,5 +16,7 @@
     "**/build": true,
     "**/coverage": true
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "markdown.preview.fontSize": 14,
+  "editor.fontSize": 18
 }
