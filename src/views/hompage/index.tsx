@@ -3,7 +3,7 @@ import './App.css';
 import AppBar from './Components/AppBar';
 import Header from './Components/Header';
 import Section from './Components/Section';
-import Eligibilitysection from './Components/Eligibilitysection';
+// import Eligibilitysection from './Components/Eligibilitysection';
 import Cards from './Components/cards';
 // import InnoationStages from './Components/InnovationStages';
 import Footer from './Components/Footer';
@@ -14,7 +14,7 @@ function Homepage() {
       <AppBar />
       <Header />
       <Section />
-      <Eligibilitysection />
+      {/* <Eligibilitysection /> */}
       <Cards />
       {/* <InnoationStages /> */}
       <Footer />

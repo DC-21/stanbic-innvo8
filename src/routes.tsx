@@ -13,7 +13,7 @@ import NotFoundView from './views/errors/NotFoundView';
 import { JudgeRoutes } from './views/JudgeView/JudgeRoutes';
 import Logout from './views/auth/logout';
 import Home from './views/hompage';
-import FAQ from './views/Faq/Faq';
+// import FAQ from './views/Faq/Faq';
 import SingleSignIn from './views/auth/SingleSignIn';
 import AutoLogin from './views/auth/AutoLogin';
 import SignIn from './views/auth/SignIn/SignIn';
@@ -34,7 +34,7 @@ const routes = [
   { path: 'single-signin', element: <SingleSignIn /> },
   { path: 'ssoLogin/:ssoToken', element: <AutoLogin /> },
   { path: 'signup', element: <SignUp /> },
-  { path: 'faq', element: <FAQ /> },
+  // { path: 'faq', element: <FAQ /> },
   { path: 'completeSignUp', element: <CompleteSignUp /> },
   { path: 'forgot-password', element: <ForgotPassword /> },
   { path: 'resetpassword', element: <ResetPassword /> },
