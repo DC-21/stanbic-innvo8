@@ -23,7 +23,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles';
 import Logo from '../../../components/Logo';
 import Login from './login';
-import FAQ from './Faqlink';
+// import FAQ from './Faqlink';
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const useStyles = makeStyles((theme: Theme) => ({
@@ -136,7 +136,7 @@ function ResponsiveAppBar() {
                     </Link>
                   </Typography>
                 </Button>
-                <Button sx={{ color: '#0133A1' }}>
+                {/* <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
                     variant="h6"
@@ -155,7 +155,7 @@ function ResponsiveAppBar() {
                       Eligibility Criteria
                     </Link>
                   </Typography>
-                </Button>
+                </Button> */}
                 <Button sx={{ color: '#0133A1' }}>
                   <Typography
                     className="text"
@@ -217,7 +217,7 @@ function ResponsiveAppBar() {
                     </Link>
                   </Typography>
                 </Button>
-                <FAQ />
+                {/* <FAQ /> */}
               </>
             ) : (
               <>
@@ -240,7 +240,7 @@ function ResponsiveAppBar() {
                     </MuiLink>
                   </Typography>
                 </Button>
-                <FAQ />
+                {/* <FAQ /> */}
               </>
             )}
 
@@ -399,9 +399,9 @@ function ResponsiveAppBar() {
                       </Typography>
                     </Button>
                   </MenuItem>
-                  <MenuItem>
+                  {/* <MenuItem>
                     <FAQ />
-                  </MenuItem>
+                  </MenuItem> */}
                 </>
               ) : (
                 <>
@@ -426,9 +426,9 @@ function ResponsiveAppBar() {
                       </Typography>
                     </Button>
                   </MenuItem>
-                  <MenuItem>
+                  {/* <MenuItem>
                     <FAQ />
-                  </MenuItem>
+                  </MenuItem> */}
                 </>
               )}
 
