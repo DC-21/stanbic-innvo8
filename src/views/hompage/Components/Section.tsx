@@ -6,7 +6,7 @@ import { Typography, Grid, Container, Box } from '@mui/material';
 export default function Section() {
   return (
     <div className="topPadding">
-      <Typography
+      {/* <Typography
         sx={{
           textAlign: 'center',
           color: '#0133a1',
@@ -17,7 +17,7 @@ export default function Section() {
         }}
       >
         Project Innov8 2.0
-      </Typography>
+      </Typography> */}
       <Container fixed id="About">
         <Grid container className="color" columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid

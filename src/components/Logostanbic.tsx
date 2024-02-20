@@ -16,7 +16,7 @@ const Stanbiclogo: FC<React.PropsWithChildren<unknown>> = (props) => {
   return (
     <img
       alt="Stanbic Logo"
-      src="/images/stanbic_logo.png"
+      src="/images/newlogo.png"
       {...props}
       className={classes.logo}
     />
