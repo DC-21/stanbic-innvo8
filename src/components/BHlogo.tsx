@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 
 const useStyles = makeStyles(() => ({
   logo: {
-    height: 60,
+    height: 100,
     width: '100%',
     objectFit: 'contain'
   }
