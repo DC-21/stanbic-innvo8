@@ -169,6 +169,7 @@ function SignIn() {
             navigate('/app/dashboard');
             break;
           case 'User':
+          case 'Team Lead':
             navigate('/team/dashboard');
             break;
           case 'Judge':

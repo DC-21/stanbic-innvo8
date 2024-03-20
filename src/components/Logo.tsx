@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   logo: {
-    height: 40
+    height: 60
   }
 }));
 

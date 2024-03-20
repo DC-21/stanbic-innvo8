@@ -1,3 +1,8 @@
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import { FieldError } from 'react-hook-form';
+
 const branch = [
   'Arcades Branch',
   'Chingola Branch',
@@ -30,3 +35,45 @@ const branch = [
   'Waterfalls Branch'
 ];
 export default branch;
+
+interface BranchAutocompleteProps<T> {
+  options: T[];
+  error?: FieldError;
+  // eslint-disable-next-line no-unused-vars
+  onChange: (value: string | null) => void;
+  // eslint-disable-next-line no-unused-vars
+  getOptionLabel: (option: T) => string;
+  label: string;
+}
+
+export function BranchAutocomplete<T>({
+  options,
+  getOptionLabel,
+  onChange,
+  label,
+  error
+}: BranchAutocompleteProps<T>) {
+  return (
+    <Autocomplete
+      disablePortal
+      size="small"
+      fullWidth
+      onChange={(event, value) => {
+        // @ts-ignore
+        onChange(value);
+      }}
+      options={options}
+      getOptionLabel={getOptionLabel}
+      renderInput={(params) => (
+        <TextField
+          error={error && Boolean(error.message)}
+          name="branch"
+          margin="normal"
+          helperText={error?.message}
+          {...params}
+          label={label}
+        />
+      )}
+    />
+  );
+}

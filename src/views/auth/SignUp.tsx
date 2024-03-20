@@ -23,7 +23,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { axios } from '../../clientProvider';
 import { useNotify } from '../../redux/actions/notifications/notificationActions';
 import Logo from '../../components/Logo';
-import branch from '../../components/branch';
+import branch, { BranchAutocomplete } from '../../components/branch';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -138,7 +138,8 @@ const schema = yup.object().shape({
     .string()
     .required('Password is required')
     .min(8, 'Password is too short - should be longer than 8 characters.')
-    .max(32, 'Password must be less than 32 characters')
+    .max(32, 'Password must be less than 32 characters'),
+  branch: yup.string().nullable().required('Location/Branch name is required')
 });
 
 function SignUp() {
@@ -293,27 +294,20 @@ function SignUp() {
                   name="gender"
                   control={control}
                 />
+
                 <Controller
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      select
-                      label="Location"
-                      variant="outlined"
-                      value={value}
-                      onChange={onChange}
-                      margin="normal"
-                      size="small"
-                      fullWidth
-                    >
-                      {branch.map((item) => {
-                        // eslint-disable-next-line react/jsx-key
-                        return <MenuItem value={item}>{item}</MenuItem>;
-                      })}
-                    </TextField>
-                  )}
                   rules={{ required: true }}
                   name="branch"
                   control={control}
+                  render={({ field, fieldState: { error } }) => (
+                    <BranchAutocomplete
+                      options={branch}
+                      label="Location"
+                      error={error}
+                      onChange={field.onChange}
+                      getOptionLabel={(option) => option}
+                    />
+                  )}
                 />
                 {/* <div className={classes.policy}>
                   <Checkbox
