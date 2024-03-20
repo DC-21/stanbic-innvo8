@@ -19,6 +19,7 @@ const branch = [
   'Kitwe Main',
   'Livingstone Branch',
   'Lusaka Main',
+  'Head Office',
   'Lumwana Branch',
   'Manda Hill Branch',
   'Matero Branch',

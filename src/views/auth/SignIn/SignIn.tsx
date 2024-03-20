@@ -17,14 +17,15 @@ import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import * as yup from 'yup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { axios } from '../../../clientProvider';
 import { useNotify } from '../../../redux/actions/notifications/notificationActions';
 // import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 import Logo from '../../../components/Logo';
+import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 // import { loginSuccess } from '../../../redux/actions/userActions/userActions';
 
 const useStyles = makeStyles((theme: any) => ({
@@ -158,19 +159,24 @@ function SignIn() {
   const { mutate, isLoading } = useMutation(grantAccess, {
     onSuccess: (response) => {
       const { message, data } = response;
-      // dispatch(loginSuccess(response.data));
-      Cookies.set('Stanbic', JSON.stringify(response.data));
+      dispatch(loginSuccess(response.data));
+      // Cookies.set('Stanbic', JSON.stringify(response.data));
       axios.defaults.headers = { token: response.data.token };
       dispatch(enqueueSnackbar({ message, options: { variant: 'success' } }));
       setTimeout(() => {
-        if (data.userType === 'Admin') {
-          navigate('/app/dashboard');
-        }
-        if (data.userType === 'User') {
-          navigate('/team/dashboard');
-        }
-        if (data.userType === 'Judge') {
-          navigate('/judge/dashboard');
+        switch (data.userType) {
+          case 'Admin':
+            navigate('/app/dashboard');
+            break;
+          case 'User':
+          case 'Team Lead':
+            navigate('/team/dashboard');
+            break;
+          case 'Judge':
+            navigate('/judge/dashboard');
+            break;
+          default:
+            break;
         }
       }, 1500);
     },
@@ -282,7 +288,7 @@ function SignIn() {
                 >
                   Sign In
                 </Button>
-                <a href="https://innov8.demo.co.zm/api/v1/microsoft">
+                {/* <a href="https://innov8.demo.co.zm/api/v1/microsoft">
                   <Button
                     startIcon={
                       <FontAwesomeIcon
@@ -296,7 +302,7 @@ function SignIn() {
                   >
                     Sign In With Microsoft
                   </Button>
-                </a>
+                </a> */}
                 <Grid container>
                   <Grid item xs={6}>
                     <Link href="/forgot-password" variant="body2">
